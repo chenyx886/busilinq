@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/body_bg"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <include layout="@layout/include_header_layout"/>
+
+    <View
+        style="@style/line_diliver"
+        android:layout_marginTop="15dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:defaultFocusHighlightEnabled="true"
+            android:focusableInTouchMode="true"
+            android:gravity="left|top"
+            android:inputType="textMultiLine"
+            android:minHeight="180dp"
+            android:padding="10.0dp"
+            android:textColor="@color/page_text_color"
+            android:textColorHint="@color/HintColor"
+            android:textSize="@dimen/text_size14"/>
+
+        <TextView
+            android:id="@+id/tv_content_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:drawablePadding="15dp"
+            android:drawableTop="@mipmap/ic_hint_img"
+            android:gravity="center"
+            android:text="您的意见对于我们很宝贵！"/>
+
+    </RelativeLayout>
+
+    <View style="@style/line_diliver"/>
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="285.00dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/btn_login_bg"
+        android:text="提交"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size18"/>
+
+</LinearLayout>

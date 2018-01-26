@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/headerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/colorTabChecked"
+                android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_press_heard_btn"
+        android:drawableLeft="@mipmap/ic_header_back"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size14"
+        android:visibility="gone"/>
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="标题"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size16"/>
+
+    <ImageView
+        android:id="@+id/iv_add"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/selector_press_heard_btn"
+        android:scaleType="center"
+        android:src="@mipmap/ic_add"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/selector_press_heard_btn"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size14"
+        android:visibility="gone"/>
+
+
+    <TextView
+        android:id="@+id/tv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/selector_press_heard_btn"
+        android:drawableLeft="@mipmap/navi_icon_close"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size14"
+        android:visibility="gone"/>
+
+</RelativeLayout>

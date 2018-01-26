@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+
+    <color name="main_top_bg">#2481d1</color>
+    <color name="white">#ffffff</color>
+
+
+    <color name="colorTabChecked">#2e8cd4</color>
+    <color name="colorTabNormal">#a8b0bd</color>
+
+    <!-- 背景颜色 -->
+    <color name="body_bg">#f2f2f2</color>
+
+    <color name="button_default_bg">#ffffff</color>
+    <color name="button_press_bg">#e6eff5</color>
+
+    <color name="page_title_color">#4c4c4c</color>
+    <color name="page_text_color">#898989</color>
+    <color name="HintColor">#cbcbcbcb</color>
+    <color name="splash_bg">#f4754a</color>
+    <color name="code_light">#cccccc</color>
+    <color name="sel_cate_color">#2e8cd4</color>
+    <color name="cate_color">#000</color>
+
+</resources>

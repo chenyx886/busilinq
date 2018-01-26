@@ -1,0 +1,61 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// Gradle中可以使用“//”或“/**/”来添加注释，与Java类似。
+// 根目录下的build.gradle用于添加子工程或模块共用的配置项。
+
+// "buildscript"的类型为script block，而且是最上层的script block，用于配置Gradle的Project实例。其API文档为https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:buildscript(groovy.lang.Closure)
+// 其余的根script block有"allprojects", "dependencies", "configurations"等，更多的可见https://docs.gradle.org/current/dsl/的“Build script structure”一节。
+// Script Block是一种method的调用，传入的参数为configuration closure。执行后会对Project的属性进行配置。
+// 此处的"buildscript"用于配置Project的build script的classpath。
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        google()
+
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.6.0'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+// 该配置会被应用到所有的子工程
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io" }
+        google()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+    }
+}
+// 运行gradle clean时，执行此处定义的task。
+// 该任务继承自Delete，删除根目录中的build目录。
+// 相当于执行Delete.delete(rootProject.buildDir)。
+// gradle使用groovy语言，调用method时可以不用加（）。
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+
+ext {
+    minSdkVersion = 15
+    targetSdkVersion = 26
+    compileSdkVersion = 26
+    buildToolsVersion = "26.0.2"
+    versionCode = 2
+    versionName = "1.1"
+    schemaVersion = 8
+}

@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <View
+        android:id="@+id/di"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_above="@+id/rl_bottom"
+        android:background="#d9d9d9" />
+
+    <!-- 底部Tab-->
+    <LinearLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:gravity="center|bottom"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            style="@style/home_rb_style"
+            android:drawableTop="@drawable/selector_tab_home"
+            android:text="@string/home" />
+
+        <RadioButton
+            android:id="@+id/rb_classify"
+            style="@style/home_rb_style"
+            android:drawableTop="@drawable/selector_tab_classify"
+            android:text="@string/classify" />
+
+        <RadioButton
+            android:id="@+id/rb_cart"
+            style="@style/home_rb_style"
+            android:drawableTop="@drawable/selector_tab_cart"
+            android:text="@string/cart" />
+
+
+        <RadioButton
+            android:id="@+id/rb_mine"
+            style="@style/home_rb_style"
+            android:drawableTop="@drawable/selector_tab_mine"
+            android:text="@string/mine" />
+
+    </LinearLayout>
+
+    <!-- 中间内容-->
+    <FrameLayout
+        android:id="@+id/fl_relcontent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/di" />
+
+
+</RelativeLayout>
