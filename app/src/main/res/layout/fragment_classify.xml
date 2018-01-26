@@ -7,5 +7,9 @@
     android:orientation="vertical">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="分类"
+        android:layout_height="wrap_content" />
     
 </LinearLayout>

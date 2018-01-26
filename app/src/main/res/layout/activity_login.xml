@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/body_bg"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="65dp"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:text="使用账号登录百商银通"
+        android:textColor="#ff7342"
+        android:textSize="@dimen/text_size18" />
 
     <LinearLayout
         android:id="@+id/login_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/layout_login_style"
         android:gravity="center"
         android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@mipmap/logo"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,14 +33,14 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/logo_phone"/>
+                android:src="@mipmap/logo_phone" />
 
             <com.busilinq.widget.ClearEditText
                 android:id="@+id/et_phone"
@@ -51,7 +55,7 @@
                 android:padding="8dp"
                 android:singleLine="true"
                 android:textColorHint="#999"
-                android:textSize="@dimen/text_size16"/>
+                android:textSize="@dimen/text_size16" />
         </LinearLayout>
 
         <View
@@ -59,21 +63,21 @@
             android:layout_height="0.5dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:background="#cccccc"/>
+            android:background="#cccccc" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/logo_pwd"/>
+                android:src="@mipmap/logo_pwd" />
 
             <com.busilinq.widget.ClearEditText
                 android:id="@+id/et_pwd"
@@ -87,7 +91,7 @@
                 android:padding="8.0dp"
                 android:singleLine="true"
                 android:textColorHint="#999"
-                android:textSize="@dimen/text_size16"/>
+                android:textSize="@dimen/text_size16" />
         </LinearLayout>
 
         <View
@@ -95,30 +99,48 @@
             android:layout_height="0.5dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:background="#cccccc"/>
+            android:background="#cccccc" />
 
+
+        <Button
+            android:id="@+id/tv_login"
+            android:layout_width="285.00dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="25dp"
+            android:background="#f56030"
+            android:text="@string/login"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size18" />
 
     </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
-    <Button
-        android:id="@+id/tv_login"
-        android:layout_width="285.00dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="60dp"
-        android:background="@mipmap/btn_login_bg"
-        android:text="@string/login"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size18"/>
+        <TextView
+            android:id="@+id/tv_forget_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:padding="10dp"
+            android:text="忘记密码"
+            android:textColor="#999"
+            android:textSize="@dimen/text_size14" />
 
-<TextView
-    android:id="@+id/tv_VersionName"
-    android:layout_width="match_parent"
-    android:text="当前版本V1.2"
-    android:layout_marginBottom="20dp"
-    android:gravity="center"
-    android:layout_gravity="bottom"
-    android:textColor="@color/page_text_color"
-    android:layout_height="wrap_content" />
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:padding="10dp"
+            android:text="注册"
+            android:textColor="#999"
+            android:textSize="@dimen/text_size14" />
+    </FrameLayout>
+
+</LinearLayout>

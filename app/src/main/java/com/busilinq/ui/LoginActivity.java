@@ -5,16 +5,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.busilinq.MApplication;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.ILoginView;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.LoginPresenter;
-import com.busilinq.ulits.AppUtils;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.Toasts;
@@ -43,11 +40,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
      */
     @BindView(R.id.et_pwd)
     EditText tvPwd;
-    /**
-     * 当前版本号
-     */
-    @BindView(R.id.tv_VersionName)
-    TextView mVersionName;
 
     @Override
     protected LoginPresenter createPresenter() {
@@ -62,12 +54,12 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
         super.onCreate(bundle);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
-        setTranslucentStatus(R.color.white);
+        setTranslucentStatus(R.color.body_bg);
     }
 
     @Override
     protected void initUI() {
-        mVersionName.setText("V" + AppUtils.getVersionName(MApplication.getInstance()));
+
     }
 
 
