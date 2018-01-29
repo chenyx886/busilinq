@@ -13,6 +13,7 @@
 
     <string name="login">登录</string>
     <string name="complete">完成</string>
+    <string name="confirm">确认</string>
 
     <string name="my_goods_order">我的订单</string>
     <string name="my_return_order">退货单</string>
@@ -24,5 +25,8 @@
     <string name="user_data">用户资料</string>
     <string name="feedback">意见反馈</string>
 
+    <string name="update_pwd">修改密码</string>
     <string name="app_quit">退出登录</string>
+    <string name="next_step">下一步</string>
+    <string name="get_code">获取验证码</string>
 </resources>

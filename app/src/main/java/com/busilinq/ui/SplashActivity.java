@@ -8,8 +8,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.busilinq.R;
-import com.busilinq.data.cache.PrefCache;
-import com.busilinq.data.cache.UserCache;
 import com.chenyx.libs.utils.JumpUtil;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
@@ -37,13 +35,8 @@ public class SplashActivity extends RxAppCompatActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (UserCache.get() != null) {
-                    JumpUtil.overlay(SplashActivity.this, MainActivity.class);
-                } else {
-                    JumpUtil.overlay(SplashActivity.this, LoginActivity.class);
-                }
+                JumpUtil.overlay(SplashActivity.this, MainActivity.class);
                 finish();
-
             }
         }, 1500);
 

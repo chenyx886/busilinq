@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:background="@color/white"
+    android:paddingTop="8dp">
+
+    <ImageView
+        android:id="@+id/img_item_pic"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:paddingLeft="12dp"
+        android:scaleType="centerCrop" />
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@id/img_item_pic"
+        android:ellipsize="end"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:text="这些人见过总理、政府工作报告改变他们的生活"
+        android:textColor="#4d4d4d"
+        android:textSize="@dimen/text_size14"/>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/img_item_pic"
+        android:ellipsize="end"
+        android:lineSpacingExtra="6dp"
+        android:maxLines="2"
+        android:paddingRight="10dp"
+        android:textColor="#999999"
+        android:textSize="@dimen/text_size12"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_content"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/img_item_pic"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="03-08"
+        android:textColor="#999999"
+        android:textSize="@dimen/text_size12"/>
+
+    <View
+        style="@style/line_diliver"
+        android:layout_below="@id/img_item_pic"
+        android:layout_marginTop="8dp"/>
+</RelativeLayout>

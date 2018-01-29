@@ -10,57 +10,35 @@ package com.busilinq.data.entity;
  * Update Remark：
  */
 public class UserEntity {
-    /**
-     *
-     */
-    private String memberId;
-    /**
-     * 用户id
-     */
-    private String userId;
-    /**
-     * 用户名
-     */
+
+    //用户id
+    private int userId;
+    //用户姓名
     private String name;
-    /**
-     * 真实姓名
-     */
-    private String nick;
-    /**
-     * 性别
-     */
-    private String gender;
-    /**
-     * 手机号
-     */
-    private String phoneNo;
-    /**
-     * 出生年月
-     */
-    private String birthday;
-    /**
-     * 头像
-     */
-    private String headerImage;
-    /**
-     * token 值
-     */
-    private String token;
+    //用户密码
+    private String password;
+    //用户电话号码
+    private String cell;
+    //性别:0男 1女
+    private int gender;
+    //salt加密随机值
+    private String salt;
+    //用户真实姓名
+    private String realName;
+    //邮箱地址-用户密码找回
+    private String email;
+    //用户地址
+    private String address;
+    //用户头像
+    private String headimgurl;
+    //访问认证码
+    private String session;
 
-
-    public String getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
-    }
-
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -72,51 +50,75 @@ public class UserEntity {
         this.name = name;
     }
 
-    public String getNick() {
-        return nick;
+    public String getPassword() {
+        return password;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getGender() {
+    public String getCell() {
+        return cell;
+    }
+
+    public void setCell(String cell) {
+        this.cell = cell;
+    }
+
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
-    public String getPhoneNo() {
-        return phoneNo;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
-    public String getHeaderImage() {
-        return headerImage;
+    public String getEmail() {
+        return email;
     }
 
-    public void setHeaderImage(String headerImage) {
-        this.headerImage = headerImage;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getToken() {
-        return token;
+    public String getAddress() {
+        return address;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getHeadimgurl() {
+        return headimgurl;
+    }
+
+    public void setHeadimgurl(String headimgurl) {
+        this.headimgurl = headimgurl;
+    }
+
+    public String getSession() {
+        return session;
+    }
+
+    public void setSession(String session) {
+        this.session = session;
     }
 }

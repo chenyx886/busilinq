@@ -6,78 +6,136 @@
     android:background="@color/body_bg"
     android:orientation="vertical">
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="227.5dp" >
-
-        <TextView
-            android:id="@+id/tv_mine"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:text="我的"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size16" />
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/personal_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@null"
-            android:overScrollMode="never" />
-    </RelativeLayout>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:scrollbars="vertical">
+        android:background="@mipmap/ic_mine_banner"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:layout_height="48dp">
 
-            <com.busilinq.widget.IconTextItem
+            <TextView
+                android:id="@+id/tv_mine"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/item_sel"
-                iconTxt:lineFullScreen="true"
-                iconTxt:lineVisible="true"
-                iconTxt:textItem="@string/my_receiv_address" />
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="我的"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size16" />
 
-            <com.busilinq.widget.IconTextItem
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/item_sel"
-                iconTxt:lineFullScreen="true"
-                iconTxt:lineVisible="true"
-                iconTxt:textItem="@string/my_collection" />
+            <ImageView
+                android:id="@+id/iv_add"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/selector_press_heard_btn"
+                android:scaleType="center"
+                android:src="@mipmap/ic_set" />
+        </RelativeLayout>
 
-            <com.busilinq.widget.IconTextItem
-                android:id="@+id/rl_mine_help"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/item_sel"
-                iconTxt:lineFullScreen="true"
-                iconTxt:lineVisible="true"
-                iconTxt:textItem="@string/user_data" />
+        <RelativeLayout
+            android:id="@+id/userinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="30dp">
 
-            <com.busilinq.widget.IconTextItem
-                android:id="@+id/rl_mine_feedback"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/iv_user_ico"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_sel"
-                iconTxt:lineFullScreen="true"
-                iconTxt:lineVisible="true"
-                iconTxt:textItem="@string/feedback" />
+                android:src="@mipmap/ic_user" />
 
-        </LinearLayout>
-    </ScrollView>
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/iv_user_ico"
+                android:drawablePadding="5dp"
+                android:paddingLeft="10dp"
+                android:text="张三"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size16" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_name"
+                android:layout_toRightOf="@id/iv_user_ico"
+                android:paddingLeft="10dp"
+                android:text="18285011583"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size14" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_order_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:overScrollMode="never" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <com.busilinq.widget.IconTextItem
+            android:id="@+id/it_update_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_sel"
+            iconTxt:lineFullScreen="true"
+            iconTxt:lineVisible="true"
+            iconTxt:textItem="@string/update_pwd" />
+
+        <com.busilinq.widget.IconTextItem
+            android:id="@+id/it_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_sel"
+            iconTxt:lineFullScreen="true"
+            iconTxt:lineVisible="true"
+            iconTxt:textItem="@string/my_receiv_address" />
+
+        <com.busilinq.widget.IconTextItem
+            android:id="@+id/it_collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_sel"
+            iconTxt:lineFullScreen="true"
+            iconTxt:lineVisible="true"
+            iconTxt:textItem="@string/my_collection" />
+
+        <com.busilinq.widget.IconTextItem
+            android:id="@+id/it_user_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_sel"
+            iconTxt:lineFullScreen="true"
+            iconTxt:lineVisible="true"
+            iconTxt:textItem="@string/user_data" />
+
+        <com.busilinq.widget.IconTextItem
+            android:id="@+id/it_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_sel"
+            iconTxt:lineFullScreen="true"
+            iconTxt:lineVisible="true"
+            iconTxt:textItem="@string/feedback" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_quit"
@@ -85,7 +143,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@mipmap/btn_login_bg"
+        android:background="@mipmap/ic_btn_login_bg"
         android:text="@string/app_quit"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size18" />

@@ -76,7 +76,7 @@
     <application
         android:name=".MApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -86,14 +86,42 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!--登录-->
-        <activity
-            android:name=".ui.LoginActivity"
-            android:screenOrientation="portrait" />
         <!--首页-->
         <activity
             android:name=".ui.MainActivity"
+            android:screenOrientation="portrait" />
+        <!--登录-->
+        <activity
+            android:name=".ui.mine.LoginActivity"
+            android:screenOrientation="portrait" />
+        <!--忘记密码-->
+        <activity
+            android:name=".ui.mine.ForgetPwdActivity"
+            android:screenOrientation="portrait" />
+        <!--设置新密码-->
+        <activity
+            android:name=".ui.mine.SetNewPwdActivity"
+            android:screenOrientation="portrait" />
+
+        <!--修改密码-->
+        <activity
+            android:name=".ui.mine.UpdatePwdActivity"
+            android:screenOrientation="portrait" />
+        <!--收货地址-->
+        <activity
+            android:name=".ui.mine.AddressActivity"
+            android:screenOrientation="portrait" />
+        <!--我的收藏-->
+        <activity
+            android:name=".ui.mine.MyCollectionActivity"
+            android:screenOrientation="portrait" />
+        <!--用户资料-->
+        <activity
+            android:name=".ui.mine.UserInfoActivity"
+            android:screenOrientation="portrait" />
+        <!--意见反馈-->
+        <activity
+            android:name=".ui.mine.FeedbackActivity"
             android:screenOrientation="portrait" />
 
     </application>

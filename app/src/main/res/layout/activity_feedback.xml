@@ -56,7 +56,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:background="@mipmap/btn_login_bg"
+        android:background="@mipmap/ic_btn_login_bg"
         android:text="提交"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size18"/>

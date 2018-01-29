@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/headerLayout"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@color/colorTabChecked"
-                android:gravity="center_vertical">
+    android:id="@+id/headerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/colorPrimary"
+    android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/tv_back"
@@ -18,8 +18,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size14"
-        android:visibility="gone"/>
+        android:textSize="@dimen/text_size14" />
 
 
     <TextView
@@ -29,7 +28,7 @@
         android:layout_centerInParent="true"
         android:text="标题"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size16"/>
+        android:textSize="@dimen/text_size16" />
 
     <ImageView
         android:id="@+id/iv_add"
@@ -40,7 +39,7 @@
         android:background="@drawable/selector_press_heard_btn"
         android:scaleType="center"
         android:src="@mipmap/ic_add"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_confirm"
@@ -55,7 +54,7 @@
         android:text="保存"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size14"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 
     <TextView
@@ -65,13 +64,13 @@
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
         android:background="@drawable/selector_press_heard_btn"
-        android:drawableLeft="@mipmap/navi_icon_close"
+        android:drawableLeft="@mipmap/ic_navi_icon_close"
         android:drawablePadding="5dp"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size14"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

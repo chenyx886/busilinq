@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/body_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_header_layout" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="请获取短信验证码，并设置新的登录密码"
+        android:textColor="@color/page_text_color"
+        android:textSize="@dimen/text_size14" />
+
+    <View style="@style/line_diliver" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="手机号"
+            android:textColor="@color/page_text_color"
+            android:textSize="@dimen/text_size14" />
+
+
+        <EditText
+            android:id="@+id/tv_phone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:clickable="false"
+            android:hint="输入手机号码"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:textColor="@color/page_title_color"
+            android:textColorHint="@color/HintColor"
+            android:textSize="@dimen/text_size14" />
+
+        <TextView
+            android:id="@+id/getCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/textview_default_vode_style"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="6dp"
+            android:text="获取验证码"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0.5dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="验证码"
+            android:textColor="@color/page_text_color"
+            android:textSize="@dimen/text_size14" />
+
+
+        <EditText
+            android:id="@+id/vcode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_marginLeft="12dp"
+            android:hint="输入验证码"
+            android:inputType="number"
+            android:maxLength="6"
+            android:textColor="@color/page_title_color"
+            android:textColorHint="@color/HintColor"
+            android:textSize="@dimen/text_size14" />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <Button
+        android:id="@+id/btn_next_step"
+        android:layout_width="285.00dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@mipmap/ic_btn_login_bg"
+        android:text="@string/next_step"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size18" />
+
+</LinearLayout>

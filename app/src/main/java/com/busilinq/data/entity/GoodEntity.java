@@ -38,8 +38,6 @@ public class GoodEntity extends BaseEntity {
     private String detailDescribe;
     private int isMarketable;
     private int recommend;
-    private String createTime;
-    private String updateTime;
     private int adminId;
 
     /**
@@ -178,22 +176,6 @@ public class GoodEntity extends BaseEntity {
 
     public void setRecommend(int recommend) {
         this.recommend = recommend;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
     }
 
     public int getAdminId() {

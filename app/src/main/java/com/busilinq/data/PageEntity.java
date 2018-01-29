@@ -1,5 +1,7 @@
 package com.busilinq.data;
 
+import com.busilinq.data.entity.BaseEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
  * Update Time：
  * Update Remark：
  */
-public class PageEntity<T> extends BaseResp {
+public class PageEntity<T> extends BaseEntity {
 
     /**
      * 总条

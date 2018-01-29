@@ -14,15 +14,12 @@ import android.widget.RadioButton;
 
 import com.busilinq.MApplication;
 import com.busilinq.R;
-import com.busilinq.base.BaseMvpActivity;
-import com.busilinq.contract.home.IMainView;
-import com.busilinq.presenter.home.MainPresenter;
+import com.busilinq.base.BaseActivity;
 import com.busilinq.ui.cart.FragmentCart;
 import com.busilinq.ui.classify.FragmentClassify;
 import com.busilinq.ui.home.FragmentHome;
 import com.busilinq.ui.mine.FragmentMine;
 import com.busilinq.ulits.AppUtils;
-import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.Toasts;
 
 import java.util.ArrayList;
@@ -39,7 +36,7 @@ import butterknife.OnCheckedChanged;
  * Update Time：
  * Update Remark：
  */
-public class MainActivity extends BaseMvpActivity<MainPresenter> implements IMainView {
+public class MainActivity extends BaseActivity {
 
     /**
      * 首页
@@ -64,13 +61,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements IMai
 
     private CompoundButton selectView;
 
-    @Override
-    protected MainPresenter createPresenter() {
-        if (null == mPresenter) {
-            mPresenter = new MainPresenter(this);
-        }
-        return mPresenter;
-    }
+
 
 
     @Override
@@ -172,16 +163,6 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements IMai
         return super.onKeyDown(keyCode, event);
     }
 
-
-    @Override
-    public void showProgress(String message) {
-        MLoadingDialog.show(this, message);
-    }
-
-    @Override
-    public void hideProgress() {
-        MLoadingDialog.dismiss();
-    }
 
     private void getLocationPersimmions() {
 

@@ -3,34 +3,69 @@ package com.busilinq.ui.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
-import com.busilinq.contract.IBaseMvpView;
-import com.busilinq.presenter.mine.MinePresenter;
+import com.busilinq.contract.home.IMainView;
+import com.busilinq.data.PageEntity;
+import com.busilinq.data.entity.BannerEntity;
+import com.busilinq.data.entity.BaseEntity;
+import com.busilinq.data.entity.GoodEntity;
+import com.busilinq.presenter.home.MainPresenter;
+import com.busilinq.ui.home.adapter.HomeAdapter;
 import com.busilinq.widget.MLoadingDialog;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * Company：华科建邺
- * Class Describe：我的
+ * Class Describe：首页
  * Create Person：Chenyx
  * Create Time：2016/10/13 11:30
  * Update Person：
  * Update Time：
  * Update Remark：
  */
-public class FragmentHome extends BaseMvpFragment<MinePresenter> implements IBaseMvpView {
+public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMainView {
 
     public static String TAG = FragmentHome.class.getName();
 
+    /**
+     * 数据列表
+     */
+    @BindView(R.id.xr_data_list)
+    XRecyclerView mDataList;
+
+    /**
+     * 数据适配器
+     */
+    private HomeAdapter mAdapter;
+
+    /**
+     * 数据列表
+     */
+    private List<BaseEntity> baseEntities = new ArrayList<>();
+
+    private int sizes = 0;
+
+    private static int state = -1;
+    private static int STATE_LOAD_MORE = 0X10;
+    private static int STATE_PULL_REFRESH = 0X20;
+    public int p = 1;
 
     @Override
-    protected MinePresenter createPresenter() {
+    protected MainPresenter createPresenter() {
         if (null == mPresenter) {
-            mPresenter = new MinePresenter(this);
+            mPresenter = new MainPresenter(this);
         }
         return mPresenter;
     }
@@ -49,8 +84,74 @@ public class FragmentHome extends BaseMvpFragment<MinePresenter> implements IBas
 
     @Override
     protected void initUI() {
+
+        mDataList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mDataList.setNoMore(true);
+        mDataList.setLoadingMoreEnabled(false);
+        mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+        mDataList.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
+
+        mAdapter = new HomeAdapter(getActivity());
+        mDataList.setAdapter(mAdapter);
+
+        initData();
     }
 
+
+    private void initData() {
+
+        mDataList.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                mDataList.setLoadingMoreEnabled(false);
+                state = STATE_PULL_REFRESH;
+                mPresenter.getBannerList();
+            }
+
+            @Override
+            public void onLoadMore() {
+                state = STATE_LOAD_MORE;
+                mPresenter.getGoodsList(p);
+            }
+        });
+        mDataList.setRefreshing(true);
+    }
+
+    /**
+     * 显示轮播数据
+     *
+     * @param list
+     */
+    @Override
+    public void BannerList(PageEntity<BannerEntity> list) {
+        if (list.getDataList() != null) {
+            baseEntities.clear();
+            baseEntities.add(list);
+            p = 1;
+            mAdapter.setData(baseEntities);
+           mPresenter.getGoodsList(p);
+        }
+    }
+
+
+
+    /**
+     * 新闻列表
+     *
+     * @param list
+     */
+    @Override
+    public void GoodsList(PageEntity<GoodEntity> list) {
+        List<BaseEntity> baseEns = new ArrayList<>();
+        baseEns.addAll(list.getDataList());
+        mAdapter.insert(mAdapter.getItemCount(), baseEns);
+        if (p == 1) {
+            if (mDataList != null)
+                mDataList.setLoadingMoreEnabled(true);
+        }
+        ++p;
+//        sizes = list.getSize();
+    }
     @Override
     public void showProgress(String message) {
         MLoadingDialog.show(getActivity(), message);

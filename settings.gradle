@@ -1,1 +1,1 @@
-include ':app', ':libs', ':xrecyclerview', ':photopicker'
+include ':app', ':libs', ':xrecyclerview', ':photopicker', ':convenientbanner'

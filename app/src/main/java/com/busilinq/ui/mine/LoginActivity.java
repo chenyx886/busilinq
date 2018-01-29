@@ -1,4 +1,4 @@
-package com.busilinq.ui;
+package com.busilinq.ui.mine;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +12,7 @@ import com.busilinq.contract.ILoginView;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.LoginPresenter;
+import com.busilinq.ui.MainActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.Toasts;
@@ -63,9 +64,15 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
     }
 
 
-    @OnClick({  R.id.tv_login})
+    @OnClick({R.id.tv_login, R.id.tv_forget_password, R.id.tv_register})
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_forget_password:
+                JumpUtil.overlay(LoginActivity.this, ForgetPwdActivity.class);
+                break;
+            case R.id.tv_register:
+                JumpUtil.overlay(LoginActivity.this, ForgetPwdActivity.class);
+                break;
             case R.id.tv_login:
                 String phone = tvPhone.getText().toString();
                 if (TextUtils.isEmpty(phone) || phone.length() != 11) {

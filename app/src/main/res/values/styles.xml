@@ -11,7 +11,7 @@
 
     <!-- 分割线 0.5dp -->
     <style name="line_diliver">
-        <item name="android:background">#e5e5e5</item>
+        <item name="android:background">#e6e6e6</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.2dip</item>
     </style>
@@ -19,7 +19,7 @@
     <style name="divider_vertical">
         <item name="android:layout_width">0.2dip</item>
         <item name="android:layout_height">fill_parent</item>
-        <item name="android:background">#d8d8d8</item>
+        <item name="android:background">#e6e6e6</item>
         <item name="android:orientation">vertical</item>
     </style>
 

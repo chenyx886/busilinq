@@ -42,8 +42,8 @@ public interface MineApi {
      * @param body
      * @return
      */
-    @POST("shop/user/user/toLogin")
-    Observable<BaseData> sendCode(@Body RequestBody body);
+    @POST("/user/getCode")
+    Observable<BaseData> getCode(@Body RequestBody body);
 
     /**
      * 个人信息

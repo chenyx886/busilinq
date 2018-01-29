@@ -28,7 +28,7 @@
         android:layout_toRightOf="@+id/view_h"
         android:singleLine="true"
         android:text="标题"
-        android:textColor="@color/black"
+        android:textColor="#333"
         android:textSize="@dimen/text_size14"/>
 
 
@@ -53,7 +53,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="15dp"
         android:scaleType="fitCenter"
-        android:src="@mipmap/arrow"/>
+        android:src="@mipmap/ic_arrow"/>
 
     <View
         android:id="@+id/line"

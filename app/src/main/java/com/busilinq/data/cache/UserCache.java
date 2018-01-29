@@ -3,12 +3,13 @@ package com.busilinq.data.cache;
 import android.text.TextUtils;
 
 import com.busilinq.data.entity.UserEntity;
+import com.chenyx.libs.utils.SysConfig;
 
 /**
  * Company：华科建邺
  * Class Describe： 用户实体缓存
  * Create Person：Chenyx
- * Create Time：2016/10/13 11:30
+ * Create Time：2018/01/29 11:30
  * Update Person：
  * Update Time：
  * Update Remark：
@@ -25,31 +26,31 @@ public class UserCache {
      */
     public static final String USERID = "userId";
     /**
-     * 昵称
-     */
-    public static final String NICK = "nick";
-    /**
      * 用户名
      */
     public static final String NAME = "name";
     /**
-     * 手机号
+     * 用户电话号码
      */
-    public static final String PHONENO = "phoneNo";
+    public static final String CELL = "cell";
     /**
-     * 头像
+     * 性别:0男 1女
      */
-    public static final String HEADERIMAGE = "headerImage";
+    public static final String GENDER = "gender";
+    /**
+     * 用户真实姓名
+     */
+    public static final String REALNAME = "realName";
+    /**
+     * 用户头像
+     */
+    public static final String HEADIMGURL = "headimgurl";
 
     /**
-     * 登录保存的Token
+     * 登录保存的session
      */
-    public static final String TOKEN = "token";
+    public static final String SESSION = "session";
 
-    /**
-     * 保存登录密码
-     */
-    public static final String PASSWORD = "password";
 
     /**
      * 保存登陆用户信息
@@ -59,22 +60,23 @@ public class UserCache {
     public static void put(UserEntity user) {
 
         PrefCache.putData(USERID, user.getUserId());
-        PrefCache.putData(PHONENO, user.getPhoneNo());
         PrefCache.putData(NAME, user.getName());
-        PrefCache.putData(NICK, user.getNick());
-        PrefCache.putData(HEADERIMAGE, user.getHeaderImage());
-        PrefCache.putData(TOKEN, user.getToken());
+        PrefCache.putData(CELL, user.getCell());
+        PrefCache.putData(GENDER, user.getGender());
+        PrefCache.putData(REALNAME, user.getRealName());
+        PrefCache.putData(HEADIMGURL, user.getHeadimgurl());
+        PrefCache.putData(SESSION, user.getSession());
 
     }
 
     public static void clear() {
         PrefCache.putData(USERID, "");
-        PrefCache.putData(PHONENO, "");
-        PrefCache.putData(HEADERIMAGE, "");
         PrefCache.putData(NAME, "");
-        PrefCache.putData(NICK, "");
-        PrefCache.putData(TOKEN, "");
-        PrefCache.putData(PASSWORD, "");
+        PrefCache.putData(CELL, "");
+        PrefCache.putData(GENDER, "");
+        PrefCache.putData(REALNAME, "");
+        PrefCache.putData(HEADIMGURL, "");
+        PrefCache.putData(SESSION, "");
         user = null;
     }
 
@@ -89,12 +91,13 @@ public class UserCache {
         if (!TextUtils.isEmpty(id)) {
             if (user == null) {
                 user = new UserEntity();
-                user.setUserId(id);
-                user.setPhoneNo((String) PrefCache.getData(PHONENO, ""));
-                user.setNick((String) PrefCache.getData(NICK, ""));
+                user.setUserId(SysConfig.nullToInt(id));
                 user.setName((String) PrefCache.getData(NAME, ""));
-                user.setHeaderImage((String) PrefCache.getData(PHONENO, ""));
-                user.setToken((String) PrefCache.getData(TOKEN, ""));
+                user.setCell((String) PrefCache.getData(CELL, ""));
+                user.setGender((int) PrefCache.getData(GENDER, "0"));
+                user.setRealName((String) PrefCache.getData(REALNAME, ""));
+                user.setHeadimgurl((String) PrefCache.getData(HEADIMGURL, ""));
+                user.setSession((String) PrefCache.getData(SESSION, ""));
 
             }
         }

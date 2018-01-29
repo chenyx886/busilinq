@@ -1,6 +1,18 @@
 package com.busilinq.data.api;
 
 
+import com.busilinq.data.BaseData;
+import com.busilinq.data.PageEntity;
+import com.busilinq.data.entity.BannerEntity;
+import com.busilinq.data.entity.GoodEntity;
+
+import java.util.List;
+
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
+import rx.Observable;
+
 /**
  * Company：华科建邺
  * Class Describe：首页模块接口
@@ -12,5 +24,21 @@ package com.busilinq.data.api;
  */
 public interface HomeApi {
 
+    /**
+     * 获取轮播广告
+     *
+     * @param body
+     * @return
+     */
+    @POST("/adv/banner")
+    Observable<BaseData<List<BannerEntity>>> banner(@Body RequestBody body);
 
+    /**
+     * 获取推荐商品列表
+     *
+     * @param body
+     * @return
+     */
+    @POST("/goods/recommend")
+    Observable<BaseData<PageEntity<GoodEntity>>> recommend(@Body RequestBody body);
 }

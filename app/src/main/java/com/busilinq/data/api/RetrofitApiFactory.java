@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Company：华科建邺
- * Class Describe：零售Api 工厂类
+ * Class Describe：Api 工厂类
  * Create Person：Chenyx
  * Create Time：2017/11/12 下午11:26
  * Update Person：
@@ -29,7 +29,7 @@ public class RetrofitApiFactory {
     //服务器Api地址
 //  private static   String BASE_URL = "http://bd.busilinq.com:19090";
     //测试地址
-    private static String BASE_URL = "http://www.busilinq.com:19090";
+    private static String BASE_URL = "http://10.10.200.201:8080";
 
     /**
      * 代理接口构建类
@@ -106,6 +106,11 @@ public class RetrofitApiFactory {
     //购物车模块接口
     public static CartApi getCartApi() {
         return retrofit().create(CartApi.class);
+    }
+
+    //订单模块接口
+    public static OrderApi getOrderApi() {
+        return retrofit().create(OrderApi.class);
     }
 
     //我的模块接口

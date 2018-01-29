@@ -36,6 +36,9 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     private Unbinder unbinder;
 
+
+    protected Context mContext;
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -112,6 +115,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      * @param context
      */
     protected void initTAG(Context context) {
+        mContext = this;
         TAG = context.getClass().getSimpleName();
     }
 

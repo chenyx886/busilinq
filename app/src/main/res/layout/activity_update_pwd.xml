@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/body_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_header_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0.5dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="旧密码"
+            android:textColor="@color/page_text_color"
+            android:textSize="@dimen/text_size14" />
+
+
+        <EditText
+            android:id="@+id/et_old_pwd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="输入旧密码"
+            android:inputType="textPassword"
+            android:textColor="@color/page_title_color"
+            android:textColorHint="@color/HintColor"
+            android:textSize="@dimen/text_size14" />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0.5dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="新密码"
+            android:textColor="@color/page_text_color"
+            android:textSize="@dimen/text_size14" />
+
+
+        <EditText
+            android:id="@+id/et_news_pwd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="输入新密码"
+            android:inputType="textPassword"
+            android:textColor="@color/page_title_color"
+            android:textColorHint="@color/HintColor"
+            android:textSize="@dimen/text_size14" />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0.5dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="确认新密码"
+            android:textColor="@color/page_text_color"
+            android:textSize="@dimen/text_size14" />
+
+
+        <EditText
+            android:id="@+id/et_confirm_pwd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请再次输入新密码"
+            android:inputType="textPassword"
+            android:textColor="@color/page_title_color"
+            android:textColorHint="@color/HintColor"
+            android:textSize="@dimen/text_size14" />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="285.00dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@mipmap/ic_btn_login_bg"
+        android:text="@string/confirm"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size18" />
+
+</LinearLayout>
