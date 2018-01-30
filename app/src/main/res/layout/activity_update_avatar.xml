@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/body_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_header_layout" />
+
+    <View
+        style="@style/line_diliver"
+        android:layout_marginTop="15dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_avatar" />
+    </RelativeLayout>
+
+    <View style="@style/line_diliver" />
+
+    <Button
+        android:id="@+id/btn_album_selection"
+        android:layout_width="285.00dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/ic_btn_login_bg"
+        android:text="从相册选一张"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size18" />
+
+    <Button
+        android:id="@+id/btn_take_picture"
+        android:layout_width="285.00dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_take_picture_style"
+        android:text="拍一张照片"
+        android:textColor="@color/page_title_color"
+        android:textSize="@dimen/text_size18" />
+</LinearLayout>

@@ -61,9 +61,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#cccccc" />
+            android:background="#e6e6e6" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,16 +95,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#cccccc" />
+            android:background="#e6e6e6" />
 
         <Button
             android:id="@+id/tv_login"
             android:layout_width="285.00dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="@mipmap/ic_btn_login_bg"
             android:text="@string/login"

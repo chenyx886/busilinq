@@ -17,63 +17,27 @@ import java.util.List;
 public class PageEntity<T> extends BaseEntity {
 
     /**
-     * 总条
-     */
-    public int total;
-    /**
-     * 总页
-     */
-    public int pages;
-    /**
      * 当前页
      */
-    public int pageNo;
-    /**
-     * 页大小
-     */
-    public int pageSize;
+    public int page;
     /**
      * 数据列表
      */
-    public List<T> dataList = new ArrayList<>();
+    public List<T> list = new ArrayList<>();
 
-    public int getTotal() {
-        return total;
+    public int getPage() {
+        return page;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setPage(int page) {
+        this.page = page;
     }
 
-    public int getPages() {
-        return pages;
+    public List<T> getList() {
+        return list;
     }
 
-    public void setPages(int pages) {
-        this.pages = pages;
-    }
-
-    public int getPageNo() {
-        return pageNo;
-    }
-
-    public void setPageNo(int pageNo) {
-        this.pageNo = pageNo;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public List<T> getDataList() {
-        return dataList;
-    }
-
-    public void setDataList(List<T> dataList) {
-        this.dataList = dataList;
+    public void setList(List<T> list) {
+        this.list = list;
     }
 }

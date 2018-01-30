@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="手机号"
-            android:textColor="@color/page_text_color"
+            android:textColor="@color/page_title_color"
             android:textSize="@dimen/text_size14" />
 
 
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="验证码"
-            android:textColor="@color/page_text_color"
+            android:textColor="@color/page_title_color"
             android:textSize="@dimen/text_size14" />
 
 

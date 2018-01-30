@@ -102,6 +102,10 @@
         <activity
             android:name=".ui.mine.SetNewPwdActivity"
             android:screenOrientation="portrait" />
+        <!--设置个人头像-->
+        <activity
+            android:name=".ui.mine.UpdateAvatarActivity"
+            android:screenOrientation="portrait" />
 
         <!--修改密码-->
         <activity

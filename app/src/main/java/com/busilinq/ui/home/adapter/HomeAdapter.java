@@ -1,9 +1,7 @@
 package com.busilinq.ui.home.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +19,6 @@ import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.BaseEntity;
 import com.busilinq.data.entity.GoodEntity;
 import com.chenyx.libs.glide.GlideShowImageUtils;
-import com.chenyx.libs.utils.DateUtil;
-import com.chenyx.libs.utils.JumpUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,14 +103,14 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
 
             final PageEntity<BannerEntity> pageEntity = (PageEntity<BannerEntity>) getItem(position);
             HomeBannerViewHolder homeBannerViewHolder = (HomeBannerViewHolder) holder;
-            if (pageEntity.getDataList().size() > 0) {
+            if (pageEntity.getList().size() > 0) {
                 homeBannerViewHolder.mCNews.stopTurning();
                 homeBannerViewHolder.mCNews.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
                     @Override
                     public NetworkImageHolderView createHolder() {
                         return new NetworkImageHolderView();
                     }
-                }, pageEntity.getDataList()).setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focus})
+                }, pageEntity.getList()).setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focus})
                         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
                 homeBannerViewHolder.mCNews.setCanLoop(true);
                 homeBannerViewHolder.mCNews.setcurrentitem(bannerIndex);

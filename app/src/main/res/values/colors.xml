@@ -19,8 +19,8 @@
     <color name="button_default_bg">#ffffff</color>
     <color name="button_press_bg">#e6eff5</color>
 
-    <color name="page_title_color">#4c4c4c</color>
-    <color name="page_text_color">#898989</color>
+    <color name="page_title_color">#333</color>
+    <color name="page_text_color">#999</color>
     <color name="HintColor">#cbcbcbcb</color>
     <color name="splash_bg">#f4754a</color>
     <color name="code_light">#cccccc</color>

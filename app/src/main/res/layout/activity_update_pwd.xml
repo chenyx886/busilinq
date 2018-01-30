@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="旧密码"
-            android:textColor="@color/page_text_color"
+            android:textColor="@color/page_title_color"
             android:textSize="@dimen/text_size14" />
 
 
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="新密码"
-            android:textColor="@color/page_text_color"
+            android:textColor="@color/page_title_color"
             android:textSize="@dimen/text_size14" />
 
 
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="确认新密码"
-            android:textColor="@color/page_text_color"
+            android:textColor="@color/page_title_color"
             android:textSize="@dimen/text_size14" />
 
 

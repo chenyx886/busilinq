@@ -124,7 +124,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
      */
     @Override
     public void BannerList(PageEntity<BannerEntity> list) {
-        if (list.getDataList() != null) {
+        if (list.getList() != null) {
             baseEntities.clear();
             baseEntities.add(list);
             p = 1;
@@ -143,14 +143,14 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
     @Override
     public void GoodsList(PageEntity<GoodEntity> list) {
         List<BaseEntity> baseEns = new ArrayList<>();
-        baseEns.addAll(list.getDataList());
+        baseEns.addAll(list.getList());
         mAdapter.insert(mAdapter.getItemCount(), baseEns);
         if (p == 1) {
             if (mDataList != null)
                 mDataList.setLoadingMoreEnabled(true);
         }
         ++p;
-//        sizes = list.getSize();
+        sizes = list.getList().size();
     }
     @Override
     public void showProgress(String message) {
