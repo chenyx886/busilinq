@@ -13,7 +13,7 @@ public class SysConfig {
     /**
      * 每一页条数
      */
-    public static int rows = 20;
+    public static int limit = 20;
 
 
     public static final String PATH_ROOT = "/gywgj/"; // 根目录
