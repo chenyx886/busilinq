@@ -138,7 +138,7 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
             NewsListViewHolder vHolder = (NewsListViewHolder) holder;
             if (getItem(position) != null) {
                 final GoodsEntity item = (GoodsEntity) getItem(position);
-                vHolder.mTitle.setText(item.getGoodsName());
+                vHolder.mTitle.setText(item.getBarcode());
                 GlideShowImageUtils.displayNetImage(mContext, item.getImage(), vHolder.mItemPic, R.mipmap.default_error);
                 vHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

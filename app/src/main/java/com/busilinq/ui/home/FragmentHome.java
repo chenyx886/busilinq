@@ -125,7 +125,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
     public void BannerList(List<BannerEntity> list) {
         if (list != null) {
             baseEntities.clear();
-
             PageEntity<BannerEntity> pbList = new PageEntity<>();
             pbList.setList(list);
             baseEntities.add(pbList);

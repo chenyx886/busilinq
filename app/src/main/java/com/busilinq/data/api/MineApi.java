@@ -27,14 +27,6 @@ public interface MineApi {
     @POST("shop/user/user/toLogin")
     Observable<BaseData<UserEntity>> toLogin(@Body RequestBody body);
 
-    /**
-     * 修改密码
-     *
-     * @param body
-     * @return
-     */
-    @POST("shop/user/user/toLogin")
-    Observable<BaseData<UserEntity>> updateUserPwd(@Body RequestBody body);
 
     /**
      * 获取验证码
@@ -45,12 +37,5 @@ public interface MineApi {
     @POST("/user/getCode")
     Observable<BaseData> getCode(@Body RequestBody body);
 
-    /**
-     * 个人信息
-     *
-     * @param body
-     * @return
-     */
-    @POST("shop/user/user/toLogin")
-    Observable<BaseData<UserEntity>> getUserById(@Body RequestBody body);
+
 }

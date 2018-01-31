@@ -1,5 +1,14 @@
 package com.busilinq.data.api;
 
+import com.busilinq.data.BaseData;
+import com.busilinq.data.entity.BannerEntity;
+
+import java.util.List;
+
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+import rx.Observable;
+
 /**
  * Company：华科建邺
  * Class Describe：分类模块接口
@@ -10,4 +19,13 @@ package com.busilinq.data.api;
  * Update Remark：
  */
 public interface ClassifyApi {
+
+    /**
+     * 获取轮播广告
+     *
+     * @param type 类型
+     * @return
+     */
+    @GET("/api/adv/banner")
+    Observable<BaseData<List<BannerEntity>>> banner(@Query("type") String type);
 }

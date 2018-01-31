@@ -1,11 +1,14 @@
 package com.busilinq.ui.mine;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseActivity;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,6 +29,11 @@ public class AddressActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView mTitle;
 
+    /**
+     * 数据列表
+     */
+    @BindView(R.id.xr_data_list)
+    XRecyclerView mDataList;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -36,6 +44,14 @@ public class AddressActivity extends BaseActivity {
     @Override
     protected void initUI() {
         mTitle.setText(R.string.my_receiv_address);
+
+
+        mDataList.setLayoutManager(new LinearLayoutManager(this));
+        mDataList.setNoMore(true);
+        mDataList.setLoadingMoreEnabled(false);
+        mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+        mDataList.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
+
     }
 
 
