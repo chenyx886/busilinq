@@ -1,15 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:iconTxt="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/body_bg"
     android:orientation="vertical">
 
+    <include layout="@layout/include_header_layout" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="购物车"
-        android:layout_height="wrap_content" />
-    
+    <!--购物车没有商品显示的布局-->
+    <LinearLayout
+        android:id="@+id/line_cart_empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/empty_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/empty_cart" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/empty_img"
+            android:layout_marginTop="10dp"
+            android:text="@string/cart_empty"
+            android:textColor="@color/colorTabNormal"
+            android:textSize="@dimen/text_size16" />
+
+        <Button
+            android:id="@+id/tv_login"
+            android:layout_width="145.00dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="45dp"
+            android:background="@mipmap/ic_btn_login_bg"
+            android:text="@string/start_to_buy"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size18" />
+    </LinearLayout>
+    <!--购物车有商品显示列表与结算按钮-->
+    <RelativeLayout
+        android:id="@+id/rela_cart_full_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/button_default_bg"
+            android:gravity="center_vertical"
+
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/check_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:checked="false"
+                android:drawableLeft="@drawable/checkbox_selector"
+                android:paddingLeft="15dp"
+                android:text="合计："
+                android:drawablePadding="5dp"
+                android:textColor="@color/page_title_color"
+                android:textSize="@dimen/text_size14" />
+
+            <TextView
+                android:id="@+id/tv_total_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥0"
+                android:textColor="@color/colorTabChecked"
+                android:textSize="@dimen/text_size14" />
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_settlement"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:background="@drawable/button_shap_square"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:text="@string/go_to_pay"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size18" />
+    </RelativeLayout>
+
 </LinearLayout>

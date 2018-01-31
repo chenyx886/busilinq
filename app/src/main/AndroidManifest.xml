@@ -127,6 +127,18 @@
         <activity
             android:name=".ui.mine.FeedbackActivity"
             android:screenOrientation="portrait" />
+        <!--提交订单-->
+        <activity
+            android:name=".ui.cart.SubmitOrderActivity"
+            android:screenOrientation="portrait" />
+        <!--新增收货地址-->
+        <activity
+            android:name=".ui.cart.NewlyAddedAddressActivity"
+            android:screenOrientation="portrait" />
+        <!--订单提交成功提示-->
+        <activity
+            android:name=".ui.cart.SubmitSuccessActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 </manifest>
