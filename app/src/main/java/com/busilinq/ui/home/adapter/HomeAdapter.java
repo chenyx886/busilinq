@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.busilinq.R;
+import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.BaseEntity;
-import com.busilinq.data.entity.GoodEntity;
+import com.busilinq.data.entity.GoodsEntity;
 import com.chenyx.libs.glide.GlideShowImageUtils;
 
 import butterknife.BindView;
@@ -99,30 +101,30 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
         //轮播
         if (holder instanceof HomeBannerViewHolder) {
 //
-//            final PageEntity<BannerEntity> pageEntity = (PageEntity<BannerEntity>) getItem(position);
-//            HomeBannerViewHolder homeBannerViewHolder = (HomeBannerViewHolder) holder;
-//            if (pageEntity.getList().size() > 0) {
-//                homeBannerViewHolder.mCNews.stopTurning();
-//                homeBannerViewHolder.mCNews.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
-//                    @Override
-//                    public NetworkImageHolderView createHolder() {
-//                        return new NetworkImageHolderView();
-//                    }
-//                }, pageEntity.getList()).setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focus})
-//                        .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
-//                homeBannerViewHolder.mCNews.setCanLoop(true);
-//                homeBannerViewHolder.mCNews.setcurrentitem(bannerIndex);
-//                homeBannerViewHolder.mCNews.startTurning(scrollDuration);
-//
-//                homeBannerViewHolder.mCNews.setOnItemClickListener(new com.bigkoo.convenientbanner.listener.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(int position) {
-//
-//                    }
-//                });
-//            } else {
-//                homeBannerViewHolder.mCNews.setVisibility(View.GONE);
-//            }
+            final PageEntity<BannerEntity> pageEntity = (PageEntity<BannerEntity>) getItem(position);
+            HomeBannerViewHolder homeBannerViewHolder = (HomeBannerViewHolder) holder;
+            if (pageEntity.getList().size() > 0) {
+                homeBannerViewHolder.mCNews.stopTurning();
+                homeBannerViewHolder.mCNews.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
+                    @Override
+                    public NetworkImageHolderView createHolder() {
+                        return new NetworkImageHolderView();
+                    }
+                }, pageEntity.getList()).setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focus})
+                        .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+                homeBannerViewHolder.mCNews.setCanLoop(true);
+                homeBannerViewHolder.mCNews.setcurrentitem(bannerIndex);
+                homeBannerViewHolder.mCNews.startTurning(scrollDuration);
+
+                homeBannerViewHolder.mCNews.setOnItemClickListener(new com.bigkoo.convenientbanner.listener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+
+                    }
+                });
+            } else {
+                homeBannerViewHolder.mCNews.setVisibility(View.GONE);
+            }
         }
         //通知
         else if (holder instanceof HomeNoticeViewHolder) {
@@ -135,7 +137,7 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
 
             NewsListViewHolder vHolder = (NewsListViewHolder) holder;
             if (getItem(position) != null) {
-                final GoodEntity item = (GoodEntity) getItem(position);
+                final GoodsEntity item = (GoodsEntity) getItem(position);
                 vHolder.mTitle.setText(item.getGoodsName());
                 GlideShowImageUtils.displayNetImage(mContext, item.getImage(), vHolder.mItemPic, R.mipmap.default_error);
                 vHolder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -14,7 +14,7 @@ import com.busilinq.contract.home.IMainView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.BaseEntity;
-import com.busilinq.data.entity.GoodEntity;
+import com.busilinq.data.entity.GoodsEntity;
 import com.busilinq.presenter.home.MainPresenter;
 import com.busilinq.ui.home.adapter.HomeAdapter;
 import com.busilinq.widget.MLoadingDialog;
@@ -125,7 +125,10 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
     public void BannerList(List<BannerEntity> list) {
         if (list != null) {
             baseEntities.clear();
-//            baseEntities.add(list);
+
+            PageEntity<BannerEntity> pbList = new PageEntity<>();
+            pbList.setList(list);
+            baseEntities.add(pbList);
             page = 1;
             mAdapter.setData(baseEntities);
             mPresenter.getGoodsList(page);
@@ -139,7 +142,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
      * @param list
      */
     @Override
-    public void GoodsList(PageEntity<GoodEntity> list) {
+    public void GoodsList(PageEntity<GoodsEntity> list) {
         List<BaseEntity> baseEns = new ArrayList<>();
         baseEns.addAll(list.getList());
         mAdapter.insert(mAdapter.getItemCount(), baseEns);

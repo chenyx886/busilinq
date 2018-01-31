@@ -4,7 +4,7 @@ package com.busilinq.data.api;
 import com.busilinq.data.BaseData;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BannerEntity;
-import com.busilinq.data.entity.GoodEntity;
+import com.busilinq.data.entity.GoodsEntity;
 
 import java.util.List;
 
@@ -40,5 +40,5 @@ public interface HomeApi {
      * @return
      */
     @GET("/api/goods/recommend")
-    Observable<BaseData<PageEntity<GoodEntity>>> recommend(@Query("page") int page, @Query("limit") int limit);
+    Observable<BaseData<PageEntity<GoodsEntity>>> recommend(@Query("page") int page, @Query("limit") int limit);
 }

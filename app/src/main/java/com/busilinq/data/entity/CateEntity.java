@@ -23,7 +23,7 @@ public class CateEntity extends BaseEntity {
     /**
      * 商品列表
      */
-    private List<GoodEntity> goodslist;
+    private List<GoodsEntity> goodslist;
 
     public int getId() {
         return id;
@@ -41,11 +41,11 @@ public class CateEntity extends BaseEntity {
         this.title = title;
     }
 
-    public List<GoodEntity> getGoodslist() {
+    public List<GoodsEntity> getGoodslist() {
         return goodslist;
     }
 
-    public void setGoodslist(List<GoodEntity> goodslist) {
+    public void setGoodslist(List<GoodsEntity> goodslist) {
         this.goodslist = goodslist;
     }
 }

@@ -5,7 +5,7 @@ import com.busilinq.data.PageEntity;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.BannerEntity;
-import com.busilinq.data.entity.GoodEntity;
+import com.busilinq.data.entity.GoodsEntity;
 import com.busilinq.presenter.BasePresenter;
 import com.chenyx.libs.utils.SysConfig;
 
@@ -28,6 +28,8 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     /**
      * 获取轮播广告
+     *
+     * @param type
      */
     public void getBannerList(String type) {
         addSubscription(RetrofitApiFactory.getHomeApi().banner(type), new SubscriberCallBack<List<BannerEntity>>() {
@@ -46,11 +48,13 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     /**
      * 获取推荐商品列表
+     *
+     * @param page
      */
     public void getGoodsList(int page) {
-        addSubscription(RetrofitApiFactory.getHomeApi().recommend(page, SysConfig.limit), new SubscriberCallBack<PageEntity<GoodEntity>>() {
+        addSubscription(RetrofitApiFactory.getHomeApi().recommend(page, SysConfig.limit), new SubscriberCallBack<PageEntity<GoodsEntity>>() {
             @Override
-            protected void onSuccess(PageEntity<GoodEntity> bannerList) {
+            protected void onSuccess(PageEntity<GoodsEntity> bannerList) {
                 MvpView.GoodsList(bannerList);
             }
 

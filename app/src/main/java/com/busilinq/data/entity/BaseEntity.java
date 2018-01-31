@@ -1,6 +1,7 @@
 package com.busilinq.data.entity;
 
-import java.io.Serializable;
+import com.busilinq.data.BaseResp;
+
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  * Update Time：
  * Update Remark：
  */
-public class BaseEntity implements Serializable {
+public class BaseEntity extends BaseResp {
     //删除标志 -1删除 1未删除
     private int isDel;
     //创建时间
