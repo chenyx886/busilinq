@@ -22,8 +22,10 @@
     <dimen name="text_size30">30sp</dimen>
     <dimen name="text_size32">32sp</dimen>
     <!-- 字体大小 -->
+    <dimen name="len_0.5">0.5dp</dimen>
     <dimen name="len_1">1dp</dimen>
     <dimen name="len_2">2dp</dimen>
+    <dimen name="len_2.5">2.5dp</dimen>
     <dimen name="len_4">4dp</dimen>
     <dimen name="len_5">5dp</dimen>
     <dimen name="len_6">6dp</dimen>
