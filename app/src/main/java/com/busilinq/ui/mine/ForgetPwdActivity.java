@@ -14,7 +14,6 @@ import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.IForgetPwdView;
 import com.busilinq.data.event.TimerEvent;
 import com.busilinq.presenter.mine.ForgetPwdPresenter;
-import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ResourceUtils;
 import com.chenyx.libs.utils.Toasts;
@@ -203,16 +202,6 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter> imple
         seconds = DEFAULT_SECONDS;
         mGetCode.setText(ResourceUtils.getString(MApplication.getAppContext(), R.string.get_code));
         mGetCode.setEnabled(true);
-    }
-
-    @Override
-    public void showProgress(String message) {
-        MLoadingDialog.show(this, message);
-    }
-
-    @Override
-    public void hideProgress() {
-        MLoadingDialog.dismiss();
     }
 
     @Override

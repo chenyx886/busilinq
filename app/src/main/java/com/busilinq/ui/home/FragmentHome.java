@@ -17,7 +17,6 @@ import com.busilinq.data.entity.BaseEntity;
 import com.busilinq.data.entity.GoodsEntity;
 import com.busilinq.presenter.home.MainPresenter;
 import com.busilinq.ui.home.adapter.HomeAdapter;
-import com.busilinq.widget.MLoadingDialog;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -151,16 +150,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         }
         ++page;
         sizes = list.getList().size();
-    }
-
-    @Override
-    public void showProgress(String message) {
-        MLoadingDialog.show(getActivity(), message);
-    }
-
-    @Override
-    public void hideProgress() {
-        MLoadingDialog.dismiss();
     }
 
 

@@ -23,9 +23,9 @@ public interface ClassifyApi {
     /**
      * 获取轮播广告
      *
-     * @param type 类型
+     * @param userId 用户id
      * @return
      */
-    @GET("/api/adv/banner")
-    Observable<BaseData<List<BannerEntity>>> banner(@Query("type") String type);
+    @GET("/api/goods/classify")
+    Observable<BaseData<List<BannerEntity>>> banner(@Query("userId") String userId);
 }
