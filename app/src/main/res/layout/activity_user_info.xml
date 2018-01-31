@@ -63,5 +63,63 @@
 
     <View style="@style/line_diliver" />
 
+    <LinearLayout style="@style/userLinearLayoutStyle">
+
+        <TextView
+            style="@style/userTextViewStyle"
+            android:text="@string/user_tell" />
+
+
+        <EditText
+            android:id="@+id/et_user_tell"
+            style="@style/userEditTextStyle"
+            android:hint="@string/input_user_tell"
+            />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <LinearLayout style="@style/userLinearLayoutStyle">
+
+        <TextView
+            style="@style/userTextViewStyle"
+            android:text="@string/user_fax" />
+
+
+        <EditText
+            android:id="@+id/et_user_fax"
+            style="@style/userEditTextStyle"
+            android:hint="@string/input_user_fax"
+            />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <LinearLayout style="@style/userLinearLayoutStyle">
+
+        <TextView
+            style="@style/userTextViewStyle"
+            android:text="@string/user_payment" />
+
+
+        <EditText
+            android:id="@+id/et_user_payment"
+            style="@style/userEditTextStyle"
+            android:hint="@string/input_user_payment"
+            />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <Button
+        android:id="@+id/user_info_btn_confirm"
+        style="@style/buttonStyle"
+        android:text="@string/confirm"
+        />
+
+
 
 </LinearLayout>

@@ -46,4 +46,10 @@
     <string name="input_user_account">请输入账号</string>
     <string name="user_email">邮箱</string>
     <string name="input_user_email">请输入邮箱</string>
+    <string name="user_tell">电话</string>
+    <string name="input_user_tell">请输入电话号码</string>
+    <string name="user_fax">传真</string>
+    <string name="input_user_fax">请输入传真号</string>
+    <string name="user_payment">支付账号</string>
+    <string name="input_user_payment">请输入快捷支付账号</string>
 </resources>
