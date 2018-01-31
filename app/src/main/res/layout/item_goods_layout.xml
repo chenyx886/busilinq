@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="64.0dip"
+            android:layout_height="64.0dip"
+            android:layout_marginRight="10.0dip"
+            android:background="@drawable/shape_corner"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_good_pic"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@mipmap/default_error" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="良品铺子 京年有味礼盒 每日坚果 12袋装 零食组合干果送礼 年货坚果礼盒1511g"
+                android:textColor="@color/page_title_color"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/text_size14" />
+
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/tv_title"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/iv_good_pic"
+                android:gravity="bottom"
+                android:text="￥78.5/盒"
+                android:textColor="@color/color_e44010"
+                android:textSize="@dimen/text_size18" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="#e6e6e6" />
+
+</LinearLayout>

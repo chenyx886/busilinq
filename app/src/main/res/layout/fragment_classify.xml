@@ -1,60 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:iconTxt="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/body_bg"
     android:orientation="vertical">
 
+    <include layout="@layout/include_search_layout" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:gravity="center"
-        android:background="@drawable/header_style">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/bg_edittext_search"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
-
-            <EditText
-                android:id="@+id/et_search"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="48dp"
-                android:background="@null"
-                android:ellipsize="end"
-                android:focusableInTouchMode="true"
-                android:gravity="center_vertical"
-                android:hint="商品搜索"
-                android:imeOptions="actionSearch"
-                android:paddingLeft="8dp"
-                android:singleLine="true"
-                android:textColor="@color/page_title_color"
-                android:textColorHint="@color/white"
-                android:textSize="@dimen/text_size14" />
-
-            <ImageView
-                android:id="@+id/iv_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:padding="10dp"
-                android:src="@mipmap/ic_search" />
-        </FrameLayout>
-    </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -20,10 +20,12 @@ import com.busilinq.presenter.classify.ClassifyPresenter;
 import com.busilinq.ui.classify.adapter.CateLeftAdapter;
 import com.busilinq.ui.classify.adapter.CateRightAdapter;
 import com.busilinq.widget.PinnedHeaderListView;
+import com.chenyx.libs.utils.JumpUtil;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Company：华科建邺
@@ -198,6 +200,21 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
         }
         return null;
     }
+
+
+    @OnClick({R.id.et_search, R.id.iv_search})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.et_search:
+                JumpUtil.overlay(getActivity(), GoodsListActivity.class);
+                break;
+            case R.id.iv_search:
+                JumpUtil.overlay(getActivity(), GoodsListActivity.class);
+                break;
+
+        }
+    }
+
 
     @Override
     public void showProgress(String message) {

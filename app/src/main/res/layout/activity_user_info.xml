@@ -8,6 +8,118 @@
 
     <include layout="@layout/include_header_layout"/>
 
+    <View
+        style="@style/line_diliver"
+        android:layout_marginTop="10dp" />
+
+    <LinearLayout style="@style/userLinearLayoutStyle">
+
+        <TextView
+            style="@style/userTextViewStyle"
+            android:text="@string/user_name" />
+
+
+        <EditText
+            android:id="@+id/et_user_name"
+            style="@style/userEditTextStyle"
+            android:hint="@string/input_user_name"
+            />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <LinearLayout style="@style/userLinearLayoutStyle">
+
+        <TextView
+            style="@style/userTextViewStyle"
+            android:text="@string/user_account" />
+
+
+        <EditText
+            android:id="@+id/et_user_account"
+            style="@style/userEditTextStyle"
+            android:hint="@string/input_user_account"
+            />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <LinearLayout style="@style/userLinearLayoutStyle">
+
+        <TextView
+            style="@style/userTextViewStyle"
+            android:text="@string/user_email" />
+
+
+        <EditText
+            android:id="@+id/et_user_email"
+            style="@style/userEditTextStyle"
+            android:hint="@string/input_user_email"
+            />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <LinearLayout style="@style/userLinearLayoutStyle">
+
+        <TextView
+            style="@style/userTextViewStyle"
+            android:text="@string/user_tell" />
+
+
+        <EditText
+            android:id="@+id/et_user_tell"
+            style="@style/userEditTextStyle"
+            android:hint="@string/input_user_tell"
+            />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <LinearLayout style="@style/userLinearLayoutStyle">
+
+        <TextView
+            style="@style/userTextViewStyle"
+            android:text="@string/user_fax" />
+
+
+        <EditText
+            android:id="@+id/et_user_fax"
+            style="@style/userEditTextStyle"
+            android:hint="@string/input_user_fax"
+            />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <LinearLayout style="@style/userLinearLayoutStyle">
+
+        <TextView
+            style="@style/userTextViewStyle"
+            android:text="@string/user_payment" />
+
+
+        <EditText
+            android:id="@+id/et_user_payment"
+            style="@style/userEditTextStyle"
+            android:hint="@string/input_user_payment"
+            />
+
+    </LinearLayout>
+
+    <View style="@style/line_diliver" />
+
+    <Button
+        android:id="@+id/user_info_btn_confirm"
+        style="@style/buttonStyle"
+        android:text="@string/confirm"
+        />
+
 
 
 </LinearLayout>
