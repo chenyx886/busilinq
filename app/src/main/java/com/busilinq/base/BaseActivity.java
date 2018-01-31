@@ -10,6 +10,7 @@ import android.view.WindowManager;
 
 import com.busilinq.MApplication;
 import com.busilinq.R;
+import com.busilinq.contract.IBaseMvpView;
 import com.busilinq.ulits.BugGoutAgent;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.testin.agent.Bugout;
@@ -28,7 +29,7 @@ import rx.subscriptions.CompositeSubscription;
  * Update Time：
  * Update Remark：
  */
-public abstract class BaseActivity extends RxAppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity implements IBaseMvpView {
 
     protected String TAG;
 

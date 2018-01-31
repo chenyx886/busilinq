@@ -119,4 +119,5 @@ public class UpdatePwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
     public void hideProgress() {
         MLoadingDialog.dismiss();
     }
+
 }

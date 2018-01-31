@@ -206,6 +206,13 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter> imple
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        closeTimer();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void showProgress(String message) {
         MLoadingDialog.show(this, message);
     }
@@ -213,13 +220,6 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter> imple
     @Override
     public void hideProgress() {
         MLoadingDialog.dismiss();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        closeTimer();
-        EventBus.getDefault().unregister(this);
     }
 
 }

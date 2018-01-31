@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
+import com.busilinq.ui.mine.order.MyOrdersActivity;
+import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 
 import butterknife.BindView;
@@ -33,7 +35,6 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
 
     private final int[] ic = {R.mipmap.ic_goods_order, R.mipmap.ic_return_order,
             R.mipmap.ic_payment_order, R.mipmap.ic_delivery_order};
-
 
     @Override
     public int getItemCount() {
@@ -92,7 +93,7 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                 appHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ToastUtils.showShort("待开发...");
+                        JumpUtil.overlay(mContext, MyOrdersActivity.class);
                     }
                 });
                 break;

@@ -139,6 +139,11 @@
         <activity
             android:name=".ui.cart.SubmitSuccessActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ui.mine.order.MyOrdersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.mine.order.MyOrdersDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

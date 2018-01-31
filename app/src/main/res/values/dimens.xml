@@ -9,7 +9,9 @@
     <dimen name="text_size10">10sp</dimen>
     <dimen name="text_size11">11sp</dimen>
     <dimen name="text_size12">12sp</dimen>
+    <dimen name="text_size13">13sp</dimen>
     <dimen name="text_size14">14sp</dimen>
+    <dimen name="text_size15">15sp</dimen>
     <dimen name="text_size16">16sp</dimen>
     <dimen name="text_size18">18sp</dimen>
     <dimen name="text_size20">20sp</dimen>
@@ -20,9 +22,49 @@
     <dimen name="text_size30">30sp</dimen>
     <dimen name="text_size32">32sp</dimen>
     <!-- 字体大小 -->
-
-
-
+    <dimen name="len_0.5">0.5dp</dimen>
+    <dimen name="len_1">1dp</dimen>
+    <dimen name="len_2">2dp</dimen>
+    <dimen name="len_2.5">2.5dp</dimen>
+    <dimen name="len_4">4dp</dimen>
+    <dimen name="len_5">5dp</dimen>
+    <dimen name="len_6">6dp</dimen>
+    <dimen name="len_8">8dp</dimen>
+    <dimen name="len_10">10dp</dimen>
+    <dimen name="len_12">12dp</dimen>
+    <dimen name="len_14">14dp</dimen>
+    <dimen name="len_15">15dp</dimen>
+    <dimen name="len_16">16dp</dimen>
+    <dimen name="len_20">20dp</dimen>
+    <dimen name="len_24">24dp</dimen>
+    <dimen name="len_28">28dp</dimen>
+    <dimen name="len_32">32dp</dimen>
+    <dimen name="len_36">36dp</dimen>
+    <dimen name="len_40">40dp</dimen>
+    <dimen name="len_44">44dp</dimen>
+    <dimen name="len_45">45dp</dimen>
+    <dimen name="len_48">48dp</dimen>
+    <dimen name="len_52">52dp</dimen>
+    <dimen name="len_55">55dp</dimen>
+    <dimen name="len_56">56dp</dimen>
+    <dimen name="len_60">60dp</dimen>
+    <dimen name="len_64">64dp</dimen>
+    <dimen name="len_68">68dp</dimen>
+    <dimen name="len_72">72dp</dimen>
+    <dimen name="len_76">76dp</dimen>
+    <dimen name="len_80">80dp</dimen>
+    <dimen name="len_84">84dp</dimen>
+    <dimen name="len_88">88dp</dimen>
+    <dimen name="len_90">90dp</dimen>
+    <dimen name="len_92">92dp</dimen>
+    <dimen name="len_96">96dp</dimen>
+    <dimen name="len_100">100dp</dimen>
+    <dimen name="len_116">116dp</dimen>
+    <dimen name="len_128">128dp</dimen>
+    <dimen name="len_156">156dp</dimen>
+    <dimen name="len_172">172dp</dimen>
+    <dimen name="len_224">224dp</dimen>
+    <dimen name="len_256">256dp</dimen>
     <!-- 弹框所需 -->
     <!-- padding -->
     <dimen name="padding_svprogresshuddefault">15dp</dimen>

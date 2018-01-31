@@ -3,7 +3,7 @@
     android:id="@+id/headerLayout"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/header_style"
     android:gravity="center_vertical">
 
     <TextView

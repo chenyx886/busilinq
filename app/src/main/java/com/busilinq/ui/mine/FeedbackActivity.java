@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseActivity;
+import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.Toasts;
 
 import butterknife.BindView;
@@ -84,4 +85,15 @@ public class FeedbackActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    public void showProgress(String message) {
+        MLoadingDialog.show(this, message);
+    }
+
+    @Override
+    public void hideProgress() {
+        MLoadingDialog.dismiss();
+    }
+
 }

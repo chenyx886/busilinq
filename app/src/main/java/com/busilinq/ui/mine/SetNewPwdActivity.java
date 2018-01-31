@@ -98,7 +98,6 @@ public class SetNewPwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
         ToastUtils.showShort("修改成功");
         finish();
     }
-
     @Override
     public void showProgress(String message) {
         MLoadingDialog.show(this, message);
@@ -108,4 +107,6 @@ public class SetNewPwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
     public void hideProgress() {
         MLoadingDialog.dismiss();
     }
+
+
 }

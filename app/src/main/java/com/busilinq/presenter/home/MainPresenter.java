@@ -5,7 +5,7 @@ import com.busilinq.data.PageEntity;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.BannerEntity;
-import com.busilinq.data.entity.GoodsEntity;
+import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.BasePresenter;
 import com.chenyx.libs.utils.SysConfig;
 
@@ -40,7 +40,6 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
             @Override
             public void onCompleted() {
-                MvpView.hideProgress();
             }
         });
 
@@ -52,10 +51,10 @@ public class MainPresenter extends BasePresenter<IMainView> {
      * @param page
      */
     public void getGoodsList(int page) {
-        addSubscription(RetrofitApiFactory.getHomeApi().recommend(page, SysConfig.limit), new SubscriberCallBack<PageEntity<GoodsEntity>>() {
+        addSubscription(RetrofitApiFactory.getHomeApi().recommend(page, SysConfig.limit), new SubscriberCallBack<PageEntity<HomeGoodsEntity>>() {
             @Override
-            protected void onSuccess(PageEntity<GoodsEntity> bannerList) {
-                MvpView.GoodsList(bannerList);
+            protected void onSuccess(PageEntity<HomeGoodsEntity> HGoodsList) {
+                MvpView.GoodsList(HGoodsList);
             }
 
             @Override
