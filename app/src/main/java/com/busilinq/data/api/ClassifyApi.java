@@ -1,7 +1,9 @@
 package com.busilinq.data.api;
 
 import com.busilinq.data.BaseData;
+import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.GoodsCategoryEntity;
+import com.busilinq.data.entity.GoodsEntity;
 
 import java.util.List;
 
@@ -28,4 +30,13 @@ public interface ClassifyApi {
      */
     @GET("/api/goods/classify")
     Observable<BaseData<List<GoodsCategoryEntity>>> getClassifyList(@Query("userId") String userId);
+
+    /**
+     * 获取商品列表
+     *
+     * @param userId 用户id
+     * @return
+     */
+    @GET("/api/goods/goodsList")
+    Observable<BaseData<PageEntity<GoodsEntity>>> getGoodsList(@Query("userId") String userId);
 }

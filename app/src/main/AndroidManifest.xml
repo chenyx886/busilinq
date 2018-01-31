@@ -90,6 +90,10 @@
         <activity
             android:name=".ui.MainActivity"
             android:screenOrientation="portrait" />
+        <!--商品列表-->
+        <activity
+            android:name=".ui.classify.GoodsListActivity"
+            android:screenOrientation="portrait" />
         <!--登录-->
         <activity
             android:name=".ui.mine.LoginActivity"

@@ -54,7 +54,7 @@ public class CateLeftAdapter extends AbstractBaseAdapter<GoodsCategoryEntity> {
         if (selectPostion == position) {
             vHolder.item_layout.setBackgroundResource(R.color.white);
             vHolder.mView.setVisibility(View.VISIBLE);
-            vHolder.mTitle.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
+            vHolder.mTitle.setTextColor(mContext.getResources().getColor(R.color.color_e44010));
         } else {
             vHolder.item_layout.setBackgroundDrawable(null);
             vHolder.mView.setVisibility(View.INVISIBLE);

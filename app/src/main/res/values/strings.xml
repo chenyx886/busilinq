@@ -33,6 +33,11 @@
     <string name="next_step">下一步</string>
     <string name="get_code">获取验证码</string>
 
+    <string name="popularity">人气</string>
+    <string name="time">时间</string>
+    <string name="price">价格</string>
+
+
     <string name="old_password">旧密码</string>
     <string name="input_old_password">请输入旧密码</string>
     <string name="new_password">新密码</string>
