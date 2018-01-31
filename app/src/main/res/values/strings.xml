@@ -19,7 +19,8 @@
     <string name="my_return_order">退货单</string>
     <string name="my_payment_order">付款单</string>
     <string name="my_delivery_order">发货单</string>
-
+    <string name="my_orders_title">我的订单</string>
+    <string name="my_orders_detail_title">订单详情</string>
     <string name="my_receiv_address">收货地址</string>
     <string name="my_collection">我的收藏</string>
     <string name="user_data">用户资料</string>

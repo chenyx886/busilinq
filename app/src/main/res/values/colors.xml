@@ -26,5 +26,7 @@
     <color name="code_light">#cccccc</color>
     <color name="sel_cate_color">#2e8cd4</color>
     <color name="cate_color">#000</color>
-
+    <color name="color_333333">#333333</color>
+    <color name="color_3d98df">#3d98df</color>
+    <color name="color_e44010">#e44010</color>
 </resources>
