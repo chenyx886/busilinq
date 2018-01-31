@@ -6,8 +6,11 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/include_header_layout"/>
+    <include layout="@layout/include_header_layout" />
 
-
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/xr_data_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

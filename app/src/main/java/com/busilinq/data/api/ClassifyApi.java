@@ -1,7 +1,7 @@
 package com.busilinq.data.api;
 
 import com.busilinq.data.BaseData;
-import com.busilinq.data.entity.BannerEntity;
+import com.busilinq.data.entity.GoodsCategoryEntity;
 
 import java.util.List;
 
@@ -21,11 +21,11 @@ import rx.Observable;
 public interface ClassifyApi {
 
     /**
-     * 获取轮播广告
+     * 获取商品分类列表
      *
-     * @param type 类型
+     * @param userId 用户id
      * @return
      */
-    @GET("/api/adv/banner")
-    Observable<BaseData<List<BannerEntity>>> banner(@Query("type") String type);
+    @GET("/api/goods/classify")
+    Observable<BaseData<List<GoodsCategoryEntity>>> getClassifyList(@Query("userId") String userId);
 }

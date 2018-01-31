@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseActivity;
+import com.busilinq.widget.MLoadingDialog;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -64,4 +65,15 @@ public class AddressActivity extends BaseActivity {
 
         }
     }
+
+    @Override
+    public void showProgress(String message) {
+        MLoadingDialog.show(this, message);
+    }
+
+    @Override
+    public void hideProgress() {
+        MLoadingDialog.dismiss();
+    }
+
 }

@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseActivity;
+import com.busilinq.widget.MLoadingDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,7 +46,17 @@ public class UserInfoActivity extends BaseActivity {
             case R.id.tv_back:
                 finish();
                 break;
-
         }
     }
+
+    @Override
+    public void showProgress(String message) {
+        MLoadingDialog.show(this, message);
+    }
+
+    @Override
+    public void hideProgress() {
+        MLoadingDialog.dismiss();
+    }
+
 }

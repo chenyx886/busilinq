@@ -1,5 +1,7 @@
 package com.busilinq.data.entity;
 
+import java.util.List;
+
 /**
  * Company：华科建邺
  * Class Describe：商品类别
@@ -11,7 +13,7 @@ package com.busilinq.data.entity;
  */
 public class GoodsCategoryEntity extends BaseEntity {
     //商品种类id
-    private int categoryId;
+    private int id;
     //删除状态：1.启用 -1.未启用 （后台未启用页面不显示，前台显示已下架）
     //创建时间
     //更新时间
@@ -23,13 +25,15 @@ public class GoodsCategoryEntity extends BaseEntity {
     private String image;
     //简要描述
     private String describe;
+    //子分类
+    private List<GoodsCategoryEntity> list;
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getId() {
+        return id;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getParentId() {
@@ -62,5 +66,13 @@ public class GoodsCategoryEntity extends BaseEntity {
 
     public void setDescribe(String describe) {
         this.describe = describe;
+    }
+
+    public List<GoodsCategoryEntity> getList() {
+        return list;
+    }
+
+    public void setList(List<GoodsCategoryEntity> list) {
+        this.list = list;
     }
 }

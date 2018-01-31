@@ -3,6 +3,7 @@ package com.busilinq.base;
 import android.os.Bundle;
 import android.view.View;
 
+import com.busilinq.contract.IBaseMvpView;
 import com.busilinq.presenter.BasePresenter;
 
 
@@ -15,7 +16,7 @@ import com.busilinq.presenter.BasePresenter;
  * Update Time：
  * Update Remark：
  */
-public abstract class BaseMvpFragment<P extends BasePresenter> extends LazyLoadFragment {
+public abstract class BaseMvpFragment<P extends BasePresenter> extends LazyLoadFragment implements IBaseMvpView {
 
     protected P mPresenter;
 

@@ -14,10 +14,9 @@ import com.busilinq.contract.home.IMainView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.BaseEntity;
-import com.busilinq.data.entity.GoodsEntity;
+import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.home.MainPresenter;
 import com.busilinq.ui.home.adapter.HomeAdapter;
-import com.busilinq.widget.MLoadingDialog;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -55,8 +54,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
      */
     private List<BaseEntity> baseEntities = new ArrayList<>();
 
-    private int sizes = 0;
-
     private static int state = -1;
     private static int STATE_LOAD_MORE = 0X10;
     private static int STATE_PULL_REFRESH = 0X20;
@@ -83,7 +80,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
 
     @Override
     protected void initUI() {
-
         mDataList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mDataList.setNoMore(true);
         mDataList.setLoadingMoreEnabled(false);
@@ -136,32 +132,41 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
 
 
     /**
-     * 新闻列表
+     * 商品列表
      *
      * @param list
      */
     @Override
-    public void GoodsList(PageEntity<GoodsEntity> list) {
+    public void GoodsList(PageEntity<HomeGoodsEntity> list) {
         List<BaseEntity> baseEns = new ArrayList<>();
         baseEns.addAll(list.getList());
+
+
+//        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+//        mDataList.setLayoutManager(staggeredGridLayoutManager);
+
         mAdapter.insert(mAdapter.getItemCount(), baseEns);
         if (page == 1) {
             if (mDataList != null)
                 mDataList.setLoadingMoreEnabled(true);
         }
         ++page;
-        sizes = list.getList().size();
     }
 
     @Override
     public void showProgress(String message) {
-        MLoadingDialog.show(getActivity(), message);
+
     }
 
     @Override
     public void hideProgress() {
-        MLoadingDialog.dismiss();
+        if (state == STATE_PULL_REFRESH) {
+            if (mDataList != null)
+                mDataList.refreshComplete();
+        } else if (state == STATE_LOAD_MORE) {
+            if (mDataList != null)
+                mDataList.loadMoreComplete();
+        }
     }
-
 
 }

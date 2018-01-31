@@ -120,4 +120,5 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
         MLoadingDialog.dismiss();
     }
 
+
 }

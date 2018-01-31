@@ -4,7 +4,7 @@ package com.busilinq.contract.home;
 import com.busilinq.contract.IBaseMvpView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BannerEntity;
-import com.busilinq.data.entity.GoodsEntity;
+import com.busilinq.data.entity.HomeGoodsEntity;
 
 import java.util.List;
 
@@ -32,5 +32,5 @@ public interface IMainView extends IBaseMvpView {
      *
      * @param goodList
      */
-    void GoodsList(PageEntity<GoodsEntity> goodList);
+    void GoodsList(PageEntity<HomeGoodsEntity> goodList);
 }
