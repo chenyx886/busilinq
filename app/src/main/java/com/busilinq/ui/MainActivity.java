@@ -20,6 +20,7 @@ import com.busilinq.ui.classify.FragmentClassify;
 import com.busilinq.ui.home.FragmentHome;
 import com.busilinq.ui.mine.FragmentMine;
 import com.busilinq.ulits.AppUtils;
+import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.Toasts;
 
 import java.util.ArrayList;
@@ -62,8 +63,6 @@ public class MainActivity extends BaseActivity {
     private CompoundButton selectView;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +83,6 @@ public class MainActivity extends BaseActivity {
 
         getLocationPersimmions();
     }
-
 
 
     /**
@@ -145,7 +143,6 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
     private long mKeyDownTime = 0;
 
     @Override
@@ -179,6 +176,16 @@ public class MainActivity extends BaseActivity {
         if (permissions.size() > 0) {
             ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), AppUtils.POSTION_RQESTCODE);
         }
+    }
+
+    @Override
+    public void showProgress(String message) {
+        MLoadingDialog.show(this, message);
+    }
+
+    @Override
+    public void hideProgress() {
+        MLoadingDialog.dismiss();
     }
 
 

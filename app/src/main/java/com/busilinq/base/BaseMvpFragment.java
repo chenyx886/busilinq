@@ -5,7 +5,6 @@ import android.view.View;
 
 import com.busilinq.contract.IBaseMvpView;
 import com.busilinq.presenter.BasePresenter;
-import com.busilinq.widget.MLoadingDialog;
 
 
 /**
@@ -40,16 +39,5 @@ public abstract class BaseMvpFragment<P extends BasePresenter> extends LazyLoadF
     public void onDestroyView() {
         super.onDestroyView();
     }
-
-    @Override
-    public void showProgress(String message) {
-        MLoadingDialog.show(getActivity(), message);
-    }
-
-    @Override
-    public void hideProgress() {
-        MLoadingDialog.dismiss();
-    }
-
 
 }

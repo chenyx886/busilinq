@@ -12,7 +12,6 @@ import com.busilinq.MApplication;
 import com.busilinq.R;
 import com.busilinq.contract.IBaseMvpView;
 import com.busilinq.ulits.BugGoutAgent;
-import com.busilinq.widget.MLoadingDialog;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.testin.agent.Bugout;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
@@ -166,16 +165,4 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseM
         Bugout.onDispatchTouchEvent(this, event);
         return super.dispatchTouchEvent(event);
     }
-
-    @Override
-    public void showProgress(String message) {
-        MLoadingDialog.show(this, message);
-    }
-
-    @Override
-    public void hideProgress() {
-        MLoadingDialog.dismiss();
-    }
-
-
 }

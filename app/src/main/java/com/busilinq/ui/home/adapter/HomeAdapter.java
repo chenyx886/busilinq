@@ -17,7 +17,7 @@ import com.busilinq.R;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.BaseEntity;
-import com.busilinq.data.entity.GoodsEntity;
+import com.busilinq.data.entity.HomeGoodsEntity;
 import com.chenyx.libs.glide.GlideShowImageUtils;
 
 import butterknife.BindView;
@@ -86,12 +86,12 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
         //菜单
         else if (viewType == NOTICE_TYPE) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_menu, parent, false);
-            return new HomeNoticeViewHolder(view);
+            return new HomeMenuViewHolder(view);
         }
 
         //数据列表
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_goods, parent, false);
-        return new NewsListViewHolder(view);
+        return new GoodsListViewHolder(view);
     }
 
     @Override
@@ -100,7 +100,6 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
 
         //轮播
         if (holder instanceof HomeBannerViewHolder) {
-//
             final PageEntity<BannerEntity> pageEntity = (PageEntity<BannerEntity>) getItem(position);
             HomeBannerViewHolder homeBannerViewHolder = (HomeBannerViewHolder) holder;
             if (pageEntity.getList().size() > 0) {
@@ -126,20 +125,20 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
                 homeBannerViewHolder.mCNews.setVisibility(View.GONE);
             }
         }
-        //通知
-        else if (holder instanceof HomeNoticeViewHolder) {
-            HomeNoticeViewHolder homeNoticeViewHolder = (HomeNoticeViewHolder) holder;
+        //菜单
+        else if (holder instanceof HomeMenuViewHolder) {
+            HomeMenuViewHolder homeMenuViewHolder = (HomeMenuViewHolder) holder;
 
         }
 
         //推荐商品
         else {
 
-            NewsListViewHolder vHolder = (NewsListViewHolder) holder;
+            GoodsListViewHolder vHolder = (GoodsListViewHolder) holder;
             if (getItem(position) != null) {
-                final GoodsEntity item = (GoodsEntity) getItem(position);
-                vHolder.mTitle.setText(item.getBarcode());
-                GlideShowImageUtils.displayNetImage(mContext, item.getImage(), vHolder.mItemPic, R.mipmap.default_error);
+                final HomeGoodsEntity item = (HomeGoodsEntity) getItem(position);
+                vHolder.mTitle.setText(item.getGoods().getName());
+                GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
                 vHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -157,8 +156,6 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
             HomeBannerViewHolder homeBannerViewHolder = (HomeBannerViewHolder) holder;
             bannerIndex = homeBannerViewHolder.mCNews.getCurrentItem();
             homeBannerViewHolder.mCNews.stopTurning();
-        } else if (holder instanceof HomeNoticeViewHolder) {
-
         }
     }
 
@@ -169,7 +166,6 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
         @Override
         public View createView(Context context) {
             view = LayoutInflater.from(context).inflate(R.layout.banner_item, null, false);
-
             return view;
         }
 
@@ -179,8 +175,6 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
             ImageView imageView = view.findViewById(R.id.iv_image);
             GlideShowImageUtils.displayNetImage(context, data.getImageUrl(), imageView, R.mipmap.banner1);
         }
-
-
     }
 
     static class HomeBannerViewHolder extends RecyclerView.ViewHolder {
@@ -198,7 +192,7 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
     }
 
 
-    static class HomeNoticeViewHolder extends RecyclerView.ViewHolder {
+    static class HomeMenuViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ll_special_goods)
         LinearLayout llSpecialGoods;
         @BindView(R.id.ll_collection_goods)
@@ -216,13 +210,13 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
         @BindView(R.id.ll_info_notice)
         LinearLayout llInfoNotice;
 
-        public HomeNoticeViewHolder(View itemView) {
+        public HomeMenuViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
 
-    static class NewsListViewHolder extends RecyclerView.ViewHolder {
+    static class GoodsListViewHolder extends RecyclerView.ViewHolder {
 
         /**
          * 图片
@@ -246,7 +240,7 @@ public class HomeAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
         TextView mTime;
 
 
-        public NewsListViewHolder(View itemView) {
+        public GoodsListViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

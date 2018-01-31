@@ -13,6 +13,7 @@ import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.LoginPresenter;
 import com.busilinq.ui.MainActivity;
+import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.Toasts;
 
@@ -107,6 +108,16 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
         bundle.putBoolean(LoginActivity.class.getSimpleName(), false);
         JumpUtil.overlay(this, MainActivity.class, bundle);
         finish();
+    }
+
+    @Override
+    public void showProgress(String message) {
+        MLoadingDialog.show(this, message);
+    }
+
+    @Override
+    public void hideProgress() {
+        MLoadingDialog.dismiss();
     }
 
 

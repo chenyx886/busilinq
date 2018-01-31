@@ -10,6 +10,7 @@ import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.ISetNewPwdView;
 import com.busilinq.presenter.mine.SetNewPwdPresenter;
+import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.ToastUtils;
 import com.chenyx.libs.utils.Toasts;
 
@@ -107,6 +108,16 @@ public class UpdatePwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
     public void Success() {
         ToastUtils.showShort("修改成功");
         finish();
+    }
+
+    @Override
+    public void showProgress(String message) {
+        MLoadingDialog.show(this, message);
+    }
+
+    @Override
+    public void hideProgress() {
+        MLoadingDialog.dismiss();
     }
 
 }

@@ -24,7 +24,6 @@
     <color name="HintColor">#cbcbcbcb</color>
     <color name="splash_bg">#f4754a</color>
     <color name="code_light">#cccccc</color>
-    <color name="sel_cate_color">#2e8cd4</color>
     <color name="cate_color">#000</color>
 
 </resources>
