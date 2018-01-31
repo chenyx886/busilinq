@@ -8,10 +8,6 @@
 
     <include layout="@layout/include_header_layout" />
 
-    <View
-        style="@style/line_diliver"
-        android:layout_marginTop="15dp" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"

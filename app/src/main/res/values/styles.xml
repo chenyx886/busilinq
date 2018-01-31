@@ -119,5 +119,48 @@
         <item name="android:textSize">@dimen/text_size14</item>
     </style>
 
+    <!-- 用户资料LinearLayout -->
+    <style name="userLinearLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">0.5dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!-- 用户资料TextView -->
+    <style name="userTextViewStyle">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:textColor">@color/page_title_color</item>
+        <item name="android:textSize">@dimen/text_size14</item>
+    </style>
+
+    <!-- 用户资料EditText -->
+    <style name="userEditTextStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/page_title_color</item>
+        <item name="android:textColorHint">@color/HintColor</item>
+        <item name="android:textSize">@dimen/text_size14</item>
+    </style>
+
+    <!-- 通用底部button -->
+    <style name="buttonStyle">
+        <item name="android:layout_width">285.00dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:background">@mipmap/ic_btn_login_bg</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/text_size18</item>
+    </style>
+
 
 </resources>
