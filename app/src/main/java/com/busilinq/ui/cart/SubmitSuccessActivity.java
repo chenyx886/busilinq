@@ -1,14 +1,12 @@
 package com.busilinq.ui.cart;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseActivity;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.busilinq.widget.MLoadingDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,5 +53,15 @@ public class SubmitSuccessActivity extends BaseActivity {
                 break;
 
         }
+    }
+
+    @Override
+    public void showProgress(String message) {
+        MLoadingDialog.show(this, message);
+    }
+
+    @Override
+    public void hideProgress() {
+        MLoadingDialog.dismiss();
     }
 }
