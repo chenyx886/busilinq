@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.classify.IGoodsListView;
@@ -14,6 +15,7 @@ import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.GoodsEntity;
 import com.busilinq.presenter.classify.GoodsListPresenter;
 import com.busilinq.ui.classify.adapter.GoodsAdapter;
+import com.chenyx.libs.utils.JumpUtil;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -75,6 +77,9 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
     private static int STATE_PULL_REFRESH = 0X20;
     public int page = 1;
 
+    private int cateId;
+    private String cateName;
+
     @Override
     protected GoodsListPresenter createPresenter() {
         return new GoodsListPresenter(this);
@@ -90,7 +95,9 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
     @Override
     protected void initUI() {
         mBack.setVisibility(View.VISIBLE);
-
+        cateId = getIntent().getIntExtra("cateId", 0);
+        cateName = getIntent().getStringExtra("cateName");
+        mEtSearch.setText(cateName + "");
 
         mDataList.setLayoutManager(new LinearLayoutManager(this));
         mDataList.setNoMore(true);
@@ -100,7 +107,14 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
 
         mAdapter = new GoodsAdapter(this);
         mDataList.setAdapter(mAdapter);
-
+        mAdapter.setOnItemClickListener(new AbstractRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                Bundle bundle = new Bundle();
+//                bundle.putInt("goodsId", mAdapter.getItem(position).getGoodsId());
+                JumpUtil.overlay(mContext, GoodsDetailActivity.class);
+            }
+        });
 
         mDataList.setLoadingListener(new XRecyclerView.LoadingListener() {
 

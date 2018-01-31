@@ -94,6 +94,10 @@
         <activity
             android:name=".ui.classify.GoodsListActivity"
             android:screenOrientation="portrait" />
+        <!--商品详情-->
+        <activity
+            android:name=".ui.classify.GoodsDetailActivity"
+            android:screenOrientation="portrait" />
         <!--登录-->
         <activity
             android:name=".ui.mine.LoginActivity"

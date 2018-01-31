@@ -1,4 +1,4 @@
-package com.busilinq.ui.cart;
+package com.busilinq.ui.classify;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,37 +13,36 @@ import butterknife.OnClick;
 
 /**
  * Company：华科建邺
- * Class Describe：订单提交成功提示
- * Create Person：wenxin.li
- * Create Time：2018/1/31 12:42
+ * Class Describe：商品详情
+ * Create Person：Chenyx
+ * Create Time：2018/1/31 下午5:20
  * Update Person：
  * Update Time：
  * Update Remark：
  */
-public class SubmitSuccessActivity extends BaseActivity {
+public class GoodsDetailActivity extends BaseActivity {
     /**
      * 标题
      */
     @BindView(R.id.tv_title)
     TextView mTitle;
-    /**
-     * 返回
-     */
-    @BindView(R.id.tv_back)
-    TextView mBack;
 
+    /**
+     * 商品id
+     */
+    private int goodsId;
 
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.activity_submit_success);
+        setContentView(R.layout.activity_goods_detail);
     }
 
     @Override
     protected void initUI() {
-        mTitle.setText("提交成功");
+        mTitle.setText(R.string.goods_detail);
+        goodsId = getIntent().getIntExtra("goodsId", 0);
     }
-
 
     @OnClick({R.id.tv_back})
     public void onClick(View v) {
@@ -51,6 +50,7 @@ public class SubmitSuccessActivity extends BaseActivity {
             case R.id.tv_back:
                 finish();
                 break;
+
         }
     }
 

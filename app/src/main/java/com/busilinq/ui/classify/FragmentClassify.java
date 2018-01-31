@@ -144,6 +144,22 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
                     mSwipeRefreshLayout.setEnabled(false);
             }
         });
+        mSonCateList.setOnItemClickListener(new PinnedHeaderListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int section, int position, long id) {
+                Bundle bundle = new Bundle();
+                int cateId = mCateDatalist.get(mCateSelectedPostion).getList().get(position).getId();
+                String cateName = mCateDatalist.get(mCateSelectedPostion).getList().get(position).getName();
+                bundle.putString("cateId", cateId + "");
+                bundle.putString("cateName", cateName);
+                JumpUtil.overlay(getActivity(), GoodsListActivity.class, bundle);
+            }
+
+            @Override
+            public void onSectionClick(AdapterView<?> adapterView, View view, int section, long id) {
+
+            }
+        });
         initData();
     }
 

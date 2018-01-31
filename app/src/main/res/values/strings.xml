@@ -15,6 +15,7 @@
     <string name="complete">完成</string>
     <string name="confirm">确认</string>
 
+    <string name="goods_detail">商品详情</string>
     <string name="my_goods_order">我的订单</string>
     <string name="my_return_order">退货单</string>
     <string name="my_payment_order">付款单</string>
