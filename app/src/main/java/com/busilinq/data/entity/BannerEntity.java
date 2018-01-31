@@ -15,7 +15,7 @@ public class BannerEntity extends BaseEntity {
     /**
      * 广告id
      */
-    private int id;
+    private int advId;
     /**
      * 图片地址
      */
@@ -31,14 +31,18 @@ public class BannerEntity extends BaseEntity {
     /**
      * 类型：0：纯图片展示 1:商品详情 2:外部连接
      */
-    private String type;
+    private String advType;
+    /**
+     * HOME 首页
+     */
+    private int showType;
 
-    public int getId() {
-        return id;
+    public int getAdvId() {
+        return advId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAdvId(int advId) {
+        this.advId = advId;
     }
 
     public String getImageUrl() {
@@ -65,11 +69,19 @@ public class BannerEntity extends BaseEntity {
         this.href = href;
     }
 
-    public String getType() {
-        return type;
+    public String getAdvType() {
+        return advType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAdvType(String advType) {
+        this.advType = advType;
+    }
+
+    public int getShowType() {
+        return showType;
+    }
+
+    public void setShowType(int showType) {
+        this.showType = showType;
     }
 }

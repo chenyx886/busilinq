@@ -8,9 +8,8 @@ import com.busilinq.data.entity.GoodEntity;
 
 import java.util.List;
 
-import okhttp3.RequestBody;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -27,18 +26,19 @@ public interface HomeApi {
     /**
      * 获取轮播广告
      *
-     * @param body
+     * @param type 类型
      * @return
      */
-    @POST("/adv/banner")
-    Observable<BaseData<List<BannerEntity>>> banner(@Body RequestBody body);
+    @GET("/api/adv/banner")
+    Observable<BaseData<List<BannerEntity>>> banner(@Query("type") String type);
 
     /**
      * 获取推荐商品列表
      *
-     * @param body
+     * @param page  当前页
+     * @param limit 每页条数
      * @return
      */
-    @POST("/goods/recommend")
-    Observable<BaseData<PageEntity<GoodEntity>>> recommend(@Body RequestBody body);
+    @GET("/api/goods/recommend")
+    Observable<BaseData<PageEntity<GoodEntity>>> recommend(@Query("page") int page, @Query("limit") int limit);
 }

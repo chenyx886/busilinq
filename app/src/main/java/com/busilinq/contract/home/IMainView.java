@@ -6,6 +6,8 @@ import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.GoodEntity;
 
+import java.util.List;
+
 /**
  * Company：华科建邺
  * Class Describe：首页 Presention 和 View的 关联
@@ -23,7 +25,12 @@ public interface IMainView extends IBaseMvpView {
      *
      * @param bannerList
      */
-    void BannerList(PageEntity<BannerEntity> bannerList);
+    void BannerList(List<BannerEntity> bannerList);
 
-    void GoodsList(PageEntity<GoodEntity> bannerList);
+    /**
+     * 获取推荐商品列表
+     *
+     * @param goodList
+     */
+    void GoodsList(PageEntity<GoodEntity> goodList);
 }

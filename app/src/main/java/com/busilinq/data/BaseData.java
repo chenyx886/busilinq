@@ -1,7 +1,5 @@
 package com.busilinq.data;
 
-import com.google.gson.Gson;
-
 /**
  * Company：华科建邺
  * Class Describe：Http 请求基础类
@@ -12,7 +10,7 @@ import com.google.gson.Gson;
  * Update Remark：
  */
 
-public class BaseData<T> {
+public class BaseData<T> extends BaseResp {
 
     private String code;
 
@@ -43,10 +41,6 @@ public class BaseData<T> {
         return msg;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
     public T getData() {
         return data;
     }
@@ -55,14 +49,4 @@ public class BaseData<T> {
         this.data = data;
     }
 
-    /**
-     * 重写toString方法以实现JSON返回
-     *
-     * @return JSON字符串
-     */
-    @Override
-    public String toString() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
-    }
 }

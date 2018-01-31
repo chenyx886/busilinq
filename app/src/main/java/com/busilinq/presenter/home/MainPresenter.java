@@ -1,19 +1,15 @@
 package com.busilinq.presenter.home;
 
 import com.busilinq.contract.home.IMainView;
-import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
-import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.GoodEntity;
 import com.busilinq.presenter.BasePresenter;
+import com.chenyx.libs.utils.SysConfig;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import okhttp3.RequestBody;
+import java.util.List;
 
 /**
  * Company：华科建邺
@@ -33,13 +29,10 @@ public class MainPresenter extends BasePresenter<IMainView> {
     /**
      * 获取轮播广告
      */
-    public void getBannerList() {
-        Map<String, Object> param = new HashMap<>();
-        param.put("userId", "1");
-        RequestBody body = JsonRequestBody.createJsonBody(param);
-        addSubscription(RetrofitApiFactory.getHomeApi().banner(body), new SubscriberCallBack<PageEntity<BannerEntity>>() {
+    public void getBannerList(String type) {
+        addSubscription(RetrofitApiFactory.getHomeApi().banner(type), new SubscriberCallBack<List<BannerEntity>>() {
             @Override
-            protected void onSuccess(PageEntity<BannerEntity> bannerList) {
+            protected void onSuccess(List<BannerEntity> bannerList) {
                 MvpView.BannerList(bannerList);
             }
 
@@ -54,12 +47,8 @@ public class MainPresenter extends BasePresenter<IMainView> {
     /**
      * 获取推荐商品列表
      */
-    public void getGoodsList(int p) {
-        Map<String, Object> param = new HashMap<>();
-        param.put("userId", UserCache.get().getUserId());
-        param.put("p", p);
-        RequestBody body = JsonRequestBody.createJsonBody(param);
-        addSubscription(RetrofitApiFactory.getHomeApi().recommend(body), new SubscriberCallBack<PageEntity<GoodEntity>>() {
+    public void getGoodsList(int page) {
+        addSubscription(RetrofitApiFactory.getHomeApi().recommend(page, SysConfig.limit), new SubscriberCallBack<PageEntity<GoodEntity>>() {
             @Override
             protected void onSuccess(PageEntity<GoodEntity> bannerList) {
                 MvpView.GoodsList(bannerList);

@@ -60,7 +60,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
     private static int state = -1;
     private static int STATE_LOAD_MORE = 0X10;
     private static int STATE_PULL_REFRESH = 0X20;
-    public int p = 1;
+    public int page = 1;
 
     @Override
     protected MainPresenter createPresenter() {
@@ -77,8 +77,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
 
@@ -105,13 +104,13 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
             public void onRefresh() {
                 mDataList.setLoadingMoreEnabled(false);
                 state = STATE_PULL_REFRESH;
-                mPresenter.getBannerList();
+                mPresenter.getBannerList("HOME");
             }
 
             @Override
             public void onLoadMore() {
                 state = STATE_LOAD_MORE;
-                mPresenter.getGoodsList(p);
+                mPresenter.getGoodsList(page);
             }
         });
         mDataList.setRefreshing(true);
@@ -123,16 +122,15 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
      * @param list
      */
     @Override
-    public void BannerList(PageEntity<BannerEntity> list) {
-        if (list.getList() != null) {
+    public void BannerList(List<BannerEntity> list) {
+        if (list != null) {
             baseEntities.clear();
-            baseEntities.add(list);
-            p = 1;
+//            baseEntities.add(list);
+            page = 1;
             mAdapter.setData(baseEntities);
-           mPresenter.getGoodsList(p);
+            mPresenter.getGoodsList(page);
         }
     }
-
 
 
     /**
@@ -145,13 +143,14 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         List<BaseEntity> baseEns = new ArrayList<>();
         baseEns.addAll(list.getList());
         mAdapter.insert(mAdapter.getItemCount(), baseEns);
-        if (p == 1) {
+        if (page == 1) {
             if (mDataList != null)
                 mDataList.setLoadingMoreEnabled(true);
         }
-        ++p;
+        ++page;
         sizes = list.getList().size();
     }
+
     @Override
     public void showProgress(String message) {
         MLoadingDialog.show(getActivity(), message);

@@ -1,7 +1,5 @@
 package com.busilinq.data;
 
-import com.busilinq.data.entity.BaseEntity;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +12,16 @@ import java.util.List;
  * Update Time：
  * Update Remark：
  */
-public class PageEntity<T> extends BaseEntity {
+public class PageEntity<T> extends BaseResp {
 
     /**
      * 当前页
      */
     public int page;
+    /**
+     * 每页条数
+     */
+    public int limit;
     /**
      * 数据列表
      */
@@ -31,6 +33,14 @@ public class PageEntity<T> extends BaseEntity {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 
     public List<T> getList() {
