@@ -15,6 +15,7 @@
     <string name="complete">完成</string>
     <string name="confirm">确认</string>
 
+    <string name="goods_detail">商品详情</string>
     <string name="my_goods_order">我的订单</string>
     <string name="my_return_order">退货单</string>
     <string name="my_payment_order">付款单</string>
@@ -26,6 +27,9 @@
     <string name="user_data">用户资料</string>
     <string name="feedback">意见反馈</string>
     <string name="update_pwd">修改密码</string>
+    <string name="about_me">关于我们</string>
+    <string name="cleanCache">清除缓存</string>
+    <string name="app_update">当前版本</string>
     <string name="app_quit">退出登录</string>
 
 
@@ -38,6 +42,8 @@
     <string name="price">价格</string>
 
 
+    <string name="register">注册</string>
+    <string name="forget_password">忘记密码</string>
     <string name="old_password">旧密码</string>
     <string name="input_old_password">请输入旧密码</string>
     <string name="new_password">新密码</string>

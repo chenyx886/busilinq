@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:iconTxt="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/body_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_header_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <com.busilinq.widget.IconTextItem
+            android:id="@+id/it_update_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_sel"
+            iconTxt:lineFullScreen="true"
+            iconTxt:lineVisible="true"
+            iconTxt:textItem="@string/update_pwd" />
+
+        <com.busilinq.widget.IconTextItem
+            android:id="@+id/it_forget_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_sel"
+            iconTxt:lineFullScreen="true"
+            iconTxt:lineVisible="true"
+            iconTxt:textItem="@string/forget_password" />
+
+        <com.busilinq.widget.IconTextItem
+            android:id="@+id/it_cleanCache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_sel"
+            iconTxt:lineFullScreen="true"
+            iconTxt:lineVisible="true"
+            iconTxt:textItem="@string/cleanCache" />
+
+        <com.busilinq.widget.IconTextItem
+            android:id="@+id/it_app_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_sel"
+            iconTxt:lineFullScreen="true"
+            iconTxt:lineVisible="true"
+            iconTxt:textItem="@string/app_update" />
+
+        <com.busilinq.widget.IconTextItem
+            android:id="@+id/it_about_me"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_sel"
+            iconTxt:lineFullScreen="true"
+            iconTxt:lineVisible="true"
+            iconTxt:textItem="@string/about_me" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_quit"
+        android:layout_width="285.00dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/ic_btn_login_bg"
+        android:text="@string/app_quit"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size18" />
+
+
+</LinearLayout>

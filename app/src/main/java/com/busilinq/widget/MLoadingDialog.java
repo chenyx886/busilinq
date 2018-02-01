@@ -61,7 +61,7 @@ public class MLoadingDialog {
         if (mDialog != null && mDialog.isShowing()) {
             return;
         }
-        mDialog = new Dialog(context, R.style.showDialog);
+        mDialog = new Dialog(context, R.style.AppShowDialog);
         mDialog.setContentView(context.getLayoutInflater().inflate(R.layout.dialog_loading_layout, null));
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.setCancelable(cancelable);

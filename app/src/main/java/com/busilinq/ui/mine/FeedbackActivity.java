@@ -48,7 +48,7 @@ public class FeedbackActivity extends BaseActivity {
 
     @Override
     protected void initUI() {
-        mTitle.setText("意见反馈");
+        mTitle.setText(R.string.feedback);
 
         mContent.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
 
@@ -64,7 +64,6 @@ public class FeedbackActivity extends BaseActivity {
             }
         });
     }
-
 
 
     @OnClick({R.id.tv_back, R.id.btn_submit})

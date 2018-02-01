@@ -94,6 +94,10 @@
         <activity
             android:name=".ui.classify.GoodsListActivity"
             android:screenOrientation="portrait" />
+        <!--商品详情-->
+        <activity
+            android:name=".ui.classify.GoodsDetailActivity"
+            android:screenOrientation="portrait" />
         <!--登录-->
         <activity
             android:name=".ui.mine.LoginActivity"
@@ -110,7 +114,14 @@
         <activity
             android:name=".ui.mine.UpdateAvatarActivity"
             android:screenOrientation="portrait" />
-
+        <!--设置-->
+        <activity
+            android:name=".ui.mine.SetActivity"
+            android:screenOrientation="portrait" />
+        <!--关于我们-->
+        <activity
+            android:name=".ui.mine.AboutMeActivity"
+            android:screenOrientation="portrait" />
         <!--修改密码-->
         <activity
             android:name=".ui.mine.UpdatePwdActivity"

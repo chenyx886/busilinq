@@ -39,11 +39,17 @@ public class GoodsAdapter extends AbstractRecyclerViewAdapter<GoodsEntity> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder != null) {
             ViewHolder vHolder = ((ViewHolder) holder);
-        }
 
+            vHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(v, position);
+                }
+            });
+        }
 
     }
 
