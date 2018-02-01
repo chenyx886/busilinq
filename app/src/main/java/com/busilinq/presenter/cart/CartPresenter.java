@@ -31,7 +31,7 @@ public class CartPresenter extends BasePresenter<ICartView> {
      * 获取订单列表
      * @param page
      */
-    public void getOederList(int page) {
+    public void getOrderList(int page) {
         addSubscription(RetrofitApiFactory.getCartApi().cart(page, SysConfig.limit), new SubscriberCallBack<PageEntity<HomeGoodsEntity>>() {
             @Override
             protected void onSuccess(PageEntity<HomeGoodsEntity> HGoodsList) {

@@ -4,36 +4,26 @@ package com.busilinq.ui.cart;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
-import com.busilinq.contract.IBaseMvpView;
 import com.busilinq.contract.cart.ICartView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BaseEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.cart.CartPresenter;
-import com.busilinq.presenter.mine.MinePresenter;
-import com.busilinq.ui.MainActivity;
 import com.busilinq.ui.cart.adapter.CartAdapter;
-import com.busilinq.ui.home.adapter.HomeAdapter;
-import com.busilinq.ui.mine.FeedbackActivity;
-import com.busilinq.ui.mine.ForgetPwdActivity;
-import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
-import com.chenyx.libs.utils.Toasts;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -41,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
@@ -161,19 +150,19 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
             public void onRefresh() {
                 mRecycleView.setLoadingMoreEnabled(false);
                 state = STATE_PULL_REFRESH;
-                //mPresenter.getBannerList("HOME");
+                mPresenter.getOrderList(page);
             }
 
             @Override
             public void onLoadMore() {
                 state = STATE_LOAD_MORE;
-                mPresenter.getOederList(page);
+                mPresenter.getOrderList(page);
             }
         });
         mRecycleView.setRefreshing(true);
     }
 
-    @OnClick({R.id.btn_settlement, R.id.check_select,R.id.tv_confirm})
+    @OnClick({R.id.btn_settlement, R.id.check_select, R.id.tv_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             /**
@@ -203,12 +192,13 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
 
     /**
      * 购物车列表
+     *
      * @param cartList
      */
     @Override
     public void CartList(PageEntity<HomeGoodsEntity> cartList) {
         List<BaseEntity> baseEns = new ArrayList<>();
-        //baseEns.addAll(list.getList());
+        baseEns.addAll(cartList.getList());
 
 
 //        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -230,9 +220,15 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
 
     @Override
     public void hideProgress() {
-        MLoadingDialog.dismiss();
+        if (state == STATE_PULL_REFRESH) {
+            if (mRecycleView != null)
+                mRecycleView.refreshComplete();
+        } else if (state == STATE_LOAD_MORE) {
+            if (mRecycleView != null)
+                mRecycleView.loadMoreComplete();
+        }
+        //MLoadingDialog.dismiss();
     }
-
 
 
 }

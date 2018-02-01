@@ -2,9 +2,11 @@ package com.busilinq.ui.cart.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,7 +20,9 @@ import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.BaseEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
+import com.busilinq.ui.home.adapter.HomeAdapter;
 import com.chenyx.libs.glide.GlideShowImageUtils;
+import com.chenyx.libs.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,63 +38,67 @@ import butterknife.ButterKnife;
  * Update Remark：
  */
 public class CartAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
-
-    /**
-     * 数据列表
-     */
-    private static int PLAY_TYPE = 2;
-
-
-
-    /**
-     * 时间间隔值
-     */
-    private long scrollDuration = 4000;
+    private int num = 0;
 
     public CartAdapter(Context context) {
         super(context);
     }
 
     @Override
-    public int getItemViewType(int position) {
-
-        return PLAY_TYPE;
-    }
-
-    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_goods, parent, false);
-        return new GoodsListViewHolder(view);
+
+        //数据列表
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart_list, parent, false);
+        return new CartAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
-            GoodsListViewHolder vHolder = (GoodsListViewHolder) holder;
-            if (getItem(position) != null) {
-                final HomeGoodsEntity item = (HomeGoodsEntity) getItem(position);
-                vHolder.mTitle.setText(item.getGoods().getName());
-                GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
-                vHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
+        final CartAdapter.ViewHolder vHolder = (CartAdapter.ViewHolder) holder;
+        if (getItem(position) != null) {
+            final HomeGoodsEntity item = (HomeGoodsEntity) getItem(position);
+            vHolder.mTitle.setText(item.getGoods().getName());
+            GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
+            vHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            /**
+             * 点击加号
+             */
+            vHolder.mAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!TextUtils.isEmpty(vHolder.mNum.getText().toString())) {
+                        num = Integer.parseInt(vHolder.mNum.getText().toString());
                     }
-                });
-            }
+                    vHolder.mNum.setText(num+1+"");
+                }
+            });
+            /**
+             * 点击减号
+             */
+            vHolder.mReduce.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ToastUtils.showShort("减");
+
+                }
+            });
+        }
     }
 
-    @Override
-    public void onViewRecycled(RecyclerView.ViewHolder holder) {
-        super.onViewRecycled(holder);
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-    }
-
-
-
-
-    static class GoodsListViewHolder extends RecyclerView.ViewHolder {
-
+        /**
+         * 是否选中
+         */
+        @BindView(R.id.check_select)
+        CheckBox mIsCheck;
         /**
          * 图片
          */
@@ -102,18 +110,28 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<BaseEntity> {
         @BindView(R.id.tv_title)
         TextView mTitle;
         /**
-         * 内容
+         * 价格：格式为：¥59.9/盒
          */
-        @BindView(R.id.tv_content)
-        TextView mContent;
+        @BindView(R.id.tv_price)
+        TextView mPrice;
         /**
-         * 时间
+         * 增加
          */
-        @BindView(R.id.tv_time)
-        TextView mTime;
+        @BindView(R.id.img_add)
+        ImageView mAdd;
+        /**
+         * 减少
+         */
+        @BindView(R.id.img_reduce)
+        ImageView mReduce;
+        /**
+         * 数量
+         */
+        @BindView(R.id.tv_num)
+        TextView mNum;
 
 
-        public GoodsListViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

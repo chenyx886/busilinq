@@ -133,6 +133,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
 
     /**
      * 商品列表
+     *
      * @param list
      */
     @Override
