@@ -34,20 +34,20 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
     /**
      * 登录
      *
-     * @param phone 手机号
-     * @param Pwd   密码
+     * @param name 手机号或用户名
+     * @param password  密码
      */
-    public void Login(String phone, final String Pwd) {
+    public void Login(String name, final String password) {
         Map<String, Object> param = new HashMap<>();
-        param.put("phone", phone);
-        param.put("pwd", Pwd);
-        param.put("equipNo", Apps.getDeviceId(MApplication.getInstance().getApplicationContext()));
-        param.put("version", AppUtils.getVersionCode((Activity) MvpView));
+        param.put("name", name);
+        param.put("password", password);
+        param.put("deviceId", Apps.getDeviceId(MApplication.getInstance().getApplicationContext()));
+        param.put("versionCode", AppUtils.getVersionCode((Activity) MvpView));
 
         RequestBody body = JsonRequestBody.createJsonBody(param);
         MvpView.showProgress("登录中");
 
-        addSubscription(RetrofitApiFactory.getMineApi().toLogin(body), new SubscriberCallBack<UserEntity>() {
+        addSubscription(RetrofitApiFactory.getMineApi().login(body), new SubscriberCallBack<UserEntity>() {
             @Override
             protected void onSuccess(UserEntity user) {
                 MvpView.Success(user);

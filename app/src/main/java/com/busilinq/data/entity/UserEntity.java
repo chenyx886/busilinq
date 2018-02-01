@@ -12,7 +12,7 @@ package com.busilinq.data.entity;
 public class UserEntity {
 
     //用户id
-    private int userId;
+    private String userId;
     //用户姓名
     private String name;
     //用户密码
@@ -20,7 +20,7 @@ public class UserEntity {
     //用户电话号码
     private String cell;
     //性别:0男 1女
-    private int gender;
+    private String gender;
     //salt加密随机值
     private String salt;
     //用户真实姓名
@@ -34,11 +34,11 @@ public class UserEntity {
     //访问认证码
     private String session;
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -66,11 +66,11 @@ public class UserEntity {
         this.cell = cell;
     }
 
-    public int getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

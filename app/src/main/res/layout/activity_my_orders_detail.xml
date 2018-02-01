@@ -328,7 +328,7 @@
                     android:textSize="@dimen/text_size13" />
             </LinearLayout>
         </LinearLayout>
-</ScrollView>
+    </ScrollView>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

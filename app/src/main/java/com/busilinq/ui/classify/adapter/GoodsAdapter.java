@@ -5,11 +5,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.GoodsEntity;
+import com.busilinq.data.entity.HomeGoodsEntity;
+import com.chenyx.libs.glide.GlideShowImageUtils;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -21,7 +26,7 @@ import butterknife.ButterKnife;
  * Update Time：
  * Update Remark：
  */
-public class GoodsAdapter extends AbstractRecyclerViewAdapter<GoodsEntity> {
+public class GoodsAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity> {
 
     public GoodsAdapter(Context context) {
         super(context);
@@ -29,7 +34,7 @@ public class GoodsAdapter extends AbstractRecyclerViewAdapter<GoodsEntity> {
 
     @Override
     public int getItemCount() {
-        return 10;
+        return items.size();
     }
 
     @Override
@@ -42,7 +47,10 @@ public class GoodsAdapter extends AbstractRecyclerViewAdapter<GoodsEntity> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder != null) {
             ViewHolder vHolder = ((ViewHolder) holder);
-
+            HomeGoodsEntity entity = getItem(position);
+            vHolder.mGoodTitleTIv.setText(entity.getGoods().getName());
+            vHolder.mGoodPriceTv.setText("￥" + entity.getGoods().getPrice() + "/" + entity.getGoods().getUnit());
+            GlideShowImageUtils.displayNetImage(mContext, entity.getGoods().getImage(), vHolder.mGoodPicIv, R.mipmap.default_error);
             vHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -54,7 +62,21 @@ public class GoodsAdapter extends AbstractRecyclerViewAdapter<GoodsEntity> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-
+        /**
+         * 商品图片
+         */
+        @BindView(R.id.iv_good_pic)
+        ImageView mGoodPicIv;
+        /**
+         * 商品介绍
+         */
+        @BindView(R.id.tv_title)
+        TextView mGoodTitleTIv;
+        /**
+         * 商品价格
+         */
+        @BindView(R.id.tv_price)
+        TextView mGoodPriceTv;
 
         public ViewHolder(View itemView) {
             super(itemView);

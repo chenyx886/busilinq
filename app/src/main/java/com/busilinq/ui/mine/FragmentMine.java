@@ -1,21 +1,28 @@
 package com.busilinq.ui.mine;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
 import com.busilinq.contract.IBaseMvpView;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.presenter.mine.MinePresenter;
 import com.busilinq.ui.mine.adapter.MyOrderAdapter;
 import com.busilinq.widget.MLoadingDialog;
+import com.chenyx.libs.glide.GlideShowImageUtils;
 import com.chenyx.libs.utils.JumpUtil;
+import com.chenyx.libs.utils.Logs;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,6 +45,21 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
      */
     @BindView(R.id.rv_order_item)
     RecyclerView mOrderItem;
+    /**
+     * 真实姓名
+     */
+    @BindView(R.id.tv_name)
+    TextView mName;
+    /**
+     * 手机号
+     */
+    @BindView(R.id.tv_phone)
+    TextView mPhone;
+    /**
+     * 头像
+     */
+    @BindView(R.id.iv_user_ico)
+    ImageView mUserIco;
 
     @Override
     protected MinePresenter createPresenter() {
@@ -54,8 +76,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_mine, container, false);
     }
 
 
@@ -64,29 +85,50 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
         mOrderItem.setAdapter(new MyOrderAdapter(getContext()));
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
         mOrderItem.setLayoutManager(staggeredGridLayoutManager);
+        initData();
     }
 
 
-    @OnClick({R.id.iv_user_ico, R.id.it_address, R.id.it_collection, R.id.it_user_info, R.id.it_feedback, R.id.iv_set})
+    @OnClick({R.id.userinfo, R.id.it_address, R.id.it_collection, R.id.it_user_info, R.id.it_feedback, R.id.iv_set})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_user_ico:
-                JumpUtil.overlay(getContext(), UpdateAvatarActivity.class);
+            case R.id.userinfo:
+                if (UserCache.get() != null) {
+                    JumpUtil.overlay(getActivity(), UpdateAvatarActivity.class);
+                } else {
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                }
                 break;
             case R.id.it_address:
-                JumpUtil.overlay(getContext(), AddressActivity.class);
+                if (UserCache.get() != null) {
+                    JumpUtil.overlay(getActivity(), AddressActivity.class);
+                } else {
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                }
                 break;
             case R.id.it_collection:
-                JumpUtil.overlay(getContext(), MyCollectionActivity.class);
+                if (UserCache.get() != null) {
+                    JumpUtil.overlay(getActivity(), MyCollectionActivity.class);
+                } else {
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                }
                 break;
             case R.id.it_user_info:
-                JumpUtil.overlay(getContext(), UserInfoActivity.class);
+                if (UserCache.get() != null) {
+                    JumpUtil.overlay(getActivity(), UserInfoActivity.class);
+                } else {
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                }
                 break;
             case R.id.it_feedback:
-                JumpUtil.overlay(getContext(), FeedbackActivity.class);
+                if (UserCache.get() != null) {
+                    JumpUtil.overlay(getActivity(), FeedbackActivity.class);
+                } else {
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                }
                 break;
             case R.id.iv_set:
-                JumpUtil.overlay(getContext(), SetActivity.class);
+                JumpUtil.startForResult(this, SetActivity.class, SetActivity.REQUEST, null);
                 break;
 
         }
@@ -102,5 +144,24 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
         MLoadingDialog.dismiss();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        initData();
+    }
 
+    /**
+     * 刷新界面数据
+     */
+    private void initData() {
+        Logs.d(TAG, "刷新了");
+        if (!TextUtils.isEmpty(UserCache.GetUserId())) {
+            mName.setText(UserCache.get().getName());
+            mPhone.setText(UserCache.get().getCell());
+            GlideShowImageUtils.displayCircleNetImage(getActivity(), UserCache.get().getHeadimgurl(), mUserIco, R.mipmap.ic_user);
+        } else {
+            mName.setText("登录/注册");
+            mPhone.setText("手机号");
+        }
+    }
 }

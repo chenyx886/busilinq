@@ -20,19 +20,24 @@ import butterknife.OnClick;
 
 /**
  * Company：华科建邺
- * Class Describe：设置新密码
+ * Class Describe：用户注册
  * Create Person：Chenyx
  * Create Time：2018/1/29 下午1:44
  * Update Person：
  * Update Time：
  * Update Remark：
  */
-public class SetNewPwdActivity extends BaseMvpActivity<SetNewPwdPresenter> implements ISetNewPwdView {
+public class RegisterActivity extends BaseMvpActivity<SetNewPwdPresenter> implements ISetNewPwdView {
     /**
      * 标题
      */
     @BindView(R.id.tv_title)
     TextView mTitle;
+    /**
+     * 账号
+     */
+    @BindView(R.id.tv_phone)
+    TextView mPhone;
     /**
      * 新密码
      */
@@ -54,14 +59,15 @@ public class SetNewPwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.activity_set_new_pwd);
+        setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
     }
 
     @Override
     protected void initUI() {
-        mTitle.setText("设置新密码");
+        mTitle.setText("设置账号信息");
         phone = getIntent().getStringExtra("phone");
+        mPhone.setText(phone);
     }
 
 
@@ -90,7 +96,8 @@ public class SetNewPwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
                     Toasts.showShort(this, "两次密码输入不一致");
                     return;
                 }
-                mPresenter.gorgetPassword(phone, mConfirmPwd.getText().toString().trim());
+
+                mPresenter.register(phone, mConfirmPwd.getText().toString().trim());
 
                 break;
 
@@ -99,7 +106,7 @@ public class SetNewPwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
 
     @Override
     public void Success() {
-        ToastUtils.showShort("修改成功");
+        ToastUtils.showShort("注册成功");
         finish();
     }
 

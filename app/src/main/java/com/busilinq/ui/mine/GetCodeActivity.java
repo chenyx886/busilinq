@@ -11,12 +11,13 @@ import android.widget.TextView;
 import com.busilinq.MApplication;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
-import com.busilinq.contract.mine.IForgetPwdView;
+import com.busilinq.contract.mine.ICodeView;
 import com.busilinq.data.event.TimerEvent;
-import com.busilinq.presenter.mine.ForgetPwdPresenter;
+import com.busilinq.presenter.mine.CodePresenter;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ResourceUtils;
+import com.chenyx.libs.utils.ToastUtils;
 import com.chenyx.libs.utils.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,14 +32,14 @@ import butterknife.OnClick;
 
 /**
  * Company：华科建邺
- * Class Describe：忘记密码
+ * Class Describe：获取验证码
  * Create Person：Chenyx
  * Create Time：2018/1/29 下午1:09
  * Update Person：
  * Update Time：
  * Update Remark：
  */
-public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter> implements IForgetPwdView {
+public class GetCodeActivity extends BaseMvpActivity<CodePresenter> implements ICodeView {
     /**
      * 标题
      */
@@ -74,11 +75,19 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter> imple
      * 短信计时秒数
      */
     private int seconds = DEFAULT_SECONDS;
+    /**
+     * 标题
+     */
+    private String title;
+    /**
+     * 操作判断  getCode 获取验证码  verifyCode 验证验证码
+     */
+    private String state;
 
     @Override
-    protected ForgetPwdPresenter createPresenter() {
+    protected CodePresenter createPresenter() {
         if (null == mPresenter) {
-            mPresenter = new ForgetPwdPresenter(this);
+            mPresenter = new CodePresenter(this);
         }
         return mPresenter;
     }
@@ -92,51 +101,60 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter> imple
     @Override
     protected void initUI() {
         EventBus.getDefault().register(this);
-        mTitle.setText("忘记密码");
+        title = getIntent().getStringExtra("title");
+        mTitle.setText(title);
     }
 
     @Override
-    public void Success(int type, String msg) {
-        Toasts.showShort(this, msg);
-        if (type == 2)
-            finish();
-        else {
+    public void Success(String code) {
+        if (state.equals("getCode")) {
+            mVCode.setText(code);
+            ToastUtils.showShort("发送中...");
             mGetCode.setEnabled(false);
             mGetCode.setBackgroundResource(R.drawable.textview_send_vode_style);
             startTimer();
+        } else if (state.equals("verifyCode")) {
+            Bundle bundle = new Bundle();
+            bundle.putString("phone", mPhone.getText().toString().trim());
+            if (title.equals("注册"))
+                JumpUtil.overlay(mContext, RegisterActivity.class, bundle);
+            else
+                JumpUtil.overlay(mContext, SetNewPwdActivity.class, bundle);
+            finish();
         }
     }
+
 
     @OnClick({R.id.tv_back, R.id.getCode, R.id.btn_next_step})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.getCode:
                 if (TextUtils.isEmpty(mPhone.getText().toString().trim()) || mPhone.getText().toString().trim().length() != 11) {
-                    Toasts.showShort(ForgetPwdActivity.this, "手机号不能为空");
+                    Toasts.showShort(GetCodeActivity.this, "手机号不能为空");
                     mPhone.setFocusable(true);
                     mPhone.requestFocus();
                     return;
                 }
-                mPresenter.getCode(mPhone.getText().toString().trim());
+                state = "getCode";
+                mPresenter.getCode(0, mPhone.getText().toString().trim());
                 break;
             case R.id.btn_next_step:
                 String phone = mPhone.getText().toString().trim();
                 if (TextUtils.isEmpty(phone)) {
-                    Toasts.showShort(ForgetPwdActivity.this, "手机号不能为空");
+                    Toasts.showShort(GetCodeActivity.this, "手机号不能为空");
                     mPhone.setFocusable(true);
                     mPhone.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(mVCode.getText().toString())) {
-                    Toasts.showShort(ForgetPwdActivity.this, "请输入验证码");
+                String code = mVCode.getText().toString().trim();
+                if (TextUtils.isEmpty(code)) {
+                    Toasts.showShort(GetCodeActivity.this, "请输入验证码");
                     mVCode.setFocusable(true);
                     mVCode.requestFocus();
                     return;
                 }
-
-                Bundle bundle = new Bundle();
-                bundle.putString("phone", phone);
-                JumpUtil.overlay(mContext, SetNewPwdActivity.class, bundle);
+                state = "verifyCode";
+                mPresenter.verifyCode(0, phone, code);
                 break;
             case R.id.tv_back:
                 finish();

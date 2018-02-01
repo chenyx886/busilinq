@@ -4,6 +4,7 @@ package com.busilinq.contract.classify;
 import com.busilinq.contract.IBaseMvpView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.GoodsEntity;
+import com.busilinq.data.entity.HomeGoodsEntity;
 
 /**
  * Company：华科建邺
@@ -23,5 +24,5 @@ public interface IGoodsListView extends IBaseMvpView {
      *
      * @param list
      */
-    void GoodsList(PageEntity<GoodsEntity> list);
+    void GoodsList(PageEntity<HomeGoodsEntity> list);
 }
