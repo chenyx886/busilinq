@@ -67,14 +67,11 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
     }
 
 
-    @OnClick({R.id.iv_user_ico, R.id.it_update_pwd, R.id.it_address, R.id.it_collection, R.id.it_user_info, R.id.it_feedback, R.id.btn_quit})
+    @OnClick({R.id.iv_user_ico, R.id.it_address, R.id.it_collection, R.id.it_user_info, R.id.it_feedback, R.id.iv_set})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_user_ico:
                 JumpUtil.overlay(getContext(), UpdateAvatarActivity.class);
-                break;
-            case R.id.it_update_pwd:
-                JumpUtil.overlay(getContext(), UpdatePwdActivity.class);
                 break;
             case R.id.it_address:
                 JumpUtil.overlay(getContext(), AddressActivity.class);
@@ -88,8 +85,8 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
             case R.id.it_feedback:
                 JumpUtil.overlay(getContext(), FeedbackActivity.class);
                 break;
-            case R.id.btn_quit:
-                JumpUtil.overlay(getContext(), LoginActivity.class);
+            case R.id.iv_set:
+                JumpUtil.overlay(getContext(), SetActivity.class);
                 break;
 
         }

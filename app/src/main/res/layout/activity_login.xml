@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:padding="10dp"
-            android:text="忘记密码"
+            android:text="@string/forget_password"
             android:textColor="#999"
             android:textSize="@dimen/text_size14" />
 
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:padding="10dp"
-            android:text="注册"
+            android:text="@string/register"
             android:textColor="#999"
             android:textSize="@dimen/text_size14" />
     </FrameLayout>

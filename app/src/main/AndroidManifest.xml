@@ -114,7 +114,14 @@
         <activity
             android:name=".ui.mine.UpdateAvatarActivity"
             android:screenOrientation="portrait" />
-
+        <!--设置-->
+        <activity
+            android:name=".ui.mine.SetActivity"
+            android:screenOrientation="portrait" />
+        <!--关于我们-->
+        <activity
+            android:name=".ui.mine.AboutMeActivity"
+            android:screenOrientation="portrait" />
         <!--修改密码-->
         <activity
             android:name=".ui.mine.UpdatePwdActivity"
