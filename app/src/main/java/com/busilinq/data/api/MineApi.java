@@ -67,8 +67,8 @@ public interface MineApi {
      * @param body
      * @return
      */
-    @PUT("/api/user/gorgetPassword")
-    Observable<BaseData> gorgetPassword(@Body RequestBody body);
+    @PUT("/api/user/forgetPassword")
+    Observable<BaseData> forgetPassword(@Body RequestBody body);
 
     /**
      * 获取用户信息
@@ -88,6 +88,7 @@ public interface MineApi {
     @GET("/api/user/modifyHead")
     Observable<BaseData> modifyHead(@Body RequestBody body);
 
+
     /**
      * 修改密码
      *
@@ -96,5 +97,4 @@ public interface MineApi {
      */
     @PUT("/api/user/modifyPassword")
     Observable<BaseData> modifyPassword(@Body RequestBody body);
-
 }

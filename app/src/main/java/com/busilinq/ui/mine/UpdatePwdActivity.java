@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.ISetNewPwdView;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.presenter.mine.SetNewPwdPresenter;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.ToastUtils;
@@ -49,7 +50,6 @@ public class UpdatePwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
     @BindView(R.id.et_confirm_pwd)
     EditText mConfirmPwd;
 
-    private String phone = "";
 
     @Override
     protected SetNewPwdPresenter createPresenter() {
@@ -66,7 +66,6 @@ public class UpdatePwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
     @Override
     protected void initUI() {
         mTitle.setText(R.string.update_pwd);
-        phone = getIntent().getStringExtra("phone");
     }
 
 
@@ -97,7 +96,7 @@ public class UpdatePwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
                     return;
                 }
 
-                mPresenter.gorgetPassword(phone, mConfirmPwd.getText().toString().trim());
+                mPresenter.modifyPassword(UserCache.GetUserId(), mOldPwd.getText().toString().trim(), mConfirmPwd.getText().toString().trim());
 
                 break;
 
