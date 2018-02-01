@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/body_bg"
-              android:fitsSystemWindows="true"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/body_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <include layout="@layout/include_header_layout"/>
+    <include
+        android:id="@+id/address_header"
+        layout="@layout/include_header_layout" />
 
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/xr_data_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/address_header"
+        />
+    <RelativeLayout
+        android:id="@+id/add_address_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@mipmap/ic_btn_login_bg"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/xr_data_list"
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/add_ic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_add_address"
+            />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="继续新增"
+            android:textColor="@color/white"
+            android:textSize="@dimen/action_text_size"
+            android:layout_toRightOf="@+id/add_ic"
+            android:layout_marginLeft="5dp"
+            />
 
-</LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

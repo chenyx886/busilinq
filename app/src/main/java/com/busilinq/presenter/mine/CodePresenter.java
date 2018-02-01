@@ -34,9 +34,9 @@ public class CodePresenter extends BasePresenter<ICodeView> {
      */
     public void getCode(final int type, String phone) {
         MvpView.showProgress("发送中");
-        addSubscription(RetrofitApiFactory.getMineApi().getCode(type, phone), new SubscriberCallBack<BaseData<CodeEntity>>() {
+        addSubscription(RetrofitApiFactory.getMineApi().getCode(type, phone), new SubscriberCallBack<CodeEntity>() {
             @Override
-            protected void onSuccess(BaseData<CodeEntity> data) {
+            protected void onSuccess(CodeEntity data) {
                 MvpView.Success(data.getCode());
             }
 
