@@ -106,7 +106,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
         //缓存用户信息
         UserCache.put(user);
         Intent intent = new Intent();
-        setResult(RESULT_OK, intent);
+        setResult(REQUEST, intent);
         finish();
     }
 
