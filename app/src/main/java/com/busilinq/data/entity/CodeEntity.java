@@ -9,7 +9,7 @@ package com.busilinq.data.entity;
  * Update Time：
  * Update Remark：
  */
-public class CodeEntity {
+public class CodeEntity extends BaseEntity {
     //验证码
     private String code;
 
