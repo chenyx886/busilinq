@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -79,6 +80,14 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     @BindView(R.id.tv_address)
     TextView mAddress;
     /**
+     * 备注
+     */
+    @BindView(R.id.et_remark)
+    EditText mRemark;
+
+
+
+    /**
      * 提交订单
      */
     @BindView(R.id.btn_settlement)
@@ -105,7 +114,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
 
     }
 
-    @OnClick({R.id.tv_back,R.id.tv_add_address,R.id.btn_settlement})
+    @OnClick({R.id.tv_back,R.id.tv_add_address,R.id.et_remark,R.id.btn_settlement})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -117,6 +126,15 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
             case R.id.tv_add_address:
                 JumpUtil.overlay(this, NewlyAddedAddressActivity.class);
                 break;
+            /**
+             * 备注，默认不显示光标，点击后获取光标
+             */
+            case R.id.et_remark:
+                mRemark.setCursorVisible(true);
+                break;
+            /**
+             * 提交订单
+             */
             case R.id.btn_settlement:
                 JumpUtil.overlay(this, SubmitSuccessActivity.class);
                 break;

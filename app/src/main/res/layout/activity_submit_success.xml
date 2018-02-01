@@ -19,8 +19,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/btn_view_order"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_e44010_rad5"
+            android:layout_marginRight="20dp"
+            android:text="查看订单"
+            android:textColor="@color/color_e44010"
+            android:textSize="@dimen/text_size15" />
+        <Button
+            android:id="@+id/btn_go_pay"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_e44010_frame_e44010_rad5"
+            android:layout_marginLeft="20dp"
+            android:text="去付款"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size15" />
 
     </LinearLayout>
 

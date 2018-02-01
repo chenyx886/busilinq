@@ -114,7 +114,7 @@ public class FragmentCart extends BaseMvpFragment<MinePresenter> implements IBas
         });
     }
 
-    @OnClick({R.id.btn_settlement, R.id.check_select})
+    @OnClick({R.id.btn_settlement, R.id.check_select,R.id.tv_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             /**
