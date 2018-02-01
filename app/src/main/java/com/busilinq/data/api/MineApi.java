@@ -3,6 +3,9 @@ package com.busilinq.data.api;
 import com.busilinq.data.BaseData;
 import com.busilinq.data.entity.CodeEntity;
 import com.busilinq.data.entity.UserEntity;
+import com.busilinq.data.entity.UserShopAddrEntity;
+
+import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -97,4 +100,13 @@ public interface MineApi {
      */
     @PUT("/api/user/modifyPassword")
     Observable<BaseData> modifyPassword(@Body RequestBody body);
+
+    /**
+     * 获取收货地址列表
+     * @param userId
+     * @return
+     */
+    @GET("/api/user/address")
+    Observable<BaseData<List<UserShopAddrEntity>>> getAddressList(@Query("userId") String userId);
+
 }

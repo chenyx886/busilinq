@@ -15,7 +15,7 @@ public class UserShopAddrEntity extends BaseEntity{
     private Integer addrId;
     //用户ID
     private Integer userId;
-    //默认标志
+    //默认标志 0普通地址  1默认地址
     private String isDefault;
     //收货人电话
     private String cell;
