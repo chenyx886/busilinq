@@ -98,6 +98,10 @@
         <activity
             android:name=".ui.classify.GoodsDetailActivity"
             android:screenOrientation="portrait" />
+        <!--外部连接-->
+        <activity
+            android:name=".ui.HtmlActivity"
+            android:screenOrientation="portrait" />
         <!--登录-->
         <activity
             android:name=".ui.mine.LoginActivity"
@@ -157,6 +161,10 @@
         <!--订单提交成功提示-->
         <activity
             android:name=".ui.cart.SubmitSuccessActivity"
+            android:screenOrientation="portrait" />
+        <!--待开发中提示-->
+        <activity
+            android:name=".ui.ToDevelopedActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.mine.order.MyOrdersActivity"

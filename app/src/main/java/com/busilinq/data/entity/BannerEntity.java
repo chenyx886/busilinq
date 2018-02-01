@@ -29,11 +29,11 @@ public class BannerEntity extends BaseEntity {
      */
     private String href;
     /**
-     * 类型：0：纯图片展示 1:商品详情 2:外部连接
+     * HOME 首页
      */
     private String advType;
     /**
-     * HOME 首页
+     * 类型：0：纯图片展示 1:商品详情 2:外部连接
      */
     private int showType;
 

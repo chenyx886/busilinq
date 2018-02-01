@@ -12,7 +12,7 @@ import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.classify.IGoodsListView;
 import com.busilinq.data.PageEntity;
-import com.busilinq.data.entity.GoodsEntity;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.classify.GoodsListPresenter;
 import com.busilinq.ui.classify.adapter.GoodsAdapter;
@@ -78,7 +78,13 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
     private static int STATE_PULL_REFRESH = 0X20;
     public int page = 1;
 
-    private int cateId;
+    /**
+     * 分类id
+     */
+    private int classifyId;
+    /**
+     * 名称
+     */
     private String cateName;
 
     @Override
@@ -96,7 +102,7 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
     @Override
     protected void initUI() {
         mBack.setVisibility(View.VISIBLE);
-        cateId = getIntent().getIntExtra("cateId", 0);
+        classifyId = getIntent().getIntExtra("classifyId", 0);
         cateName = getIntent().getStringExtra("cateName");
         mEtSearch.setText(cateName + "");
 
@@ -121,14 +127,15 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
 
             @Override
             public void onRefresh() {
+                page = 1;
                 state = STATE_PULL_REFRESH;
-                mPresenter.getGoodsList("", cateId, page);
+                mPresenter.getGoodsList(UserCache.GetUserId(), classifyId, page);
             }
 
             @Override
             public void onLoadMore() {
                 state = STATE_LOAD_MORE;
-                mPresenter.getGoodsList("", cateId, page);
+                mPresenter.getGoodsList(UserCache.GetUserId(), classifyId, page);
             }
         });
         mDataList.setRefreshing(true);
