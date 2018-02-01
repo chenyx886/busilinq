@@ -1,7 +1,9 @@
 package com.busilinq.data.api;
 
 import com.busilinq.data.BaseData;
+import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BannerEntity;
+import com.busilinq.data.entity.HomeGoodsEntity;
 
 import java.util.List;
 
@@ -28,5 +30,14 @@ public interface CartApi {
      */
     @GET("/api/adv/banner")
     Observable<BaseData<List<BannerEntity>>> banner(@Query("type") String type);
+    /**
+     * 获取购物车列表
+     *
+     * @param page  当前页
+     * @param limit 每页条数
+     * @return
+     */
+    @GET("/api/goods/recommend")
+    Observable<BaseData<PageEntity<HomeGoodsEntity>>> cart(@Query("page") int page, @Query("limit") int limit);
 
 }

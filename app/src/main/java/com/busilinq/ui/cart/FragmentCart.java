@@ -3,6 +3,7 @@ package com.busilinq.ui.cart;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,15 @@ import android.widget.TextView;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
 import com.busilinq.contract.IBaseMvpView;
+import com.busilinq.contract.cart.ICartView;
+import com.busilinq.data.PageEntity;
+import com.busilinq.data.entity.BaseEntity;
+import com.busilinq.data.entity.HomeGoodsEntity;
+import com.busilinq.presenter.cart.CartPresenter;
 import com.busilinq.presenter.mine.MinePresenter;
 import com.busilinq.ui.MainActivity;
+import com.busilinq.ui.cart.adapter.CartAdapter;
+import com.busilinq.ui.home.adapter.HomeAdapter;
 import com.busilinq.ui.mine.FeedbackActivity;
 import com.busilinq.ui.mine.ForgetPwdActivity;
 import com.busilinq.ui.mine.LoginActivity;
@@ -26,15 +34,26 @@ import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 import com.chenyx.libs.utils.Toasts;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
- * 购物车
+ * Company：华科建邺
+ * Class Describe：购物车
+ * Create Person：wenxin.li
+ * Create Time：2018/1/31 13:35
+ * Update Person：
+ * Update Time：
+ * Update Remark：
  */
-public class FragmentCart extends BaseMvpFragment<MinePresenter> implements IBaseMvpView {
+public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICartView {
 
     public static String TAG = FragmentCart.class.getName();
     /**
@@ -63,6 +82,23 @@ public class FragmentCart extends BaseMvpFragment<MinePresenter> implements IBas
     @BindView(R.id.rela_cart_full_layout)
     RelativeLayout cart_full_layout;
     /**
+     * RecycleView
+     */
+    @BindView(R.id.recycleView)
+    XRecyclerView mRecycleView;
+    /**
+     * 数据列表
+     */
+    private List<BaseEntity> baseEntities = new ArrayList<>();
+    private static int state = -1;
+    private static int STATE_LOAD_MORE = 0X10;
+    private static int STATE_PULL_REFRESH = 0X20;
+    public int page = 1;
+    /**
+     * 数据适配器
+     */
+    private CartAdapter mAdapter;
+    /**
      * 选中全选
      */
     @BindView(R.id.check_select)
@@ -80,9 +116,9 @@ public class FragmentCart extends BaseMvpFragment<MinePresenter> implements IBas
 
 
     @Override
-    protected MinePresenter createPresenter() {
+    protected CartPresenter createPresenter() {
         if (null == mPresenter) {
-            mPresenter = new MinePresenter(this);
+            mPresenter = new CartPresenter(this);
         }
         return mPresenter;
     }
@@ -106,12 +142,35 @@ public class FragmentCart extends BaseMvpFragment<MinePresenter> implements IBas
         mEdit.setVisibility(View.VISIBLE);
         mBack.setVisibility(View.GONE);
 
-        mSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecycleView.setNoMore(true);
+        mRecycleView.setLoadingMoreEnabled(false);
+        mRecycleView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+        mRecycleView.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
 
+        mAdapter = new CartAdapter(getActivity());
+        mRecycleView.setAdapter(mAdapter);
+
+        initData();
+    }
+
+    private void initData() {
+
+        mRecycleView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                mRecycleView.setLoadingMoreEnabled(false);
+                state = STATE_PULL_REFRESH;
+                //mPresenter.getBannerList("HOME");
+            }
+
+            @Override
+            public void onLoadMore() {
+                state = STATE_LOAD_MORE;
+                mPresenter.getOederList(page);
             }
         });
+        mRecycleView.setRefreshing(true);
     }
 
     @OnClick({R.id.btn_settlement, R.id.check_select,R.id.tv_confirm})
@@ -142,6 +201,27 @@ public class FragmentCart extends BaseMvpFragment<MinePresenter> implements IBas
         }
     }
 
+    /**
+     * 购物车列表
+     * @param cartList
+     */
+    @Override
+    public void CartList(PageEntity<HomeGoodsEntity> cartList) {
+        List<BaseEntity> baseEns = new ArrayList<>();
+        //baseEns.addAll(list.getList());
+
+
+//        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+//        mDataList.setLayoutManager(staggeredGridLayoutManager);
+
+        mAdapter.insert(mAdapter.getItemCount(), baseEns);
+        if (page == 1) {
+            if (mRecycleView != null)
+                mRecycleView.setLoadingMoreEnabled(true);
+        }
+        ++page;
+    }
+
 
     @Override
     public void showProgress(String message) {
@@ -152,6 +232,7 @@ public class FragmentCart extends BaseMvpFragment<MinePresenter> implements IBas
     public void hideProgress() {
         MLoadingDialog.dismiss();
     }
+
 
 
 }
