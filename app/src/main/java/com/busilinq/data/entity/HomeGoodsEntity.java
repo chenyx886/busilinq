@@ -18,6 +18,7 @@ public class HomeGoodsEntity extends BaseEntity {
     //商品详细说明
     private GoodsDetailEntity detail;
 
+
     public GoodsEntity getGoods() {
         return goods;
     }

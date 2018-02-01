@@ -25,4 +25,6 @@ public interface ICartView extends IBaseMvpView {
      * @param cartList
      */
     void CartList(PageEntity<HomeGoodsEntity> cartList);
+
+    void  Success(int num);
 }

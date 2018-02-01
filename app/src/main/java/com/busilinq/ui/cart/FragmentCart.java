@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
 import com.busilinq.contract.cart.ICartView;
@@ -21,6 +22,7 @@ import com.busilinq.data.entity.BaseEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.cart.CartPresenter;
 import com.busilinq.ui.cart.adapter.CartAdapter;
+import com.busilinq.widget.LinearDividerItemDecoration;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
@@ -28,6 +30,7 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -78,7 +81,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     /**
      * 数据列表
      */
-    private List<BaseEntity> baseEntities = new ArrayList<>();
+    private List<HomeGoodsEntity> mDatas = new ArrayList<>();
     private static int state = -1;
     private static int STATE_LOAD_MORE = 0X10;
     private static int STATE_PULL_REFRESH = 0X20;
@@ -139,7 +142,25 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
 
         mAdapter = new CartAdapter(getActivity());
         mRecycleView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new AbstractRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                HomeGoodsEntity item = mAdapter.getItem(position);
+                item.getGoods().setNum(item.getGoods().getNum() + 1);
+                mPresenter.goodAdd(item.getGoods().getNum());
+                mAdapter.notifyDataSetChanged();
+            }
+        });
 
+        mAdapter.setOnItemViewClickListener(new AbstractRecyclerViewAdapter.OnItemViewClickListener() {
+            @Override
+            public void onViewClick(View view, int position) {
+                HomeGoodsEntity item = mAdapter.getItem(position);
+                item.getGoods().setNum(item.getGoods().getNum() - 1);
+                mPresenter.goodReduce(item.getGoods().getNum());
+                mAdapter.notifyDataSetChanged();
+            }
+        });
         initData();
     }
 
@@ -150,6 +171,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
             public void onRefresh() {
                 mRecycleView.setLoadingMoreEnabled(false);
                 state = STATE_PULL_REFRESH;
+                page = 1;
                 mPresenter.getOrderList(page);
             }
 
@@ -189,7 +211,11 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 break;
         }
     }
+    @Override
+    public void Success(int num) {
 
+
+    }
     /**
      * 购物车列表
      *
@@ -197,14 +223,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
      */
     @Override
     public void CartList(PageEntity<HomeGoodsEntity> cartList) {
-        List<BaseEntity> baseEns = new ArrayList<>();
-        baseEns.addAll(cartList.getList());
-
-
-//        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-//        mDataList.setLayoutManager(staggeredGridLayoutManager);
-
-        mAdapter.insert(mAdapter.getItemCount(), baseEns);
+        mAdapter.setData(cartList.getList());
         if (page == 1) {
             if (mRecycleView != null)
                 mRecycleView.setLoadingMoreEnabled(true);

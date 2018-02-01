@@ -46,5 +46,19 @@ public class CartPresenter extends BasePresenter<ICartView> {
 
     }
 
+    /**
+     * 获取订单列表
+     * @param num
+     */
+    public void goodAdd(int num) {
+        MvpView.Success(3);
+
+    }
+
+    /**
+     * 获取订单列表
+     * @param num
+     */
+    public void goodReduce(int num) {   MvpView.Success(2);}
 
 }
