@@ -4,7 +4,6 @@ import com.busilinq.contract.classify.IGoodsListView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
-import com.busilinq.data.entity.GoodsEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.BasePresenter;
 
@@ -29,8 +28,8 @@ public class GoodsListPresenter extends BasePresenter<IGoodsListView> {
      *
      * @param userId
      */
-    public void getGoodsList(String userId, int classId, int page) {
-        addSubscription(RetrofitApiFactory.getClassifyApi().getGoodsList(userId, classId, page, limit), new SubscriberCallBack<PageEntity<HomeGoodsEntity>>() {
+    public void getGoodsList(String userId, int classifyId, int page) {
+        addSubscription(RetrofitApiFactory.getClassifyApi().getGoodsList(userId, classifyId, page, limit), new SubscriberCallBack<PageEntity<HomeGoodsEntity>>() {
             @Override
             protected void onSuccess(PageEntity<HomeGoodsEntity> list) {
                 MvpView.GoodsList(list);

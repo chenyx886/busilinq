@@ -15,6 +15,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.2dip</item>
     </style>
+
     <!-- 垂直分割线 -->
     <style name="divider_vertical">
         <item name="android:layout_width">0.2dip</item>
@@ -47,6 +48,12 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
 
+    <style name="RecycleViewCommon">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:overScrollMode">never</item>
+    </style>
     <style name="style_14_ffffff">
         <item name="android:textSize">@dimen/text_size12</item>
         <item name="android:textColor">#ffffff</item>

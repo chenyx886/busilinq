@@ -34,10 +34,35 @@ public class SetNewPwdPresenter extends BasePresenter<ISetNewPwdView> {
      * @param phone    手机号
      * @param password 新密码
      */
-    public void gorgetPassword(String phone, String password) {
+    public void forgetPassword(String phone, String password) {
         Map<String, Object> param = new HashMap<>();
         param.put("phone", phone);
         param.put("password", password);
+        RequestBody body = JsonRequestBody.createJsonBody(param);
+        MvpView.showProgress("重置密码中...");
+        addSubscription(RetrofitApiFactory.getMineApi().forgetPassword(body), new SubscriberCallBack<BaseData>() {
+            @Override
+            protected void onSuccess(BaseData data) {
+                MvpView.Success();
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.hideProgress();
+            }
+        });
+    }
+    /**
+     * 修改密码
+     * @param userId
+     * @param oldPassword 老密码
+     * @param newPassword 新密码
+     */
+    public void modifyPassword(String userId, String oldPassword,String  newPassword) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", userId);
+        param.put("oldPassword", oldPassword);
+        param.put("newPassword", newPassword);
         RequestBody body = JsonRequestBody.createJsonBody(param);
         MvpView.showProgress("重置密码中...");
         addSubscription(RetrofitApiFactory.getMineApi().modifyPassword(body), new SubscriberCallBack<BaseData>() {
@@ -52,7 +77,6 @@ public class SetNewPwdPresenter extends BasePresenter<ISetNewPwdView> {
             }
         });
     }
-
     /**
      * 注册
      *

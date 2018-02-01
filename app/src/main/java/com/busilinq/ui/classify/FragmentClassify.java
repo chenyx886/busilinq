@@ -150,7 +150,7 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
                 Bundle bundle = new Bundle();
                 int cateId = mCateDatalist.get(mCateSelectedPostion).getList().get(position).getId();
                 String cateName = mCateDatalist.get(mCateSelectedPostion).getList().get(position).getName();
-                bundle.putString("cateId", cateId + "");
+                bundle.putInt("classifyId", cateId);
                 bundle.putString("cateName", cateName);
                 JumpUtil.overlay(getActivity(), GoodsListActivity.class, bundle);
             }
