@@ -104,7 +104,7 @@
             android:screenOrientation="portrait" />
         <!--忘记密码-->
         <activity
-            android:name=".ui.mine.ForgetPwdActivity"
+            android:name=".ui.mine.GetCodeActivity"
             android:screenOrientation="portrait" />
         <!--设置新密码-->
         <activity

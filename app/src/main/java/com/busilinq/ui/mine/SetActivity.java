@@ -86,7 +86,7 @@ public class SetActivity extends BaseActivity {
                 JumpUtil.overlay(mContext, UpdatePwdActivity.class);
                 break;
             case R.id.it_forget_password:
-                JumpUtil.overlay(mContext, ForgetPwdActivity.class);
+                JumpUtil.overlay(mContext, GetCodeActivity.class);
                 break;
             case R.id.it_about_me:
                 JumpUtil.overlay(mContext, AboutMeActivity.class);

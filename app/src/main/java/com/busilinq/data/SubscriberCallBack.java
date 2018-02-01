@@ -13,7 +13,6 @@ public abstract class SubscriberCallBack<T> extends BaseCallBack<BaseData<T>> {
 
     @Override
     public void onNext(BaseData response) {
-
         if (response.getCode().equals("0000")) {
             onSuccess((T) response.getData());
         } else {

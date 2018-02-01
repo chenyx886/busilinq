@@ -40,7 +40,7 @@ public class SetNewPwdPresenter extends BasePresenter<ISetNewPwdView> {
         param.put("newPwd", newPwd);
         RequestBody body = JsonRequestBody.createJsonBody(param);
         MvpView.showProgress("修改中...");
-        addSubscription(RetrofitApiFactory.getMineApi().getCode(body), new SubscriberCallBack<BaseData>() {
+        addSubscription(RetrofitApiFactory.getMineApi().modifyPassword(body), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData data) {
                 MvpView.Success();

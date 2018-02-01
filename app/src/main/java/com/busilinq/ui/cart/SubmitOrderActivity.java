@@ -1,7 +1,6 @@
 package com.busilinq.ui.cart;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -11,11 +10,7 @@ import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.cart.ISubmitOrderView;
 import com.busilinq.presenter.cart.SubmitOrderPresenter;
-import com.busilinq.ui.MainActivity;
-import com.busilinq.ui.mine.ForgetPwdActivity;
-import com.busilinq.ui.mine.LoginActivity;
 import com.chenyx.libs.utils.JumpUtil;
-import com.chenyx.libs.utils.Toasts;
 
 import butterknife.BindView;
 import butterknife.OnClick;

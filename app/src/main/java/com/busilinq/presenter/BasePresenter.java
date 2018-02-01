@@ -36,8 +36,7 @@ public class BasePresenter<V extends IBaseMvpView> implements IPresenter<V> {
     public void attachView(V MvpView) {
         this.MvpView = MvpView;
         param = new HashMap<>();
-        if (UserCache.get() != null)
-            param.put("userId", UserCache.get().getUserId());
+        param.put("userId", UserCache.GetUserId());
     }
 
     public BasePresenter(V mvpView) {

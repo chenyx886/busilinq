@@ -56,7 +56,7 @@
                 android:layout_toRightOf="@id/iv_user_ico"
                 android:drawablePadding="5dp"
                 android:paddingLeft="10dp"
-                android:text="张三"
+                android:text="姓名"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size16" />
 
@@ -67,7 +67,7 @@
                 android:layout_below="@id/tv_name"
                 android:layout_toRightOf="@id/iv_user_ico"
                 android:paddingLeft="10dp"
-                android:text="18285011583"
+                android:text="手机号"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size14" />
 
