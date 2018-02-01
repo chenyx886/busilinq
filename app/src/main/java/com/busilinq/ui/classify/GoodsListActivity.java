@@ -13,6 +13,7 @@ import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.classify.IGoodsListView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.GoodsEntity;
+import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.classify.GoodsListPresenter;
 import com.busilinq.ui.classify.adapter.GoodsAdapter;
 import com.chenyx.libs.utils.JumpUtil;
@@ -111,8 +112,8 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
             @Override
             public void onItemClick(View itemView, int position) {
                 Bundle bundle = new Bundle();
-//                bundle.putInt("goodsId", mAdapter.getItem(position).getGoodsId());
-                JumpUtil.overlay(mContext, GoodsDetailActivity.class);
+                bundle.putInt("goodsId", mAdapter.getItem(position).getGoods().getGoodsId());
+                JumpUtil.overlay(mContext, GoodsDetailActivity.class, bundle);
             }
         });
 
@@ -121,13 +122,13 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
             @Override
             public void onRefresh() {
                 state = STATE_PULL_REFRESH;
-                mPresenter.getGoodsList("");
+                mPresenter.getGoodsList("", cateId, page);
             }
 
             @Override
             public void onLoadMore() {
                 state = STATE_LOAD_MORE;
-                mPresenter.getGoodsList("");
+                mPresenter.getGoodsList("", cateId, page);
             }
         });
         mDataList.setRefreshing(true);
@@ -140,7 +141,7 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
      * @param list
      */
     @Override
-    public void GoodsList(PageEntity<GoodsEntity> list) {
+    public void GoodsList(PageEntity<HomeGoodsEntity> list) {
         if (state == STATE_PULL_REFRESH) {
             page = 1;
             mAdapter.setData(list.getList());

@@ -41,7 +41,8 @@ public class GoodsDetailActivity extends BaseActivity {
     @Override
     protected void initUI() {
         mTitle.setText(R.string.goods_detail);
-        goodsId = getIntent().getIntExtra("goodsId", 0);
+        goodsId = getIntent().getIntExtra("goodsId", -1);
+
     }
 
     @OnClick({R.id.tv_back})
