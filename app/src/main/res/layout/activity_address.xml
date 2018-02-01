@@ -10,12 +10,13 @@
         android:id="@+id/address_header"
         layout="@layout/include_header_layout" />
 
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/xr_data_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_below="@id/address_header"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:overScrollMode="never" />
     <RelativeLayout
         android:id="@+id/add_address_layout"
         android:layout_width="match_parent"

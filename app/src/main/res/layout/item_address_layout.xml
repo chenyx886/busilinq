@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
-    android:layout_marginTop="10dp"
     android:orientation="vertical"
     >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#e6e6e6"
+        />
 
     <View
         style="@style/line_diliver"
@@ -95,8 +100,8 @@
         <CheckBox
             android:id="@+id/selected_iv"
             style="@style/CustomCheckboxTheme"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             />
@@ -106,6 +111,7 @@
             android:layout_toRightOf="@+id/selected_iv"
             android:layout_centerVertical="true"
             android:textStyle="bold"
+            android:layout_marginLeft="5dp"
             />
 
         <TextView
