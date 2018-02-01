@@ -3,7 +3,6 @@ package com.busilinq.data.cache;
 import android.text.TextUtils;
 
 import com.busilinq.data.entity.UserEntity;
-import com.chenyx.libs.utils.SysConfig;
 
 /**
  * Company：华科建邺
@@ -81,6 +80,18 @@ public class UserCache {
     }
 
     /**
+     * 获取用户ID
+     *
+     * @return
+     */
+    public static String GetUserId() {
+        String userId = "";
+        if (UserCache.get() != null)
+            userId = UserCache.get().getUserId();
+        return userId;
+    }
+
+    /**
      * 获取登录用户信息
      *
      * @return
@@ -91,14 +102,13 @@ public class UserCache {
         if (!TextUtils.isEmpty(id)) {
             if (user == null) {
                 user = new UserEntity();
-                user.setUserId(SysConfig.nullToInt(id));
+                user.setUserId(id);
                 user.setName((String) PrefCache.getData(NAME, ""));
                 user.setCell((String) PrefCache.getData(CELL, ""));
-                user.setGender((int) PrefCache.getData(GENDER, "0"));
+                user.setGender((String) PrefCache.getData(GENDER, ""));
                 user.setRealName((String) PrefCache.getData(REALNAME, ""));
                 user.setHeadimgurl((String) PrefCache.getData(HEADIMGURL, ""));
                 user.setSession((String) PrefCache.getData(SESSION, ""));
-
             }
         }
         return user;

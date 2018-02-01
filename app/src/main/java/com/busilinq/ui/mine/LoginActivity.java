@@ -1,5 +1,6 @@
 package com.busilinq.ui.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,7 +13,6 @@ import com.busilinq.contract.ILoginView;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.LoginPresenter;
-import com.busilinq.ui.MainActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.Toasts;
@@ -31,6 +31,10 @@ import butterknife.OnClick;
  * Update Remark：
  */
 public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements ILoginView {
+
+
+    public static final int REQUEST = 1;
+
     /**
      * 手机号
      */
@@ -60,38 +64,37 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
 
     @Override
     protected void initUI() {
-
+        tvPhone.setText("18586814704");
+        tvPwd.setText("890317yds");
     }
 
 
     @OnClick({R.id.tv_login, R.id.tv_forget_password, R.id.tv_register})
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.tv_forget_password:
-                JumpUtil.overlay(LoginActivity.this, ForgetPwdActivity.class);
+                bundle.putString("title", "忘记密码");
+                JumpUtil.overlay(LoginActivity.this, GetCodeActivity.class, bundle);
                 break;
             case R.id.tv_register:
-                JumpUtil.overlay(LoginActivity.this, ForgetPwdActivity.class);
+                bundle.putString("title", "注册");
+                JumpUtil.overlay(LoginActivity.this, GetCodeActivity.class, bundle);
                 break;
             case R.id.tv_login:
-                String phone = tvPhone.getText().toString();
-                if (TextUtils.isEmpty(phone) || phone.length() != 11) {
-                    Toasts.showShort(LoginActivity.this, "请输入手机号");
+                String name = tvPhone.getText().toString();
+                if (TextUtils.isEmpty(name)) {
+                    Toasts.showShort(LoginActivity.this, "请输入手机号或用户名");
                     tvPhone.requestFocus();
                     return;
                 }
-                String pwd = tvPwd.getText().toString();
-                if (TextUtils.isEmpty(pwd)) {
+                String password = tvPwd.getText().toString();
+                if (TextUtils.isEmpty(password)) {
                     Toasts.showShort(LoginActivity.this, "请输入密码");
                     tvPwd.requestFocus();
                     return;
                 }
-                //跳转主页面
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(LoginActivity.class.getSimpleName(), false);
-                JumpUtil.overlay(this, MainActivity.class, bundle);
-
-//                mPresenter.Login(phone, pwd);
+                mPresenter.Login(name, password);
                 break;
         }
 
@@ -100,13 +103,10 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
 
     @Override
     public void Success(UserEntity user) {
-
         //缓存用户信息
         UserCache.put(user);
-        //跳转主页面
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(LoginActivity.class.getSimpleName(), false);
-        JumpUtil.overlay(this, MainActivity.class, bundle);
+        Intent intent = new Intent();
+        setResult(REQUEST, intent);
         finish();
     }
 

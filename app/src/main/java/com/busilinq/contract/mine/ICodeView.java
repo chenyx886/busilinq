@@ -11,12 +11,9 @@ import com.busilinq.contract.IBaseMvpView;
  * Update Time：
  * Update Remark：
  */
-public interface IForgetPwdView extends IBaseMvpView {
+public interface ICodeView extends IBaseMvpView {
     /**
-     * 修改成功
-     *
-     * @param type 1:发送验证码 2:修改密码
-     * @param msg  提示消息
+     * 操作成功
      */
-    void Success(int type, String msg);
+    void Success(String code);
 }

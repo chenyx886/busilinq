@@ -3,7 +3,6 @@ package com.busilinq.ui.cart;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +17,11 @@ import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
 import com.busilinq.contract.IBaseMvpView;
 import com.busilinq.presenter.mine.MinePresenter;
-import com.busilinq.ui.MainActivity;
-import com.busilinq.ui.mine.FeedbackActivity;
-import com.busilinq.ui.mine.ForgetPwdActivity;
-import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
-import com.chenyx.libs.utils.Toasts;
 
 import butterknife.BindView;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**

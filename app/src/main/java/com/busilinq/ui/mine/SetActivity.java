@@ -1,6 +1,7 @@
 package com.busilinq.ui.mine;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,8 @@ import butterknife.OnClick;
  * Update Remark：
  */
 public class SetActivity extends BaseActivity {
+
+    public static final int REQUEST = 1;
     /**
      * 标题
      */
@@ -51,6 +54,11 @@ public class SetActivity extends BaseActivity {
      */
     @BindView(R.id.it_cleanCache)
     IconTextItem mCleanCache;
+    /**
+     * 退出
+     */
+    @BindView(R.id.btn_quit)
+    Button mQuit;
 
 
     @Override
@@ -66,7 +74,11 @@ public class SetActivity extends BaseActivity {
 
         mAppUpdate.setRightTextView("V" + AppUtils.getVersionName(MApplication.getInstance()));
         mCleanCache.setRightTextView(CatchUtil.getInstance().getGlideCacheSize(this) + "");
-
+        if (UserCache.get() != null) {
+            mQuit.setVisibility(View.VISIBLE);
+        } else {
+            mQuit.setVisibility(View.GONE);
+        }
     }
 
 
@@ -83,10 +95,16 @@ public class SetActivity extends BaseActivity {
                 mCleanCache.setRightTextView(CatchUtil.getInstance().getGlideCacheSize(this) + "");
                 break;
             case R.id.it_update_pwd:
-                JumpUtil.overlay(mContext, UpdatePwdActivity.class);
+                if (UserCache.get() != null) {
+                    JumpUtil.overlay(mContext, UpdatePwdActivity.class);
+                } else {
+                    JumpUtil.overlay(mContext, LoginActivity.class);
+                }
                 break;
             case R.id.it_forget_password:
-                JumpUtil.overlay(mContext, ForgetPwdActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("title", "忘记密码");
+                JumpUtil.overlay(mContext, GetCodeActivity.class, bundle);
                 break;
             case R.id.it_about_me:
                 JumpUtil.overlay(mContext, AboutMeActivity.class);
@@ -140,6 +158,8 @@ public class SetActivity extends BaseActivity {
             public void onClick(View v) {
                 UserCache.clear();
                 dialog.dismiss();
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
