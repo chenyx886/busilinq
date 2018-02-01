@@ -39,7 +39,7 @@ public class AddressActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.activity_collection);
+        setContentView(R.layout.activity_address);
     }
 
     @Override

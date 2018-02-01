@@ -174,4 +174,16 @@
     </style>
 
 
+    <!--收货地址复选框样式-->
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+
+    <!-- 收货地址TextView -->
+    <style name="addressTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/page_title_color</item>
+        <item name="android:textSize">@dimen/text_size13</item>
+    </style>
 </resources>
