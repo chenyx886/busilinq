@@ -116,7 +116,11 @@ public class GetCodeActivity extends BaseMvpActivity<CodePresenter> implements I
         } else if (state.equals("verifyCode")) {
             Bundle bundle = new Bundle();
             bundle.putString("phone", mPhone.getText().toString().trim());
-            JumpUtil.overlay(mContext, SetNewPwdActivity.class, bundle);
+            if (title.equals("注册"))
+                JumpUtil.overlay(mContext, RegisterActivity.class, bundle);
+            else
+                JumpUtil.overlay(mContext, SetNewPwdActivity.class, bundle);
+            finish();
         }
     }
 

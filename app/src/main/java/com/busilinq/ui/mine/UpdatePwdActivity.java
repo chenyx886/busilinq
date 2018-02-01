@@ -97,7 +97,7 @@ public class UpdatePwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
                     return;
                 }
 
-                mPresenter.UpdatePwd(phone, mConfirmPwd.getText().toString().trim());
+                mPresenter.gorgetPassword(phone, mConfirmPwd.getText().toString().trim());
 
                 break;
 

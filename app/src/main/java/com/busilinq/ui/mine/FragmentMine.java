@@ -128,11 +128,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
                 }
                 break;
             case R.id.iv_set:
-                if (UserCache.get() != null) {
-                    JumpUtil.startForResult(this, SetActivity.class, SetActivity.REQUEST, null);
-                } else {
-                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
-                }
+                JumpUtil.startForResult(this, SetActivity.class, SetActivity.REQUEST, null);
                 break;
 
         }
