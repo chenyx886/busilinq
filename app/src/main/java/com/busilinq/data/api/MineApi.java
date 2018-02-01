@@ -100,7 +100,6 @@ public interface MineApi {
      */
     @PUT("/api/user/modifyPassword")
     Observable<BaseData> modifyPassword(@Body RequestBody body);
-<<<<<<< HEAD
 
     /**
      * 获取收货地址列表
@@ -110,6 +109,4 @@ public interface MineApi {
     @GET("/api/user/address")
     Observable<BaseData<List<UserShopAddrEntity>>> getAddressList(@Query("userId") String userId);
 
-=======
->>>>>>> e5cb91cdde0fd5b45c9b53074731111fcdcef16f
 }
