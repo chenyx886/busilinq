@@ -96,42 +96,42 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), UpdateAvatarActivity.class);
                 } else {
-                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
                 }
                 break;
             case R.id.it_address:
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), AddressActivity.class);
                 } else {
-                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
                 }
                 break;
             case R.id.it_collection:
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), MyCollectionActivity.class);
                 } else {
-                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
                 }
                 break;
             case R.id.it_user_info:
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), UserInfoActivity.class);
                 } else {
-                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
                 }
                 break;
             case R.id.it_feedback:
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), FeedbackActivity.class);
                 } else {
-                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
                 }
                 break;
             case R.id.iv_set:
                 if (UserCache.get() != null) {
-                    JumpUtil.overlay(getActivity(), SetActivity.class);
+                    JumpUtil.startForResult(this, SetActivity.class, SetActivity.REQUEST, null);
                 } else {
-                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
                 }
                 break;
 
@@ -151,9 +151,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == getActivity().RESULT_OK && requestCode == LoginActivity.REQUEST) {
-            initData();
-        }
+        initData();
     }
 
     /**
@@ -162,7 +160,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
     private void initData() {
         Logs.d(TAG, "刷新了");
         if (!TextUtils.isEmpty(UserCache.GetUserId())) {
-            mName.setText(UserCache.get().getRealName());
+            mName.setText(UserCache.get().getName());
             mPhone.setText(UserCache.get().getCell());
             GlideShowImageUtils.displayCircleNetImage(getActivity(), UserCache.get().getHeadimgurl(), mUserIco, R.mipmap.ic_user);
         } else {

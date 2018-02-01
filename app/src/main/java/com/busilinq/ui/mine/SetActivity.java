@@ -1,6 +1,7 @@
 package com.busilinq.ui.mine;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,8 @@ import butterknife.OnClick;
  * Update Remark：
  */
 public class SetActivity extends BaseActivity {
+
+    public static final int REQUEST = 1;
     /**
      * 标题
      */
@@ -140,6 +143,8 @@ public class SetActivity extends BaseActivity {
             public void onClick(View v) {
                 UserCache.clear();
                 dialog.dismiss();
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
