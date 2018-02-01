@@ -33,10 +33,11 @@ public interface ClassifyApi {
 
     /**
      * 获取商品列表
-     * @param userId 用户id
+     *
+     * @param userId     用户id
      * @param classifyId 分类ID
-     * @param page 当前页
-     * @param limit 每页条数
+     * @param page       当前页
+     * @param limit      每页条数
      * @return
      */
     @GET("/api/goods/list")

@@ -90,8 +90,7 @@ public class SetNewPwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
                     Toasts.showShort(this, "两次密码输入不一致");
                     return;
                 }
-                mPresenter.gorgetPassword(phone, mConfirmPwd.getText().toString().trim());
-
+                mPresenter.forgetPassword(phone, mConfirmPwd.getText().toString().trim());
                 break;
 
         }

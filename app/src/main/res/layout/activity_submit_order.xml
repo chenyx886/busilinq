@@ -166,16 +166,21 @@
             android:background="@color/button_default_bg"
             android:orientation="horizontal"
             android:padding="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:text="备注"
                 android:textColor="@color/page_title_color"
-                android:textSize="15sp"
-                android:text="备注"/>
+                android:textSize="15sp" />
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/et_remark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:paddingLeft="5dp"
+                android:gravity="top|left"
+                android:cursorVisible="false"
+                android:inputType="text|textMultiLine"
                 android:background="@null"
                 android:textColor="@color/colorTabNormal"
                 android:textSize="15sp" />

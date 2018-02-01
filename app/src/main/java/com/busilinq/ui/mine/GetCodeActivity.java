@@ -83,6 +83,10 @@ public class GetCodeActivity extends BaseMvpActivity<CodePresenter> implements I
      * 操作判断  getCode 获取验证码  verifyCode 验证验证码
      */
     private String state;
+    /**
+     * 判断是否是修改密码
+     */
+    private boolean isUpdatePwd = true;
 
     @Override
     protected CodePresenter createPresenter() {
@@ -102,6 +106,8 @@ public class GetCodeActivity extends BaseMvpActivity<CodePresenter> implements I
     protected void initUI() {
         EventBus.getDefault().register(this);
         title = getIntent().getStringExtra("title");
+        if (title.equals("注册"))
+            isUpdatePwd = false;
         mTitle.setText(title);
     }
 
@@ -136,7 +142,7 @@ public class GetCodeActivity extends BaseMvpActivity<CodePresenter> implements I
                     return;
                 }
                 state = "getCode";
-                mPresenter.getCode(0, mPhone.getText().toString().trim());
+                mPresenter.getCode(isUpdatePwd ? 1 : 0, mPhone.getText().toString().trim());
                 break;
             case R.id.btn_next_step:
                 String phone = mPhone.getText().toString().trim();
@@ -154,7 +160,7 @@ public class GetCodeActivity extends BaseMvpActivity<CodePresenter> implements I
                     return;
                 }
                 state = "verifyCode";
-                mPresenter.verifyCode(0, phone, code);
+                mPresenter.verifyCode(isUpdatePwd ? 1 : 0, phone, code);
                 break;
             case R.id.tv_back:
                 finish();
