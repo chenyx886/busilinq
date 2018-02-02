@@ -139,9 +139,7 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
 
     @Override
     public void addAddressSuccess() {
-//        if (come.equals("add")) {
-            finish();
-//        }
+        finish();
     }
 
     @Override
