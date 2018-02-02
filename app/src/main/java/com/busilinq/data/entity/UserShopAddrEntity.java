@@ -1,5 +1,8 @@
 package com.busilinq.data.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Company：华科建邺
  * Class Describe：用户收货地址
@@ -9,7 +12,7 @@ package com.busilinq.data.entity;
  * Update Time：
  * Update Remark：
  */
-public class UserShopAddrEntity extends BaseEntity{
+public class UserShopAddrEntity extends BaseEntity implements Parcelable {
 
     //id
     private Integer addrId;
@@ -33,7 +36,7 @@ public class UserShopAddrEntity extends BaseEntity{
     private String specificAddr;
     //邮政编码
     private String zipCode;
-    //单位
+    //收货单位
     private String company;
 
     public Integer getAddrId() {
@@ -131,4 +134,55 @@ public class UserShopAddrEntity extends BaseEntity{
     public void setCompany(String company) {
         this.company = company;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.addrId);
+        dest.writeValue(this.userId);
+        dest.writeString(this.isDefault);
+        dest.writeString(this.cell);
+        dest.writeString(this.name);
+        dest.writeString(this.country);
+        dest.writeString(this.province);
+        dest.writeString(this.city);
+        dest.writeString(this.district);
+        dest.writeString(this.specificAddr);
+        dest.writeString(this.zipCode);
+        dest.writeString(this.company);
+    }
+
+    public UserShopAddrEntity() {
+    }
+
+    protected UserShopAddrEntity(Parcel in) {
+        this.addrId = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.userId = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.isDefault = in.readString();
+        this.cell = in.readString();
+        this.name = in.readString();
+        this.country = in.readString();
+        this.province = in.readString();
+        this.city = in.readString();
+        this.district = in.readString();
+        this.specificAddr = in.readString();
+        this.zipCode = in.readString();
+        this.company = in.readString();
+    }
+
+    public static final Creator<UserShopAddrEntity> CREATOR = new Creator<UserShopAddrEntity>() {
+        @Override
+        public UserShopAddrEntity createFromParcel(Parcel source) {
+            return new UserShopAddrEntity(source);
+        }
+
+        @Override
+        public UserShopAddrEntity[] newArray(int size) {
+            return new UserShopAddrEntity[size];
+        }
+    };
 }

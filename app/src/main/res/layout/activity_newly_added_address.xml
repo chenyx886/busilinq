@@ -33,6 +33,7 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:id="@+id/new_unit_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -66,6 +67,7 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:id="@+id/new_consignee_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -99,6 +101,7 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:id="@+id/new_tell_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -132,6 +135,7 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:id="@+id/new_detail_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"

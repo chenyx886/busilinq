@@ -1,8 +1,16 @@
 package com.busilinq.ui.mine;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -10,11 +18,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.busilinq.MApplication;
 import com.busilinq.R;
-import com.busilinq.base.BaseActivity;
+import com.busilinq.base.BaseMvpActivity;
+import com.busilinq.contract.mine.ISetView;
 import com.busilinq.data.cache.UserCache;
+import com.busilinq.data.entity.TUpgradeEntity;
+import com.busilinq.presenter.mine.SetPresenter;
 import com.busilinq.ulits.AppUtils;
 import com.busilinq.ulits.CatchUtil;
 import com.busilinq.widget.IconTextItem;
@@ -36,7 +48,7 @@ import butterknife.OnClick;
  * Update Time：
  * Update Remark：
  */
-public class SetActivity extends BaseActivity {
+public class SetActivity extends BaseMvpActivity<SetPresenter> implements ISetView {
 
     public static final int REQUEST = 1;
     /**
@@ -60,6 +72,7 @@ public class SetActivity extends BaseActivity {
     @BindView(R.id.btn_quit)
     Button mQuit;
 
+    private final int PERMISSIONS_REQUEST_READ_CONTACTS = 1;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -69,9 +82,13 @@ public class SetActivity extends BaseActivity {
     }
 
     @Override
+    protected SetPresenter createPresenter() {
+        return new SetPresenter(this);
+    }
+
+    @Override
     protected void initUI() {
         mTitle.setText("设置");
-
         mAppUpdate.setRightTextView("V" + AppUtils.getVersionName(MApplication.getInstance()));
         mCleanCache.setRightTextView(CatchUtil.getInstance().getGlideCacheSize(this) + "");
         if (UserCache.get() != null) {
@@ -81,10 +98,40 @@ public class SetActivity extends BaseActivity {
         }
     }
 
+    // 版本更新动态请求权限
+    private void initReadPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                Toast.makeText(this, "版本更新失败，请在 设置-应用管理 中开启此应用的存储！", Toast.LENGTH_LONG).show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_READ_CONTACTS);
+            }
+        } else {
+            // 联网更新app
+            mPresenter.upgrade();
+        }
+    }
 
-    @OnClick({R.id.tv_back, R.id.it_cleanCache, R.id.it_update_pwd, R.id.it_forget_password, R.id.it_about_me, R.id.btn_quit})
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // 已授权
+                mPresenter.upgrade();
+            } else {
+                // 用户拒绝授权
+                ToastUtils.showShort("版本更新失败，请在 设置-应用管理 中开启此应用的存储！");
+            }
+        }
+    }
+
+
+    @OnClick({R.id.it_app_update, R.id.tv_back, R.id.it_cleanCache, R.id.it_update_pwd, R.id.it_forget_password, R.id.it_about_me, R.id.btn_quit})
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.it_app_update:
+                initReadPermissions();
+                break;
             case R.id.tv_back:
                 finish();
                 break;
