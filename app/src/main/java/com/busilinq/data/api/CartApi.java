@@ -4,6 +4,7 @@ import com.busilinq.data.BaseData;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
+import com.busilinq.data.entity.UserShopAddrEntity;
 
 import java.util.List;
 
@@ -39,5 +40,12 @@ public interface CartApi {
      */
     @GET("/api/goods/recommend")
     Observable<BaseData<PageEntity<HomeGoodsEntity>>> cart(@Query("page") int page, @Query("limit") int limit);
+    /**
+     * 获取默认收货地址
+     * @param userId
+     * @return
+     */
+    @GET("/api/user/address/default")
+    Observable<BaseData<UserShopAddrEntity>> getDefaultAddress(@Query("userId") String userId);
 
 }

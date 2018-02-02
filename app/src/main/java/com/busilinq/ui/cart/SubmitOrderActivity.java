@@ -10,8 +10,11 @@ import android.widget.TextView;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.cart.ISubmitOrderView;
+import com.busilinq.data.cache.UserCache;
+import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.cart.SubmitOrderPresenter;
 import com.chenyx.libs.utils.JumpUtil;
+import com.chenyx.libs.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,7 +66,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
      * 收货人电话
      */
     @BindView(R.id.tv_phone)
-    TextView tvPwd;
+    TextView tvPhone;
     /**
      * 收货人单位
      */
@@ -106,6 +109,8 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     @Override
     protected void initUI() {
         mTitle.setText("确认订单");
+        //mPresenter.getDeaaultAddress(UserCache.get().getUserId());
+        mPresenter.getDeaaultAddress("9");
 
     }
 
@@ -147,5 +152,29 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     @Override
     public void hideProgress() {
 
+    }
+
+    /**
+     * 获取默认收货地址
+     * @param addrDefaultEntity
+     */
+    @Override
+    public void getDefaultAddress(UserShopAddrEntity addrDefaultEntity) {
+        if(null!=addrDefaultEntity){
+            mAddressEmpty.setVisibility(View.GONE);
+            mAddressFull.setVisibility(View.VISIBLE);
+            showAddress(addrDefaultEntity);
+        }
+    }
+
+    /**
+     * 显示收货地址
+     * @param addrDefaultEntity
+     */
+    private void showAddress(UserShopAddrEntity addrDefaultEntity){
+        mName.setText("收货人："+addrDefaultEntity.getName());
+        tvPhone.setText("电话："+addrDefaultEntity.getCell());
+        tvCompany.setText("收货单位："+addrDefaultEntity.getCompany());
+        mAddress.setText("收货地址："+addrDefaultEntity.getProvince()+addrDefaultEntity.getCity()+addrDefaultEntity.getCity()+addrDefaultEntity.getSpecificAddr());
     }
 }
