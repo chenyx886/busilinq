@@ -149,4 +149,13 @@ public interface MineApi {
     @DELETE("/api/user/address")
     Observable<BaseData> deleteAddress(@Query("userId") String userId, @Query("addrId") Integer addrId);
 
+    /**
+     * 添加收货地址
+     *
+     * @param body
+     * @return
+     */
+    @PUT("/api/user/address")
+    Observable<BaseData> editAddress(@Body RequestBody body);
+
 }

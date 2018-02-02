@@ -30,6 +30,11 @@ public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress
         super(mvpView);
     }
 
+    /**
+     * 添加收货地址
+     * @param userId
+     * @param entity
+     */
     public void addAddress(String userId, UserShopAddrEntity entity) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userId", userId);
@@ -40,6 +45,35 @@ public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
         MvpView.showProgress("加载中...");
         addSubscription(RetrofitApiFactory.getMineApi().addAddress(body), new SubscriberCallBack<BaseData>() {
+            @Override
+            protected void onSuccess(BaseData data) {
+                MvpView.addAddressSuccess();
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.hideProgress();
+            }
+        });
+
+    }
+
+    /**
+     * 编辑收货地址
+     * @param userId
+     * @param entity
+     */
+    public void editAddress(String userId, UserShopAddrEntity entity) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("userId", userId);
+        jsonObject.addProperty("addrId", entity.getAddrId());
+        jsonObject.addProperty("company",entity.getCompany());
+        jsonObject.addProperty("cell",entity.getCell());
+        jsonObject.addProperty("name",entity.getName());
+        jsonObject.addProperty("specificAddr",entity.getSpecificAddr());
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+        MvpView.showProgress("加载中...");
+        addSubscription(RetrofitApiFactory.getMineApi().editAddress(body), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData data) {
                 MvpView.addAddressSuccess();

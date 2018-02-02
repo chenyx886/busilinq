@@ -85,7 +85,7 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
 
     }
 
-    @OnClick({R.id.tv_back,R.id.add_address_layout})
+    @OnClick({R.id.tv_back, R.id.add_address_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -93,7 +93,7 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
                 break;
             case R.id.add_address_layout:
                 Intent intent = new Intent(AddressActivity.this, NewlyAddedAddressActivity.class);
-                intent.putExtra("come","add");
+                intent.putExtra("come", "add");
                 startActivity(intent);
                 break;
 
@@ -112,7 +112,7 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
 
     @Override
     public void getAddressList(List<UserShopAddrEntity> addrEntityList) {
-        if (addrEntityList != null && addrEntityList.size() >0 ) {
+        if (addrEntityList != null && addrEntityList.size() > 0) {
             addressList = addrEntityList;
             mAdapter.setData(addressList);
         }
@@ -120,35 +120,46 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
 
     /**
      * 设置默认地址
+     *
      * @param view
      * @param pos
      */
     @Override
     public void selectedClick(View view, int pos) {
         if (addressList != null) {
-            mPresenter.setDefaultAddress(UserCache.get().getUserId(),addressList.get(pos).getAddrId());
+            mPresenter.setDefaultAddress(UserCache.get().getUserId(), addressList.get(pos).getAddrId());
         }
     }
 
     /**
      * 删除地址
+     *
      * @param view
      * @param pos
      */
     @Override
     public void deletedClick(View view, int pos) {
         if (addressList != null) {
-            mPresenter.deletedAddress(UserCache.get().getUserId(),addressList.get(pos).getAddrId());
+            mPresenter.deletedAddress(UserCache.get().getUserId(), addressList.get(pos).getAddrId());
         }
     }
 
     /**
      * 编辑地址
+     *
      * @param view
      * @param pos
      */
     @Override
     public void editClick(View view, int pos) {
-
+        if (addressList != null) {
+            UserShopAddrEntity entity = addressList.get(pos);
+            Intent intent = new Intent(AddressActivity.this, NewlyAddedAddressActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("editAddressInfo", entity);
+            intent.putExtra("come", "edit");
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 }

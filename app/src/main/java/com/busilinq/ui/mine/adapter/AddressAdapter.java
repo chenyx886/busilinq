@@ -70,6 +70,8 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
                 } else {
                     vHolder.selected_iv.setChecked(false);
                 }
+            } else {
+                vHolder.selected_iv.setChecked(false);
             }
         }
     }

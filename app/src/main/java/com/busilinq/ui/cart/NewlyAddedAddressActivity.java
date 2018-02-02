@@ -73,6 +73,7 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
     private String consignee;
     private String tell;
     private String detailAddress;
+    private Integer addressId;
 
 
     @Override
@@ -91,11 +92,24 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
 
     @Override
     protected void initUI() {
+        mTitle.setText("收货地址");
         Intent intent = getIntent();
+        Bundle bundle;
+        UserShopAddrEntity entity = null;
         if (intent != null) {
             come = intent.getStringExtra("come");
         }
-        mTitle.setText("收货地址");
+        if (come != null) {
+            if (come.equals("edit")) {
+                bundle = intent.getExtras();
+                entity = bundle.getParcelable("editAddressInfo");
+                addressId = entity.getAddrId();
+                new_unit_et.setText(entity.getCompany());
+                new_consignee_et.setText(entity.getName());
+                new_tell_et.setText(entity.getCell());
+                new_detail_address.setText(entity.getSpecificAddr());
+            }
+        }
 
     }
 
@@ -125,9 +139,9 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
 
     @Override
     public void addAddressSuccess() {
-        if (come.equals("add")) {
+//        if (come.equals("add")) {
             finish();
-        }
+//        }
     }
 
     @Override
@@ -145,6 +159,12 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
             entity.setCell(tell);
         if (detailAddress != null)
             entity.setSpecificAddr(detailAddress);
-        mPresenter.addAddress(UserCache.get().getUserId(),entity);
+
+        if (come.equals("add")) {
+            mPresenter.addAddress(UserCache.get().getUserId(), entity);
+        } else if (come.equals("edit")) {
+            entity.setAddrId(addressId);
+            mPresenter.editAddress(UserCache.get().getUserId(), entity);
+        }
     }
 }
