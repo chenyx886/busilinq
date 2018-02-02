@@ -2,6 +2,7 @@ package com.busilinq.data.api;
 
 import com.busilinq.data.BaseData;
 import com.busilinq.data.entity.CodeEntity;
+import com.busilinq.data.entity.TUpgradeEntity;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.data.entity.UserShopAddrEntity;
 
@@ -100,16 +101,23 @@ public interface MineApi {
      */
     @PUT("/api/user/modifyPassword")
     Observable<BaseData> modifyPassword(@Body RequestBody body);
-<<<<<<< HEAD
 
     /**
      * 获取收货地址列表
+     *
      * @param userId
      * @return
      */
     @GET("/api/user/address")
     Observable<BaseData<List<UserShopAddrEntity>>> getAddressList(@Query("userId") String userId);
 
-=======
->>>>>>> e5cb91cdde0fd5b45c9b53074731111fcdcef16f
+    /**
+     * 修改密码
+     *
+     * @param body
+     * @return
+     */
+    @POST("/api/software/upgrade")
+    Observable<BaseData<TUpgradeEntity>> upgrade(@Body RequestBody body);
+
 }

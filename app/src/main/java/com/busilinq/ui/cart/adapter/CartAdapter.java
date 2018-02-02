@@ -8,19 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
-import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.holder.Holder;
 import com.busilinq.R;
-import com.busilinq.data.PageEntity;
-import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.BaseEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
-import com.busilinq.ui.home.adapter.HomeAdapter;
 import com.chenyx.libs.glide.GlideShowImageUtils;
 import com.chenyx.libs.utils.ToastUtils;
 

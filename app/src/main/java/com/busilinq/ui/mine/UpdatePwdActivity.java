@@ -95,9 +95,7 @@ public class UpdatePwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
                     mConfirmPwd.requestFocus();
                     return;
                 }
-
                 mPresenter.modifyPassword(UserCache.GetUserId(), mOldPwd.getText().toString().trim(), mConfirmPwd.getText().toString().trim());
-
                 break;
 
         }
