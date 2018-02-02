@@ -112,6 +112,7 @@ public interface MineApi {
     Observable<BaseData<List<UserShopAddrEntity>>> getAddressList(@Query("userId") String userId);
 
     /**
+     * <<<<<<< HEAD
      * 修改密码
      *
      * @param body
@@ -119,5 +120,13 @@ public interface MineApi {
      */
     @POST("/api/software/upgrade")
     Observable<BaseData<TUpgradeEntity>> upgrade(@Body RequestBody body);
+
+    /* 设置默认收货地址
+    *
+    * @param userId
+    * @return
+    */
+    @PUT("/api/user/address/default")
+    Observable<BaseData<List<UserShopAddrEntity>>> setDefaultAddress(@Query("userId") String userId, @Query("addrId") Integer addrId);
 
 }

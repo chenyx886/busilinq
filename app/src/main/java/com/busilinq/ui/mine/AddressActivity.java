@@ -32,7 +32,7 @@ import butterknife.OnClick;
  * Update Time：
  * Update Remark：
  */
-public class AddressActivity extends BaseMvpActivity<AddressPresenter> implements AddressListView {
+public class AddressActivity extends BaseMvpActivity<AddressPresenter> implements AddressListView, AddressAdapter.ButtonOnClickListener {
     /**
      * 标题
      */
@@ -71,8 +71,9 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
 
         mAdapter = new AddressAdapter(this);
         recyclerView.setAdapter(mAdapter);
-
+        mAdapter.setOnclickListener(this);
         mPresenter.getAddressList(UserCache.get().getUserId());
+
 
     }
 
@@ -103,5 +104,37 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
             addressList = addrEntityList;
             mAdapter.setData(addressList);
         }
+    }
+
+    /**
+     * 设置默认地址
+     * @param view
+     * @param pos
+     */
+    @Override
+    public void selectedClick(View view, int pos) {
+        if (addressList != null) {
+            mPresenter.setDefaultAddress(UserCache.get().getUserId(),addressList.get(pos).getAddrId());
+        }
+    }
+
+    /**
+     * 删除地址
+     * @param view
+     * @param pos
+     */
+    @Override
+    public void deletedClick(View view, int pos) {
+
+    }
+
+    /**
+     * 编辑地址
+     * @param view
+     * @param pos
+     */
+    @Override
+    public void editClick(View view, int pos) {
+
     }
 }
