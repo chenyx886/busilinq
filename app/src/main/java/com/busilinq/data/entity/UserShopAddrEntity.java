@@ -33,6 +33,8 @@ public class UserShopAddrEntity extends BaseEntity{
     private String specificAddr;
     //邮政编码
     private String zipCode;
+    //收货单位
+    private String company;
 
     public Integer getAddrId() {
         return addrId;
@@ -120,5 +122,13 @@ public class UserShopAddrEntity extends BaseEntity{
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

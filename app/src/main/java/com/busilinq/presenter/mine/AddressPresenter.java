@@ -40,5 +40,21 @@ public class AddressPresenter extends BasePresenter<AddressListView>{
         });
     }
 
+    public void setDefaultAddress(final String userId, Integer addrId) {
+        MvpView.showProgress("更新中...");
+        addSubscription(RetrofitApiFactory.getMineApi().setDefaultAddress(userId,addrId),new SubscriberCallBack<List<UserShopAddrEntity>>() {
+            @Override
+            protected void onSuccess(List<UserShopAddrEntity> response) {
+                getAddressList(userId);
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.hideProgress();
+            }
+
+        });
+    }
+
 
 }

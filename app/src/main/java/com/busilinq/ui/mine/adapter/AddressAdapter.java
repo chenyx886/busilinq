@@ -52,7 +52,7 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_address_layout, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view,mOnclickListener);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
             UserShopAddrEntity entity = dataList.get(position);
             vHolder.consignee_tv.setText(entity.getName());
             vHolder.address_tell_tv.setText(entity.getCell());
-            vHolder.address_unit_tv.setText(entity.getCountry());
+            vHolder.address_unit_tv.setText(entity.getCompany());
             vHolder.detail_address_tv.setText(entity.getSpecificAddr());
             if (entity.getIsDefault().equals("1")) { // 默认地址
                 vHolder.selected_iv.setChecked(true);
@@ -72,7 +72,7 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
         }
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         /**
          * 收货人
@@ -116,12 +116,68 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
         @BindView(R.id.edit_tv)
         TextView edit_tv;
 
+        ButtonOnClickListener onClickListener;
 
 
-
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView,ButtonOnClickListener listener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            onClickListener = listener;
+            selected_iv.setOnClickListener(this);
+            delete_tv.setOnClickListener(this);
+            edit_tv.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            int key = view.getId();
+            switch (key) {
+                case R.id.selected_iv:
+                    if (onClickListener != null) {
+                        onClickListener.selectedClick(view,getPosition());
+                    }
+                    break;
+                case R.id.delete_tv:
+                    if (onClickListener != null) {
+                        onClickListener.deletedClick(view,getPosition());
+                    }
+                    break;
+                case R.id.edit_tv:
+                    if (onClickListener != null) {
+                        onClickListener.editClick(view,getPosition());
+                    }
+                    break;
+            }
+        }
+    }
+
+    // 点击事件
+    public interface ButtonOnClickListener{
+        /**
+         * 设置默认地址
+         * @param view
+         * @param pos
+         */
+        void selectedClick(View view, int pos);
+
+        /**
+         * 删除地址
+         * @param view
+         * @param pos
+         */
+        void deletedClick(View view, int pos);
+
+        /**
+         * 编辑地址
+         * @param view
+         * @param pos
+         */
+        void editClick(View view, int pos);
+    }
+
+    private ButtonOnClickListener mOnclickListener;
+
+    public void setOnclickListener(ButtonOnClickListener listener) {
+        this.mOnclickListener = listener;
     }
 }

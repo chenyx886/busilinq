@@ -103,10 +103,20 @@ public interface MineApi {
 
     /**
      * 获取收货地址列表
+     *
      * @param userId
      * @return
      */
     @GET("/api/user/address")
     Observable<BaseData<List<UserShopAddrEntity>>> getAddressList(@Query("userId") String userId);
+
+    /**
+     * 设置默认收货地址
+     *
+     * @param userId
+     * @return
+     */
+    @PUT("/api/user/address/default")
+    Observable<BaseData<List<UserShopAddrEntity>>> setDefaultAddress(@Query("userId") String userId, @Query("addrId") Integer addrId);
 
 }
