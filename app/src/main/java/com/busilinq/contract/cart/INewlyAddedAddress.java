@@ -13,4 +13,11 @@ import com.busilinq.contract.IBaseMvpView;
  */
 
 public interface INewlyAddedAddress extends IBaseMvpView{
+
+    /**
+     * 成功添加收货地址
+     */
+    void addAddressSuccess();
+
+    void addAddressInfo();
 }

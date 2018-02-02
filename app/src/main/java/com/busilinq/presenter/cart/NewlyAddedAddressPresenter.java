@@ -1,7 +1,19 @@
 package com.busilinq.presenter.cart;
 
 import com.busilinq.contract.cart.INewlyAddedAddress;
+import com.busilinq.data.BaseData;
+import com.busilinq.data.SubscriberCallBack;
+import com.busilinq.data.api.RetrofitApiFactory;
+import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.BasePresenter;
+import com.busilinq.ulits.JsonUtils;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * Company：华科建邺
@@ -13,8 +25,31 @@ import com.busilinq.presenter.BasePresenter;
  * Update Remark：
  */
 
-public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress>{
+public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress> {
     public NewlyAddedAddressPresenter(INewlyAddedAddress mvpView) {
         super(mvpView);
+    }
+
+    public void addAddress(String userId, UserShopAddrEntity entity) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("userId", userId);
+        jsonObject.addProperty("company",entity.getCompany());
+        jsonObject.addProperty("cell",entity.getCell());
+        jsonObject.addProperty("name",entity.getName());
+        jsonObject.addProperty("specificAddr",entity.getSpecificAddr());
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+        MvpView.showProgress("加载中...");
+        addSubscription(RetrofitApiFactory.getMineApi().addAddress(body), new SubscriberCallBack<BaseData>() {
+            @Override
+            protected void onSuccess(BaseData data) {
+                MvpView.addAddressSuccess();
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.hideProgress();
+            }
+        });
+
     }
 }

@@ -52,7 +52,7 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_address_layout, parent, false);
-        return new ViewHolder(view,mOnclickListener);
+        return new ViewHolder(view, mOnclickListener);
     }
 
     @Override
@@ -64,10 +64,12 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
             vHolder.address_tell_tv.setText(entity.getCell());
             vHolder.address_unit_tv.setText(entity.getCompany());
             vHolder.detail_address_tv.setText(entity.getSpecificAddr());
-            if (entity.getIsDefault().equals("1")) { // 默认地址
-                vHolder.selected_iv.setChecked(true);
-            } else {
-                vHolder.selected_iv.setChecked(false);
+            if (entity.getIsDefault() != null) {
+                if (entity.getIsDefault().equals("1")) { // 默认地址
+                    vHolder.selected_iv.setChecked(true);
+                } else {
+                    vHolder.selected_iv.setChecked(false);
+                }
             }
         }
     }
@@ -119,7 +121,7 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
         ButtonOnClickListener onClickListener;
 
 
-        public ViewHolder(View itemView,ButtonOnClickListener listener) {
+        public ViewHolder(View itemView, ButtonOnClickListener listener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             onClickListener = listener;
@@ -134,17 +136,17 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
             switch (key) {
                 case R.id.selected_iv:
                     if (onClickListener != null) {
-                        onClickListener.selectedClick(view,getPosition());
+                        onClickListener.selectedClick(view, getPosition());
                     }
                     break;
                 case R.id.delete_tv:
                     if (onClickListener != null) {
-                        onClickListener.deletedClick(view,getPosition());
+                        onClickListener.deletedClick(view, getPosition());
                     }
                     break;
                 case R.id.edit_tv:
                     if (onClickListener != null) {
-                        onClickListener.editClick(view,getPosition());
+                        onClickListener.editClick(view, getPosition());
                     }
                     break;
             }
@@ -152,9 +154,10 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
     }
 
     // 点击事件
-    public interface ButtonOnClickListener{
+    public interface ButtonOnClickListener {
         /**
          * 设置默认地址
+         *
          * @param view
          * @param pos
          */
@@ -162,6 +165,7 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
 
         /**
          * 删除地址
+         *
          * @param view
          * @param pos
          */
@@ -169,6 +173,7 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
 
         /**
          * 编辑地址
+         *
          * @param view
          * @param pos
          */

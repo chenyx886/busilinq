@@ -16,16 +16,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:overScrollMode="never" />
+        android:overScrollMode="never"
+        android:layout_above="@+id/add_address_layout"
+        />
     <RelativeLayout
         android:id="@+id/add_address_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@mipmap/ic_btn_login_bg"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/xr_data_list"
         android:gravity="center"
         >
         <ImageView

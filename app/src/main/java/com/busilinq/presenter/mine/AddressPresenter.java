@@ -1,6 +1,7 @@
 package com.busilinq.presenter.mine;
 
 import com.busilinq.contract.mine.AddressListView;
+import com.busilinq.data.BaseData;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.UserShopAddrEntity;
@@ -53,6 +54,21 @@ public class AddressPresenter extends BasePresenter<AddressListView>{
                 MvpView.hideProgress();
             }
 
+        });
+    }
+
+    public void deletedAddress(final String userId, Integer addrId) {
+        MvpView.showProgress("加载中...");
+        addSubscription(RetrofitApiFactory.getMineApi().deleteAddress(userId, addrId), new SubscriberCallBack<BaseData>() {
+            @Override
+            protected void onSuccess(BaseData data) {
+                getAddressList(userId);;
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.hideProgress();
+            }
         });
     }
 

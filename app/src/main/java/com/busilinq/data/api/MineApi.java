@@ -10,6 +10,7 @@ import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -128,5 +129,24 @@ public interface MineApi {
     */
     @PUT("/api/user/address/default")
     Observable<BaseData<List<UserShopAddrEntity>>> setDefaultAddress(@Query("userId") String userId, @Query("addrId") Integer addrId);
+
+
+    /**
+     * 添加收货地址
+     *
+     * @param body
+     * @return
+     */
+    @POST("/api/user/address")
+    Observable<BaseData> addAddress(@Body RequestBody body);
+
+    /**
+     * 设置默认收货地址
+     *
+     * @param userId
+     * @return
+     */
+    @DELETE("/api/user/address")
+    Observable<BaseData> deleteAddress(@Query("userId") String userId, @Query("addrId") Integer addrId);
 
 }

@@ -1,5 +1,6 @@
 package com.busilinq.ui.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import com.busilinq.contract.mine.AddressListView;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.mine.AddressPresenter;
+import com.busilinq.ui.cart.NewlyAddedAddressActivity;
 import com.busilinq.ui.mine.adapter.AddressAdapter;
 import com.busilinq.widget.MLoadingDialog;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -72,17 +74,27 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
         mAdapter = new AddressAdapter(this);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnclickListener(this);
-        mPresenter.getAddressList(UserCache.get().getUserId());
 
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.getAddressList(UserCache.get().getUserId());
 
-    @OnClick({R.id.tv_back})
+    }
+
+    @OnClick({R.id.tv_back,R.id.add_address_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();
+                break;
+            case R.id.add_address_layout:
+                Intent intent = new Intent(AddressActivity.this, NewlyAddedAddressActivity.class);
+                intent.putExtra("come","add");
+                startActivity(intent);
                 break;
 
         }
@@ -125,7 +137,9 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
      */
     @Override
     public void deletedClick(View view, int pos) {
-
+        if (addressList != null) {
+            mPresenter.deletedAddress(UserCache.get().getUserId(),addressList.get(pos).getAddrId());
+        }
     }
 
     /**

@@ -1,14 +1,23 @@
 package com.busilinq.ui.cart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.cart.INewlyAddedAddress;
+import com.busilinq.data.cache.UserCache;
+import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.cart.NewlyAddedAddressPresenter;
+import com.busilinq.ui.mine.AddressActivity;
+import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,6 +44,37 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
     @BindView(R.id.tv_title)
     TextView mTitle;
 
+    /**
+     * 收货单位
+     */
+    @BindView(R.id.new_unit_et)
+    EditText new_unit_et;
+
+    /**
+     * 联系人
+     */
+    @BindView(R.id.new_consignee_et)
+    EditText new_consignee_et;
+
+    /**
+     * 联系方式
+     */
+    @BindView(R.id.new_tell_et)
+    EditText new_tell_et;
+
+    /**
+     * 收货地址
+     */
+    @BindView(R.id.new_detail_address)
+    EditText new_detail_address;
+
+    private String come; // 来源
+    private String unit;
+    private String consignee;
+    private String tell;
+    private String detailAddress;
+
+
     @Override
     protected NewlyAddedAddressPresenter createPresenter() {
         if (null == mPresenter) {
@@ -51,15 +91,22 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
 
     @Override
     protected void initUI() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            come = intent.getStringExtra("come");
+        }
         mTitle.setText("收货地址");
 
     }
 
-    @OnClick({R.id.tv_back})
+    @OnClick({R.id.tv_back, R.id.btn_save})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();
+                break;
+            case R.id.btn_save: // 保存按钮
+                addAddressInfo();
                 break;
         }
 
@@ -68,11 +115,36 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
 
     @Override
     public void showProgress(String message) {
-
+        MLoadingDialog.show(this, message);
     }
 
     @Override
     public void hideProgress() {
+        MLoadingDialog.dismiss();
+    }
 
+    @Override
+    public void addAddressSuccess() {
+        if (come.equals("add")) {
+            finish();
+        }
+    }
+
+    @Override
+    public void addAddressInfo() {
+        unit = new_unit_et.getText().toString();
+        consignee = new_consignee_et.getText().toString();
+        tell = new_tell_et.getText().toString();
+        detailAddress = new_detail_address.getText().toString();
+        UserShopAddrEntity entity = new UserShopAddrEntity();
+        if (unit != null)
+            entity.setCompany(unit);
+        if (consignee != null)
+            entity.setName(consignee);
+        if (tell != null)
+            entity.setCell(tell);
+        if (detailAddress != null)
+            entity.setSpecificAddr(detailAddress);
+        mPresenter.addAddress(UserCache.get().getUserId(),entity);
     }
 }
