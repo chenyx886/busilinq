@@ -65,7 +65,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
     @Override
     protected void initUI() {
         tvPhone.setText("18586814704");
-        tvPwd.setText("890317yds");
+        tvPwd.setText("123456");
     }
 
 

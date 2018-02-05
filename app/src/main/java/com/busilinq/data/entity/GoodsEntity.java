@@ -39,7 +39,6 @@ public class GoodsEntity extends BaseEntity {
     //建议价格
     private BigDecimal price;
 
-    private int num;
 
     public int getGoodsId() {
         return goodsId;
@@ -129,11 +128,5 @@ public class GoodsEntity extends BaseEntity {
         this.price = price;
     }
 
-    public int getNum() {
-        return num;
-    }
 
-    public void setNum(int num) {
-        this.num = num;
-    }
 }

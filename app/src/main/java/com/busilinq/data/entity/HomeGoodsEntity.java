@@ -9,6 +9,7 @@ package com.busilinq.data.entity;
  * Update Time：
  * Update Remark：
  */
+
 public class HomeGoodsEntity extends BaseEntity {
 
     //商品实体
@@ -17,6 +18,8 @@ public class HomeGoodsEntity extends BaseEntity {
     private PriceEntity price;
     //商品详细说明
     private GoodsDetailEntity detail;
+    //商品类别
+    private CategoryEntity category;
 
 
     public GoodsEntity getGoods() {
@@ -41,5 +44,13 @@ public class HomeGoodsEntity extends BaseEntity {
 
     public void setDetail(GoodsDetailEntity detail) {
         this.detail = detail;
+    }
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 }

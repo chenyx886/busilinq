@@ -1,9 +1,11 @@
 package com.busilinq.ui.cart;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,9 @@ import com.busilinq.base.BaseMvpFragment;
 import com.busilinq.contract.cart.ICartView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BaseEntity;
+import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
+import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.presenter.cart.CartPresenter;
 import com.busilinq.ui.cart.adapter.CartAdapter;
 import com.busilinq.widget.LinearDividerItemDecoration;
@@ -81,11 +85,16 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     /**
      * 数据列表
      */
-    private List<HomeGoodsEntity> mDatas = new ArrayList<>();
     private static int state = -1;
     private static int STATE_LOAD_MORE = 0X10;
     private static int STATE_PULL_REFRESH = 0X20;
     public int page = 1;
+
+    /**
+     * 0:增加数量
+     * 1：减少数量
+     */
+    public int type = 0;
     /**
      * 数据适配器
      */
@@ -142,25 +151,41 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
 
         mAdapter = new CartAdapter(getActivity());
         mRecycleView.setAdapter(mAdapter);
+
+        /**
+         * 增加
+         */
         mAdapter.setOnItemClickListener(new AbstractRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
-                HomeGoodsEntity item = mAdapter.getItem(position);
-                item.getGoods().setNum(item.getGoods().getNum() + 1);
-                mPresenter.goodAdd(item.getGoods().getNum());
-                mAdapter.notifyDataSetChanged();
+                type = 1;
+                MainCartEntity item = mAdapter.getItem(position);
+                mPresenter.UpdateCart(position, item.getCart().getCartId(), item.getCart().getNumber() + 1, item.getGoods().getGoods().getPrice());
             }
         });
 
+        /**
+         * 减少
+         */
         mAdapter.setOnItemViewClickListener(new AbstractRecyclerViewAdapter.OnItemViewClickListener() {
             @Override
             public void onViewClick(View view, int position) {
-                HomeGoodsEntity item = mAdapter.getItem(position);
-                item.getGoods().setNum(item.getGoods().getNum() - 1);
-                mPresenter.goodReduce(item.getGoods().getNum());
-                mAdapter.notifyDataSetChanged();
+                type = 0;
+                MainCartEntity item = mAdapter.getItem(position);
+                if (item.getCart().getNumber() == 1) {
+                    ToastUtils.showShort("已经是底线了！");
+                    return;
+                }
+                mPresenter.UpdateCart(position, item.getCart().getCartId(), item.getCart().getNumber() - 1, item.getGoods().getGoods().getPrice());
             }
         });
+        mAdapter.setOnItemLongClickListener(new AbstractRecyclerViewAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View itemView, int position) {
+                ToastUtils.showShort(position+"");
+            }
+        });
+
         initData();
     }
 
@@ -207,23 +232,42 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
              * 编辑
              */
             case R.id.tv_confirm:
-                ToastUtils.showShort("编辑");
+                ToastUtils.showShort("长按列表可删除");
                 break;
         }
     }
-    @Override
-    public void Success(int num) {
 
+    @Override
+    public void Success(int position, CartEntity data) {
+
+        if (data != null) {
+            MainCartEntity item = mAdapter.getItem(position);
+            CartEntity cartEntity = new CartEntity();
+            if (type == 1){
+                cartEntity.setNumber(item.getCart().getNumber() + 1);
+                cartEntity.setCartId(item.getCart().getCartId());
+                item.setCart(cartEntity);
+            }
+            else{
+                cartEntity.setNumber(item.getCart().getNumber() - 1);
+                cartEntity.setCartId(item.getCart().getCartId());
+                item.setCart(cartEntity);
+            }
+            mAdapter.notifyDataSetChanged();
+        }
 
     }
+
+
     /**
      * 购物车列表
      *
      * @param cartList
      */
     @Override
-    public void CartList(PageEntity<HomeGoodsEntity> cartList) {
-        mAdapter.setData(cartList.getList());
+    public void CartList(PageEntity<MainCartEntity> cartList) {
+        if (cartList.getList().size() > 0)
+            mAdapter.setData(cartList.getList());
         if (page == 1) {
             if (mRecycleView != null)
                 mRecycleView.setLoadingMoreEnabled(true);
@@ -246,8 +290,16 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
             if (mRecycleView != null)
                 mRecycleView.loadMoreComplete();
         }
-        //MLoadingDialog.dismiss();
     }
 
+    /**
+     * 购物车无数据时显示的布局
+     */
+    @Override
+    public void showEmptyView() {
+        mEdit.setVisibility(View.GONE);
+        cart_full_layout.setVisibility(View.GONE);
+        cart_empty_layout.setVisibility(View.VISIBLE);
+    }
 
 }

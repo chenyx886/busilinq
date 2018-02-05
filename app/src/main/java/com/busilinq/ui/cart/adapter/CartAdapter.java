@@ -8,13 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.BaseEntity;
+import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
+import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.chenyx.libs.glide.GlideShowImageUtils;
 import com.chenyx.libs.utils.JumpUtil;
@@ -33,7 +36,7 @@ import butterknife.ButterKnife;
  * Update Time：
  * Update Remark：
  */
-public class CartAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity> {
+public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
 
     public CartAdapter(Context context) {
         super(context);
@@ -53,10 +56,13 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity> {
 
         final CartAdapter.ViewHolder vHolder = (CartAdapter.ViewHolder) holder;
         if (getItem(position) != null) {
-            final HomeGoodsEntity item =   getItem(position);
-            vHolder.mTitle.setText(item.getGoods().getName());
-            vHolder.mNum.setText(item.getGoods().getNum()+"");
-            GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
+            final MainCartEntity item =   getItem(position);
+            vHolder.mTitle.setText(item.getGoods().getGoods().getName());//商品名称
+            vHolder.mNum.setText(item.getCart().getNumber()+"");//数量
+            vHolder.mPrice.setText("¥"+item.getGoods().getGoods().getPrice()+"/"+item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
+            GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
+            vHolder.mIsCheck.setChecked(false);
+
             /**
              * 点击跳转到详情
              */
@@ -64,7 +70,7 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity> {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("goodsId", item.getGoods().getGoodsId());
+                    bundle.putInt("goodsId", item.getGoods().getGoods().getGoodsId());
                     JumpUtil.overlay(mContext, GoodsDetailActivity.class, bundle);
                 }
             });
