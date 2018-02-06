@@ -2,10 +2,16 @@ package com.busilinq.ui.mine;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseActivity;
+import com.busilinq.base.BaseMvpActivity;
+import com.busilinq.contract.mine.UserInfoView;
+import com.busilinq.data.cache.UserCache;
+import com.busilinq.data.entity.UserEntity;
+import com.busilinq.presenter.mine.UserInfoPresenter;
 import com.busilinq.widget.MLoadingDialog;
 
 import butterknife.BindView;
@@ -20,12 +26,50 @@ import butterknife.OnClick;
  * Update Time：
  * Update Remark：
  */
-public class UserInfoActivity extends BaseActivity {
+public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> implements UserInfoView{
     /**
      * 标题
      */
     @BindView(R.id.tv_title)
     TextView mTitle;
+
+    /**
+     * 名称
+     */
+    @BindView(R.id.et_user_name)
+    EditText et_user_name;
+
+    /**
+     * 帐号
+     */
+    @BindView(R.id.et_user_account)
+    EditText et_user_account;
+
+    /**
+     * 邮箱
+     */
+    @BindView(R.id.et_user_email)
+    EditText et_user_email;
+
+    /**
+     * 电话
+     */
+    @BindView(R.id.et_user_tell)
+    EditText et_user_tell;
+
+    /**
+     * 传真
+     */
+    @BindView(R.id.et_user_fax)
+    EditText et_user_fax;
+
+    /**
+     * 快捷支付账号
+     */
+    @BindView(R.id.et_user_payment)
+    EditText et_user_payment;
+
+    UserEntity userEntity = null;
 
 
     @Override
@@ -35,8 +79,14 @@ public class UserInfoActivity extends BaseActivity {
     }
 
     @Override
+    protected UserInfoPresenter createPresenter() {
+        return new UserInfoPresenter(this);
+    }
+
+    @Override
     protected void initUI() {
         mTitle.setText(R.string.user_data);
+        mPresenter.getUserInfo(UserCache.get().getUserId(),UserCache.get().getName());
     }
 
 
@@ -59,4 +109,18 @@ public class UserInfoActivity extends BaseActivity {
         MLoadingDialog.dismiss();
     }
 
+    @Override
+    public void getUserInfoSuccess(UserEntity entity) {
+        userEntity = entity;
+        if (userEntity.getName() != null)
+            et_user_name.setText(userEntity.getName());
+        if (userEntity.getCell() != null) {
+            et_user_account.setText(userEntity.getCell());
+            et_user_tell.setText(userEntity.getCell());
+            et_user_fax.setText(userEntity.getCell());
+        }
+        if (userEntity.getEmail() != null)
+            et_user_email.setText(userEntity.getEmail());
+//        if (userEntity.)
+    }
 }

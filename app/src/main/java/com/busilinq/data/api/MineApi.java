@@ -78,11 +78,10 @@ public interface MineApi {
     /**
      * 获取用户信息
      *
-     * @param body
      * @return
      */
     @GET("/api/user/getInfo")
-    Observable<BaseData> getInfo(@Body RequestBody body);
+    Observable<BaseData<UserEntity>> getInfo(@Query("userId") String userId, @Query("name") String name);
 
     /**
      * 修改用户头像
@@ -113,7 +112,7 @@ public interface MineApi {
     Observable<BaseData<List<UserShopAddrEntity>>> getAddressList(@Query("userId") String userId);
 
     /**
-     * <<<<<<< HEAD
+     *
      * 修改密码
      *
      * @param body
