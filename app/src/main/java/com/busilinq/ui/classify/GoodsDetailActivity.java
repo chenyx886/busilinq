@@ -132,7 +132,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
-                mPresenter.getGoodsDetail(UserCache.GetUserId(), 3);
+                mPresenter.getGoodsDetail(UserCache.GetUserId(), 1);
             }
         });
     }
@@ -144,7 +144,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
      * @param data
      */
     @Override
-    public void GoodsDetail(GoodsDetailEntity data) {
+    public void GoodsDetail(final GoodsDetailEntity data) {
         if (mLLImage != null)
             mLLImage.removeAllViews();
         //轮播图
@@ -154,10 +154,21 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         mPrice.setText("￥" + data.getGoods().getGoods().getPrice() + "/" + data.getGoods().getGoods().getUnit());
         price = data.getGoods().getGoods().getPrice();
         //详情图
-        for (GoodsImgEntity goodsImgEntity : data.getImage()) {
+        for (int i = 0; i < data.getImage().size(); i++) {
+            final String imageUrl[] = new String[data.getImage().size()];
+            imageUrl[i] = data.getImage().get(i).getImage();
             imgView = LayoutInflater.from(this).inflate(R.layout.item_image, null);
-            ImageView imageView = imgView.findViewById(R.id.iv_image);
-            GlideShowImageUtils.displayNetImage(mContext, goodsImgEntity.getImage(), imageView, R.mipmap.default_error);
+            final ImageView imageView = imgView.findViewById(R.id.iv_image);
+            GlideShowImageUtils.displayNetImage(mContext, data.getImage().get(i).getImage(), imageView, R.mipmap.default_error);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle b = new Bundle();
+                    b.putStringArray("imageUrls", imageUrl);
+                    b.putString("curImageUrl", data.getImage().get(0).getImage());
+                    JumpUtil.overlay(mContext, PhotoActivity.class, b, Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
+            });
             mLLImage.addView(imgView);
         }
     }
@@ -185,9 +196,8 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
 
                 Bundle b = new Bundle();
                 b.putStringArray("imageUrls", imageUrl);
-                b.putString("curImageUrl", bList.get(0).getImage());
+                b.putString("curImageUrl", bList.get(position).getImage());
                 JumpUtil.overlay(mContext, PhotoActivity.class, b, Intent.FLAG_ACTIVITY_NEW_TASK);
-
             }
         });
     }
