@@ -1,7 +1,10 @@
 package com.busilinq.presenter.cart;
 
 
+import android.util.Log;
+
 import com.busilinq.contract.cart.ICartView;
+import com.busilinq.data.BaseData;
 import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.SubscriberCallBack;
@@ -11,6 +14,7 @@ import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.presenter.BasePresenter;
 import com.chenyx.libs.utils.SysConfig;
+import com.chenyx.libs.utils.ToastUtils;
 
 import java.math.BigDecimal;
 
@@ -33,14 +37,13 @@ public class CartPresenter extends BasePresenter<ICartView> {
 
     /**
      * 获取订单列表
-     *
      * @param page
      */
     public void getOrderList(int page) {
         addSubscription(RetrofitApiFactory.getCartApi().cart(page, SysConfig.limit, UserCache.GetUserId()), new SubscriberCallBack<PageEntity<MainCartEntity>>() {
             @Override
             protected void onSuccess(PageEntity<MainCartEntity> hGoodsList) {
-                if (null == hGoodsList) {
+                if (null == hGoodsList.getList()) {
                     MvpView.showEmptyView();
                 } else {
                     MvpView.CartList(hGoodsList);
@@ -78,4 +81,23 @@ public class CartPresenter extends BasePresenter<ICartView> {
             }
         });
     }
+
+    /**
+     * 删除购物车
+     * @param userId
+     * @param cartId
+     */
+    public void deletedCart(final String userId, Integer cartId) {
+        addSubscription(RetrofitApiFactory.getCartApi().deleteCart(userId, cartId), new SubscriberCallBack<BaseData>() {
+            @Override
+            protected void onSuccess(BaseData data) {
+                ToastUtils.showShort("删除成功");
+            }
+
+            @Override
+            public void onCompleted() {
+            }
+        });
+    }
+
 }

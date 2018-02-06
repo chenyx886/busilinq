@@ -32,7 +32,7 @@
             android:textSize="@dimen/text_size16" />
 
         <Button
-            android:id="@+id/tv_login"
+            android:id="@+id/btn_purchase"
             android:layout_width="145.00dp"
             android:layout_height="40dp"
             android:layout_gravity="center"

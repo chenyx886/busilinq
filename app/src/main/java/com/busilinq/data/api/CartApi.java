@@ -12,6 +12,7 @@ import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -54,11 +55,18 @@ public interface CartApi {
     @GET("/api/user/address/default")
     Observable<BaseData<UserShopAddrEntity>> getDefaultAddress(@Query("userId") String userId);
 
-    /**
+    /**编辑购物车，包括增加减少修改，共用一接口
      * @param body
      * @return
      */
     @PUT("/api/user/cart")
     Observable<BaseData<CartEntity>> UpdateCart(@Body RequestBody body);
+    /**
+     * 删除购物车列表项
+     * @param userId
+     * @return
+     */
+    @DELETE("/api/user/cart")
+    Observable<BaseData> deleteCart(@Query("userId") String userId, @Query("cartId") Integer cartId);
 
 }

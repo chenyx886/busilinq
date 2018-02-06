@@ -62,7 +62,7 @@ public class AddressPresenter extends BasePresenter<AddressListView>{
         addSubscription(RetrofitApiFactory.getMineApi().deleteAddress(userId, addrId), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData data) {
-                getAddressList(userId);;
+                getAddressList(userId);
             }
 
             @Override

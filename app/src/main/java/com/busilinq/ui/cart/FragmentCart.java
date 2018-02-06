@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -20,11 +21,13 @@ import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
 import com.busilinq.contract.cart.ICartView;
 import com.busilinq.data.PageEntity;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.BaseEntity;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.presenter.cart.CartPresenter;
+import com.busilinq.ui.MainActivity;
 import com.busilinq.ui.cart.adapter.CartAdapter;
 import com.busilinq.widget.LinearDividerItemDecoration;
 import com.busilinq.widget.MLoadingDialog;
@@ -32,6 +35,7 @@ import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.longsh.optionframelibrary.OptionCenterDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,6 +76,11 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
      */
     @BindView(R.id.line_cart_empty_layout)
     LinearLayout cart_empty_layout;
+    /**
+     * 购物车为空开始订购按钮
+     */
+    @BindView(R.id.btn_purchase)
+    Button mBtnPurchase;
     /**
      * 购物车有商品显示的布局
      */
@@ -139,8 +148,8 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     @Override
     protected void initUI() {
         mTitle.setText("购物车");
+        mEdit.setVisibility(View.GONE);
         mEdit.setText("编辑");
-        mEdit.setVisibility(View.VISIBLE);
         mBack.setVisibility(View.GONE);
 
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -179,10 +188,28 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 mPresenter.UpdateCart(position, item.getCart().getCartId(), item.getCart().getNumber() - 1, item.getGoods().getGoods().getPrice());
             }
         });
+        /**
+         * 长按删除
+         */
         mAdapter.setOnItemLongClickListener(new AbstractRecyclerViewAdapter.OnItemLongClickListener() {
             @Override
-            public void onItemLongClick(View itemView, int position) {
-                ToastUtils.showShort(position+"");
+            public void onItemLongClick(final View itemView, final int positions) {
+
+                final ArrayList<String> list = new ArrayList<>();
+                list.add("删除");
+                final OptionCenterDialog optionCenterDialog = new OptionCenterDialog();
+                optionCenterDialog.show(getActivity(), list);
+                optionCenterDialog.setItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        MainCartEntity item = mAdapter.getItem(positions);
+                        mPresenter.deletedCart(UserCache.GetUserId(),item.getCart().getCartId());
+                        mPresenter.getOrderList(page);
+                        optionCenterDialog.dismiss();
+                    }
+                });
+
+
             }
         });
 
@@ -209,9 +236,15 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         mRecycleView.setRefreshing(true);
     }
 
-    @OnClick({R.id.btn_settlement, R.id.check_select, R.id.tv_confirm})
+    @OnClick({R.id.btn_purchase,R.id.btn_settlement, R.id.check_select, R.id.tv_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
+            /**
+             * 开始订购
+             */
+            case R.id.btn_purchase:
+                JumpUtil.overlay(getActivity(), MainActivity.class);
+                break;
             /**
              * 去结算
              */
@@ -243,12 +276,11 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         if (data != null) {
             MainCartEntity item = mAdapter.getItem(position);
             CartEntity cartEntity = new CartEntity();
-            if (type == 1){
+            if (type == 1) {
                 cartEntity.setNumber(item.getCart().getNumber() + 1);
                 cartEntity.setCartId(item.getCart().getCartId());
                 item.setCart(cartEntity);
-            }
-            else{
+            } else {
                 cartEntity.setNumber(item.getCart().getNumber() - 1);
                 cartEntity.setCartId(item.getCart().getCartId());
                 item.setCart(cartEntity);

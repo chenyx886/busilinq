@@ -148,4 +148,6 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.1'
     compile 'com.mchange:mchange-commons-java:0.2.12'
 
+    compile 'com.longsh:OptionFrame:1.0.0'
+
 }
