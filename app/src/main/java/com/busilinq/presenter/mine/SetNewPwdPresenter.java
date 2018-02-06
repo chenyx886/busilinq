@@ -86,7 +86,7 @@ public class SetNewPwdPresenter extends BasePresenter<ISetNewPwdView> {
     public void register(String phone, String password) {
         Map<String, Object> param = new HashMap<>();
         param.put("phone", phone);
-        param.put("password ", password);
+        param.put("password", password);
         RequestBody body = JsonRequestBody.createJsonBody(param);
         MvpView.showProgress("注册中...");
         addSubscription(RetrofitApiFactory.getMineApi().register(body), new SubscriberCallBack<BaseData>() {

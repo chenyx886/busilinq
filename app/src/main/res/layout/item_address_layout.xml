@@ -2,142 +2,133 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical"
-    >
+    android:background="@drawable/item_sel"
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="#e6e6e6"
-        />
+        android:background="#e6e6e6" />
 
-    <View
-        style="@style/line_diliver"
-        />
+    <View style="@style/line_diliver" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        >
+        android:layout_margin="15dp">
 
         <TextView
             android:id="@+id/consignee"
             style="@style/addressTextViewStyle"
-            android:text="收货人："
             android:layout_alignParentLeft="true"
-            android:textStyle="bold"
-            />
+            android:text="收货人："
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/consignee_tv"
             style="@style/addressTextViewStyle"
-            android:text="杨雪"
-            android:layout_toRightOf="@id/consignee"
             android:layout_marginLeft="5dp"
-            android:textStyle="bold"
-            />
+            android:layout_toRightOf="@id/consignee"
+            android:text="杨雪"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/address_tell"
             style="@style/addressTextViewStyle"
-            android:text="电话："
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/consignee"
             android:layout_marginTop="10dp"
-            />
+            android:text="电话：" />
+
         <TextView
             android:id="@+id/address_tell_tv"
             style="@style/addressTextViewStyle"
-            android:text="18888888888"
-            android:layout_toRightOf="@id/address_tell"
-            android:layout_marginLeft="5dp"
             android:layout_below="@+id/consignee"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
-            />
+            android:layout_toRightOf="@id/address_tell"
+            android:text="18888888888" />
+
         <TextView
             android:id="@+id/address_unit"
             style="@style/addressTextViewStyle"
-            android:text="收货单位："
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/address_tell"
             android:layout_marginTop="5dp"
-            />
+            android:text="收货单位：" />
+
         <TextView
             android:id="@+id/address_unit_tv"
             style="@style/addressTextViewStyle"
-            android:text="华科建邺"
-            android:layout_toRightOf="@id/address_unit"
-            android:layout_marginLeft="5dp"
             android:layout_below="@+id/address_tell"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            />
+            android:layout_toRightOf="@id/address_unit"
+            android:text="华科建邺" />
+
         <TextView
             android:id="@+id/detail_address"
             style="@style/addressTextViewStyle"
-            android:text="收货地址："
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/address_unit"
             android:layout_marginTop="5dp"
-            />
+            android:text="收货地址：" />
+
         <TextView
             android:id="@+id/detail_address_tv"
             style="@style/addressTextViewStyle"
-            android:text="贵州省贵阳市"
-            android:layout_toRightOf="@id/detail_address"
-            android:layout_marginLeft="5dp"
             android:layout_below="@+id/address_unit"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            />
+            android:layout_toRightOf="@id/detail_address"
+            android:text="贵州省贵阳市" />
     </RelativeLayout>
-    <View
-        style="@style/line_diliver"
-        />
+
+    <View style="@style/line_diliver" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        >
+        android:layout_margin="15dp">
+
         <CheckBox
             android:id="@+id/selected_iv"
             style="@style/CustomCheckboxTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            />
+            android:layout_centerVertical="true" />
+
         <TextView
             style="@style/addressTextViewStyle"
-            android:text="默认地址"
-            android:layout_toRightOf="@+id/selected_iv"
             android:layout_centerVertical="true"
-            android:textStyle="bold"
             android:layout_marginLeft="5dp"
-            />
+            android:layout_toRightOf="@+id/selected_iv"
+            android:text="默认地址"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/delete_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="删除"
-            android:textSize="@dimen/text_size13"
-            android:textColor="@color/colorTabChecked"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            />
+            android:text="删除"
+            android:textColor="@color/colorTabChecked"
+            android:textSize="@dimen/text_size13" />
+
         <TextView
             android:id="@+id/edit_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="编辑"
-            android:textSize="@dimen/text_size13"
-            android:textColor="@color/colorTabChecked"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/delete_tv"
             android:layout_marginRight="25dp"
-            />
+            android:layout_toLeftOf="@id/delete_tv"
+            android:text="编辑"
+            android:textColor="@color/colorTabChecked"
+            android:textSize="@dimen/text_size13" />
 
     </RelativeLayout>
-    <View
-        style="@style/line_diliver"
-        />
+
+    <View style="@style/line_diliver" />
 </LinearLayout>

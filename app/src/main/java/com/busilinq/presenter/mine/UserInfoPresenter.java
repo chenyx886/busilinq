@@ -8,8 +8,6 @@ import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.BasePresenter;
 
-import java.util.Map;
-
 import okhttp3.RequestBody;
 
 /**
@@ -29,12 +27,13 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
 
     /**
      * 获取用户资料
+     *
      * @param userId
      * @param name
      */
     public void getUserInfo(String userId, String name) {
         MvpView.showProgress("加载中...");
-        addSubscription(RetrofitApiFactory.getMineApi().getInfo(userId,name), new SubscriberCallBack<UserEntity>() {
+        addSubscription(RetrofitApiFactory.getMineApi().getInfo(userId, name), new SubscriberCallBack<UserEntity>() {
             @Override
             protected void onSuccess(UserEntity data) {
                 MvpView.getUserInfoSuccess(data);
@@ -47,10 +46,14 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
         });
     }
 
-    public void submitUserInfo(Map<String, Object> param) {
+    public void submitUserInfo(String user_account, String user_name, String user_email, String user_tell) {
+        param.put("name", user_account);
+        param.put("realName", user_name);
+        param.put("email", user_email);
+        param.put("cell", user_tell);
         RequestBody body = JsonRequestBody.createJsonBody(param);
         MvpView.showProgress("加载中...");
-        addSubscription(RetrofitApiFactory.getMineApi().modifyUserInfo(body),new SubscriberCallBack<BaseData>() {
+        addSubscription(RetrofitApiFactory.getMineApi().modifyUserInfo(body), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData data) {
                 MvpView.modifyUserInfoSuccess();

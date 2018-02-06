@@ -1,6 +1,8 @@
 package com.busilinq.data.entity;
 
 
+import java.util.List;
+
 /**
  * Company：华科建邺
  * Class Describe： 公共商品详细实体
@@ -11,6 +13,7 @@ package com.busilinq.data.entity;
  * Update Remark：
  */
 public class GoodsDetailEntity extends BaseEntity {
+
     //
     private int detailId;
     //
@@ -25,6 +28,13 @@ public class GoodsDetailEntity extends BaseEntity {
     private String keyword;
     //
     private String graphicDescription;
+
+    //商品轮播
+    private List<GoodsImgEntity> banner;
+    //商品图片详情
+    private List<GoodsImgEntity> image;
+    //商品基本参数
+    private HomeGoodsEntity goods;
 
     public int getDetailId() {
         return detailId;
@@ -80,5 +90,29 @@ public class GoodsDetailEntity extends BaseEntity {
 
     public void setGraphicDescription(String graphicDescription) {
         this.graphicDescription = graphicDescription;
+    }
+
+    public List<GoodsImgEntity> getBanner() {
+        return banner;
+    }
+
+    public void setBanner(List<GoodsImgEntity> banner) {
+        this.banner = banner;
+    }
+
+    public List<GoodsImgEntity> getImage() {
+        return image;
+    }
+
+    public void setImage(List<GoodsImgEntity> image) {
+        this.image = image;
+    }
+
+    public HomeGoodsEntity getGoods() {
+        return goods;
+    }
+
+    public void setGoods(HomeGoodsEntity goods) {
+        this.goods = goods;
     }
 }

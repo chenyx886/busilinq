@@ -3,12 +3,8 @@ package com.busilinq.contract.cart;
 
 import com.busilinq.contract.IBaseMvpView;
 import com.busilinq.data.PageEntity;
-import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.CartEntity;
-import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.data.entity.MainCartEntity;
-
-import java.util.List;
 
 /**
  * Company：华科建邺
@@ -29,6 +25,12 @@ public interface ICartView extends IBaseMvpView {
      */
     void CartList(PageEntity<MainCartEntity> cartList);
 
+    /**
+     * 增加成功
+     *
+     * @param position
+     * @param cartEntity
+     */
     void Success(int position, CartEntity cartEntity);
 
     /**

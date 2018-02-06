@@ -230,12 +230,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
 
     public class NetworkImageHolderView implements Holder<BannerEntity> {
         private View view;
@@ -261,6 +255,8 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
      */
     @Override
     public void GoodsList(PageEntity<HomeGoodsEntity> data) {
+        if (page == 1)
+            mDatas.clear();
         mDatas.addAll(data.getList());
         mAdapter.setData(mDatas);
         mAdapter.notifyDataSetChanged();
@@ -344,5 +340,10 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         refreshLayout.finishLoadmore();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 
 }

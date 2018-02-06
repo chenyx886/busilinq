@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">百商银通</string>
+    <string name="app_name">百商银通-买家端</string>
     <string name="press_one_more_to_exit">再点一次退出应用</string>
 
     <string name="home">首页</string>
@@ -64,6 +64,7 @@
     <string name="user_payment">支付账号</string>
     <string name="input_user_payment">请输入快捷支付账号</string>
     <string name="cart_empty">购物车空空如也~</string>
+    <string name="add_cart">加入购物车</string>
     <string name="start_to_buy">开始订购</string>
     <string name="go_to_pay">去结算</string>
     <string name="submit_order">提交订单</string>
