@@ -58,6 +58,7 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
         param.put("price", price);
         RequestBody body = JsonRequestBody.createJsonBody(param);
 
+        MvpView.showProgress("加入中...");
         addSubscription(RetrofitApiFactory.getCartApi().AddCart(body), new SubscriberCallBack<CartEntity>() {
             @Override
             protected void onSuccess(CartEntity cartEntity) {

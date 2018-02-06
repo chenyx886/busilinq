@@ -132,7 +132,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
-                mPresenter.getGoodsDetail(UserCache.GetUserId(), 1);
+                mPresenter.getGoodsDetail(UserCache.GetUserId(), goodsId);
             }
         });
     }
