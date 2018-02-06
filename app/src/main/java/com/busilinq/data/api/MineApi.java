@@ -1,7 +1,9 @@
 package com.busilinq.data.api;
 
 import com.busilinq.data.BaseData;
+import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.CodeEntity;
+import com.busilinq.data.entity.MyCollectionEntity;
 import com.busilinq.data.entity.TUpgradeEntity;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.data.entity.UserShopAddrEntity;
@@ -165,5 +167,15 @@ public interface MineApi {
      */
     @PUT("/api/user/modifyDetail")
     Observable<BaseData> modifyUserInfo(@Body RequestBody body);
+
+    /**
+     * 我的收藏
+     * @param userId
+     * @param page
+     * @param limit
+     * @return
+     */
+    @GET("/api/user/favorite")
+    Observable<BaseData<PageEntity<MyCollectionEntity>>> getMyCollectionList(@Query("userId") String userId, @Query("page") int page, @Query("limit") int limit);
 
 }
