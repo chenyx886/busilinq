@@ -14,6 +14,9 @@ import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.mine.UserInfoPresenter;
 import com.busilinq.widget.MLoadingDialog;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -26,7 +29,7 @@ import butterknife.OnClick;
  * Update Time：
  * Update Remark：
  */
-public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> implements UserInfoView{
+public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> implements UserInfoView {
     /**
      * 标题
      */
@@ -86,15 +89,22 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     @Override
     protected void initUI() {
         mTitle.setText(R.string.user_data);
-        mPresenter.getUserInfo(UserCache.get().getUserId(),UserCache.get().getName());
+        mPresenter.getUserInfo(UserCache.get().getUserId(), UserCache.get().getName());
     }
 
 
-    @OnClick({R.id.tv_back})
+    @OnClick({R.id.tv_back,R.id.user_info_btn_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();
+                break;
+
+            /**
+             * 修改用户资料按钮
+             */
+            case R.id.user_info_btn_confirm:
+                modifyUserInfo();
                 break;
         }
     }
@@ -112,15 +122,41 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     @Override
     public void getUserInfoSuccess(UserEntity entity) {
         userEntity = entity;
-        if (userEntity.getName() != null)
-            et_user_name.setText(userEntity.getName());
-        if (userEntity.getCell() != null) {
-            et_user_account.setText(userEntity.getCell());
-            et_user_tell.setText(userEntity.getCell());
-            et_user_fax.setText(userEntity.getCell());
+        if (userEntity.getRealName() != null)
+            et_user_name.setText(userEntity.getRealName());
+        if (userEntity.getName() != null) {
+            et_user_account.setText(userEntity.getName());
         }
         if (userEntity.getEmail() != null)
             et_user_email.setText(userEntity.getEmail());
-//        if (userEntity.)
+        if (userEntity.getCell() != null)
+            et_user_tell.setText(userEntity.getCell());
+
     }
+
+    @Override
+    public void modifyUserInfo() {
+        String user_name = et_user_name.getText().toString();
+        String user_account = et_user_account.getText().toString();
+        String user_email = et_user_email.getText().toString();
+        String user_tell = et_user_tell.getText().toString();
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.get().getUserId());
+        param.put("name", user_account);
+        param.put("realName", user_name);
+        param.put("email", user_email);
+        param.put("cell", user_tell);
+
+        mPresenter.submitUserInfo(param);
+
+
+    }
+
+    @Override
+    public void modifyUserInfoSuccess() {
+        finish();
+    }
+
+
 }

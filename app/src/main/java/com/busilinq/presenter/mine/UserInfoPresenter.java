@@ -2,10 +2,15 @@ package com.busilinq.presenter.mine;
 
 import com.busilinq.contract.mine.UserInfoView;
 import com.busilinq.data.BaseData;
+import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.BasePresenter;
+
+import java.util.Map;
+
+import okhttp3.RequestBody;
 
 /**
  * Company：华科建邺
@@ -40,5 +45,22 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
                 MvpView.hideProgress();
             }
         });
+    }
+
+    public void submitUserInfo(Map<String, Object> param) {
+        RequestBody body = JsonRequestBody.createJsonBody(param);
+        MvpView.showProgress("加载中...");
+        addSubscription(RetrofitApiFactory.getMineApi().modifyUserInfo(body),new SubscriberCallBack<BaseData>() {
+            @Override
+            protected void onSuccess(BaseData data) {
+                MvpView.modifyUserInfoSuccess();
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.hideProgress();
+            }
+        });
+
     }
 }

@@ -14,5 +14,16 @@ import com.busilinq.data.entity.UserEntity;
  */
 public interface UserInfoView extends IBaseMvpView {
 
+    /**
+     * 成功获取用户信息
+     * @param entity
+     */
     void getUserInfoSuccess(UserEntity entity);
+
+    /**
+     * 修改用户信息
+     */
+    void modifyUserInfo();
+
+    void modifyUserInfoSuccess();
 }

@@ -157,4 +157,13 @@ public interface MineApi {
     @PUT("/api/user/address")
     Observable<BaseData> editAddress(@Body RequestBody body);
 
+    /**
+     * 修改用户资料
+     *
+     * @param body
+     * @return
+     */
+    @PUT("/api/user/modifyDetail")
+    Observable<BaseData> modifyUserInfo(@Body RequestBody body);
+
 }
