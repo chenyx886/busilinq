@@ -78,7 +78,7 @@ public class MyCollectionAdapter extends AbstractRecyclerViewAdapter<MyCollectio
         TextView mGoodPriceTv;
 
         /**
-         * 商品种类
+         * 商品别名
          */
         @BindView(R.id.tv_nickname)
         TextView tv_nickname;
