@@ -25,15 +25,25 @@ public abstract class AbstractRecyclerViewAdapter<T extends Object> extends Recy
     protected Context mContext;
 
     protected OnItemClickListener onItemClickListener;
+    protected OnItemLongClickListener onItemLongClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
 
         this.onItemClickListener = onItemClickListener;
     }
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
 
     public interface OnItemClickListener {
 
         void onItemClick(View itemView, int position);
+
+    }
+    public interface OnItemLongClickListener {
+
+        void onItemLongClick(View itemView, int position);
 
     }
 
@@ -65,6 +75,15 @@ public abstract class AbstractRecyclerViewAdapter<T extends Object> extends Recy
                     if (onItemViewClickListener != null) {
                         onItemViewClickListener.onViewClick(holder.itemView, position);
                     }
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(onItemLongClickListener!=null){
+                        onItemLongClickListener.onItemLongClick(holder.itemView,position);
+                    }
+                    return true;
                 }
             });
         }
