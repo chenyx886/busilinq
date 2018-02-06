@@ -156,7 +156,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
     private void initData() {
         Logs.d(TAG, "刷新了");
         if (!TextUtils.isEmpty(UserCache.GetUserId())) {
-            mName.setText(UserCache.get().getName());
+            mName.setText(UserCache.get().getRealName());
             mPhone.setText(UserCache.get().getCell());
             GlideShowImageUtils.displayCircleNetImage(getActivity(), UserCache.get().getHeadimgurl(), mUserIco, R.mipmap.ic_user);
         } else {

@@ -80,7 +80,9 @@
 
     <View style="@style/line_diliver" />
 
-    <LinearLayout style="@style/userLinearLayoutStyle">
+    <LinearLayout style="@style/userLinearLayoutStyle"
+        android:visibility="gone"
+        >
 
         <TextView
             style="@style/userTextViewStyle"
@@ -97,7 +99,9 @@
 
     <View style="@style/line_diliver" />
 
-    <LinearLayout style="@style/userLinearLayoutStyle">
+    <LinearLayout style="@style/userLinearLayoutStyle"
+        android:visibility="gone"
+        >
 
         <TextView
             style="@style/userTextViewStyle"
