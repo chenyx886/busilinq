@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,12 +20,15 @@ import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.GoodsDetailEntity;
 import com.busilinq.data.entity.GoodsImgEntity;
+import com.busilinq.data.entity.UserFavoriteEntity;
 import com.busilinq.presenter.classify.GoodsDetailPresenter;
 import com.busilinq.ui.PhotoActivity;
 import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.glide.GlideShowImageUtils;
+import com.chenyx.libs.picasso.PicassoLoader;
 import com.chenyx.libs.utils.JumpUtil;
+import com.chenyx.libs.utils.Logs;
 import com.chenyx.libs.utils.ToastUtils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -53,6 +55,11 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
      */
     @BindView(R.id.tv_title)
     TextView mTitle;
+    /**
+     * 收藏图标
+     */
+    @BindView(R.id.iv_collection)
+    ImageView mIvCollection;
     /**
      * 商品名称
      */
@@ -104,7 +111,14 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
      */
     private long scrollDuration = 4000;
 
-    private View imgView;
+    /**
+     * 标示操作 0 查询 1 收藏 -1 取消
+     */
+    private int type = 0;
+    /**
+     * 是否收藏
+     */
+    private boolean isFavorite = false;
 
     @Override
     protected GoodsDetailPresenter createPresenter() {
@@ -123,7 +137,6 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         mTitle.setText(R.string.goods_detail);
         goodsId = getIntent().getIntExtra("goodsId", -1);
 
-
         ProgressLayout headerView = new ProgressLayout(this);
         refreshLayout.setHeaderView(headerView);
         refreshLayout.setOverScrollRefreshShow(false);
@@ -133,6 +146,9 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
                 mPresenter.getGoodsDetail(UserCache.GetUserId(), goodsId);
+                //判断用户是否收藏
+                mIvCollection.setBackgroundResource(R.mipmap.ic_collection_normal);
+                mPresenter.FavoriteVerify(goodsId);
             }
         });
     }
@@ -145,6 +161,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
      */
     @Override
     public void GoodsDetail(final GoodsDetailEntity data) {
+
         if (mLLImage != null)
             mLLImage.removeAllViews();
         //轮播图
@@ -155,21 +172,14 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         price = data.getGoods().getGoods().getPrice();
         //详情图
         for (int i = 0; i < data.getImage().size(); i++) {
-            final String imageUrl[] = new String[data.getImage().size()];
-            imageUrl[i] = data.getImage().get(i).getImage();
-            imgView = LayoutInflater.from(this).inflate(R.layout.item_image, null);
-            final ImageView imageView = imgView.findViewById(R.id.iv_image);
-            GlideShowImageUtils.displayNetImage(mContext, data.getImage().get(i).getImage(), imageView, R.mipmap.default_error);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle b = new Bundle();
-                    b.putStringArray("imageUrls", imageUrl);
-                    b.putString("curImageUrl", data.getImage().get(0).getImage());
-                    JumpUtil.overlay(mContext, PhotoActivity.class, b, Intent.FLAG_ACTIVITY_NEW_TASK);
-                }
-            });
-            mLLImage.addView(imgView);
+            Logs.d("list", data.getImage().get(i).getImage());
+            ImageView imageView = new ImageView(this);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageView.setAdjustViewBounds(true);
+            imageView.setBackgroundColor(getResources().getColor(R.color.white));
+            PicassoLoader.displayImageWidthMatchParent(this, data.getImage().get(i).getImage(), imageView, R.mipmap.default_error);
+//            GlideShowImageUtils.displayNetImage(this, data.getImage().get(i).getImage(), imageView, R.mipmap.default_error);
+            mLLImage.addView(imageView);
         }
     }
 
@@ -203,11 +213,21 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
     }
 
 
-    @OnClick({R.id.btn_add_cart, R.id.btnadd, R.id.btndown, R.id.tv_back})
+    @OnClick({R.id.ll_order_goods, R.id.btn_add_cart, R.id.btnadd, R.id.btndown, R.id.tv_back})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();
+                break;
+            //收藏或取消
+            case R.id.ll_order_goods:
+                if (!isFavorite) {
+                    type = 1;
+                    mPresenter.addFavorite(goodsId);
+                } else {
+                    type = -1;
+                    mPresenter.cancelFavorite(goodsId + "");
+                }
                 break;
             //加
             case R.id.btnadd:
@@ -238,25 +258,44 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
     }
 
     public class NetworkImageHolderView implements Holder<GoodsImgEntity> {
-        private View view;
+        private ImageView imageView;
 
         @Override
         public View createView(Context context) {
-            view = LayoutInflater.from(context).inflate(R.layout.goods_banner_item, null, false);
-            return view;
+            //你可以通过layout文件来创建，也可以像我一样用代码创建，不一定是Image，任何控件都可以进行翻页
+            imageView = new ImageView(context);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            return imageView;
         }
 
         @Override
         public void UpdateUI(Context context, int position, GoodsImgEntity data) {
-            ((TextView) view.findViewById(R.id.tv_title)).setText("");
-            ImageView imageView = view.findViewById(R.id.iv_image);
-            GlideShowImageUtils.displayNetImage(context, data.getImage(), imageView, R.mipmap.banner1);
+            imageView.setImageResource(R.mipmap.default_error);
+            GlideShowImageUtils.displayNetImage(context, data.getImage(), imageView, R.mipmap.default_error);
         }
     }
 
     @Override
     public void Success(CartEntity data) {
         ToastUtils.showShort("加入购物车成功");
+    }
+
+    public void ShowFavorite(UserFavoriteEntity data) {
+        //查询是否收藏
+        if (type == 0) {
+            isFavorite = true;
+            mIvCollection.setBackgroundResource(R.mipmap.ic_collection_pressed);
+        }
+        //添加收藏
+        else if (type == 1) {
+            isFavorite = true;
+            mIvCollection.setBackgroundResource(R.mipmap.ic_collection_pressed);
+        }
+        //取消收藏
+        else if (type == -1) {
+            isFavorite = false;
+            mIvCollection.setBackgroundResource(R.mipmap.ic_collection_normal);
+        }
     }
 
     @Override

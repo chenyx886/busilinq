@@ -6,6 +6,7 @@ import com.busilinq.data.entity.CodeEntity;
 import com.busilinq.data.entity.MyCollectionEntity;
 import com.busilinq.data.entity.TUpgradeEntity;
 import com.busilinq.data.entity.UserEntity;
+import com.busilinq.data.entity.UserFavoriteEntity;
 import com.busilinq.data.entity.UserShopAddrEntity;
 
 import java.util.List;
@@ -114,7 +115,6 @@ public interface MineApi {
     Observable<BaseData<List<UserShopAddrEntity>>> getAddressList(@Query("userId") String userId);
 
     /**
-     *
      * 修改密码
      *
      * @param body
@@ -123,11 +123,12 @@ public interface MineApi {
     @POST("/api/software/upgrade")
     Observable<BaseData<TUpgradeEntity>> upgrade(@Body RequestBody body);
 
-    /* 设置默认收货地址
-    *
-    * @param userId
-    * @return
-    */
+    /**
+     * 设置默认收货地址
+     *
+     * @param userId
+     * @return
+     */
     @PUT("/api/user/address/default")
     Observable<BaseData<List<UserShopAddrEntity>>> setDefaultAddress(@Query("userId") String userId, @Query("addrId") Integer addrId);
 
@@ -170,6 +171,7 @@ public interface MineApi {
 
     /**
      * 我的收藏
+     *
      * @param userId
      * @param page
      * @param limit
@@ -179,11 +181,30 @@ public interface MineApi {
     Observable<BaseData<PageEntity<MyCollectionEntity>>> getMyCollectionList(@Query("userId") String userId, @Query("page") int page, @Query("limit") int limit);
 
     /**
+     * 添加收藏
+     *
+     * @return
+     */
+    @POST("/api/user/favorite")
+    Observable<BaseData<UserFavoriteEntity>> addFavorite(@Body RequestBody body);
+
+    /**
+     * 判断是否收藏
+     *
+     * @param userId
+     * @param goodsId
+     * @return
+     */
+    @GET("/api/user/favorite/verify")
+    Observable<BaseData<UserFavoriteEntity>> FavoriteVerify(@Query("userId") String userId, @Query("goodsId") int goodsId);
+
+    /**
      * 删除收藏列表
+     *
      * @param favoriteId
      * @return
      */
     @DELETE("/api/user/favorite")
-    Observable<BaseData> deleteMyCollection(@Query("favoriteId") Integer favoriteId);
+    Observable<BaseData> deleteMyCollection(@Query("userId") String userId, @Query("favoriteId") String favoriteId, @Query("goodsId") String goodsId);
 
 }

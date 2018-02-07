@@ -26,13 +26,9 @@ import butterknife.ButterKnife;
  * Update Remark：
  */
 public class MyCollectionAdapter extends AbstractRecyclerViewAdapter<MyCollectionEntity> {
+
     public MyCollectionAdapter(Context context) {
         super(context);
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
     }
 
     @Override
@@ -60,7 +56,7 @@ public class MyCollectionAdapter extends AbstractRecyclerViewAdapter<MyCollectio
             vHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    onItemLongClickListener.onItemLongClick(view,position);
+                    onItemLongClickListener.onItemLongClick(view, position);
                     return true;
                 }
             });

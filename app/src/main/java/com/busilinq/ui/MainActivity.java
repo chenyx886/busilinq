@@ -80,7 +80,6 @@ public class MainActivity extends BaseActivity {
         mCart.setTag(FragmentCart.TAG);
         mMine.setTag(FragmentMine.TAG);
         mHome.setChecked(true);//默认选中第一个
-
         getLocationPersimmions();
     }
 

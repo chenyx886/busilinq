@@ -7,6 +7,7 @@ import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.MyCollectionEntity;
 import com.busilinq.presenter.BasePresenter;
+import com.chenyx.libs.utils.SysConfig;
 import com.chenyx.libs.utils.ToastUtils;
 
 /**
@@ -19,14 +20,13 @@ import com.chenyx.libs.utils.ToastUtils;
  * Update Remark：
  */
 public class MyCollectionPresenter extends BasePresenter<MyCollectionView> {
-    private int limit=5;
 
     public MyCollectionPresenter(MyCollectionView mvpView) {
         super(mvpView);
     }
 
-    public void getMyCollectionList(String userId,int page) {
-        addSubscription(RetrofitApiFactory.getMineApi().getMyCollectionList(userId,page,limit),new SubscriberCallBack<PageEntity<MyCollectionEntity>>() {
+    public void getMyCollectionList(String userId, int page) {
+        addSubscription(RetrofitApiFactory.getMineApi().getMyCollectionList(userId, page, SysConfig.limit), new SubscriberCallBack<PageEntity<MyCollectionEntity>>() {
             @Override
             protected void onSuccess(PageEntity<MyCollectionEntity> list) {
                 MvpView.getMyCollectionList(list);
@@ -39,17 +39,17 @@ public class MyCollectionPresenter extends BasePresenter<MyCollectionView> {
         });
     }
 
-    public void deleteMyCollection(final String userId, final int page, Integer favoriteId) {
-        addSubscription(RetrofitApiFactory.getMineApi().deleteMyCollection(favoriteId), new SubscriberCallBack<BaseData>() {
+    public void deleteMyCollection(final String userId, final int page, String favoriteId) {
+        addSubscription(RetrofitApiFactory.getMineApi().deleteMyCollection(userId, favoriteId, ""), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData response) {
                 ToastUtils.showShort("删除成功");
-                getMyCollectionList(userId,page);
+                getMyCollectionList(userId, page);
             }
 
             @Override
             public void onCompleted() {
-
+                MvpView.hideProgress();
             }
         });
     }

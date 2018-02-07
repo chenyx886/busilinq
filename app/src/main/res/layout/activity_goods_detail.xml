@@ -28,8 +28,7 @@
                 <com.bigkoo.convenientbanner.ConvenientBanner
                     android:id="@+id/cb_goods_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:background="@color/white"
+                    android:layout_height="350dp"
                     app:canLoop="true" />
 
                 <LinearLayout
@@ -142,12 +141,10 @@
                 <LinearLayout
                     android:id="@+id/ll_image"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
+                    android:background="@color/white"
                     android:orientation="vertical">
-
 
                 </LinearLayout>
 

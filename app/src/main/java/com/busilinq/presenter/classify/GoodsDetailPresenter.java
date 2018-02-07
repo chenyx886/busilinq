@@ -4,8 +4,10 @@ import com.busilinq.contract.classify.IGoodsDetailView;
 import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.GoodsDetailEntity;
+import com.busilinq.data.entity.UserFavoriteEntity;
 import com.busilinq.presenter.BasePresenter;
 
 import java.math.BigDecimal;
@@ -72,4 +74,61 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
         });
     }
 
+    public void addFavorite(int goodsId) {
+        param.put("goodsId", goodsId);
+        RequestBody body = JsonRequestBody.createJsonBody(param);
+        addSubscription(RetrofitApiFactory.getMineApi().addFavorite(body), new SubscriberCallBack<UserFavoriteEntity>() {
+            @Override
+            protected void onSuccess(UserFavoriteEntity data) {
+                MvpView.ShowFavorite(data);
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.hideProgress();
+            }
+        });
+    }
+
+    /**
+     * 取消收藏
+     *
+     * @param goodsId
+     */
+    public void cancelFavorite(String goodsId) {
+
+        addSubscription(RetrofitApiFactory.getMineApi().deleteMyCollection(UserCache.GetUserId(), "", goodsId), new SubscriberCallBack<UserFavoriteEntity>() {
+            @Override
+            protected void onSuccess(UserFavoriteEntity data) {
+                MvpView.ShowFavorite(data);
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.hideProgress();
+            }
+        });
+    }
+
+    /**
+     * 判断是否收藏
+     *
+     * @param goodsId
+     */
+    public void FavoriteVerify(int goodsId) {
+
+        addSubscription(RetrofitApiFactory.getMineApi().FavoriteVerify(UserCache.GetUserId(), goodsId), new SubscriberCallBack<UserFavoriteEntity>() {
+            @Override
+            protected void onSuccess(UserFavoriteEntity data) {
+                if (data != null) {
+                    MvpView.ShowFavorite(data);
+                }
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.hideProgress();
+            }
+        });
+    }
 }

@@ -2,8 +2,6 @@ package com.busilinq.data.entity;
 
 import com.busilinq.data.BaseResp;
 
-import java.util.Date;
-
 /**
  * Company：华科建邺
  * Class Describe：实体基类
@@ -15,33 +13,33 @@ import java.util.Date;
  */
 public class BaseEntity extends BaseResp {
     //删除标志 -1删除 1未删除
-    private int isDel;
+    private String isDel;
     //创建时间
-    private Date createTime;
+    private String createTime;
     //更新时间
-    private Date updateTime;
+    private String updateTime;
 
-    public int getIsDel() {
+    public String getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(int isDel) {
+    public void setIsDel(String isDel) {
         this.isDel = isDel;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 }

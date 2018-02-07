@@ -4,6 +4,7 @@ package com.busilinq.contract.classify;
 import com.busilinq.contract.IBaseMvpView;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.GoodsDetailEntity;
+import com.busilinq.data.entity.UserFavoriteEntity;
 
 /**
  * Company：华科建邺
@@ -26,9 +27,15 @@ public interface IGoodsDetailView extends IBaseMvpView {
     void GoodsDetail(GoodsDetailEntity data);
 
     /**
-     * 增加成功
+     * 增加购物车成功
      *
      * @param cartEntity
      */
     void Success(CartEntity cartEntity);
+
+    /**
+     * 收藏或取消成功
+     *
+     */
+    void ShowFavorite(UserFavoriteEntity data);
 }

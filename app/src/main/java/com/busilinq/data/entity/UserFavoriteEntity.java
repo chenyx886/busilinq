@@ -12,17 +12,17 @@ package com.busilinq.data.entity;
 public class UserFavoriteEntity extends BaseEntity {
 
     //收藏id
-    private int favoriteId;
+    private String favoriteId;
     //用户ID
     private int userId;
     //商品ID
     private int goodsId;
 
-    public int getFavoriteId() {
+    public String getFavoriteId() {
         return favoriteId;
     }
 
-    public void setFavoriteId(int favoriteId) {
+    public void setFavoriteId(String favoriteId) {
         this.favoriteId = favoriteId;
     }
 
