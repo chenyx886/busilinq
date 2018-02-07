@@ -178,4 +178,12 @@ public interface MineApi {
     @GET("/api/user/favorite")
     Observable<BaseData<PageEntity<MyCollectionEntity>>> getMyCollectionList(@Query("userId") String userId, @Query("page") int page, @Query("limit") int limit);
 
+    /**
+     * 删除收藏列表
+     * @param favoriteId
+     * @return
+     */
+    @DELETE("/api/user/favorite")
+    Observable<BaseData> deleteMyCollection(@Query("favoriteId") Integer favoriteId);
+
 }

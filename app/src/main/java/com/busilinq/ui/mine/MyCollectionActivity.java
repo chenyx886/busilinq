@@ -3,6 +3,7 @@ package com.busilinq.ui.mine;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
@@ -18,6 +19,9 @@ import com.busilinq.ui.mine.adapter.MyCollectionAdapter;
 import com.chenyx.libs.utils.JumpUtil;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.longsh.optionframelibrary.OptionCenterDialog;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -91,6 +95,25 @@ public class MyCollectionActivity extends BaseMvpActivity<MyCollectionPresenter>
                 JumpUtil.overlay(mContext, GoodsDetailActivity.class, bundle);
             }
         });
+        // 长按删除
+        mAdapter.setOnItemLongClickListener(new AbstractRecyclerViewAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View itemView, int position) {
+                final ArrayList<String> list = new ArrayList<>();
+                list.add("删除");
+                final OptionCenterDialog optionCenterDialog = new OptionCenterDialog();
+                optionCenterDialog.show(MyCollectionActivity.this, list);
+                optionCenterDialog.setItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        MyCollectionEntity entity = mAdapter.getItem(position);
+                        mPresenter.deleteMyCollection(UserCache.GetUserId(), page, entity.getFavorite().getFavoriteId());
+                        optionCenterDialog.dismiss();
+                    }
+                });
+
+            }
+        });
 
         mDataList.setLoadingListener(new XRecyclerView.LoadingListener() {
 
@@ -123,7 +146,6 @@ public class MyCollectionActivity extends BaseMvpActivity<MyCollectionPresenter>
 
     @Override
     public void showProgress(String message) {
-//        MLoadingDialog.show(this, message);
     }
 
     @Override

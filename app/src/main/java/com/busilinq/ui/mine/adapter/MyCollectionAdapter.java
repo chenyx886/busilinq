@@ -56,6 +56,15 @@ public class MyCollectionAdapter extends AbstractRecyclerViewAdapter<MyCollectio
                     onItemClickListener.onItemClick(v, position);
                 }
             });
+
+            vHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    onItemLongClickListener.onItemLongClick(view,position);
+                    return true;
+                }
+            });
+
         }
 
     }
