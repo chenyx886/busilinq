@@ -1,7 +1,6 @@
 package com.busilinq.data.entity;
 
 
-import java.math.BigDecimal;
 
 /**
  * Company：华科建邺
@@ -17,8 +16,8 @@ public class CartEntity extends BaseEntity {
     private int cartId;//购物车列表Id
     private int goodsId;//商品Id
     private int number;//商品购买数量
-    private BigDecimal totalMoney;//单独列表总的商品价格
-    private boolean isChecked;//是否被选中
+    private double totalMoney;//单独列表总的商品价格
+    private int isChecked;//是否被选中 0：取消  1：选中
 
 
     public String getUserId() {
@@ -53,19 +52,19 @@ public class CartEntity extends BaseEntity {
         this.number = number;
     }
 
-    public BigDecimal getTotalMoney() {
+    public double getTotalMoney() {
         return totalMoney;
     }
 
-    public void setTotalMoney(BigDecimal totalMoney) {
+    public void setTotalMoney(double totalMoney) {
         this.totalMoney = totalMoney;
     }
 
-    public boolean isChecked() {
+    public int getIsChecked() {
         return isChecked;
     }
 
-    public void setChecked(boolean checked) {
-        isChecked = checked;
+    public void setIsChecked(int isChecked) {
+        this.isChecked = isChecked;
     }
 }

@@ -63,7 +63,7 @@ public class CartPresenter extends BasePresenter<ICartView> {
      * @param number 修改数量
      * @param price  价格
      */
-    public void UpdateCart(final int position, int cartId, int number, BigDecimal price) {
+    public void UpdateCart(final int position, int cartId, int number, double price) {
         param.put("cartId", cartId);
         param.put("number", number);
         param.put("price", price);

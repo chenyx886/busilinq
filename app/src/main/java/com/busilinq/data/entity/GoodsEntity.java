@@ -37,7 +37,7 @@ public class GoodsEntity extends BaseEntity {
     //基本单位
     private String unit;
     //建议价格
-    private BigDecimal price;
+    private double price;
 
 
     public int getGoodsId() {
@@ -120,11 +120,11 @@ public class GoodsEntity extends BaseEntity {
         this.unit = unit;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

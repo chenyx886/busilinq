@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
+import com.busilinq.data.cache.AssembleProduct;
 import com.busilinq.data.entity.BaseEntity;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
@@ -22,6 +23,8 @@ import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.chenyx.libs.glide.GlideShowImageUtils;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
+
+import java.math.BigDecimal;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,8 +41,14 @@ import butterknife.ButterKnife;
  */
 public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
 
-    public CartAdapter(Context context) {
+    public interface MyInterface{
+        void getCarInfo();
+    }
+    private MyInterface myInterface;
+    public CartAdapter(Context context,MyInterface myInterface) {
         super(context);
+        this.myInterface = myInterface;
+        AssembleProduct.getInstance().clear();
     }
 
     @Override
@@ -49,6 +58,7 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart_list, parent, false);
         return new CartAdapter.ViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
@@ -61,7 +71,16 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
             vHolder.mNum.setText(item.getCart().getNumber()+"");//数量
             vHolder.mPrice.setText("¥"+item.getGoods().getGoods().getPrice()+"/"+item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
             GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
+
             vHolder.mIsCheck.setChecked(false);
+            if (AssembleProduct.getInstance().getGoods() != null && AssembleProduct.getInstance().getGoods().size() > 0) {
+                for (MainCartEntity gc : AssembleProduct.getInstance().getGoods()) {
+                    if (gc.getCart().getCartId() == item.getCart().getCartId()) {
+                        vHolder.mIsCheck.setChecked(true);
+                    }
+                }
+            }
+
 
             /**
              * 点击跳转到详情
@@ -90,7 +109,23 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
                 @Override
                 public void onClick(View view) {
                     onItemViewClickListener.onViewClick(view,position);
-
+                }
+            });
+            /**
+             * 选中与取消事件
+             * getCartInfo实现回调，提供数据给fragment
+             */
+            vHolder.mIsCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if(b){
+                        AssembleProduct.getInstance().increase(item);//加
+                    }else {
+                        AssembleProduct.getInstance().removeSingleProduct(item.getCart().getCartId());//减
+                    }
+                    if(myInterface != null){
+                        myInterface.getCarInfo();
+                    }
                 }
             });
         }

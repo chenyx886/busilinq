@@ -101,7 +101,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
     /**
      * 价格
      */
-    private BigDecimal price;
+    private double price;
     /**
      * 广播索引值
      */

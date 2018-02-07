@@ -54,7 +54,7 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
      * @param number  修改数量
      * @param price   价格
      */
-    public void AddCart(int goodsId, int number, BigDecimal price) {
+    public void AddCart(int goodsId, int number, double price) {
         param.put("goodsId", goodsId);
         param.put("number", number);
         param.put("price", price);

@@ -21,6 +21,7 @@ import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
 import com.busilinq.contract.cart.ICartView;
 import com.busilinq.data.PageEntity;
+import com.busilinq.data.cache.AssembleProduct;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.BaseEntity;
 import com.busilinq.data.entity.CartEntity;
@@ -37,6 +38,7 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.longsh.optionframelibrary.OptionCenterDialog;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -118,11 +120,13 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
      */
     @BindView(R.id.tv_total_money)
     TextView mTotalMoney;
+
     /**
      * 结算
      */
     @BindView(R.id.btn_settlement)
     Button mSettlement;
+
 
 
     @Override
@@ -151,6 +155,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         mEdit.setVisibility(View.GONE);
         mEdit.setText("编辑");
         mBack.setVisibility(View.GONE);
+        AssembleProduct.getInstance().clear();
 
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycleView.setNoMore(true);
@@ -158,7 +163,13 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         mRecycleView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         mRecycleView.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
 
-        mAdapter = new CartAdapter(getActivity());
+        mAdapter = new CartAdapter(getActivity(),  new CartAdapter.MyInterface() {
+            @Override
+            public void getCarInfo() {
+                mTotalMoney.setText(AssembleProduct.getInstance().getSubPrice()+"");
+
+            }
+        });
         mRecycleView.setAdapter(mAdapter);
 
         /**
@@ -170,6 +181,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 type = 1;
                 MainCartEntity item = mAdapter.getItem(position);
                 mPresenter.UpdateCart(position, item.getCart().getCartId(), item.getCart().getNumber() + 1, item.getGoods().getGoods().getPrice());
+
             }
         });
 
@@ -186,6 +198,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                     return;
                 }
                 mPresenter.UpdateCart(position, item.getCart().getCartId(), item.getCart().getNumber() - 1, item.getGoods().getGoods().getPrice());
+
             }
         });
         /**
@@ -273,20 +286,21 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     @Override
     public void Success(int position, CartEntity data) {
 
+        MainCartEntity item = mAdapter.getItem(position);
         if (data != null) {
-            MainCartEntity item = mAdapter.getItem(position);
-            CartEntity cartEntity = new CartEntity();
+            CartEntity cartEntity = item.getCart();
             if (type == 1) {
                 cartEntity.setNumber(item.getCart().getNumber() + 1);
-                cartEntity.setCartId(item.getCart().getCartId());
                 item.setCart(cartEntity);
             } else {
                 cartEntity.setNumber(item.getCart().getNumber() - 1);
-                cartEntity.setCartId(item.getCart().getCartId());
                 item.setCart(cartEntity);
             }
-            mAdapter.notifyDataSetChanged();
+            if( AssembleProduct.getInstance().getGoods()!=null&& AssembleProduct.getInstance().getGoods().contains(item))
+            AssembleProduct.getInstance().increase(item);
         }
+        mAdapter.notifyDataSetChanged();
+        mTotalMoney.setText(AssembleProduct.getInstance().getSubPrice()+"");
 
     }
 
@@ -298,11 +312,15 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
      */
     @Override
     public void CartList(PageEntity<MainCartEntity> cartList) {
-        if (cartList.getList().size() > 0)
-            mAdapter.setData(cartList.getList());
+        AssembleProduct.getInstance().clear();
+        mTotalMoney.setText("");
+
         if (page == 1) {
+            mAdapter.setData(cartList.getList());
             if (mRecycleView != null)
                 mRecycleView.setLoadingMoreEnabled(true);
+        }else {
+            mAdapter.insert(mAdapter.getItemCount(), cartList.getList());
         }
         ++page;
     }
