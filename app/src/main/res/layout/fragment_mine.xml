@@ -98,6 +98,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
+                
+                <com.busilinq.widget.IconTextItem
+                    android:id="@+id/it_xsm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_sel"
+                    iconTxt:lineFullScreen="true"
+                    iconTxt:lineVisible="true"
+                    iconTxt:textItem="新商盟" />
 
                 <com.busilinq.widget.IconTextItem
                     android:id="@+id/it_address"
@@ -135,14 +144,6 @@
                     iconTxt:lineVisible="true"
                     iconTxt:textItem="@string/feedback" />
 
-                <com.busilinq.widget.IconTextItem
-                    android:id="@+id/it_xsm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/item_sel"
-                    iconTxt:lineFullScreen="true"
-                    iconTxt:lineVisible="true"
-                    iconTxt:textItem="@string/feedback" />
             </LinearLayout>
         </LinearLayout>
 
