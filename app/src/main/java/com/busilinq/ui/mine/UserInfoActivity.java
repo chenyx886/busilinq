@@ -85,7 +85,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     @Override
     protected void initUI() {
         mTitle.setText(R.string.user_data);
-        mPresenter.getUserInfo(UserCache.get().getUserId(), UserCache.get().getName());
+        mPresenter.getUserInfo(UserCache.get().getUserId(), UserCache.get().getCell());
     }
 
 
@@ -136,7 +136,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
         String user_account = et_user_account.getText().toString();
         String user_email = et_user_email.getText().toString();
         String user_tell = et_user_tell.getText().toString();
-        mPresenter.submitUserInfo(user_name, user_account, user_email, user_tell);
+        mPresenter.submitUserInfo(user_account, user_name, user_email, user_tell);
 
     }
 

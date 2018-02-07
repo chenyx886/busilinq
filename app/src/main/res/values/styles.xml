@@ -167,6 +167,8 @@
         <item name="android:textColor">@color/page_title_color</item>
         <item name="android:textColorHint">@color/HintColor</item>
         <item name="android:textSize">@dimen/text_size14</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:maxLength">20</item>
     </style>
 
     <!-- 通用底部button -->
