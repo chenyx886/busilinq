@@ -156,6 +156,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
     }
 
     ImageView imageView;
+
     /**
      * 显示 商品详情
      *
@@ -173,14 +174,18 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         mPrice.setText("￥" + data.getGoods().getGoods().getPrice() + "/" + data.getGoods().getGoods().getUnit());
         price = data.getGoods().getGoods().getPrice();
 
+        String[] ImgList = new String[data.getImage().size()];
         //详情图
         for (int i = 0; i < data.getImage().size(); i++) {
             Logs.d("list", data.getImage().get(i).getImage());
+            ImgList[i] = data.getImage().get(i).getImage();
+        }
+        for (int i = 0; i < ImgList.length; i++) {
+            Logs.d("ImgList", ImgList[i]);
             imageView = new ImageView(this);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            GlideShowImageUtils.displayNetImage(this, data.getImage().get(i).getImage(), imageView, R.mipmap.default_error);
+            GlideShowImageUtils.displayNetImage(this, ImgList[i], imageView, R.mipmap.default_error);
             mLLImage.addView(imageView);
         }
     }
