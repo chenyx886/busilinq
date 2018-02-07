@@ -6,16 +6,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.busilinq.R;
-import com.busilinq.base.BaseActivity;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.UserInfoView;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.mine.UserInfoPresenter;
 import com.busilinq.widget.MLoadingDialog;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -93,7 +89,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     }
 
 
-    @OnClick({R.id.tv_back,R.id.user_info_btn_confirm})
+    @OnClick({R.id.tv_back, R.id.user_info_btn_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -140,16 +136,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
         String user_account = et_user_account.getText().toString();
         String user_email = et_user_email.getText().toString();
         String user_tell = et_user_tell.getText().toString();
-
-        Map<String, Object> param = new HashMap<>();
-        param.put("userId", UserCache.get().getUserId());
-        param.put("name", user_account);
-        param.put("realName", user_name);
-        param.put("email", user_email);
-        param.put("cell", user_tell);
-
-        mPresenter.submitUserInfo(param);
-
+        mPresenter.submitUserInfo(user_name, user_account, user_email, user_tell);
 
     }
 

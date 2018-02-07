@@ -98,6 +98,10 @@
         <activity
             android:name=".ui.classify.GoodsDetailActivity"
             android:screenOrientation="portrait" />
+        <!--商品图片放大-->
+        <activity
+            android:name=".ui.PhotoActivity"
+            android:screenOrientation="portrait" />
         <!--外部连接-->
         <activity
             android:name=".ui.HtmlActivity"
@@ -166,6 +170,8 @@
         <activity
             android:name=".ui.ToDevelopedActivity"
             android:screenOrientation="portrait" />
+
+
         <activity
             android:name=".ui.mine.order.MyOrdersActivity"
             android:screenOrientation="portrait" />

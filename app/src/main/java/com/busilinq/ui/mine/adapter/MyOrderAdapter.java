@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
+import com.busilinq.data.cache.UserCache;
+import com.busilinq.ui.ToDevelopedActivity;
 import com.busilinq.ui.mine.order.MyOrdersActivity;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
@@ -93,7 +95,11 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                 appHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        JumpUtil.overlay(mContext, MyOrdersActivity.class);
+                        if (UserCache.get() != null) {
+                            JumpUtil.overlay(mContext, MyOrdersActivity.class);
+                        } else {
+                            ToastUtils.showShort("请先登录");
+                        }
                     }
                 });
                 break;
@@ -103,7 +109,11 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                 appHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ToastUtils.showShort("待开发...");
+                        if (UserCache.get() != null) {
+                            JumpUtil.overlay(mContext, ToDevelopedActivity.class);
+                        } else {
+                            ToastUtils.showShort("请先登录");
+                        }
 
                     }
                 });
@@ -114,7 +124,11 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                 appHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ToastUtils.showShort("待开发...");
+                        if (UserCache.get() != null) {
+                            JumpUtil.overlay(mContext, ToDevelopedActivity.class);
+                        } else {
+                            ToastUtils.showShort("请先登录");
+                        }
 
                     }
                 });
@@ -125,7 +139,11 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                 appHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ToastUtils.showShort("待开发...");
+                        if (UserCache.get() != null) {
+                            JumpUtil.overlay(mContext, ToDevelopedActivity.class);
+                        } else {
+                            ToastUtils.showShort("请先登录");
+                        }
 
                     }
                 });

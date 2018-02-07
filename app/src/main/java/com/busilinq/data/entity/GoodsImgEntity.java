@@ -19,7 +19,7 @@ public class GoodsImgEntity extends BaseEntity {
     //公共商品ID
     private int goodsId;
     //图片路径
-    private int image;
+    private String image;
     //图片类型  商品详情  商品缩略图  展示位置
     private int type;
 
@@ -39,11 +39,11 @@ public class GoodsImgEntity extends BaseEntity {
         this.goodsId = goodsId;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

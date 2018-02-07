@@ -16,6 +16,7 @@ public interface UserInfoView extends IBaseMvpView {
 
     /**
      * 成功获取用户信息
+     *
      * @param entity
      */
     void getUserInfoSuccess(UserEntity entity);
