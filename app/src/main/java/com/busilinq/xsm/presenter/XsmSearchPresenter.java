@@ -3,6 +3,7 @@ package com.busilinq.xsm.presenter;
 import android.widget.ArrayAdapter;
 
 
+import com.busilinq.R;
 import com.busilinq.xsm.data.entity.Cigarette;
 import com.busilinq.xsm.ui.adapter.XsmSearchAdapter;
 import com.busilinq.xsm.ulits.ACache;
