@@ -23,6 +23,7 @@ import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.ISetView;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.presenter.mine.SetPresenter;
+import com.busilinq.ui.ToDevelopedActivity;
 import com.busilinq.ulits.AppUtils;
 import com.busilinq.ulits.CatchUtil;
 import com.busilinq.widget.IconTextItem;
@@ -150,7 +151,8 @@ public class SetActivity extends BaseMvpActivity<SetPresenter> implements ISetVi
                 JumpUtil.overlay(mContext, GetCodeActivity.class, bundle);
                 break;
             case R.id.it_about_me:
-                JumpUtil.overlay(mContext, AboutMeActivity.class);
+                JumpUtil.overlay(mContext, ToDevelopedActivity.class);
+//                JumpUtil.overlay(mContext, AboutMeActivity.class);
                 break;
             case R.id.btn_quit:
                 AppShowDialog();

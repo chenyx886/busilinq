@@ -21,18 +21,20 @@ import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.GoodsDetailEntity;
 import com.busilinq.data.entity.GoodsImgEntity;
 import com.busilinq.data.entity.UserFavoriteEntity;
+import com.busilinq.data.event.MenuEvent;
 import com.busilinq.presenter.classify.GoodsDetailPresenter;
 import com.busilinq.ui.PhotoActivity;
 import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.glide.GlideShowImageUtils;
-import com.chenyx.libs.picasso.PicassoLoader;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.Logs;
 import com.chenyx.libs.utils.ToastUtils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -153,7 +155,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         });
     }
 
-
+    ImageView imageView;
     /**
      * 显示 商品详情
      *
@@ -170,15 +172,15 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         mName.setText(data.getGoods().getGoods().getName());
         mPrice.setText("￥" + data.getGoods().getGoods().getPrice() + "/" + data.getGoods().getGoods().getUnit());
         price = data.getGoods().getGoods().getPrice();
+
         //详情图
         for (int i = 0; i < data.getImage().size(); i++) {
             Logs.d("list", data.getImage().get(i).getImage());
-            ImageView imageView = new ImageView(this);
+            imageView = new ImageView(this);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
-            imageView.setBackgroundColor(getResources().getColor(R.color.white));
-            PicassoLoader.displayImageWidthMatchParent(this, data.getImage().get(i).getImage(), imageView, R.mipmap.default_error);
-//            GlideShowImageUtils.displayNetImage(this, data.getImage().get(i).getImage(), imageView, R.mipmap.default_error);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            GlideShowImageUtils.displayNetImage(this, data.getImage().get(i).getImage(), imageView, R.mipmap.default_error);
             mLLImage.addView(imageView);
         }
     }
@@ -213,7 +215,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
     }
 
 
-    @OnClick({R.id.ll_order_goods, R.id.btn_add_cart, R.id.btnadd, R.id.btndown, R.id.tv_back})
+    @OnClick({R.id.ll_order_goods, R.id.ll_cart, R.id.btn_add_cart, R.id.btnadd, R.id.btndown, R.id.tv_back})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -228,6 +230,11 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
                     type = -1;
                     mPresenter.cancelFavorite(goodsId + "");
                 }
+                break;
+            //购物车
+            case R.id.ll_cart:
+                EventBus.getDefault().post(new MenuEvent(2));
+                finish();
                 break;
             //加
             case R.id.btnadd:
