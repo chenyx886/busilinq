@@ -54,8 +54,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseM
         initTAG(this);
         MApplication.getInstance().appManager.addActivity(this);
         setTranslucentStatus();
-
-
     }
 
     /**
