@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/color_f2f2f2"
+             android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f2f2f2">
+
+        <com.omyni.mdmanager.widget.HeadBar
+            android:id="@+id/myxsm_ordering_headbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/fengexian_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_1"
+            android:layout_below="@+id/myxsm_ordering_headbar"
+            android:background="@color/color_cccccc"/>
+
+        <com.omyni.mdmanager.widget.EmptyLayout
+            android:id="@+id/myxsm_ordering_error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/fengexian_tv"/>
+
+
+        <ListView
+            android:id="@+id/myxsm_ordering_lv"
+            style="@style/listView_common"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_lly"
+            android:layout_below="@+id/fengexian_tv"
+            android:background="@color/color_eaeaea"
+            android:divider="@null"/>
+
+        <RelativeLayout
+            android:id="@+id/xsm_shop_cart_rly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom_lly"
+            android:background="@color/color_663f454f"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_90"
+                android:layout_above="@+id/xsm_shops_lv"
+                android:background="@color/color_ffffff">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/space_30"
+                    android:gravity="center_vertical"
+                    android:text="@string/myxsm_ordering_select"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/text_size16"/>
+
+                <LinearLayout
+                    android:id="@+id/xsm_orders_clear_lly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_34"
+                        android:layout_height="@dimen/space_34"
+                        android:layout_marginRight="@dimen/space_11"
+                        android:src="@mipmap/ic_ordering_clear"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/space_30"
+                        android:text="@string/myxsm_ordering_clear_reset"
+                        android:textColor="@color/color_009999"
+                        android:textSize="@dimen/text_size16"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/xsm_shops_lv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_639"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_ffffff"
+                android:divider="@null"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_lly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_95"
+                android:layout_gravity="bottom"
+                android:background="@color/color_ffffff">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/space_120"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/xsm_ordering_total_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="￥0.00"
+                            android:textColor="@color/color_ed5656"
+                            android:textSize="@dimen/text_size20"/>
+
+                        <TextView
+                            android:id="@+id/xms_ordering_remain_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/len_10"
+                            android:text="还可以定0条"
+                            android:textColor="@color/color_aaaaaa"
+                            android:textSize="@dimen/text_size12"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/xms_ordering_cgt_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="非异型烟0条 异型烟0条"
+                        android:textColor="@color/color_aaaaaa"
+                        android:textSize="@dimen/text_size12"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/myxsm_orderlist_commit_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_0d9e5c"
+                    android:text="@string/myxsm_ordering_next"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="@dimen/text_size16"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/xsm_ordering_shop_cart_fly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="@dimen/space_10">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/space_90"
+            android:layout_height="@dimen/space_90"
+            android:layout_marginBottom="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_10"
+            android:src="@mipmap/ic_xsm_shop_cart"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+
+            <TextView
+                android:id="@+id/xms_ordering_sum_tv"
+                android:layout_width="@dimen/space_50"
+                android:layout_height="@dimen/space_50"
+                android:background="@drawable/tips_circle"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/color_ffffff"
+                android:textSize="@dimen/font_12"
+                android:textStyle="bold"/>
+        </FrameLayout>
+
+    </FrameLayout>
+</FrameLayout>

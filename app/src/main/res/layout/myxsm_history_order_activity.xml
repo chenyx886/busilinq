@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_f2f2f2"
+                android:fitsSystemWindows="true"
+                android:orientation="vertical">
+
+    <com.omyni.mdmanager.widget.HeadBar
+        android:id="@+id/myxsm_ordering_headbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.omyni.mdmanager.widget.EmptyLayout
+        android:id="@+id/myxsm_ordering_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/myxsm_ordering_headbar"/>
+
+    <ListView
+        android:id="@+id/xsm_history_orders_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/myxsm_ordering_headbar"
+        android:divider="@null"/>
+
+
+</RelativeLayout>

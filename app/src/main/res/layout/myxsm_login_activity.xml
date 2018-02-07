@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_xsm_login"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.omyni.mdmanager.widget.HeadBar
+        android:id="@+id/myxsm_login_headbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_110" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_60"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/space_20"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/space_100"
+                android:layout_height="@dimen/space_100"
+                android:src="@mipmap/ic_xsm" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/xsm"
+                android:textColor="@color/color_ffffff"
+                android:textSize="@dimen/text_size32" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_qr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:clickable="true"
+            android:src="@mipmap/qr_icon"
+            android:visibility="gone" />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_120"
+        android:background="@drawable/linearlayout_009999_frame"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/myxsm_login_account_edt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_50"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="请输入新商盟帐号"
+            android:inputType="number"
+            android:maxLength="12"
+            android:singleLine="true"
+            android:textColor="@color/color_ffffff"
+            android:textColorHint="@color/color_aad2be"
+            android:textSize="@dimen/text_size14" />
+
+        <ImageView
+            android:id="@+id/myxsm_login_account_iv"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/space_50"
+            android:src="@mipmap/arrow_down"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@drawable/linearlayout_009999_frame"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/myxsm_login_password_edt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_50"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/color_ffffff"
+            android:textColorHint="@color/color_aad2be"
+            android:textSize="@dimen/text_size14" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/myxsm_login_province_lly"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@drawable/linearlayout_009999_frame"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/myxsm_login_province_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_50"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:hint="请选择省份"
+            android:inputType="text"
+            android:textColor="@color/color_ffffff"
+            android:textColorHint="@color/color_aad2be"
+            android:textSize="@dimen/text_size14" />
+
+        <ImageView
+            android:id="@+id/myxsm_login_province_iv"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/space_50"
+            android:src="@mipmap/arrow_down" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/myxsm_login_firm_lly"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@drawable/linearlayout_009999_frame"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/myxsm_login_firm_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_50"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:hint="请选择烟草公司"
+            android:inputType="text"
+            android:textColor="@color/color_ffffff"
+            android:textColorHint="@color/color_aad2be"
+            android:textSize="@dimen/text_size14" />
+
+        <ImageView
+            android:id="@+id/myxsm_login_firm_iv"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/space_50"
+            android:src="@mipmap/arrow_down" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/myxsm_login_btn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_110"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/space_55"
+            android:layout_marginRight="@dimen/space_55"
+            android:layout_marginTop="24dp"
+            android:background="@mipmap/ic_xsm_login_btn"
+            android:text="新商盟授权"
+            android:textColor="@color/color_ffffff"
+            android:textSize="@dimen/text_size18" />
+
+    </RelativeLayout>
+</LinearLayout>

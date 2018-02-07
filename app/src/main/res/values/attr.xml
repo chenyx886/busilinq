@@ -9,5 +9,8 @@
         <attr name="rightIcoVisible" format="boolean"/>
         <attr name="rightText" format="reference|string"/>
     </declare-styleable>
-
+    <declare-styleable name="DrawableTextView">
+        <attr name="drawableWidth" format="dimension"/>
+        <attr name="drawableHeight" format="dimension"/>
+    </declare-styleable>
 </resources>

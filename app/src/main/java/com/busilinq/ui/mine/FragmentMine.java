@@ -89,7 +89,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
     }
 
 
-    @OnClick({R.id.userinfo, R.id.it_address, R.id.it_collection, R.id.it_user_info, R.id.it_feedback, R.id.iv_set})
+    @OnClick({R.id.it_xsm,R.id.userinfo, R.id.it_address, R.id.it_collection, R.id.it_user_info, R.id.it_feedback, R.id.iv_set})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.userinfo:
@@ -123,6 +123,13 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
             case R.id.it_feedback:
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), FeedbackActivity.class);
+                } else {
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                }
+                break;
+            case R.id.it_xsm:
+                if (UserCache.get() != null) {
+//                    JumpUtil.overlay(getActivity(), FeedbackActivity.class);
                 } else {
                     JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
                 }

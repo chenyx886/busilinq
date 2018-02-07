@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dt="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/space_10"
+    android:background="@color/color_ffffff">
+    <LinearLayout
+        android:layout_width="@dimen/space_0"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2"
+        android:orientation="vertical">
+        <com.busilinq.xsm.widget.DrawableTextView
+            android:id="@+id/myxsm_orders_item_order_number_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_20"
+            android:drawableLeft="@mipmap/myxsm_order"
+            android:drawablePadding="@dimen/space_3"
+            android:textSize="@dimen/text_size14"
+            android:textColor="@color/color_333333"
+            android:gravity="center_vertical"
+            dt:drawableHeight="@dimen/space_20"
+            dt:drawableWidth="@dimen/space_18"/>
+
+        <TextView
+            android:id="@+id/myxsm_orders_item_order_time_tv"
+            style="@style/myxsm_orders_text_style" />
+
+        <TextView
+            android:id="@+id/myxsm_orders_item_order_qty_tv"
+            style="@style/myxsm_orders_text_style" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/space_0"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/space_10"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/myxsm_orders_item_order_integral_tv"
+            style="@style/myxsm_orders_text_style"
+            android:layout_height="@dimen/space_20"
+            android:layout_marginTop="@dimen/space_0"
+            android:textColor="@color/color_f20c0c" />
+
+        <TextView
+            android:id="@+id/myxsm_orders_item_order_paystate_tv"
+            style="@style/myxsm_orders_text_style" />
+
+        <TextView
+            android:id="@+id/myxsm_orders_item_order_amount_tv"
+            style="@style/myxsm_orders_text_style" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="@dimen/space_5"
+        android:src="@mipmap/enter_arrow"/>
+</LinearLayout>

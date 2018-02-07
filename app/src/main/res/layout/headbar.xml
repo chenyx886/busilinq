@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/headbar"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/space_110"
+              android:background="@color/color_0d9e5c"
+              android:orientation="horizontal">
+
+    <com.omyni.mdmanager.widget.DrawableTextView
+        android:id="@+id/headbar_left_tv"
+        android:layout_width="@dimen/space_0"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/space_10"
+        android:layout_weight="1"
+        android:drawablePadding="@dimen/space_2"
+        android:gravity="left|center"
+        android:textColor="@color/color_ffffff"
+        android:textSize="@dimen/text_size14"/>
+
+    <TextView
+        android:id="@+id/headbar_mid_tv"
+        android:layout_width="@dimen/space_0"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/space_10"
+        android:layout_marginRight="@dimen/space_10"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:textColor="@color/color_ffffff"
+        android:textSize="@dimen/text_size18"/>
+
+    <LinearLayout
+        android:id="@+id/headbar_rigth_layout"
+        android:layout_width="@dimen/space_0"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/space_10"
+        android:layout_weight="1"
+        android:gravity="right|center">
+
+        <com.omyni.mdmanager.widget.DrawableTextView
+            android:id="@+id/headbar_rigth_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawablePadding="@dimen/space_2"
+            android:gravity="center|right"
+            android:maxLines="1"
+            android:textColor="@color/color_ffffff"
+            android:textSize="@dimen/text_size14"/>
+
+        <ImageView
+            android:id="@+id/headbar_rigth_igv"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:layout_marginRight="@dimen/space_36"
+            android:background="@android:color/transparent"
+            android:gravity="center|right"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/common_query"/>
+    </LinearLayout>
+</LinearLayout>

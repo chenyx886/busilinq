@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_eaeaea"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_110"
+        android:background="@color/color_444d56"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="有效支付时间"
+            android:textColor="@color/color_ffffff"
+            android:textSize="@dimen/text_size18" />
+
+        <TextView
+            android:id="@+id/ums_pos_pay_valid_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_10"
+            android:text="00:00:00"
+            android:textColor="@color/color_009999"
+            android:textSize="@dimen/text_size20" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_107"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/space_20"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="所属公司"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/text_size14" />
+
+        <TextView
+            android:id="@+id/ums_pos_pay_comp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text=""
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/text_size14" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:background="@color/color_aaaaaa" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_107"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新商盟帐号"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/text_size14" />
+
+        <TextView
+            android:id="@+id/ums_pos_pay_xsm_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text=""
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/text_size14" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:background="@color/color_aaaaaa" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_107"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="客户名称"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/text_size14" />
+
+        <TextView
+            android:id="@+id/ums_pos_pay_xsm_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text=""
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/text_size14" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:background="@color/color_aaaaaa" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_107"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单号"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/text_size14" />
+
+        <TextView
+            android:id="@+id/ums_pos_pay_xsm_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text=""
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/text_size14" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:background="@color/color_aaaaaa" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_107"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="交易流水号"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/text_size14" />
+
+        <TextView
+            android:id="@+id/ums_pos_pay_trans_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text=""
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/text_size14" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:background="@color/color_aaaaaa" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_137"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="需支付"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/text_size14" />
+
+        <TextView
+            android:id="@+id/ums_pos_pay_trans_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text=""
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/text_size24" />
+    </LinearLayout>
+
+
+
+
+    <Button
+        android:id="@+id/ums_pos_pay_order_pay"
+        android:layout_width="@dimen/space_600"
+        android:layout_height="@dimen/space_90"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_40"
+        android:background="@drawable/linearlayout_009999_frame"
+        android:text="确认支付"
+        android:textColor="@color/color_ffffff"
+        android:textSize="@dimen/text_size18" />
+</LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/color_ffffff"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:padding="@dimen/space_5">
+
+    <TextView
+        android:id="@+id/myxsm_seach_item_name_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_30"
+        android:layout_marginLeft="@dimen/space_30"
+        android:layout_marginTop="@dimen/space_30"
+        android:text="中华烟"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="@dimen/text_size16"/>
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/space_160"
+    android:background="@color/color_ffffff"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/space_30">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/xsm_accouts_item_igv"
+        android:layout_width="@dimen/space_74"
+        android:layout_height="@dimen/space_74"
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/ic_default_icon" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/space_30"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/xsm_accouts_item_name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="账户名"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/text_size16" />
+
+        <TextView
+            android:id="@+id/xsm_accouts_item_accout_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0000000000"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="@dimen/text_size16" />
+    </LinearLayout>
+</LinearLayout>

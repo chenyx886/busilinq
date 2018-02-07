@@ -74,8 +74,9 @@ android {
 
     sourceSets {
         main {
-            jniLibs.srcDirs = ['jniLibs']
+            jniLibs.srcDirs = ['src/main/jniLibs']
             java.srcDirs = ['src/main/java']
+            aidl.srcDirs = ['src/main/aidl', 'src/main/aidl/']
         }
     }
     applicationVariants.all { variant ->
@@ -113,8 +114,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     compile 'com.pnikosis:materialish-progress:1.7'
-
-
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
@@ -125,7 +124,6 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.0'
-
     compile 'org.greenrobot:greendao:3.2.0'
     compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
@@ -142,12 +140,15 @@ dependencies {
     compile 'net.qiujuer.genius:graphics:latest.integration'
     compile 'net.qiujuer.genius:res:latest.integration'
     compile 'net.qiujuer.genius:ui:latest.integration'
-
     compile 'com.google.zxing:core:3.3.0'
     compile 'commons-codec:commons-codec:1.9'
     compile 'org.apache.commons:commons-lang3:3.1'
     compile 'com.mchange:mchange-commons-java:0.2.12'
-
     compile 'com.longsh:OptionFrame:1.0.0'
-
+    /**
+     *  新商盟
+     */
+    compile 'com.zhy:autolayout:1.4.5'
+    implementation files('libs/UPPayAssistEx.jar')
+    implementation files('libs/UPPayPluginExPro.jar')
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_80"
+        android:layout_marginBottom="@dimen/space_20"
+        android:background="@color/color_ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/space_10"
+        android:paddingTop="@dimen/space_10">
+
+        <EditText
+            android:id="@+id/searchview_input_edt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/space_70"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/space_20"
+            android:layout_weight="1"
+            android:background="@drawable/seach_tv_f0f0f0_frame"
+            android:drawableLeft="@mipmap/search_icon"
+            android:drawablePadding="@dimen/space_20"
+            android:hint="@string/myxsm_seach_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingBottom="@dimen/space_10"
+            android:paddingLeft="@dimen/space_20"
+            android:paddingTop="@dimen/space_10"
+            android:textColor="@color/color_333333"
+            android:textColorHint="@android:color/darker_gray"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_size18" />
+
+
+        <TextView
+            android:id="@+id/searchview_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/space_70"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/space_20"
+            android:layout_marginRight="@dimen/space_20"
+            android:background="@color/color_ffffff"
+            android:padding="@dimen/space_5"
+            android:text="@string/myxsm_seach_ceanl"
+            android:textColor="@color/color_009999"
+            android:textSize="@dimen/text_size18" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:background="@color/color_aaaaaa" />
+
+    <ListView
+        android:id="@+id/searchview_lv"
+        style="@style/listView_common"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/space_20"
+        android:layout_marginLeft="@dimen/space_5"
+        android:layout_marginRight="@dimen/space_5"
+        android:divider="@color/color_e6e6e6"
+        android:footerDividersEnabled="true" />
+</LinearLayout>

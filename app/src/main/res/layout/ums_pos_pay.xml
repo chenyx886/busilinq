@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <com.omyni.mdmanager.widget.HeadBar
+        android:id="@+id/ums_pos_pay_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.omyni.mdmanager.widget.EmptyLayout
+        android:id="@+id/ums_pos_pay_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <include
+        android:id="@+id/ums_pos_pay_container"
+        layout="@layout/ums_pos_pay_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
