@@ -286,6 +286,8 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     @Override
     public void Success(int position, CartEntity data) {
 
+
+
         MainCartEntity item = mAdapter.getItem(position);
         if (data != null) {
             CartEntity cartEntity = item.getCart();
