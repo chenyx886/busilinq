@@ -10,9 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:lineSpacingExtra="6dp"
-        android:maxLines="2"
-        android:minHeight="50dp"
+        android:lines="1"
         android:text="过总理政府工作报过总理政府工作报过总理政府工作报过总理政府工作报过总理政府工作报过总理政府工作报"
         android:textColor="@color/page_title_color"
         android:textSize="@dimen/text_size14" />

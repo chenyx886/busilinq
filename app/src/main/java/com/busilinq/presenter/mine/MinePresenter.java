@@ -3,13 +3,11 @@ package com.busilinq.presenter.mine;
 
 import android.content.Context;
 
-import com.busilinq.contract.IBaseMvpView;
-import com.busilinq.data.BaseData;
+import com.busilinq.contract.mine.IMineView;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.TServiceAccountEntity;
 import com.busilinq.presenter.BasePresenter;
-import com.busilinq.ui.mine.FeedbackActivity;
 import com.busilinq.xsm.data.usercenter.ServiceEntity;
 import com.busilinq.xsm.data.usercenter.UserEntity;
 import com.busilinq.xsm.presenter.UserCenterHelper;
@@ -28,10 +26,30 @@ import java.util.List;
  * Update Time：
  * Update Remark：
  */
-public class MinePresenter extends BasePresenter<IBaseMvpView> {
+public class MinePresenter extends BasePresenter<IMineView> {
 
-    public MinePresenter(IBaseMvpView MvpView) {
+    public MinePresenter(IMineView MvpView) {
         super(MvpView);
+    }
+
+    /**
+     * 获取用户资料
+     *
+     * @param userId
+     * @param name
+     */
+    public void getUserInfo(String userId, String name) {
+        addSubscription(RetrofitApiFactory.getMineApi().getInfo(userId, name), new SubscriberCallBack<com.busilinq.data.entity.UserEntity>() {
+            @Override
+            protected void onSuccess(com.busilinq.data.entity.UserEntity data) {
+                MvpView.showUserInfo(data);
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.hideProgress();
+            }
+        });
     }
 
     public void getService(final Context mContext) {
@@ -39,7 +57,7 @@ public class MinePresenter extends BasePresenter<IBaseMvpView> {
             @Override
             protected void onSuccess(List<TServiceAccountEntity> list) {
                 UserCenterHelper mHelper = UserCenterHelper.getInstance(mContext);
-                UserEntity userEntity=new UserEntity();
+                UserEntity userEntity = new UserEntity();
                 List<ServiceEntity> serviceList = new ArrayList<>();
                 for (TServiceAccountEntity entity : list) {
                     ServiceEntity serviceEntity = new ServiceEntity();

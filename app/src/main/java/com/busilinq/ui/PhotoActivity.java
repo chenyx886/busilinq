@@ -2,7 +2,6 @@ package com.busilinq.ui;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -16,14 +15,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bm.library.PhotoView;
 import com.busilinq.R;
+import com.busilinq.base.BaseActivity;
 import com.busilinq.ulits.FileUtils;
 import com.chenyx.libs.utils.ToastUtils;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
-import uk.co.senab.photoview.PhotoView;
 
 /**
  * Company：华科建邺
@@ -35,7 +35,7 @@ import uk.co.senab.photoview.PhotoView;
  * Update Remark：
  */
 
-public class PhotoActivity extends Activity implements View.OnClickListener {
+public class PhotoActivity extends BaseActivity implements View.OnClickListener {
     private ImageView crossIv;
     private ViewPager mPager;
     private ImageView loadingIv;
@@ -53,6 +53,10 @@ public class PhotoActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_photo);
+    }
+
+    @Override
+    protected void initUI() {
         imageUrls = getIntent().getStringArrayExtra("imageUrls");
         curImageUrl = getIntent().getStringExtra("curImageUrl");
         initialedPositions = new int[imageUrls.length];
@@ -83,7 +87,7 @@ public class PhotoActivity extends Activity implements View.OnClickListener {
             public Object instantiateItem(ViewGroup container, final int position) {
                 if (imageUrls[position] != null && !"".equals(imageUrls[position])) {
                     final PhotoView view = new PhotoView(PhotoActivity.this);
-//                    view.enable();
+                    view.enable();
                     view.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
                     Picasso.with(PhotoActivity.this)
@@ -265,6 +269,17 @@ public class PhotoActivity extends Activity implements View.OnClickListener {
         }
     }
 
+
+    @Override
+    public void showProgress(String message) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
     @Override
     protected void onDestroy() {
         releaseResource();
@@ -274,4 +289,5 @@ public class PhotoActivity extends Activity implements View.OnClickListener {
         }
         super.onDestroy();
     }
+
 }

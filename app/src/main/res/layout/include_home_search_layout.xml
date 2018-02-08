@@ -5,20 +5,6 @@
     android:background="@drawable/header_style"
     android:gravity="center">
 
-    <TextView
-        android:id="@+id/tv_back"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@drawable/selector_press_heard_btn"
-        android:drawableLeft="@mipmap/ic_header_back"
-        android:drawablePadding="5dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size14"
-        android:visibility="gone" />
-
     <ImageView
         android:id="@+id/iv_search_list"
         android:layout_width="wrap_content"
@@ -26,8 +12,7 @@
         android:layout_gravity="right|center_vertical"
         android:layout_marginTop="5dp"
         android:padding="10dp"
-        android:src="@mipmap/ic_search_list"
-        android:visibility="gone" />
+        android:src="@mipmap/ic_search_list" />
 
     <FrameLayout
         android:layout_width="match_parent"

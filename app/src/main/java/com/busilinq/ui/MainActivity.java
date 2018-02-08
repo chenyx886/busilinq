@@ -1,13 +1,12 @@
 package com.busilinq.ui;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
@@ -20,7 +19,6 @@ import com.busilinq.ui.cart.FragmentCart;
 import com.busilinq.ui.classify.FragmentClassify;
 import com.busilinq.ui.home.FragmentHome;
 import com.busilinq.ui.mine.FragmentMine;
-import com.busilinq.ulits.AppUtils;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.Toasts;
 
@@ -89,7 +87,7 @@ public class MainActivity extends BaseActivity {
         mMine.setTag(FragmentMine.TAG);
         mHome.setChecked(true);//默认选中第一个
 
-        getLocationPersimmions();
+        getPersimmions();
     }
 
 
@@ -184,20 +182,65 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    private void getLocationPersimmions() {
+    private final int SDK_PERMISSION_REQUEST = 127;
+    private String permissionInfo;
+
+    @TargetApi(23)
+    private void getPersimmions() {
 
         ArrayList<String> permissions = new ArrayList<>();
-        if (ContextCompat.checkSelfPermission(MApplication.getAppContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        /***
+         * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
+         */
+        //定位精确位置
+        if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
-        if (ContextCompat.checkSelfPermission(MApplication.getAppContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         }
-        if (ContextCompat.checkSelfPermission(MApplication.getAppContext(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+
+        if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             permissions.add(Manifest.permission.READ_PHONE_STATE);
         }
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+//        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+//                || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//            permissions.add(Manifest.permission.CAMERA);
+//            permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+//        }
+
+        //读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
+        // 读写权限
+        if (addPermission(permissions, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            permissionInfo += "Manifest.permission.WRITE_EXTERNAL_STORAGE Deny \n";
+        }
+        // 读取电话状态权限
+        if (addPermission(permissions, Manifest.permission.READ_PHONE_STATE)) {
+            permissionInfo += "Manifest.permission.READ_PHONE_STATE Deny \n";
+        }
+
         if (permissions.size() > 0) {
-            ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), AppUtils.POSTION_RQESTCODE);
+            requestPermissions(permissions.toArray(new String[permissions.size()]), SDK_PERMISSION_REQUEST);
+        }
+    }
+
+
+    @TargetApi(23)
+    private boolean addPermission(ArrayList<String> permissionsList, String permission) {
+        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+            // 如果应用没有获得对应权限,则添加到列表中,准备批量申请
+            if (shouldShowRequestPermissionRationale(permission)) {
+                return true;
+            } else {
+                permissionsList.add(permission);
+                return false;
+            }
+
+        } else {
+            return true;
         }
     }
 

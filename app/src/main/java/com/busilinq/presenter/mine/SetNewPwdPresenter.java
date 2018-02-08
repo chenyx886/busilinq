@@ -35,7 +35,6 @@ public class SetNewPwdPresenter extends BasePresenter<ISetNewPwdView> {
      * @param password 新密码
      */
     public void forgetPassword(String phone, String password) {
-        Map<String, Object> param = new HashMap<>();
         param.put("phone", phone);
         param.put("password", password);
         RequestBody body = JsonRequestBody.createJsonBody(param);

@@ -166,6 +166,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
 
         view = LayoutInflater.from(getActivity()).inflate(R.layout.include_home_menu, null);
         mCBanner = view.findViewById(R.id.cb_Banner);
+
         BindViewItem();
         mDataList.addHeaderView(view);
         initData();
@@ -259,7 +260,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
             mDatas.clear();
         mDatas.addAll(data.getList());
         mAdapter.setData(mDatas);
-        mAdapter.notifyDataSetChanged();
     }
 
     /**

@@ -6,18 +6,22 @@ import com.busilinq.data.entity.CodeEntity;
 import com.busilinq.data.entity.MyCollectionEntity;
 import com.busilinq.data.entity.TServiceAccountEntity;
 import com.busilinq.data.entity.TUpgradeEntity;
+import com.busilinq.data.entity.UploadEntity;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.data.entity.UserFavoriteEntity;
 import com.busilinq.data.entity.UserShopAddrEntity;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -93,9 +97,20 @@ public interface MineApi {
      * @param body
      * @return
      */
-    @GET("/api/user/modifyHead")
+    @PUT("/api/user/modifyHead")
     Observable<BaseData> modifyHead(@Body RequestBody body);
 
+
+    /**
+     * 上传文件
+     *
+     * @param userId
+     * @param multiparts
+     * @return
+     */
+    @Multipart
+    @POST("/api/file/upload")
+    Observable<BaseData<List<UploadEntity>>> upload(@Query("userId") int userId, @Part List<MultipartBody.Part> multiparts);
 
     /**
      * 修改密码

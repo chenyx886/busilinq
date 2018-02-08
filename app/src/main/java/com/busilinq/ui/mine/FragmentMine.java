@@ -15,8 +15,9 @@ import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
-import com.busilinq.contract.IBaseMvpView;
+import com.busilinq.contract.mine.IMineView;
 import com.busilinq.data.cache.UserCache;
+import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.mine.MinePresenter;
 import com.busilinq.ui.mine.adapter.MyOrderAdapter;
 import com.busilinq.widget.MLoadingDialog;
@@ -36,7 +37,7 @@ import butterknife.OnClick;
  * Update Time：
  * Update Remark：
  */
-public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBaseMvpView {
+public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMineView {
 
     public static String TAG = FragmentMine.class.getName();
 
@@ -89,7 +90,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
     }
 
 
-    @OnClick({R.id.it_xsm,R.id.userinfo, R.id.it_address, R.id.it_collection, R.id.it_user_info, R.id.it_feedback, R.id.iv_set})
+    @OnClick({R.id.it_xsm, R.id.userinfo, R.id.it_address, R.id.it_collection, R.id.it_user_info, R.id.it_feedback, R.id.iv_set})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.userinfo:
@@ -142,6 +143,10 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
     }
 
     @Override
+    public void showUserInfo(UserEntity user) {
+        initData();
+    }
+
     public void showProgress(String message) {
         MLoadingDialog.show(getActivity(), message);
     }
@@ -154,7 +159,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        initData();
+       mPresenter.getUserInfo(UserCache.GetUserId(),"");
     }
 
     /**

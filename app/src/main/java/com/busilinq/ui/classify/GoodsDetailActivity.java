@@ -36,7 +36,6 @@ import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import butterknife.BindView;
@@ -153,9 +152,8 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
                 mPresenter.FavoriteVerify(goodsId);
             }
         });
-    }
 
-    ImageView imageView;
+    }
 
     /**
      * 显示 商品详情
@@ -164,28 +162,30 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
      */
     @Override
     public void GoodsDetail(final GoodsDetailEntity data) {
-
-        if (mLLImage != null)
-            mLLImage.removeAllViews();
         //轮播图
         BindBanner(data.getBanner());
         //商品基本信息
         mName.setText(data.getGoods().getGoods().getName());
         mPrice.setText("￥" + data.getGoods().getGoods().getPrice() + "/" + data.getGoods().getGoods().getUnit());
         price = data.getGoods().getGoods().getPrice();
+        BindImageArr(data.getImage());
+    }
 
-        String[] ImgList = new String[data.getImage().size()];
-        //详情图
-        for (int i = 0; i < data.getImage().size(); i++) {
-            Logs.d("list", data.getImage().get(i).getImage());
-            ImgList[i] = data.getImage().get(i).getImage();
-        }
-        for (int i = 0; i < ImgList.length; i++) {
-            Logs.d("ImgList", ImgList[i]);
-            imageView = new ImageView(this);
+    /**
+     * 图片详情
+     *
+     * @param imgList
+     */
+    private void BindImageArr(List<GoodsImgEntity> imgList) {
+        mLLImage.removeAllViews();
+        mLLImage.setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
+        for (int i = 0; i < imgList.size(); i++) {
+            Logs.d("ImgList", imgList.get(i).getImage());
+            ImageView imageView = new ImageView(this);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
-            GlideShowImageUtils.displayNetImage(this, ImgList[i], imageView, R.mipmap.default_error);
+            GlideShowImageUtils.displayNetImage(this, imgList.get(i).getImage(), imageView, R.mipmap.default_error);
+
             mLLImage.addView(imageView);
         }
     }
@@ -210,7 +210,6 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
                 for (int i = 0; i < bList.size(); i++) {
                     imageUrl[i] = bList.get(i).getImage();
                 }
-
                 Bundle b = new Bundle();
                 b.putStringArray("imageUrls", imageUrl);
                 b.putString("curImageUrl", bList.get(position).getImage());
