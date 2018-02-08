@@ -1,11 +1,9 @@
 package com.busilinq.ui.cart;
 
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +21,11 @@ import com.busilinq.contract.cart.ICartView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.cache.AssembleProduct;
 import com.busilinq.data.cache.UserCache;
-import com.busilinq.data.entity.BaseEntity;
 import com.busilinq.data.entity.CartEntity;
-import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.presenter.cart.CartPresenter;
 import com.busilinq.ui.MainActivity;
 import com.busilinq.ui.cart.adapter.CartAdapter;
-import com.busilinq.widget.LinearDividerItemDecoration;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
@@ -38,10 +33,7 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.longsh.optionframelibrary.OptionCenterDialog;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -286,20 +278,30 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     @Override
     public void Success(int position, CartEntity data) {
 
-
-
         MainCartEntity item = mAdapter.getItem(position);
         if (data != null) {
             CartEntity cartEntity = item.getCart();
             if (type == 1) {
                 cartEntity.setNumber(item.getCart().getNumber() + 1);
                 item.setCart(cartEntity);
+
+                if(item.getCart().getIsChecked() == 1){
+                    AssembleProduct.getInstance().addSingleProduct(item.getCart());
+                    //AssembleProduct.getInstance().increase(cartEntity);
+                }
+
+
+
             } else {
                 cartEntity.setNumber(item.getCart().getNumber() - 1);
                 item.setCart(cartEntity);
+                if(item.getCart().getIsChecked() == 1){
+                    AssembleProduct.getInstance().removeSingleProduct(item.getCart());//减
+                    //AssembleProduct.getInstance().increase(cartEntity);
+                }
             }
-            if( AssembleProduct.getInstance().getGoods()!=null&& AssembleProduct.getInstance().getGoods().contains(item))
-            AssembleProduct.getInstance().increase(item);
+//            if( AssembleProduct.getInstance().getGoods()!=null&& AssembleProduct.getInstance().getGoods(item.getCart().getCartId()))
+//            AssembleProduct.getInstance().increase(cartEntity);
         }
         mAdapter.notifyDataSetChanged();
         mTotalMoney.setText(AssembleProduct.getInstance().getSubPrice()+"");

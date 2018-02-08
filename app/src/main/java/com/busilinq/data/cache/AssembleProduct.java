@@ -1,8 +1,6 @@
 package com.busilinq.data.cache;
 
-
-import com.busilinq.data.entity.MainCartEntity;
-
+import com.busilinq.data.entity.CartEntity;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,7 +17,7 @@ import java.util.List;
  */
 public class AssembleProduct {
 
-    List<MainCartEntity> goods = new ArrayList<>();
+    List<CartEntity> goods = new ArrayList<>();
 
     private static AssembleProduct sSingleton = null;
 
@@ -30,61 +28,82 @@ public class AssembleProduct {
         return sSingleton;
     }
 
-
     /**
-     * 删除单个商品
-     *
-     * @param CartId
-     */
-    public void removeSingleProduct(int CartId) {
-        if (CartId<=0) {
-            return;
-        }
-        if(goods.size()>0) {
-            for (MainCartEntity good : goods) {
-                if (good.getCart().getCartId() == CartId) {
-
-                    goods.remove(good);
-                }
-            }
-        }
-    }
-
-    /**
-     * 商品加减
+     * 添加单个商品
      *
      * @param item
      */
-    public void increase(MainCartEntity item) {
-        if (item == null&&item.getCart().getCartId()<=0) {
+    public void addSingleProduct(CartEntity item) {
+        if (item == null) {
             return;
         }
-        for (MainCartEntity good : goods) {
-            if (good.getCart().getCartId() == item.getCart().getCartId()) {
-                good.getCart().setNumber(item.getCart().getNumber());
-                return;
-            }
-        }
-        item.getCart().setNumber(item.getCart().getNumber());
+
         goods.add(item);
     }
 
     /**
-     * 商品减
+     * 删除单个商品
      *
      * @param item
      */
-    public void decrease(MainCartEntity item) {
-        if (item == null&&item.getCart().getCartId()<=0) {
+    public void removeSingleProduct(CartEntity item) {
+        if (item == null) {
+            return;
+        }
+        goods.remove(item);
+
+//        for (CartEntity good : goods) {
+//            if (good == item) {
+//                goods.remove(item);
+//            }
+//        }
+    }
+
+    /**
+     * 商品加1
+     *
+     * @param item
+     */
+    public void increase(CartEntity item) {
+        if (item == null) {
+            return;
+        }
+        for (CartEntity good : goods) {
+            if (good.getGoodsId() == item.getGoodsId()) {
+                // 商品数量 +1
+                int num = good.getNumber() + 1;
+                good.setNumber(num);
+                return;
+            }
+//        }
+            item.setNumber(1);
+            goods.add(item);
+        }
+    }
+
+    /**
+     * 商品减1
+     *
+     * @param item
+     */
+    public void decrease(CartEntity item) {
+        if (item == null) {
             return;
         }
 
         // 解决 异常 ：java.util.ConcurrentModificationException
-        for (Iterator<MainCartEntity> it = goods.iterator(); it.hasNext(); ) {
-            MainCartEntity ge = it.next();
-            if (ge.getCart().getCartId() == item.getCart().getCartId()) {
-                    ge.getCart().setNumber(item.getCart().getNumber());
-
+        for (Iterator<CartEntity> it = goods.iterator(); it.hasNext(); ) {
+            CartEntity ge = it.next();
+            if (ge.getGoodsId() == item.getGoodsId()) {
+                if (ge.getNumber() == 1) {
+                    // 如果 数量为1 则移除商品
+                    // goods.remove(item);
+                    it.remove();
+                } else {
+                    // 商品数量 -1
+                    int num = ge.getNumber() - 1;
+                    ge.setNumber(num);
+                }
             }
         }
 
@@ -110,8 +129,8 @@ public class AssembleProduct {
      */
     public Integer getSubNum() {
         int tmp = 0;
-        for (MainCartEntity ge : goods) {
-            tmp += ge.getCart().getNumber();
+        for (CartEntity ge : goods) {
+            tmp += ge.getNumber();
         }
         return tmp;
     }
@@ -123,8 +142,9 @@ public class AssembleProduct {
      */
     public float getSubPrice() {
         float tmp = 0.0f;
-        for (MainCartEntity ge : goods) {
-            tmp += (ge.getGoods().getGoods().getPrice() * ge.getCart().getNumber());
+        for (CartEntity ge : goods) {
+            //tmp += (ge.getPrice() * ge.getNumber());
+            tmp += ge.getTotalMoney();
         }
 
         float scale = tmp;
@@ -134,14 +154,60 @@ public class AssembleProduct {
         return price;
     }
 
+//    /**
+//     * 返回选好对应分类 商品个数
+//     *
+//     * @return
+//     */
+//    public int getCateCount(int cateid) {
+//        int tmp = 0;
+//        for (Iterator<CartEntity> it = goods.iterator(); it.hasNext(); ) {
+//            CartEntity ge = it.next();
+//            if (ge.getCate().getId() == cateid) {
+//                tmp += ge.getNum();
+//            }
+//        }
+//        return tmp;
+//    }
 
+//    /**
+//     * 获取所有商品名称
+//     *
+//     * @return
+//     */
+//    public String getGoodName() {
+//        String tmp = "";
+//        for (Iterator<CartEntity> it = goods.iterator(); it.hasNext(); ) {
+//            CartEntity ge = it.next();
+//            tmp += ge.getGoodsName() + ",";
+//        }
+//        if (!TextUtils.isEmpty(tmp))
+//            tmp = tmp.substring(0, tmp.length() - 1).toString();
+//        return tmp;
+//    }
 
+    /**
+     * 商品id获取商品数量
+     *
+     * @return
+     */
+    public int getGoodsCount(int goodsid) {
+        int tmp = 0;
+        for (Iterator<CartEntity> it = goods.iterator(); it.hasNext(); ) {
+            CartEntity ge = it.next();
+            if (ge.getGoodsId() == goodsid) {
+                tmp += ge.getNumber();
+                break;
+            }
+        }
+        return tmp;
+    }
 
-    public List<MainCartEntity> getGoods() {
+    public List<CartEntity> getGoods() {
         return goods;
     }
 
-    public void setGoods(List<MainCartEntity> goods) {
+    public void setGoods(List<CartEntity> goods) {
         this.goods = goods;
     }
 }

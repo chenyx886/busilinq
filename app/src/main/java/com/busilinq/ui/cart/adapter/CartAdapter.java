@@ -3,7 +3,6 @@ package com.busilinq.ui.cart.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +14,10 @@ import android.widget.TextView;
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.cache.AssembleProduct;
-import com.busilinq.data.entity.BaseEntity;
-import com.busilinq.data.entity.CartEntity;
-import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.chenyx.libs.glide.GlideShowImageUtils;
 import com.chenyx.libs.utils.JumpUtil;
-import com.chenyx.libs.utils.ToastUtils;
-
-import java.math.BigDecimal;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,14 +65,20 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
             vHolder.mPrice.setText("¥"+item.getGoods().getGoods().getPrice()+"/"+item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
             GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
 
-            vHolder.mIsCheck.setChecked(false);
-            if (AssembleProduct.getInstance().getGoods() != null && AssembleProduct.getInstance().getGoods().size() > 0) {
-                for (MainCartEntity gc : AssembleProduct.getInstance().getGoods()) {
-                    if (gc.getCart().getCartId() == item.getCart().getCartId()) {
-                        vHolder.mIsCheck.setChecked(true);
-                    }
-                }
+            if(item.getCart().getIsChecked() == 0){
+                vHolder.mIsCheck.setChecked(false);
+            }else {
+                vHolder.mIsCheck.setChecked(true);
             }
+//            /vHolder.mIsCheck.setChecked(false);
+
+//            if (AssembleProduct.getInstance().getGoods() != null && AssembleProduct.getInstance().getGoods().size() > 0) {
+//                for (MainCartEntity gc : AssembleProduct.getInstance().getGoods()) {
+//                    if (gc.getCart().getCartId() == item.getCart().getCartId()) {
+//                        vHolder.mIsCheck.setChecked(true);
+//                    }
+//                }
+//            }
 
 
             /**
@@ -100,6 +99,11 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
                 @Override
                 public void onClick(View view) {
                     onItemClickListener.onItemClick(view,position);
+                    if(vHolder.mIsCheck.isChecked()){
+                        item.getCart().setIsChecked(1);
+                    }else{
+                        item.getCart().setIsChecked(0);
+                    }
                 }
             });
             /**
@@ -109,6 +113,11 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
                 @Override
                 public void onClick(View view) {
                     onItemViewClickListener.onViewClick(view,position);
+                    if(vHolder.mIsCheck.isChecked()){
+                        item.getCart().setIsChecked(1);
+                    }else{
+                        item.getCart().setIsChecked(0);
+                    }
                 }
             });
             /**
@@ -119,9 +128,12 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if(b){
-                        AssembleProduct.getInstance().increase(item);//加
+                        item.getCart().setIsChecked(1);
+                        //AssembleProduct.getInstance().increase(item.getCart());//加+
+                        AssembleProduct.getInstance().addSingleProduct(item.getCart());
                     }else {
-                        AssembleProduct.getInstance().removeSingleProduct(item.getCart().getCartId());//减
+                        item.getCart().setIsChecked(0);
+                        AssembleProduct.getInstance().removeSingleProduct(item.getCart());//减
                     }
                     if(myInterface != null){
                         myInterface.getCarInfo();
