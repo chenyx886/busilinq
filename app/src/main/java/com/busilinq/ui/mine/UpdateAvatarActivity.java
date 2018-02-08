@@ -223,6 +223,8 @@ public class UpdateAvatarActivity extends BaseMvpActivity<UpdateAvatarPresenter>
             mPresenter.modifyHead(list.get(0).getUrl());
         } else if (type.equals("modifyHead")) {
             ToastUtils.showShort("头像更新成功");
+            Intent intent = new Intent();
+            setResult(RESULT_OK, intent);
             finish();
         }
     }
