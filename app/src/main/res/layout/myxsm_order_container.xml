@@ -169,7 +169,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <com.omyni.mdmanager.widget.MListView
+                <com.busilinq.widget.MListView
                     android:id="@+id/myxsm_order_detail_lv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
               android:fitsSystemWindows="true"
               android:orientation="vertical">
 
-    <com.omyni.mdmanager.widget.HeadBar
+    <com.busilinq.xsm.widget.HeadBar
         android:id="@+id/xsm_accouts_headbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

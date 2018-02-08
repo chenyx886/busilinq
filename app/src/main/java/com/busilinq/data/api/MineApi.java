@@ -4,6 +4,7 @@ import com.busilinq.data.BaseData;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.CodeEntity;
 import com.busilinq.data.entity.MyCollectionEntity;
+import com.busilinq.data.entity.TServiceAccountEntity;
 import com.busilinq.data.entity.TUpgradeEntity;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.data.entity.UserFavoriteEntity;
@@ -206,5 +207,13 @@ public interface MineApi {
      */
     @DELETE("/api/user/favorite")
     Observable<BaseData> deleteMyCollection(@Query("userId") String userId, @Query("favoriteId") String favoriteId, @Query("goodsId") String goodsId);
+
+    /**
+     * 获取xsm服务地址列表
+     *
+     * @return
+     */
+    @GET("/api/common/service")
+    Observable<BaseData<List<TServiceAccountEntity>>> getService();
 
 }

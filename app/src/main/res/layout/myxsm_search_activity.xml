@@ -6,7 +6,7 @@
               android:fitsSystemWindows="true"
               android:orientation="vertical">
 
-    <com.omyni.mdmanager.widget.SearchView
+    <com.busilinq.xsm.widget.SearchView
         android:id="@+id/myxsm_searchview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

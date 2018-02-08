@@ -6,7 +6,7 @@
               android:background="@color/color_0d9e5c"
               android:orientation="horizontal">
 
-    <com.omyni.mdmanager.widget.DrawableTextView
+    <com.busilinq.xsm.widget.DrawableTextView
         android:id="@+id/headbar_left_tv"
         android:layout_width="@dimen/space_0"
         android:layout_height="match_parent"
@@ -36,7 +36,7 @@
         android:layout_weight="1"
         android:gravity="right|center">
 
-        <com.omyni.mdmanager.widget.DrawableTextView
+        <com.busilinq.xsm.widget.DrawableTextView
             android:id="@+id/headbar_rigth_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

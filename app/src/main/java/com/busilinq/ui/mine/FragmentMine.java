@@ -129,7 +129,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IBas
                 break;
             case R.id.it_xsm:
                 if (UserCache.get() != null) {
-//                    JumpUtil.overlay(getActivity(), FeedbackActivity.class);
+                    mPresenter.getService(getContext());
                 } else {
                     JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
                 }
