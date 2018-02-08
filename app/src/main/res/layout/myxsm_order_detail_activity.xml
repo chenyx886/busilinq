@@ -6,12 +6,12 @@
                 android:fitsSystemWindows="true"
                 android:orientation="vertical">
 
-    <com.omyni.mdmanager.widget.HeadBar
+    <com.busilinq.xsm.widget.HeadBar
         android:id="@+id/myxsm_order_detail_headbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.omyni.mdmanager.widget.EmptyLayout
+    <com.busilinq.xsm.widget.EmptyLayout
         android:id="@+id/myxsm_order_detail_error_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

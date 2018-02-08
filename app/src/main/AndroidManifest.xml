@@ -178,5 +178,54 @@
         <activity
             android:name=".ui.mine.order.MyOrdersDetailActivity"
             android:screenOrientation="portrait" />
+        <!--新商盟界面-->
+        <activity
+            android:name=".xsm.ui.XsmAccountsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xsm.ui.XsmConfirmOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xsm.ui.XsmHistoryOrdersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xsm.ui.XsmLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xsm.ui.XsmOrderDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xsm.ui.XsmOrderingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xsm.ui.XsmOrdersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xsm.ui.XsmSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xsm.ui.umspos.UmsPosPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xsm.ui.umspos.UmsPosPayResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.unionpay.UPPayWapActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <meta-data
+            android:name="design_width"
+            android:value="720" />
+        <meta-data
+            android:name="design_height"
+            android:value="1280" />
     </application>
 </manifest>

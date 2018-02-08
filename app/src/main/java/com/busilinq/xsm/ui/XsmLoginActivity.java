@@ -23,7 +23,6 @@ import butterknife.OnClick;
 
 public class XsmLoginActivity extends XsmBaseActivity implements IXsmLoginView {
 
-    public static final int REQUEST = 1;
 
     @BindView(R.id.myxsm_login_headbar)
     HeadBar mHeadbar;

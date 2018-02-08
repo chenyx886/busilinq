@@ -1,5 +1,6 @@
 package com.busilinq.xsm.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,7 @@ import com.busilinq.R;
  * Update Remark：
  */
 
+@SuppressLint("AppCompatCustomView")
 public class DrawableTextView extends TextView {
     int drawableWidth, drawableHeight;
 

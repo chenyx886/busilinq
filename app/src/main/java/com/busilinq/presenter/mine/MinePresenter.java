@@ -1,8 +1,23 @@
 package com.busilinq.presenter.mine;
 
 
+import android.content.Context;
+
 import com.busilinq.contract.IBaseMvpView;
+import com.busilinq.data.BaseData;
+import com.busilinq.data.SubscriberCallBack;
+import com.busilinq.data.api.RetrofitApiFactory;
+import com.busilinq.data.entity.TServiceAccountEntity;
 import com.busilinq.presenter.BasePresenter;
+import com.busilinq.ui.mine.FeedbackActivity;
+import com.busilinq.xsm.data.usercenter.ServiceEntity;
+import com.busilinq.xsm.data.usercenter.UserEntity;
+import com.busilinq.xsm.presenter.UserCenterHelper;
+import com.busilinq.xsm.ui.XsmLoginActivity;
+import com.chenyx.libs.utils.JumpUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Company：华科建邺
@@ -19,4 +34,31 @@ public class MinePresenter extends BasePresenter<IBaseMvpView> {
         super(MvpView);
     }
 
+    public void getService(final Context mContext) {
+        addSubscription(RetrofitApiFactory.getMineApi().getService(), new SubscriberCallBack<List<TServiceAccountEntity>>() {
+            @Override
+            protected void onSuccess(List<TServiceAccountEntity> list) {
+                UserCenterHelper mHelper = UserCenterHelper.getInstance(mContext);
+                UserEntity userEntity=new UserEntity();
+                List<ServiceEntity> serviceList = new ArrayList<>();
+                for (TServiceAccountEntity entity : list) {
+                    ServiceEntity serviceEntity = new ServiceEntity();
+                    serviceEntity.setServiceId(entity.getName());
+                    serviceEntity.setService(entity.getUrl());
+                    serviceEntity.setPermission(entity.getIsEnable());
+                    serviceList.add(serviceEntity);
+                }
+                userEntity.setServiceList(serviceList);
+                userEntity.setMemberId("13061501150012");
+                //缓存服务URL
+                mHelper.saveUser(userEntity);
+                JumpUtil.overlay(mContext, XsmLoginActivity.class);
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.hideProgress();
+            }
+        });
+    }
 }
