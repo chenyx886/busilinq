@@ -77,7 +77,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
      */
     LinearLayout llCollectionGoods;
     /**
-     * 我定过的
+     * 我订过的
      */
     LinearLayout llBookedGoods;
     /**

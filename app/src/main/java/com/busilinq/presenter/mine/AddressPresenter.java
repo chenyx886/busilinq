@@ -18,7 +18,7 @@ import java.util.List;
  * Update Time：
  * Update Remark：
  */
-public class AddressPresenter extends BasePresenter<AddressListView>{
+public class AddressPresenter extends BasePresenter<AddressListView> {
 
     public AddressPresenter(AddressListView mvpView) {
         super(mvpView);
@@ -43,7 +43,7 @@ public class AddressPresenter extends BasePresenter<AddressListView>{
 
     public void setDefaultAddress(final int userId, Integer addrId) {
         MvpView.showProgress("更新中...");
-        addSubscription(RetrofitApiFactory.getMineApi().setDefaultAddress(userId,addrId),new SubscriberCallBack<List<UserShopAddrEntity>>() {
+        addSubscription(RetrofitApiFactory.getMineApi().setDefaultAddress(userId, addrId), new SubscriberCallBack<List<UserShopAddrEntity>>() {
             @Override
             protected void onSuccess(List<UserShopAddrEntity> response) {
                 getAddressList(userId);

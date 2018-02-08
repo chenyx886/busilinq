@@ -87,7 +87,7 @@ public class UserCache {
      */
     public static int GetUserId() {
         if (UserCache.get() != null)
-            return UserCache.get().getUserId();
+            return SysConfig.nullToInt(UserCache.get().getUserId());
         return 0;
     }
 
@@ -102,7 +102,7 @@ public class UserCache {
         if (!TextUtils.isEmpty(id)) {
             if (user == null) {
                 user = new UserEntity();
-                user.setUserId(SysConfig.nullToInt(id));
+                user.setUserId(id);
                 user.setName((String) PrefCache.getData(NAME, ""));
                 user.setCell((String) PrefCache.getData(CELL, ""));
                 user.setGender((String) PrefCache.getData(GENDER, ""));

@@ -85,7 +85,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     @Override
     protected void initUI() {
         mTitle.setText(R.string.user_data);
-        mPresenter.getUserInfo(UserCache.get().getUserId(), UserCache.get().getCell());
+        mPresenter.getUserInfo(UserCache.GetUserId(), UserCache.get().getCell());
     }
 
 

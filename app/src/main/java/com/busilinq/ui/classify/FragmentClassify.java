@@ -94,7 +94,7 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.getClassifyList(UserCache.get().getUserId());
+                mPresenter.getClassifyList(UserCache.GetUserId());
 
             }
         });

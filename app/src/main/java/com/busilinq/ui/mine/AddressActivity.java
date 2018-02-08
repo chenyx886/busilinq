@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.busilinq.R;
-import com.busilinq.base.BaseActivity;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.AddressListView;
 import com.busilinq.data.cache.UserCache;
@@ -17,8 +16,6 @@ import com.busilinq.presenter.mine.AddressPresenter;
 import com.busilinq.ui.cart.NewlyAddedAddressActivity;
 import com.busilinq.ui.mine.adapter.AddressAdapter;
 import com.busilinq.widget.MLoadingDialog;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
@@ -81,7 +78,7 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.getAddressList(UserCache.get().getUserId());
+        mPresenter.getAddressList(UserCache.GetUserId());
 
     }
 
@@ -127,7 +124,7 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
     @Override
     public void selectedClick(View view, int pos) {
         if (addressList != null) {
-            mPresenter.setDefaultAddress(UserCache.get().getUserId(), addressList.get(pos).getAddrId());
+            mPresenter.setDefaultAddress(UserCache.GetUserId(), addressList.get(pos).getAddrId());
         }
     }
 
@@ -140,7 +137,7 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
     @Override
     public void deletedClick(View view, int pos) {
         if (addressList != null) {
-            mPresenter.deletedAddress(UserCache.get().getUserId(), addressList.get(pos).getAddrId());
+            mPresenter.deletedAddress(UserCache.GetUserId(), addressList.get(pos).getAddrId());
         }
     }
 
