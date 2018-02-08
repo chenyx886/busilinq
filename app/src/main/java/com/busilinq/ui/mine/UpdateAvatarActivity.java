@@ -52,6 +52,7 @@ import butterknife.OnClick;
  */
 public class UpdateAvatarActivity extends BaseMvpActivity<UpdateAvatarPresenter> implements IUpdateAvatarView {
 
+    public static final int REQUEST = 2;
     /**
      * 标题
      */

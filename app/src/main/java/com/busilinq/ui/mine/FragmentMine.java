@@ -94,7 +94,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
         switch (v.getId()) {
             case R.id.userinfo:
                 if (UserCache.get() != null) {
-                    JumpUtil.overlay(getActivity(), UpdateAvatarActivity.class);
+                    JumpUtil.startForResult(this, UpdateAvatarActivity.class, UpdateAvatarActivity.REQUEST, null);
                 } else {
                     JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
                 }
@@ -143,6 +143,11 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
 
     @Override
     public void showUserInfo(UserEntity user) {
+        UserEntity userEntity = UserCache.get();
+        if (user != null) {
+            userEntity.setHeadimgurl(user.getHeadimgurl());
+        }
+        UserCache.put(userEntity);
         initData();
     }
 
@@ -158,7 +163,11 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mPresenter.getUserInfo(UserCache.GetUserId(), "");
+        if (resultCode == getActivity().RESULT_OK && requestCode == UpdateAvatarActivity.REQUEST) {
+            mPresenter.getUserInfo(UserCache.GetUserId(), "");
+        } else {
+            initData();
+        }
     }
 
     /**
@@ -167,7 +176,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
     private void initData() {
         Logs.d(TAG, "刷新了");
         if (UserCache.GetUserId() > 0) {
-            mName.setText(UserCache.get().getRealName());
+            mName.setText(UserCache.get().getName());
             mPhone.setText(UserCache.get().getCell());
             GlideShowImageUtils.displayCircleNetImage(getActivity(), UserCache.get().getHeadimgurl(), mUserIco, R.mipmap.ic_user);
         } else {
