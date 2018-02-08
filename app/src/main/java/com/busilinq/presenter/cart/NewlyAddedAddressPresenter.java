@@ -5,8 +5,12 @@ import com.busilinq.data.BaseData;
 import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.BasePresenter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.RequestBody;
 
@@ -31,6 +35,8 @@ public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress
      * @param entity
      */
     public void addAddress(UserShopAddrEntity entity) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.GetUserId());
         param.put("company", entity.getCompany());
         param.put("cell", entity.getCell());
         param.put("name", entity.getName());
@@ -57,6 +63,9 @@ public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress
      * @param entity
      */
     public void editAddress(UserShopAddrEntity entity) {
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.GetUserId());
         param.put("addrId", entity.getAddrId());
         param.put("company", entity.getCompany());
         param.put("cell", entity.getCell());

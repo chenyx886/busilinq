@@ -5,8 +5,12 @@ import com.busilinq.data.BaseData;
 import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.BasePresenter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.RequestBody;
 
@@ -47,6 +51,8 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
     }
 
     public void submitUserInfo(String user_account, String user_name, String user_email, String user_tell) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.GetUserId());
         param.put("name", user_account);
         param.put("realName", user_name);
         param.put("email", user_email);

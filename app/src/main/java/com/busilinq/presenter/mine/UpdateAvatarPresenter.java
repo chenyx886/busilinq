@@ -21,7 +21,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -74,6 +76,8 @@ public class UpdateAvatarPresenter extends BasePresenter<IUpdateAvatarView> {
      * @param head
      */
     public void modifyHead(String head) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.GetUserId());
         param.put("head", head);
         RequestBody body = JsonRequestBody.createJsonBody(param);
         MvpView.showProgress("修改中...");

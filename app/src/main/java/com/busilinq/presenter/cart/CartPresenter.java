@@ -14,6 +14,9 @@ import com.busilinq.presenter.BasePresenter;
 import com.chenyx.libs.utils.SysConfig;
 import com.chenyx.libs.utils.ToastUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import okhttp3.RequestBody;
 
 /**
@@ -33,6 +36,7 @@ public class CartPresenter extends BasePresenter<ICartView> {
 
     /**
      * 获取订单列表
+     *
      * @param page
      */
     public void getOrderList(int page) {
@@ -60,6 +64,9 @@ public class CartPresenter extends BasePresenter<ICartView> {
      * @param price  价格
      */
     public void UpdateCart(final int position, int cartId, int number, double price) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.GetUserId());
+        param.put("userId", UserCache.GetUserId());
         param.put("cartId", cartId);
         param.put("number", number);
         param.put("price", price);
@@ -80,6 +87,7 @@ public class CartPresenter extends BasePresenter<ICartView> {
 
     /**
      * 删除购物车
+     *
      * @param userId
      * @param cartId
      */

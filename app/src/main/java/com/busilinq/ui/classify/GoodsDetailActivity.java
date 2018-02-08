@@ -226,12 +226,17 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
                 break;
             //收藏或取消
             case R.id.ll_order_goods:
-                if (!isFavorite) {
-                    type = 1;
-                    mPresenter.addFavorite(goodsId);
+                if (UserCache.GetUserId() > 0) {
+
+                    if (!isFavorite) {
+                        type = 1;
+                        mPresenter.addFavorite(goodsId);
+                    } else {
+                        type = -1;
+                        mPresenter.cancelFavorite(goodsId + "");
+                    }
                 } else {
-                    type = -1;
-                    mPresenter.cancelFavorite(goodsId + "");
+                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
                 }
                 break;
             //购物车

@@ -7,10 +7,12 @@ import com.busilinq.data.BaseData;
 import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.CodeEntity;
 import com.busilinq.presenter.BasePresenter;
-import com.busilinq.ui.mine.GetCodeActivity;
-import com.chenyx.libs.utils.Toasts;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.RequestBody;
 
@@ -61,6 +63,8 @@ public class CodePresenter extends BasePresenter<ICodeView> {
      * @param code  验证码
      */
     public void verifyCode(int type, String phone, String code) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.GetUserId());
         param.put("type", type);
         param.put("phone", phone);
         param.put("code", code);

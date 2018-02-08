@@ -10,6 +10,9 @@ import com.busilinq.data.entity.GoodsDetailEntity;
 import com.busilinq.data.entity.UserFavoriteEntity;
 import com.busilinq.presenter.BasePresenter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import okhttp3.RequestBody;
 
 /**
@@ -53,6 +56,10 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
      * @param price   价格
      */
     public void AddCart(int goodsId, int number, double price) {
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.GetUserId());
+        param.put("userId", UserCache.GetUserId());
         param.put("goodsId", goodsId);
         param.put("number", number);
         param.put("price", price);
@@ -73,6 +80,8 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
     }
 
     public void addFavorite(int goodsId) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.GetUserId());
         param.put("goodsId", goodsId);
         RequestBody body = JsonRequestBody.createJsonBody(param);
         addSubscription(RetrofitApiFactory.getMineApi().addFavorite(body), new SubscriberCallBack<UserFavoriteEntity>() {

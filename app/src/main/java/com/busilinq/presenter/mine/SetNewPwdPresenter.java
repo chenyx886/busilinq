@@ -5,6 +5,7 @@ import com.busilinq.data.BaseData;
 import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.presenter.BasePresenter;
 
 import java.util.HashMap;
@@ -35,6 +36,8 @@ public class SetNewPwdPresenter extends BasePresenter<ISetNewPwdView> {
      * @param password 新密码
      */
     public void forgetPassword(String phone, String password) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.GetUserId());
         param.put("phone", phone);
         param.put("password", password);
         RequestBody body = JsonRequestBody.createJsonBody(param);
@@ -57,6 +60,8 @@ public class SetNewPwdPresenter extends BasePresenter<ISetNewPwdView> {
      * @param newPassword 新密码
      */
     public void modifyPassword( String oldPassword,String  newPassword) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.GetUserId());
         param.put("oldPassword", oldPassword);
         param.put("newPassword", newPassword);
         RequestBody body = JsonRequestBody.createJsonBody(param);

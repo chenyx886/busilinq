@@ -2,10 +2,6 @@ package com.busilinq.presenter;
 
 
 import com.busilinq.contract.IBaseMvpView;
-import com.busilinq.data.cache.UserCache;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -28,15 +24,11 @@ public class BasePresenter<V extends IBaseMvpView> implements IPresenter<V> {
      */
     public V MvpView;
 
-    public Map<String, Object> param;
-
     private CompositeSubscription mCompositeSubscription;
 
     @Override
     public void attachView(V MvpView) {
         this.MvpView = MvpView;
-        param = new HashMap<>();
-        param.put("userId", UserCache.GetUserId());
     }
 
     public BasePresenter(V mvpView) {
