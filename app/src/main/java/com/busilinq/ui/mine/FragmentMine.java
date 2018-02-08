@@ -141,6 +141,10 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
         }
     }
 
+    /**
+     * 获取用户成功
+     * @param user
+     */
     @Override
     public void showUserInfo(UserEntity user) {
         UserEntity userEntity = UserCache.get();
