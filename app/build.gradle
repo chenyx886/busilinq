@@ -145,6 +145,9 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.1'
     compile 'com.mchange:mchange-commons-java:0.2.12'
     compile 'com.longsh:OptionFrame:1.0.0'
+    //点击图片 查处相册大图 支持绽放
+    compile 'com.nhaarman.supertooltips:library:3.0.0'
+    compile 'com.bm.photoview:library:1.4.1'
     /**
      *  新商盟
      */
