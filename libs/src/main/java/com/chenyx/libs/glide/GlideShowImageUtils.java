@@ -49,6 +49,16 @@ public class GlideShowImageUtils {
         Glide.with(context).load(imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(defaultImg).crossFade()
                 .thumbnail(0.1f).into(mImageView);
     }
+    /**
+     * 显示网络图片
+     *
+     * @param imageUrl
+     * @param mImageView
+     */
+    public static void displayNetImage(Context context, String imageUrl, ImageView mImageView  ) {
+        Glide.with(context).load(imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL).crossFade()
+                .thumbnail(0.1f).into(mImageView);
+    }
 
     /**
      * 显示网络圆形图片
