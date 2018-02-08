@@ -12,7 +12,7 @@ package com.busilinq.data.entity;
 public class UserEntity {
 
     //用户id
-    private String userId;
+    private int userId;
     //用户姓名
     private String name;
     //用户密码
@@ -34,11 +34,11 @@ public class UserEntity {
     //访问认证码
     private String session;
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

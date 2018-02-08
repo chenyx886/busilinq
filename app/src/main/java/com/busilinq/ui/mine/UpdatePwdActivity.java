@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.ISetNewPwdView;
-import com.busilinq.data.cache.UserCache;
 import com.busilinq.presenter.mine.SetNewPwdPresenter;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.ToastUtils;
@@ -95,7 +94,7 @@ public class UpdatePwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
                     mConfirmPwd.requestFocus();
                     return;
                 }
-                mPresenter.modifyPassword(UserCache.GetUserId(), mOldPwd.getText().toString().trim(), mConfirmPwd.getText().toString().trim());
+                mPresenter.modifyPassword(mOldPwd.getText().toString().trim(), mConfirmPwd.getText().toString().trim());
                 break;
 
         }

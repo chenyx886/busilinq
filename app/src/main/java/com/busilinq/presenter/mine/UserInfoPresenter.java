@@ -31,7 +31,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
      * @param userId
      * @param name
      */
-    public void getUserInfo(String userId, String name) {
+    public void getUserInfo(int userId, String name) {
         MvpView.showProgress("加载中...");
         addSubscription(RetrofitApiFactory.getMineApi().getInfo(userId, name), new SubscriberCallBack<UserEntity>() {
             @Override

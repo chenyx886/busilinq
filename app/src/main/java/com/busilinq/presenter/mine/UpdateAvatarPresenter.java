@@ -16,7 +16,6 @@ import com.busilinq.ulits.FilesUploadUtils;
 import com.chenyx.libs.bitmap.BitmapRevition;
 import com.chenyx.libs.utils.Files;
 import com.chenyx.libs.utils.Logs;
-import com.chenyx.libs.utils.SysConfig;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,7 +54,7 @@ public class UpdateAvatarPresenter extends BasePresenter<IUpdateAvatarView> {
      * @param userId
      * @param name
      */
-    public void getUserInfo(String userId, String name) {
+    public void getUserInfo(int userId, String name) {
         addSubscription(RetrofitApiFactory.getMineApi().getInfo(userId, name), new SubscriberCallBack<com.busilinq.data.entity.UserEntity>() {
             @Override
             protected void onSuccess(com.busilinq.data.entity.UserEntity data) {
@@ -170,7 +169,7 @@ public class UpdateAvatarPresenter extends BasePresenter<IUpdateAvatarView> {
 
         List<MultipartBody.Part> multiPartFiles = FilesUploadUtils.multiPartFiles(files, fileTypes);
         MvpView.showProgress("上传中....");
-        addSubscription(RetrofitApiFactory.getMineApi().upload(SysConfig.nullToInt(UserCache.GetUserId()), multiPartFiles), new SubscriberCallBack<List<UploadEntity>>() {
+        addSubscription(RetrofitApiFactory.getMineApi().upload(UserCache.GetUserId(), multiPartFiles), new SubscriberCallBack<List<UploadEntity>>() {
             @Override
             protected void onSuccess(List<UploadEntity> list) {
                 MvpView.Success("upload", new ArrayList<String>(), list);

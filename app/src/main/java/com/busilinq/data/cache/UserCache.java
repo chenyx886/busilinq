@@ -3,6 +3,7 @@ package com.busilinq.data.cache;
 import android.text.TextUtils;
 
 import com.busilinq.data.entity.UserEntity;
+import com.chenyx.libs.utils.SysConfig;
 
 /**
  * Company：华科建邺
@@ -84,11 +85,10 @@ public class UserCache {
      *
      * @return
      */
-    public static String GetUserId() {
-        String userId = "";
+    public static int GetUserId() {
         if (UserCache.get() != null)
-            userId = UserCache.get().getUserId();
-        return userId;
+            return UserCache.get().getUserId();
+        return 0;
     }
 
     /**
@@ -102,7 +102,7 @@ public class UserCache {
         if (!TextUtils.isEmpty(id)) {
             if (user == null) {
                 user = new UserEntity();
-                user.setUserId(id);
+                user.setUserId(SysConfig.nullToInt(id));
                 user.setName((String) PrefCache.getData(NAME, ""));
                 user.setCell((String) PrefCache.getData(CELL, ""));
                 user.setGender((String) PrefCache.getData(GENDER, ""));

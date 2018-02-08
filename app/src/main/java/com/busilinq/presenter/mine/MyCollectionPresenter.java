@@ -25,7 +25,7 @@ public class MyCollectionPresenter extends BasePresenter<MyCollectionView> {
         super(mvpView);
     }
 
-    public void getMyCollectionList(String userId, int page) {
+    public void getMyCollectionList(int userId, int page) {
         addSubscription(RetrofitApiFactory.getMineApi().getMyCollectionList(userId, page, SysConfig.limit), new SubscriberCallBack<PageEntity<MyCollectionEntity>>() {
             @Override
             protected void onSuccess(PageEntity<MyCollectionEntity> list) {
@@ -39,7 +39,7 @@ public class MyCollectionPresenter extends BasePresenter<MyCollectionView> {
         });
     }
 
-    public void deleteMyCollection(final String userId, final int page, String favoriteId) {
+    public void deleteMyCollection(final int userId, final int page, String favoriteId) {
         addSubscription(RetrofitApiFactory.getMineApi().deleteMyCollection(userId, favoriteId, ""), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData response) {

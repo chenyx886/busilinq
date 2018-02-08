@@ -25,7 +25,7 @@ public class AddressPresenter extends BasePresenter<AddressListView>{
     }
 
 
-    public void getAddressList(String userId) {
+    public void getAddressList(int userId) {
         MvpView.showProgress("获取中...");
         addSubscription(RetrofitApiFactory.getMineApi().getAddressList(userId), new SubscriberCallBack<List<UserShopAddrEntity>>() {
             @Override
@@ -41,7 +41,7 @@ public class AddressPresenter extends BasePresenter<AddressListView>{
         });
     }
 
-    public void setDefaultAddress(final String userId, Integer addrId) {
+    public void setDefaultAddress(final int userId, Integer addrId) {
         MvpView.showProgress("更新中...");
         addSubscription(RetrofitApiFactory.getMineApi().setDefaultAddress(userId,addrId),new SubscriberCallBack<List<UserShopAddrEntity>>() {
             @Override
@@ -57,7 +57,7 @@ public class AddressPresenter extends BasePresenter<AddressListView>{
         });
     }
 
-    public void deletedAddress(final String userId, Integer addrId) {
+    public void deletedAddress(final int userId, Integer addrId) {
         MvpView.showProgress("加载中...");
         addSubscription(RetrofitApiFactory.getMineApi().deleteAddress(userId, addrId), new SubscriberCallBack<BaseData>() {
             @Override

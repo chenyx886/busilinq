@@ -10,8 +10,6 @@ import com.busilinq.data.entity.GoodsDetailEntity;
 import com.busilinq.data.entity.UserFavoriteEntity;
 import com.busilinq.presenter.BasePresenter;
 
-import java.math.BigDecimal;
-
 import okhttp3.RequestBody;
 
 /**
@@ -34,7 +32,7 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
      *
      * @param userId
      */
-    public void getGoodsDetail(String userId, int goodsId) {
+    public void getGoodsDetail(int userId, int goodsId) {
         addSubscription(RetrofitApiFactory.getClassifyApi().getGoodsDetails(userId, goodsId), new SubscriberCallBack<GoodsDetailEntity>() {
             @Override
             protected void onSuccess(GoodsDetailEntity data) {

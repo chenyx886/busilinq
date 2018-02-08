@@ -89,7 +89,7 @@ public interface MineApi {
      * @return
      */
     @GET("/api/user/getInfo")
-    Observable<BaseData<UserEntity>> getInfo(@Query("userId") String userId, @Query("name") String name);
+    Observable<BaseData<UserEntity>> getInfo(@Query("userId") int userId, @Query("name") String name);
 
     /**
      * 修改用户头像
@@ -128,7 +128,7 @@ public interface MineApi {
      * @return
      */
     @GET("/api/user/address")
-    Observable<BaseData<List<UserShopAddrEntity>>> getAddressList(@Query("userId") String userId);
+    Observable<BaseData<List<UserShopAddrEntity>>> getAddressList(@Query("userId") int userId);
 
     /**
      * 修改密码
@@ -146,7 +146,7 @@ public interface MineApi {
      * @return
      */
     @PUT("/api/user/address/default")
-    Observable<BaseData<List<UserShopAddrEntity>>> setDefaultAddress(@Query("userId") String userId, @Query("addrId") Integer addrId);
+    Observable<BaseData<List<UserShopAddrEntity>>> setDefaultAddress(@Query("userId") int userId, @Query("addrId") Integer addrId);
 
 
     /**
@@ -165,7 +165,7 @@ public interface MineApi {
      * @return
      */
     @DELETE("/api/user/address")
-    Observable<BaseData> deleteAddress(@Query("userId") String userId, @Query("addrId") Integer addrId);
+    Observable<BaseData> deleteAddress(@Query("userId") int userId, @Query("addrId") Integer addrId);
 
     /**
      * 添加收货地址
@@ -194,7 +194,7 @@ public interface MineApi {
      * @return
      */
     @GET("/api/user/favorite")
-    Observable<BaseData<PageEntity<MyCollectionEntity>>> getMyCollectionList(@Query("userId") String userId, @Query("page") int page, @Query("limit") int limit);
+    Observable<BaseData<PageEntity<MyCollectionEntity>>> getMyCollectionList(@Query("userId") int userId, @Query("page") int page, @Query("limit") int limit);
 
     /**
      * 添加收藏
@@ -212,7 +212,7 @@ public interface MineApi {
      * @return
      */
     @GET("/api/user/favorite/verify")
-    Observable<BaseData<UserFavoriteEntity>> FavoriteVerify(@Query("userId") String userId, @Query("goodsId") int goodsId);
+    Observable<BaseData<UserFavoriteEntity>> FavoriteVerify(@Query("userId") int userId, @Query("goodsId") int goodsId);
 
     /**
      * 删除收藏列表
@@ -221,7 +221,7 @@ public interface MineApi {
      * @return
      */
     @DELETE("/api/user/favorite")
-    Observable<BaseData> deleteMyCollection(@Query("userId") String userId, @Query("favoriteId") String favoriteId, @Query("goodsId") String goodsId);
+    Observable<BaseData> deleteMyCollection(@Query("userId") int userId, @Query("favoriteId") String favoriteId, @Query("goodsId") String goodsId);
 
     /**
      * 获取xsm服务地址列表

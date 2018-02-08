@@ -9,15 +9,9 @@ import android.widget.TextView;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.cart.INewlyAddedAddress;
-import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.cart.NewlyAddedAddressPresenter;
-import com.busilinq.ui.mine.AddressActivity;
 import com.busilinq.widget.MLoadingDialog;
-import com.chenyx.libs.utils.JumpUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -159,10 +153,10 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
             entity.setSpecificAddr(detailAddress);
 
         if (come.equals("add")) {
-            mPresenter.addAddress(UserCache.get().getUserId(), entity);
+            mPresenter.addAddress(entity);
         } else if (come.equals("edit")) {
             entity.setAddrId(addressId);
-            mPresenter.editAddress(UserCache.get().getUserId(), entity);
+            mPresenter.editAddress(entity);
         }
     }
 }

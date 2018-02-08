@@ -38,7 +38,7 @@ public class MinePresenter extends BasePresenter<IMineView> {
      * @param userId
      * @param name
      */
-    public void getUserInfo(String userId, String name) {
+    public void getUserInfo(int userId, String name) {
         addSubscription(RetrofitApiFactory.getMineApi().getInfo(userId, name), new SubscriberCallBack<com.busilinq.data.entity.UserEntity>() {
             @Override
             protected void onSuccess(com.busilinq.data.entity.UserEntity data) {

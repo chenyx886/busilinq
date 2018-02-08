@@ -34,7 +34,7 @@ public interface CartApi {
      * @return
      */
     @GET("/api/user/cart")
-    Observable<BaseData<PageEntity<MainCartEntity>>> cart(@Query("page") int page, @Query("limit") int limit, @Query("userId") String userId);
+    Observable<BaseData<PageEntity<MainCartEntity>>> cart(@Query("page") int page, @Query("limit") int limit, @Query("userId") int userId);
 
     /**
      * 确认订单时获取默认收货地址
@@ -70,6 +70,6 @@ public interface CartApi {
      * @return
      */
     @DELETE("/api/user/cart")
-    Observable<BaseData> deleteCart(@Query("userId") String userId, @Query("cartId") Integer cartId);
+    Observable<BaseData> deleteCart(@Query("userId") int userId, @Query("cartId") int cartId);
 
 }

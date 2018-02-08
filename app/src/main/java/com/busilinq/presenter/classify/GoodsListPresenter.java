@@ -28,7 +28,7 @@ public class GoodsListPresenter extends BasePresenter<IGoodsListView> {
      *
      * @param userId
      */
-    public void getGoodsList(String userId, int classifyId, int page) {
+    public void getGoodsList(int userId, int classifyId, int page) {
         addSubscription(RetrofitApiFactory.getClassifyApi().getGoodsList(userId, classifyId, page, limit), new SubscriberCallBack<PageEntity<HomeGoodsEntity>>() {
             @Override
             protected void onSuccess(PageEntity<HomeGoodsEntity> list) {

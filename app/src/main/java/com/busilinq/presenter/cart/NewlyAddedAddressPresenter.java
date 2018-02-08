@@ -2,17 +2,12 @@ package com.busilinq.presenter.cart;
 
 import com.busilinq.contract.cart.INewlyAddedAddress;
 import com.busilinq.data.BaseData;
+import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.BasePresenter;
-import com.busilinq.ulits.JsonUtils;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
-import java.util.List;
-
-import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 /**
@@ -32,17 +27,15 @@ public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress
 
     /**
      * 添加收货地址
-     * @param userId
+     *
      * @param entity
      */
-    public void addAddress(String userId, UserShopAddrEntity entity) {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("userId", userId);
-        jsonObject.addProperty("company",entity.getCompany());
-        jsonObject.addProperty("cell",entity.getCell());
-        jsonObject.addProperty("name",entity.getName());
-        jsonObject.addProperty("specificAddr",entity.getSpecificAddr());
-        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+    public void addAddress(UserShopAddrEntity entity) {
+        param.put("company", entity.getCompany());
+        param.put("cell", entity.getCell());
+        param.put("name", entity.getName());
+        param.put("specificAddr", entity.getSpecificAddr());
+        RequestBody body = JsonRequestBody.createJsonBody(param);
         MvpView.showProgress("加载中...");
         addSubscription(RetrofitApiFactory.getMineApi().addAddress(body), new SubscriberCallBack<BaseData>() {
             @Override
@@ -60,18 +53,17 @@ public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress
 
     /**
      * 编辑收货地址
-     * @param userId
+     *
      * @param entity
      */
-    public void editAddress(String userId, UserShopAddrEntity entity) {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("userId", userId);
-        jsonObject.addProperty("addrId", entity.getAddrId());
-        jsonObject.addProperty("company",entity.getCompany());
-        jsonObject.addProperty("cell",entity.getCell());
-        jsonObject.addProperty("name",entity.getName());
-        jsonObject.addProperty("specificAddr",entity.getSpecificAddr());
-        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+    public void editAddress(UserShopAddrEntity entity) {
+        param.put("addrId", entity.getAddrId());
+        param.put("company", entity.getCompany());
+        param.put("cell", entity.getCell());
+        param.put("name", entity.getName());
+        param.put("specificAddr", entity.getSpecificAddr());
+        RequestBody body = JsonRequestBody.createJsonBody(param);
+
         MvpView.showProgress("加载中...");
         addSubscription(RetrofitApiFactory.getMineApi().editAddress(body), new SubscriberCallBack<BaseData>() {
             @Override

@@ -94,10 +94,7 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                String userId = "";
-                if (UserCache.get() != null)
-                    userId = UserCache.get().getUserId() + "";
-                mPresenter.getClassifyList(userId);
+                mPresenter.getClassifyList(UserCache.get().getUserId());
 
             }
         });
@@ -166,10 +163,7 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
     public void initData() {
         mSwipeRefreshLayout.measure(0, 0);
         mSwipeRefreshLayout.setRefreshing(true);
-        String userId = "";
-        if (UserCache.get() != null)
-            userId = UserCache.get().getUserId() + "";
-        mPresenter.getClassifyList(userId);
+        mPresenter.getClassifyList(UserCache.GetUserId());
     }
 
     /**
@@ -180,7 +174,6 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
     @Override
     public void CategoryList(List<GoodsCategoryEntity> categoryList) {
         mCateDatalist = categoryList;
-
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }

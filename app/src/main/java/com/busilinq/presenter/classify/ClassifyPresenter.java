@@ -28,7 +28,7 @@ public class ClassifyPresenter extends BasePresenter<IClassifyView> {
      *
      * @param userId
      */
-    public void getClassifyList(String userId) {
+    public void getClassifyList(int userId) {
         addSubscription(RetrofitApiFactory.getClassifyApi().getClassifyList(userId), new SubscriberCallBack<List<GoodsCategoryEntity>>() {
             @Override
             protected void onSuccess(List<GoodsCategoryEntity> categoryList) {

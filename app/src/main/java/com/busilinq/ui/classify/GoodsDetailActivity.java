@@ -3,7 +3,6 @@ package com.busilinq.ui.classify;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -253,7 +252,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
                 mGruopNum.setText(num + "");
                 break;
             case R.id.btn_add_cart:
-                if (!TextUtils.isEmpty(UserCache.GetUserId()))
+                if (UserCache.GetUserId() > 0)
                     mPresenter.AddCart(goodsId, num, price);
                 else
                     JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);

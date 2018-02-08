@@ -53,16 +53,14 @@ public class SetNewPwdPresenter extends BasePresenter<ISetNewPwdView> {
     }
     /**
      * 修改密码
-     * @param userId
      * @param oldPassword 老密码
      * @param newPassword 新密码
      */
-    public void modifyPassword(String userId, String oldPassword,String  newPassword) {
-        Map<String, Object> param = new HashMap<>();
-        param.put("userId", userId);
+    public void modifyPassword( String oldPassword,String  newPassword) {
         param.put("oldPassword", oldPassword);
         param.put("newPassword", newPassword);
         RequestBody body = JsonRequestBody.createJsonBody(param);
+
         MvpView.showProgress("重置密码中...");
         addSubscription(RetrofitApiFactory.getMineApi().modifyPassword(body), new SubscriberCallBack<BaseData>() {
             @Override

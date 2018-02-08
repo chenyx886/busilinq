@@ -30,7 +30,7 @@ public interface ClassifyApi {
      * @return
      */
     @GET("/api/goods/classify")
-    Observable<BaseData<List<GoodsCategoryEntity>>> getClassifyList(@Query("userId") String userId);
+    Observable<BaseData<List<GoodsCategoryEntity>>> getClassifyList(@Query("userId") int userId);
 
     /**
      * 获取商品列表
@@ -42,7 +42,7 @@ public interface ClassifyApi {
      * @return
      */
     @GET("/api/goods/list")
-    Observable<BaseData<PageEntity<HomeGoodsEntity>>> getGoodsList(@Query("userId") String userId, @Query("classifyId") int classifyId, @Query("page") int page, @Query("limit") int limit);
+    Observable<BaseData<PageEntity<HomeGoodsEntity>>> getGoodsList(@Query("userId") int userId, @Query("classifyId") int classifyId, @Query("page") int page, @Query("limit") int limit);
 
     /**
      * 获取商品详情
@@ -52,5 +52,5 @@ public interface ClassifyApi {
      * @return
      */
     @GET("/api/goods/details")
-    Observable<BaseData<GoodsDetailEntity>> getGoodsDetails(@Query("userId") String userId, @Query("goodsId") int goodsId);
+    Observable<BaseData<GoodsDetailEntity>> getGoodsDetails(@Query("userId") int userId, @Query("goodsId") int goodsId);
 }
