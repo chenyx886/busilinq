@@ -11,10 +11,16 @@ import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.cart.ISubmitOrderView;
 import com.busilinq.data.cache.UserCache;
+import com.busilinq.data.entity.MainCartEntity;
+import com.busilinq.data.entity.OrderCreateASK;
+import com.busilinq.data.entity.OrderGoodsPO;
 import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.cart.SubmitOrderPresenter;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,7 +36,7 @@ import butterknife.OnClick;
  */
 
 public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> implements ISubmitOrderView {
-
+    private List<MainCartEntity> list;
     /**
      * 返回
      */
@@ -84,7 +90,6 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     EditText mRemark;
 
 
-
     /**
      * 提交订单
      */
@@ -109,12 +114,25 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     @Override
     protected void initUI() {
         mTitle.setText("确认订单");
-        //mPresenter.getDeaaultAddress(UserCache.get().getUserId());
-        mPresenter.getDeaaultAddress("9");
+        list = (List<MainCartEntity>) this.getIntent().getSerializableExtra(SubmitOrderActivity.class.getSimpleName());
+        mPresenter.getDeaaultAddress(UserCache.get().getUserId());
 
     }
 
-    @OnClick({R.id.tv_back,R.id.tv_add_address,R.id.et_remark,R.id.btn_settlement})
+    private void tijiao() {
+        OrderCreateASK orderCreateASK = new OrderCreateASK();
+        orderCreateASK.setUserId(UserCache.GetUserId());
+        List<OrderGoodsPO> goodsPOList = new ArrayList<>();
+        for (int position = 0; position < list.size(); position++) {
+            OrderGoodsPO orderGoodsPO = new OrderGoodsPO();
+            orderGoodsPO.setGoodsId(list.get(position).getGoods().getGoods().getGoodsId());
+            orderGoodsPO.setCount(list.get(position).getCart().getNumber());
+            goodsPOList.add(orderGoodsPO);
+        }
+        orderCreateASK.setGoodsList(goodsPOList);
+    }
+
+    @OnClick({R.id.tv_back, R.id.tv_add_address, R.id.et_remark, R.id.btn_settlement})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -156,11 +174,12 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
 
     /**
      * 获取默认收货地址
+     *
      * @param addrDefaultEntity
      */
     @Override
     public void getDefaultAddress(UserShopAddrEntity addrDefaultEntity) {
-        if(null!=addrDefaultEntity){
+        if (null != addrDefaultEntity) {
             mAddressEmpty.setVisibility(View.GONE);
             mAddressFull.setVisibility(View.VISIBLE);
             showAddress(addrDefaultEntity);
@@ -169,12 +188,13 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
 
     /**
      * 显示收货地址
+     *
      * @param addrDefaultEntity
      */
-    private void showAddress(UserShopAddrEntity addrDefaultEntity){
-        mName.setText("收货人："+addrDefaultEntity.getName());
-        tvPhone.setText("电话："+addrDefaultEntity.getCell());
-        tvCompany.setText("收货单位："+addrDefaultEntity.getCompany());
-        mAddress.setText("收货地址："+addrDefaultEntity.getProvince()+addrDefaultEntity.getCity()+addrDefaultEntity.getCity()+addrDefaultEntity.getSpecificAddr());
+    private void showAddress(UserShopAddrEntity addrDefaultEntity) {
+        mName.setText("收货人：" + addrDefaultEntity.getName());
+        tvPhone.setText("电话：" + addrDefaultEntity.getCell());
+        tvCompany.setText("收货单位：" + addrDefaultEntity.getCompany());
+        mAddress.setText("收货地址：" + addrDefaultEntity.getProvince() + addrDefaultEntity.getCity() + addrDefaultEntity.getCity() + addrDefaultEntity.getSpecificAddr());
     }
 }

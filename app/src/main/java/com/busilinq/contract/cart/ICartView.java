@@ -5,6 +5,7 @@ import com.busilinq.contract.IBaseMvpView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
+import com.busilinq.ui.cart.adapter.CartAdapter;
 
 /**
  * Company：华科建邺
@@ -37,4 +38,7 @@ public interface ICartView extends IBaseMvpView {
      * 购物车无数据时显示的布局
      */
     void showEmptyView();
+
+
+     void deleteItem(int position);
 }

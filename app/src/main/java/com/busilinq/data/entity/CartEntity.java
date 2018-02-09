@@ -1,6 +1,7 @@
 package com.busilinq.data.entity;
 
 
+import java.io.Serializable;
 
 /**
  * Company：华科建邺
@@ -11,13 +12,12 @@ package com.busilinq.data.entity;
  * Update Time：
  * Update Remark：
  */
-public class CartEntity extends BaseEntity {
+public class CartEntity extends BaseEntity implements Serializable {
     private String userId;
     private int cartId;//购物车列表Id
     private int goodsId;//商品Id
     private int number;//商品购买数量
     private double totalMoney;//单独列表总的商品价格
-    private double price;// 商品价格
     private int  isChecked;//是否被选中 0：取消  1：选中
 
 
@@ -53,13 +53,6 @@ public class CartEntity extends BaseEntity {
         this.number = number;
     }
 
-    public double getPrice() {
-        return 10;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
     public double getTotalMoney() {
         return totalMoney;

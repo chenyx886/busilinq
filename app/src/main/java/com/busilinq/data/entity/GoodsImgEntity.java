@@ -1,5 +1,7 @@
 package com.busilinq.data.entity;
 
+import java.io.Serializable;
+
 /**
  * Company：华科建邺
  * Class Describe：公共商品图片
@@ -9,7 +11,7 @@ package com.busilinq.data.entity;
  * Update Time：
  * Update Remark：
  */
-public class GoodsImgEntity extends BaseEntity {
+public class GoodsImgEntity extends BaseEntity implements Serializable {
 
     //入库信息id
     private int imgId;

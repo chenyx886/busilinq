@@ -1,5 +1,7 @@
 package com.busilinq.data.entity;
 
+import java.io.Serializable;
+
 /**
  * Company：华科建邺
  * Class Describe：
@@ -10,7 +12,7 @@ package com.busilinq.data.entity;
  * Update Remark：
  */
 
-public class HomeGoodsEntity extends BaseEntity {
+public class HomeGoodsEntity extends BaseEntity implements Serializable {
 
     //商品实体
     private GoodsEntity goods;

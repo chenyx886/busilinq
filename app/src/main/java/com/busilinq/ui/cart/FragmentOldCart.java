@@ -23,22 +23,17 @@ import com.busilinq.data.cache.AssembleProduct;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
-import com.busilinq.data.entity.OrderCreateASK;
-import com.busilinq.data.entity.OrderGoodsPO;
 import com.busilinq.presenter.cart.CartPresenter;
 import com.busilinq.ui.MainActivity;
 import com.busilinq.ui.cart.adapter.CartAdapter;
 import com.busilinq.widget.MLoadingDialog;
-import com.busilinq.xsm.ulits.StringParse;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.longsh.optionframelibrary.OptionCenterDialog;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -52,9 +47,9 @@ import butterknife.OnClick;
  * Update Time：
  * Update Remark：
  */
-public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICartView {
+public class FragmentOldCart extends BaseMvpFragment<CartPresenter> implements ICartView {
 
-    public static String TAG = FragmentCart.class.getName();
+    public static String TAG = FragmentOldCart.class.getName();
     /**
      * 标题
      */
@@ -125,6 +120,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     Button mSettlement;
 
 
+
     @Override
     protected CartPresenter createPresenter() {
         if (null == mPresenter) {
@@ -152,33 +148,58 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         mEdit.setText("编辑");
         mBack.setVisibility(View.GONE);
         AssembleProduct.getInstance().clear();
+
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycleView.setNoMore(true);
         mRecycleView.setLoadingMoreEnabled(false);
         mRecycleView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         mRecycleView.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
-        mAdapter = new CartAdapter(getActivity(), new CartAdapter.DataUpdateListener() {
-            @Override
-            public void update(final int position, int number) {
-                MainCartEntity item = mAdapter.getItem(position);
-                mPresenter.UpdateCart(position, item.getCart().getCartId(), number, item.getGoods().getGoods().getPrice());
-            }
 
-            @Override
-            public void updateCheck() {
-                checkAll();
-                totalMoney();
-            }
-        });
+//        mAdapter = new CartAdapter(getActivity(),  new CartAdapter.MyInterface() {
+//            @Override
+//            public void getCarInfo() {
+//                mTotalMoney.setText(AssembleProduct.getInstance().getSubPrice()+"");
+//
+//            }
+//        });
         mRecycleView.setAdapter(mAdapter);
 
+        /**
+         * 增加
+         */
+        mAdapter.setOnItemClickListener(new AbstractRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                type = 1;
+                MainCartEntity item = mAdapter.getItem(position);
+                mPresenter.UpdateCart(position, item.getCart().getCartId(), item.getCart().getNumber() + 1, item.getGoods().getGoods().getPrice());
 
-//        /**
-//         * 长按删除
-//         */
+            }
+        });
+
+        /**
+         * 减少
+         */
+        mAdapter.setOnItemViewClickListener(new AbstractRecyclerViewAdapter.OnItemViewClickListener() {
+            @Override
+            public void onViewClick(View view, int position) {
+                type = 0;
+                MainCartEntity item = mAdapter.getItem(position);
+                if (item.getCart().getNumber() == 1) {
+                    ToastUtils.showShort("已经是底线了！");
+                    return;
+                }
+                mPresenter.UpdateCart(position, item.getCart().getCartId(), item.getCart().getNumber() - 1, item.getGoods().getGoods().getPrice());
+
+            }
+        });
+        /**
+         * 长按删除
+         */
         mAdapter.setOnItemLongClickListener(new AbstractRecyclerViewAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(final View itemView, final int positions) {
+
                 final ArrayList<String> list = new ArrayList<>();
                 list.add("删除");
                 final OptionCenterDialog optionCenterDialog = new OptionCenterDialog();
@@ -187,12 +208,16 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         MainCartEntity item = mAdapter.getItem(positions);
-                        mPresenter.deletedCart(position, UserCache.GetUserId(), item.getCart().getCartId());
+//                        mPresenter.deletedCart(UserCache.GetUserId(),item.getCart().getCartId());
+                        mPresenter.getOrderList(page);
                         optionCenterDialog.dismiss();
                     }
                 });
+
+
             }
         });
+
         initData();
     }
 
@@ -216,7 +241,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         mRecycleView.setRefreshing(true);
     }
 
-    @OnClick({R.id.btn_purchase, R.id.btn_settlement, R.id.check_select, R.id.tv_confirm})
+    @OnClick({R.id.btn_purchase,R.id.btn_settlement, R.id.check_select, R.id.tv_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             /**
@@ -229,72 +254,54 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
              * 去结算
              */
             case R.id.btn_settlement:
-                List<MainCartEntity> list = new ArrayList<>();
-                for (MainCartEntity mainCartEntity : mAdapter.getItems()) {
-                    if (mainCartEntity.getCart().getIsChecked() == 1)
-                        list.add(mainCartEntity);
-                }
-                if(list.size()>0)
-                {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(SubmitOrderActivity.class.getSimpleName(), (Serializable) list);
-                    JumpUtil.overlay(getActivity(), SubmitOrderActivity.class, bundle);
-                }
-                else
-                    ToastUtils.showShort("请选择需要购买的商品！");
-
+                JumpUtil.overlay(getActivity(), SubmitOrderActivity.class);
                 break;
             /**
              * 全选
              */
             case R.id.check_select:
-                mAdapter.setAllCheck(mSelect.isChecked());
-                totalMoney();
+                if (mSelect.isChecked()) {
+                    ToastUtils.showShort("选中");
+                } else {
+                    ToastUtils.showShort("取消");
+                }
                 break;
-
+            /**
+             * 编辑
+             */
+            case R.id.tv_confirm:
+                ToastUtils.showShort("长按列表可删除");
+                break;
         }
     }
 
     @Override
     public void Success(int position, CartEntity data) {
+
+        MainCartEntity item = mAdapter.getItem(position);
         if (data != null) {
-            MainCartEntity item = mAdapter.getItem(position);
-            data.setIsChecked(item.getCart().getIsChecked());
-            item.setCart(data);
-            mAdapter.setEntityData(position, item);
+            CartEntity cartEntity = item.getCart();
+            if (type == 1) {
+                cartEntity.setNumber(item.getCart().getNumber() + 1);
+                item.setCart(cartEntity);
+
+                if(item.getCart().getIsChecked() == 1){
+                    AssembleProduct.getInstance().addSingleProduct(item.getCart());
+                }
+            } else {
+                cartEntity.setNumber(item.getCart().getNumber() - 1);
+                item.setCart(cartEntity);
+                if(item.getCart().getIsChecked() == 1){
+                    mAdapter.notifyItemChanged(position);
+                    AssembleProduct.getInstance().removeSingleProduct(item.getCart());//减
+                }
+            }
         }
-        checkAll();
-        totalMoney();
-    }
-
-    private void totalMoney() {
-        double totalMoney = 0;
-        for (MainCartEntity entity : mAdapter.getItems()) {
-            if (entity.getCart().getIsChecked() == 1)
-                totalMoney = totalMoney + entity.getCart().getTotalMoney();
-        }
-
-        mTotalMoney.setText(StringParse.formatMoney(totalMoney));
-    }
-
-    private void checkAll() {
-        if (mAdapter.getCheckNumber() == 0)
-            mSelect.setChecked(false);
-        else {
-            if (mAdapter.getCheckNumber() == mAdapter.getItems().size())
-                mSelect.setChecked(true);
-            else
-                mSelect.setChecked(false);
-        }
+        mAdapter.notifyDataSetChanged();
+        mTotalMoney.setText(AssembleProduct.getInstance().getSubPrice()+"");
 
     }
 
-    @Override
-    public void deleteItem(int position) {
-        mAdapter.delectItem(position);
-        checkAll();
-        totalMoney();
-    }
 
     /**
      * 购物车列表
@@ -303,17 +310,19 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
      */
     @Override
     public void CartList(PageEntity<MainCartEntity> cartList) {
+        AssembleProduct.getInstance().clear();
+        mTotalMoney.setText("");
+
         if (page == 1) {
             mAdapter.setData(cartList.getList());
             if (mRecycleView != null)
                 mRecycleView.setLoadingMoreEnabled(true);
-        } else {
+        }else {
             mAdapter.insert(mAdapter.getItemCount(), cartList.getList());
         }
         ++page;
-        checkAll();
-        totalMoney();
     }
+
 
     @Override
     public void showProgress(String message) {
@@ -340,5 +349,11 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         cart_full_layout.setVisibility(View.GONE);
         cart_empty_layout.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void deleteItem(int position) {
+
+    }
+
 
 }

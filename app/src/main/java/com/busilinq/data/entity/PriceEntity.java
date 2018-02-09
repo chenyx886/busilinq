@@ -1,6 +1,6 @@
 package com.busilinq.data.entity;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 
 /**
  * Company：华科建邺
@@ -11,17 +11,17 @@ import java.math.BigDecimal;
  * Update Time：
  * Update Remark：
  */
-public class PriceEntity extends BaseEntity {
+public class PriceEntity extends BaseEntity implements Serializable {
     //
     private int priceId;
     //
     private int goodsId;
     //
-    private BigDecimal salesPrice;
+    private double salesPrice;
     //
-    private BigDecimal wholesalePrice;
+    private double wholesalePrice;
     //
-    private BigDecimal purchasePrice;
+    private double purchasePrice;
 
     public int getPriceId() {
         return priceId;
@@ -39,27 +39,27 @@ public class PriceEntity extends BaseEntity {
         this.goodsId = goodsId;
     }
 
-    public BigDecimal getSalesPrice() {
+    public double getSalesPrice() {
         return salesPrice;
     }
 
-    public void setSalesPrice(BigDecimal salesPrice) {
+    public void setSalesPrice(double salesPrice) {
         this.salesPrice = salesPrice;
     }
 
-    public BigDecimal getWholesalePrice() {
+    public double getWholesalePrice() {
         return wholesalePrice;
     }
 
-    public void setWholesalePrice(BigDecimal wholesalePrice) {
+    public void setWholesalePrice(double wholesalePrice) {
         this.wholesalePrice = wholesalePrice;
     }
 
-    public BigDecimal getPurchasePrice() {
+    public double getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(BigDecimal purchasePrice) {
+    public void setPurchasePrice(double purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
 }
