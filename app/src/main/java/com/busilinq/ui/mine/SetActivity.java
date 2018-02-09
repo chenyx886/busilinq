@@ -140,20 +140,20 @@ public class SetActivity extends BaseMvpActivity<SetPresenter> implements ISetVi
                 finish();
                 break;
             case R.id.it_cleanCache:
-                showProgress("清除缓存中...");
                 if (CatchUtil.getInstance().clearImageAllCache(MApplication.getAppContext())) {
-                Observable.timer(3000 , TimeUnit.MILLISECONDS)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .compose(this.<Long>bindToLifecycle())
-                        .subscribe(new Action1<Long>() {
-                            @Override
-                            public void call(Long aLong) {
-                                hideProgress();
-                                ToastUtils.showShort("清除成功");
-                                mCleanCache.setRightTextView(getCacheSize());
+                    showProgress("清除缓存中...");
+                    Observable.timer(3000, TimeUnit.MILLISECONDS)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .compose(this.<Long>bindToLifecycle())
+                            .subscribe(new Action1<Long>() {
+                                @Override
+                                public void call(Long aLong) {
+                                    hideProgress();
+                                    ToastUtils.showShort("清除成功");
+                                    mCleanCache.setRightTextView(getCacheSize());
 
-                            }
-                        });
+                                }
+                            });
                 }
                 break;
             case R.id.it_update_pwd:
@@ -179,7 +179,7 @@ public class SetActivity extends BaseMvpActivity<SetPresenter> implements ISetVi
     }
 
     public String getCacheSize() {
-       return CatchUtil.getInstance().getGlideCacheSize(this) + "";
+        return CatchUtil.getInstance().getGlideCacheSize(this) + "";
     }
 
 
