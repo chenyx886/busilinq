@@ -1,6 +1,7 @@
 package com.busilinq.data.entity;
 
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
  * Update Time：
  * Update Remark：
  */
-public class CategoryEntity extends BaseEntity {
+public class CategoryEntity extends BaseEntity implements Serializable {
 
 
     private String name;

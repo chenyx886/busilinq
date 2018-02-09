@@ -11,6 +11,7 @@ import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.presenter.BasePresenter;
+import com.busilinq.ui.cart.adapter.CartAdapter;
 import com.chenyx.libs.utils.SysConfig;
 import com.chenyx.libs.utils.ToastUtils;
 
@@ -33,6 +34,11 @@ public class CartPresenter extends BasePresenter<ICartView> {
     public CartPresenter(ICartView MvpView) {
         super(MvpView);
     }
+
+    /**
+     * 数据适配器
+     */
+    private CartAdapter mAdapter;
 
     /**
      * 获取订单列表
@@ -66,7 +72,6 @@ public class CartPresenter extends BasePresenter<ICartView> {
     public void UpdateCart(final int position, int cartId, int number, double price) {
         Map<String, Object> param = new HashMap<>();
         param.put("userId", UserCache.GetUserId());
-        param.put("userId", UserCache.GetUserId());
         param.put("cartId", cartId);
         param.put("number", number);
         param.put("price", price);
@@ -91,10 +96,11 @@ public class CartPresenter extends BasePresenter<ICartView> {
      * @param userId
      * @param cartId
      */
-    public void deletedCart(final int userId, int cartId) {
+    public void deletedCart(final int position, final int userId, int cartId) {
         addSubscription(RetrofitApiFactory.getCartApi().deleteCart(userId, cartId), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData data) {
+                MvpView.deleteItem(position);
                 ToastUtils.showShort("删除成功");
             }
 

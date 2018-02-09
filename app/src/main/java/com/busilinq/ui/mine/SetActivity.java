@@ -32,9 +32,16 @@ import com.chenyx.libs.utils.Apps;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Company：华科建邺
@@ -134,9 +141,20 @@ public class SetActivity extends BaseMvpActivity<SetPresenter> implements ISetVi
                 break;
             case R.id.it_cleanCache:
                 if (CatchUtil.getInstance().clearImageAllCache(MApplication.getAppContext())) {
-                    ToastUtils.showShort("清除成功");
+                    showProgress("清除缓存中...");
+                    Observable.timer(3000, TimeUnit.MILLISECONDS)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .compose(this.<Long>bindToLifecycle())
+                            .subscribe(new Action1<Long>() {
+                                @Override
+                                public void call(Long aLong) {
+                                    hideProgress();
+                                    ToastUtils.showShort("清除成功");
+                                    mCleanCache.setRightTextView(getCacheSize());
+
+                                }
+                            });
                 }
-                mCleanCache.setRightTextView(CatchUtil.getInstance().getGlideCacheSize(this) + "");
                 break;
             case R.id.it_update_pwd:
                 if (UserCache.get() != null) {
@@ -158,6 +176,10 @@ public class SetActivity extends BaseMvpActivity<SetPresenter> implements ISetVi
                 AppShowDialog();
                 break;
         }
+    }
+
+    public String getCacheSize() {
+        return CatchUtil.getInstance().getGlideCacheSize(this) + "";
     }
 
 

@@ -79,6 +79,11 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
         return inflater.inflate(R.layout.fragment_mine, container, false);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
+    }
 
     @Override
     protected void initUI() {
@@ -180,12 +185,13 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
     private void initData() {
         Logs.d(TAG, "刷新了");
         if (UserCache.GetUserId() > 0) {
-            mName.setText(UserCache.get().getName());
+            mName.setText(UserCache.get().getRealName());
             mPhone.setText(UserCache.get().getCell());
             GlideShowImageUtils.displayCircleNetImage(getActivity(), UserCache.get().getHeadimgurl(), mUserIco, R.mipmap.ic_user);
         } else {
             mName.setText("登录/注册");
             mPhone.setText("手机号");
+            mUserIco.setImageResource(R.mipmap.ic_user);
         }
     }
 }

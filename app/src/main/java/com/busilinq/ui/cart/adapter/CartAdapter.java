@@ -1,11 +1,11 @@
 package com.busilinq.ui.cart.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -14,10 +14,16 @@ import android.widget.TextView;
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.cache.AssembleProduct;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.MainCartEntity;
-import com.busilinq.ui.classify.GoodsDetailActivity;
+import com.busilinq.xsm.ulits.Logger;
+import com.busilinq.xsm.ulits.PreciseCompute;
 import com.chenyx.libs.glide.GlideShowImageUtils;
-import com.chenyx.libs.utils.JumpUtil;
+import com.chenyx.libs.utils.ToastUtils;
+import com.longsh.optionframelibrary.OptionCenterDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,20 +39,55 @@ import butterknife.ButterKnife;
  * Update Remark：
  */
 public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
+    private DataUpdateListener mDataUpdateListener;
+    private int checkNumber = 0;
 
-    public interface MyInterface{
-        void getCarInfo();
+
+    public int getCheckNumber() {
+        return checkNumber;
     }
-    private MyInterface myInterface;
-    public CartAdapter(Context context,MyInterface myInterface) {
+
+    public void delectItem(int position) {
+        if (items.get(position).getCart().getIsChecked() == 1)
+            checkNumber--;
+        items.remove(position);
+        this.notifyDataSetChanged();
+    }
+
+    public void setAllCheck(boolean isCheck) {
+        if (isCheck) {
+            if (checkNumber == 0)
+                setCheck(1);
+            else {
+                if (checkNumber == getItems().size())
+                    setCheck(0);
+                else
+                    setCheck(1);
+            }
+        } else {
+            setCheck(0);
+        }
+    }
+
+    private void setCheck(int check) {
+        for (MainCartEntity entity : items) {
+            entity.getCart().setIsChecked(check);
+        }
+        this.notifyDataSetChanged();
+    }
+
+    public void setEntityData(int position, MainCartEntity entity) {
+        items.get(position).setCart(entity.getCart());
+        this.notifyDataSetChanged();
+    }
+
+    public CartAdapter(Context context, DataUpdateListener mDataUpdateListener) {
         super(context);
-        this.myInterface = myInterface;
-        AssembleProduct.getInstance().clear();
+        this.mDataUpdateListener = mDataUpdateListener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         //数据列表
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart_list, parent, false);
         return new CartAdapter.ViewHolder(view);
@@ -56,91 +97,52 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
-
         final CartAdapter.ViewHolder vHolder = (CartAdapter.ViewHolder) holder;
         if (getItem(position) != null) {
-            final MainCartEntity item =   getItem(position);
+            final MainCartEntity item = getItem(position);
             vHolder.mTitle.setText(item.getGoods().getGoods().getName());//商品名称
-            vHolder.mNum.setText(item.getCart().getNumber()+"");//数量
-            vHolder.mPrice.setText("¥"+item.getGoods().getGoods().getPrice()+"/"+item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
+            vHolder.mNum.setText(item.getCart().getNumber() + "");//数量
+            vHolder.mPrice.setText("¥" + item.getGoods().getGoods().getPrice() + "/" + item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
             GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
-
-            if(item.getCart().getIsChecked() == 0){
-                vHolder.mIsCheck.setChecked(false);
-            }else {
-                vHolder.mIsCheck.setChecked(true);
-            }
-//            /vHolder.mIsCheck.setChecked(false);
-
-//            if (AssembleProduct.getInstance().getGoods() != null && AssembleProduct.getInstance().getGoods().size() > 0) {
-//                for (MainCartEntity gc : AssembleProduct.getInstance().getGoods()) {
-//                    if (gc.getCart().getCartId() == item.getCart().getCartId()) {
-//                        vHolder.mIsCheck.setChecked(true);
-//                    }
-//                }
-//            }
-
-
-            /**
-             * 点击跳转到详情
-             */
-            vHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("goodsId", item.getGoods().getGoods().getGoodsId());
-                    JumpUtil.overlay(mContext, GoodsDetailActivity.class, bundle);
-                }
-            });
-            /**
-             * 点击加号
-             */
             vHolder.mAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onItemClickListener.onItemClick(view,position);
-                    if(vHolder.mIsCheck.isChecked()){
-                        item.getCart().setIsChecked(1);
-                    }else{
-                        item.getCart().setIsChecked(0);
-                    }
+                    int number = item.getCart().getNumber() + 1;
+                    mDataUpdateListener.update(position, number);
                 }
             });
-            /**
-             * 点击减号
-             */
             vHolder.mReduce.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onItemViewClickListener.onViewClick(view,position);
-                    if(vHolder.mIsCheck.isChecked()){
-                        item.getCart().setIsChecked(1);
-                    }else{
-                        item.getCart().setIsChecked(0);
+                    if (item.getCart().getNumber() == 1) {
+                        ToastUtils.showShort("數量為最小值，可长按删除本条记录");
+                        return;
                     }
+                    int number = item.getCart().getNumber() - 1;
+                    mDataUpdateListener.update(position, number);
                 }
             });
-            /**
-             * 选中与取消事件
-             * getCartInfo实现回调，提供数据给fragment
-             */
+            vHolder.mIsCheck.setChecked(item.getCart().getIsChecked() == 0 ? false : true);
             vHolder.mIsCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if(b){
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
                         item.getCart().setIsChecked(1);
-                        //AssembleProduct.getInstance().increase(item.getCart());//加+
-                        AssembleProduct.getInstance().addSingleProduct(item.getCart());
-                    }else {
+                        checkNumber++;
+                    } else {
                         item.getCart().setIsChecked(0);
-                        AssembleProduct.getInstance().removeSingleProduct(item.getCart());//减
+                        checkNumber--;
                     }
-                    if(myInterface != null){
-                        myInterface.getCarInfo();
-                    }
+                    mDataUpdateListener.updateCheck();
                 }
             });
         }
+    }
+
+    public interface DataUpdateListener {
+        void update(int position, int number);
+
+        void updateCheck();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
