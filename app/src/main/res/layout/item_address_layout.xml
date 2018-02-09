@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/item_sel"
+    android:id="@+id/item_line"
     android:orientation="vertical">
 
     <View

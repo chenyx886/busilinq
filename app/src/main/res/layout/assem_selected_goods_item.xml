@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingTop="15dp">
+
+    <TextView
+        android:id="@+id/assem_sel_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="95dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="#4c4c4c"
+        android:textSize="@dimen/text_size14"/>
+
+    <TextView
+        android:id="@+id/assem_sel_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/assem_sel_item_num"
+        android:textColor="#4c4c4c"
+        android:textSize="@dimen/text_size14"/>
+
+    <TextView
+        android:id="@+id/assem_sel_item_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="5dp"
+        android:textColor="#4c4c4c"
+        android:textSize="@dimen/text_size14"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_below="@id/assem_sel_item_num"
+        android:layout_marginTop="15dp"
+        android:background="@color/HintColor"/>
+</RelativeLayout>

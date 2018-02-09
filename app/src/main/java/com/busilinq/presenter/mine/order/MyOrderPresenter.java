@@ -20,6 +20,11 @@ public class MyOrderPresenter extends BasePresenter<IMyOrdersView> {
         super(MvpView);
     }
 
+    /**
+     * 订单列表
+     * @param userId
+     * @param page
+     */
     public void getOrdersList(int userId, int page) {
         addSubscription(RetrofitApiFactory.getOrderApi().getOrders(userId, page, limit), new SubscriberCallBack<PageEntity<HomeOrderEntity>>() {
             @Override

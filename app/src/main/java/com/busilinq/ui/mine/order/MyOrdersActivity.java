@@ -49,6 +49,14 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        page = 1;
+        state = STATE_PULL_REFRESH;
+        mPresenter.getOrdersList(UserCache.GetUserId(), page);
+    }
+
+    @Override
     protected MyOrderPresenter createPresenter() {
         return new MyOrderPresenter(this);
     }

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.AddressListView;
@@ -32,6 +33,8 @@ import butterknife.OnClick;
  * Update Remark：
  */
 public class AddressActivity extends BaseMvpActivity<AddressPresenter> implements AddressListView, AddressAdapter.ButtonOnClickListener {
+
+    public static final int ADDRESS_REQUESTCODE = 1;
     /**
      * 标题
      */
@@ -71,8 +74,6 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
         mAdapter = new AddressAdapter(this);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnclickListener(this);
-
-
     }
 
     @Override
@@ -157,6 +158,24 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
             intent.putExtra("come", "edit");
             intent.putExtras(bundle);
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void itermClick(View view, int pos) {
+        Intent intent = getIntent();
+        String a = intent.getStringExtra("order_req");
+        if(null != a){
+            if(a.equals("1")) {
+                UserShopAddrEntity item = addressList.get(pos);
+                Intent data = new Intent();
+                data.putExtra("name", item.getName());
+                data.putExtra("phone", item.getCell());
+                data.putExtra("company", item.getCompany());
+                data.putExtra("address", item.getSpecificAddr());
+                setResult(RESULT_OK, data);
+                finish();
+            }
         }
     }
 }

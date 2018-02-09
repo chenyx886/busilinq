@@ -32,9 +32,10 @@
                     android:textSize="@dimen/text_size14" />
 
                 <TextView
+                    android:id="@+id/tv_order_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="201300212"
+                    android:text="空"
                     android:textColor="@color/color_e44010"
                     android:textSize="@dimen/text_size14" />
             </LinearLayout>
@@ -55,6 +56,7 @@
                     android:textSize="@dimen/text_size13" />
 
                 <TextView
+                    android:id="@+id/tv_order_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="￥800.00"
@@ -78,6 +80,7 @@
                     android:textSize="@dimen/text_size13" />
 
                 <TextView
+                    android:id="@+id/tv_order_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2018-01-31 14:27:07"
@@ -102,6 +105,7 @@
                     android:textSize="@dimen/text_size13" />
 
                 <TextView
+                    android:id="@+id/tv_order_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="待审核"
@@ -130,14 +134,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="配送方式："
+                    android:text="收货人："
                     android:textColor="@color/color_333333"
                     android:textSize="@dimen/text_size13" />
 
                 <TextView
+                    android:id="@+id/tv_take_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="送货上门"
+                    android:text="王二"
                     android:textColor="@color/color_333333"
                     android:textSize="@dimen/text_size13" />
             </LinearLayout>
@@ -158,6 +163,7 @@
                     android:textSize="@dimen/text_size13" />
 
                 <TextView
+                    android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="18081024561"
@@ -183,6 +189,7 @@
                     android:textSize="@dimen/text_size13" />
 
                 <TextView
+                    android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="贵州省贵阳市观山湖区金珠东路口贵阳互联网金融特区大厦16楼"
@@ -216,6 +223,7 @@
                     android:textSize="@dimen/text_size13" />
 
                 <TextView
+                    android:id="@+id/tv_distribution_way"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="送货上门"
@@ -239,6 +247,7 @@
                     android:textSize="@dimen/text_size13" />
 
                 <TextView
+                    android:id="@+id/tv_distribution_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="待审核"
@@ -262,6 +271,7 @@
                     android:textSize="@dimen/text_size13" />
 
                 <TextView
+                    android:id="@+id/tv_pay_way"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="现金"
@@ -286,6 +296,7 @@
                     android:textSize="@dimen/text_size13" />
 
                 <TextView
+                    android:id="@+id/tv_pay_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="未支付"
@@ -303,30 +314,20 @@
                 android:textColor="@color/color_e44010"
                 android:textSize="@dimen/text_size14" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/len_10"
+                android:descendantFocusability="blocksDescendants"
                 android:paddingTop="@dimen/len_10">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/len_15"
-                    android:text="这个地方是商品什么东东，具体在画"
-                    android:textColor="@color/color_333333"
-                    android:textSize="@dimen/text_size13" />
+                <com.jcodecraeer.xrecyclerview.XRecyclerView
+                    android:id="@+id/goodsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/len_15"
-                    android:text="￥800*1盒=￥800这个地方也是具体再画"
-                    android:textColor="@color/color_333333"
-                    android:textSize="@dimen/text_size13" />
-            </LinearLayout>
+
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
     <LinearLayout
@@ -339,17 +340,18 @@
             android:padding="@dimen/len_10">
 
             <Button
-                android:id="@+id/order_again_btn"
+                android:id="@+id/btn_delete_order"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/len_28"
+                android:layout_height="@dimen/len_40"
                 android:background="@drawable/btn_e44010_rad5"
-                android:text="取消订单"
+                android:text="删除订单"
                 android:textColor="@color/color_e44010"
                 android:textSize="@dimen/text_size15" />
 
             <Button
+                android:id="@+id/btn_pay"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/len_28"
+                android:layout_height="@dimen/len_40"
                 android:layout_marginLeft="@dimen/len_10"
                 android:background="@drawable/btn_e44010_frame_e44010_rad5"
                 android:text="付款"

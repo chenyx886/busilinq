@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
@@ -119,6 +120,11 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
          */
         @BindView(R.id.edit_tv)
         TextView edit_tv;
+        /**
+         * 总布局
+         */
+        @BindView(R.id.item_line)
+        LinearLayout item_line;
 
         ButtonOnClickListener onClickListener;
 
@@ -130,6 +136,8 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
             selected_iv.setOnClickListener(this);
             delete_tv.setOnClickListener(this);
             edit_tv.setOnClickListener(this);
+            item_line.setOnClickListener(this);
+
         }
 
         @Override
@@ -149,6 +157,10 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
                 case R.id.edit_tv:
                     if (onClickListener != null) {
                         onClickListener.editClick(view, getPosition());
+                    }
+                case R.id.item_line:
+                    if (onClickListener != null) {
+                        onClickListener.itermClick(view, getPosition());
                     }
                     break;
             }
@@ -180,6 +192,8 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
          * @param pos
          */
         void editClick(View view, int pos);
+
+        void itermClick(View view ,int pos);
     }
 
     private ButtonOnClickListener mOnclickListener;

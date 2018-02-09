@@ -1,5 +1,6 @@
 package com.busilinq.ui.cart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,9 +11,11 @@ import android.widget.TextView;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.cart.ISubmitOrderView;
+import com.busilinq.contract.mine.AddressListView;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.cart.SubmitOrderPresenter;
+import com.busilinq.ui.mine.AddressActivity;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 
@@ -109,12 +112,11 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     @Override
     protected void initUI() {
         mTitle.setText("确认订单");
-        //mPresenter.getDeaaultAddress(UserCache.get().getUserId());
-        mPresenter.getDeaaultAddress("9");
+        mPresenter.getDeaaultAddress(UserCache.get().getUserId());
 
     }
 
-    @OnClick({R.id.tv_back,R.id.tv_add_address,R.id.et_remark,R.id.btn_settlement})
+    @OnClick({R.id.tv_back,R.id.tv_add_address,R.id.et_remark,R.id.btn_settlement,R.id.line_address_full_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -138,11 +140,34 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
             case R.id.btn_settlement:
                 JumpUtil.overlay(this, SubmitSuccessActivity.class);
                 break;
+            /**
+             * 选择收货地址
+             */
+            case R.id.line_address_full_layout:
+                Bundle bundle = new Bundle();
+                bundle.putString("order_req","1");
+                JumpUtil.startForResult(this,AddressActivity.class, AddressActivity.ADDRESS_REQUESTCODE,bundle);
         }
 
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case AddressActivity.ADDRESS_REQUESTCODE:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        mName.setText("收货人："+data.getStringExtra("name"));
+                        tvPhone.setText("电话："+data.getStringExtra("phone"));
+                        tvCompany.setText("收货单位："+data.getStringExtra("company"));
+                        mAddress.setText("收货地址："+data.getStringExtra("address"));
+                        break;
+                }
+        }
+    }
 
     @Override
     public void showProgress(String message) {

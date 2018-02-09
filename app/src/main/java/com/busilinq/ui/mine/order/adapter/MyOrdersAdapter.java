@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.HomeOrderEntity;
+import com.busilinq.ui.classify.GoodsListActivity;
 import com.busilinq.ui.mine.order.MyOrdersDetailActivity;
 import com.busilinq.ulits.OrderStringParse;
 import com.busilinq.xsm.ulits.StringParse;
@@ -61,7 +62,8 @@ public class MyOrdersAdapter extends AbstractRecyclerViewAdapter<HomeOrderEntity
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable(MyOrdersDetailActivity.class.getSimpleName(), entity);
+                    String orderNum = entity.getOrder().getOrderNumber();
+                    bundle.putString("orderNum",orderNum);
                     JumpUtil.overlay(mContext, MyOrdersDetailActivity.class, bundle);
                 }
             });
