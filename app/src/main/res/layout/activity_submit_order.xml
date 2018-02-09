@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/body_bg"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/include_header_layout" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <include layout="@layout/include_header_layout" />
 
         <TextView
             android:layout_width="match_parent"
@@ -101,6 +105,7 @@
 
         <!--商品清单-->
         <RelativeLayout
+            android:id="@+id/rel_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/button_default_bg"
@@ -114,6 +119,7 @@
                 android:textColor="@color/page_title_color"
                 android:textSize="15sp" />
             <TextView
+                android:id="@+id/tv_list_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="共两种"
@@ -123,8 +129,15 @@
                 android:drawablePadding="5dp"
                 android:textSize="15sp" />
         </RelativeLayout>
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/goodsList"
+            android:visibility="gone"
+            android:layout_below="@id/rel_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
         <!--配送方式-->
         <RelativeLayout
+            android:id="@+id/rel_take_way"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/button_default_bg"
@@ -138,17 +151,18 @@
                 android:textColor="@color/page_title_color"
                 android:textSize="15sp" />
             <TextView
+                android:id="@+id/tv_take_way"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="送货上门"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/colorTabNormal"
                 android:drawableRight="@mipmap/arrow_right"
                 android:drawablePadding="5dp"
                 android:textSize="15sp" />
         </RelativeLayout>
-        <!--支付方式-->
+        <!--支付类型-->
         <RelativeLayout
+            android:id="@+id/rel_total_pay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/button_default_bg"
@@ -158,13 +172,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="支付方式"
+                android:text="支付类型"
                 android:textColor="@color/page_title_color"
                 android:textSize="15sp" />
             <TextView
+                android:id="@+id/tv_total_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="现金（先付）"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/colorTabNormal"
                 android:drawableRight="@mipmap/arrow_right"
@@ -178,6 +192,9 @@
             android:layout_marginTop="10dp"
             android:background="@color/button_default_bg"
             android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:padding="10dp">
 
             <TextView
@@ -202,11 +219,14 @@
 
     </LinearLayout>
 
+</ScrollView>
+
     <!--底部提交订单-->
     <RelativeLayout
         android:id="@+id/rela_cart_full_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -274,4 +294,4 @@
             android:textSize="@dimen/text_size18" />
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

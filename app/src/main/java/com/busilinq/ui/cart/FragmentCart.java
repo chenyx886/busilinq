@@ -124,6 +124,12 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     @BindView(R.id.btn_settlement)
     Button mSettlement;
 
+    /**
+     *传递到下一页面的总价
+     * @return
+     */
+    String passTotal;
+
 
     @Override
     protected CartPresenter createPresenter() {
@@ -238,6 +244,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(SubmitOrderActivity.class.getSimpleName(), (Serializable) list);
+                    bundle.putString("passTotal",passTotal);
                     JumpUtil.overlay(getActivity(), SubmitOrderActivity.class, bundle);
                 }
                 else
@@ -275,6 +282,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         }
 
         mTotalMoney.setText(StringParse.formatMoney(totalMoney));
+        passTotal = StringParse.formatMoney(totalMoney);
     }
 
     private void checkAll() {

@@ -173,6 +173,7 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
                 data.putExtra("phone", item.getCell());
                 data.putExtra("company", item.getCompany());
                 data.putExtra("address", item.getSpecificAddr());
+                data.putExtra("addressId", item.getAddrId());
                 setResult(RESULT_OK, data);
                 finish();
             }
