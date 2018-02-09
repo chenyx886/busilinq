@@ -191,6 +191,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
         } else {
             mName.setText("登录/注册");
             mPhone.setText("手机号");
+            mUserIco.setImageResource(R.mipmap.ic_user);
         }
     }
 }

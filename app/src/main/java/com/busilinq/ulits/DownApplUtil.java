@@ -71,10 +71,11 @@ public class DownApplUtil {
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (updateInfo.getUpdateType() == 2) {
-                            MApplication.getInstance().appManager.finishAllActivity();
-                            System.exit(0);
-                        }
+//                        if (updateInfo.getUpdateType() == 2) {
+//                            MApplication.getInstance().appManager.finishAllActivity();
+//                            System.exit(0);
+//                        }
+                        dialog.dismiss();
                     }
                 });
                 builder.create().show();
