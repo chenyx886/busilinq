@@ -74,6 +74,7 @@
             android:id="@+id/et_user_tell"
             style="@style/userEditTextStyle"
             android:hint="@string/input_user_tell"
+            android:editable="false"
             />
 
     </LinearLayout>

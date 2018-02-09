@@ -6,11 +6,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.busilinq.MApplication;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.ISetNewPwdView;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.presenter.mine.SetNewPwdPresenter;
 import com.busilinq.widget.MLoadingDialog;
+import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 import com.chenyx.libs.utils.Toasts;
 
@@ -99,7 +102,11 @@ public class SetNewPwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
     @Override
     public void Success() {
         ToastUtils.showShort("修改成功");
-        finish();
+        UserCache.clear();
+        MApplication.getInstance().appManager.finishAllActivity();
+        JumpUtil.overlay(mContext, LoginActivity.class);
+
+
     }
 
     @Override

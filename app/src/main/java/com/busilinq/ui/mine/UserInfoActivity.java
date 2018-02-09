@@ -70,6 +70,8 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
 
     UserEntity userEntity = null;
 
+    String user_name,user_account,user_email,user_tell;
+
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -132,16 +134,22 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
 
     @Override
     public void modifyUserInfo() {
-        String user_name = et_user_name.getText().toString();
-        String user_account = et_user_account.getText().toString();
-        String user_email = et_user_email.getText().toString();
-        String user_tell = et_user_tell.getText().toString();
+        user_name = et_user_name.getText().toString();
+        user_account = et_user_account.getText().toString();
+        user_email = et_user_email.getText().toString();
+        user_tell = et_user_tell.getText().toString();
         mPresenter.submitUserInfo(user_account, user_name, user_email, user_tell);
 
     }
 
     @Override
     public void modifyUserInfoSuccess() {
+        UserEntity user = UserCache.get();
+        user.setRealName(user_name);
+        user.setName(user_account);
+        user.setEmail(user_email);
+        user.setCell(user_tell);
+        UserCache.put(user);
         finish();
     }
 
