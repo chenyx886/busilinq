@@ -287,21 +287,15 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
 
                 if(item.getCart().getIsChecked() == 1){
                     AssembleProduct.getInstance().addSingleProduct(item.getCart());
-                    //AssembleProduct.getInstance().increase(cartEntity);
                 }
-
-
-
             } else {
                 cartEntity.setNumber(item.getCart().getNumber() - 1);
                 item.setCart(cartEntity);
                 if(item.getCart().getIsChecked() == 1){
+                    mAdapter.notifyItemChanged(position);
                     AssembleProduct.getInstance().removeSingleProduct(item.getCart());//减
-                    //AssembleProduct.getInstance().increase(cartEntity);
                 }
             }
-//            if( AssembleProduct.getInstance().getGoods()!=null&& AssembleProduct.getInstance().getGoods(item.getCart().getCartId()))
-//            AssembleProduct.getInstance().increase(cartEntity);
         }
         mAdapter.notifyDataSetChanged();
         mTotalMoney.setText(AssembleProduct.getInstance().getSubPrice()+"");
