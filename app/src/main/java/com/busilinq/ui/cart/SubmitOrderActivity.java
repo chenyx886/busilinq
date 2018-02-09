@@ -113,7 +113,6 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     protected void initUI() {
         mTitle.setText("确认订单");
         mPresenter.getDeaaultAddress(UserCache.get().getUserId());
-
     }
 
     @OnClick({R.id.tv_back,R.id.tv_add_address,R.id.et_remark,R.id.btn_settlement,R.id.line_address_full_layout})
