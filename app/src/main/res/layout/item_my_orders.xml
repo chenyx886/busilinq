@@ -37,7 +37,7 @@
             android:id="@+id/order_state_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="待审核"
+            android:text="未知"
             android:textColor="@color/color_3d98df"
             android:textSize="@dimen/text_size14"
             android:textStyle="bold" />
@@ -137,11 +137,18 @@
             android:textSize="@dimen/text_size15" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥"
+            android:textColor="@color/color_e44010"
+            android:textSize="@dimen/text_size15" />
+
+        <TextView
             android:id="@+id/order_amount_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="￥800.00"
+            android:text="800.00"
             android:textColor="@color/color_e44010"
             android:textSize="@dimen/text_size15" />
 

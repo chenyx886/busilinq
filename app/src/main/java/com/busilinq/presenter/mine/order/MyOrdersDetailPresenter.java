@@ -5,18 +5,15 @@ import com.busilinq.data.PageEntity;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.HomeOrderEntity;
-import com.busilinq.data.entity.OrderEntity;
 import com.busilinq.presenter.BasePresenter;
-
-import java.util.List;
 
 /**
  * Created by yu on 2018/1/31.
  */
-public class MyOrderPresenter extends BasePresenter<IMyOrdersView> {
+public class MyOrdersDetailPresenter extends BasePresenter<IMyOrdersView> {
     private int limit = 5;
 
-    public MyOrderPresenter(IMyOrdersView MvpView) {
+    public MyOrdersDetailPresenter(IMyOrdersView MvpView) {
         super(MvpView);
     }
 

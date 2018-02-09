@@ -8,6 +8,10 @@ import android.widget.TextView;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.order.IMyOrdersView;
+import com.busilinq.data.PageEntity;
+import com.busilinq.data.cache.UserCache;
+import com.busilinq.data.entity.HomeOrderEntity;
+import com.busilinq.data.entity.OrderEntity;
 import com.busilinq.presenter.mine.order.MyOrderPresenter;
 import com.busilinq.ui.mine.order.adapter.MyOrdersAdapter;
 import com.busilinq.widget.MLoadingDialog;
@@ -33,6 +37,11 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
     @BindView(R.id.my_orders_data_list)
     XRecyclerView mDataList;
     private MyOrdersAdapter mMyOrdersAdapter;
+    private static int state = -1;
+    private static int STATE_LOAD_MORE = 0X10;
+    private static int STATE_PULL_REFRESH = 0X20;
+    private int page = 1;
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -41,7 +50,7 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
 
     @Override
     protected MyOrderPresenter createPresenter() {
-        return null;
+        return new MyOrderPresenter(this);
     }
 
     @Override
@@ -52,8 +61,24 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
         mDataList.setLoadingMoreEnabled(false);
         mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         mDataList.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
-        mMyOrdersAdapter=new MyOrdersAdapter(this);
+        mMyOrdersAdapter = new MyOrdersAdapter(this);
         mDataList.setAdapter(mMyOrdersAdapter);
+        mDataList.setLoadingListener(new XRecyclerView.LoadingListener() {
+
+            @Override
+            public void onRefresh() {
+                page = 1;
+                state = STATE_PULL_REFRESH;
+                mPresenter.getOrdersList(UserCache.GetUserId(), page);
+            }
+
+            @Override
+            public void onLoadMore() {
+                state = STATE_LOAD_MORE;
+                mPresenter.getOrdersList(UserCache.GetUserId(), page);
+            }
+        });
+        mDataList.setRefreshing(true);
     }
 
     @Override
@@ -63,7 +88,13 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
 
     @Override
     public void hideProgress() {
-        MLoadingDialog.dismiss();
+        if (state == STATE_PULL_REFRESH) {
+            if (mDataList != null)
+                mDataList.refreshComplete();
+        } else if (state == STATE_LOAD_MORE) {
+            if (mDataList != null)
+                mDataList.loadMoreComplete();
+        }
     }
 
     @OnClick({R.id.tv_back})
@@ -74,5 +105,16 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
                 break;
 
         }
+    }
+
+    @Override
+    public void OrdersList(PageEntity<HomeOrderEntity> list) {
+        if (state == STATE_PULL_REFRESH) {
+            page = 1;
+            mMyOrdersAdapter.setData(list.getList());
+        } else if (state == STATE_LOAD_MORE) {
+            mMyOrdersAdapter.insert(mMyOrdersAdapter.getItemCount(), list.getList());
+        }
+        ++page;
     }
 }
