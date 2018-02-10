@@ -165,7 +165,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
      * 提交订单相关类
      * @param bundle
      */
-    private int addressId;//收货地址Id
+    private int addressId=-1;//收货地址Id
     private String shippingType;//配送方式
     private int activityId = 1;//活动Iid,暂未启用
     private String payType;//支付方式
