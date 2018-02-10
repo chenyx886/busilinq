@@ -22,7 +22,7 @@
             android:id="@+id/consignee"
             style="@style/addressTextViewStyle"
             android:layout_alignParentLeft="true"
-            android:text="收货人："
+            android:text="联系人："
             android:textStyle="bold" />
 
         <TextView
@@ -30,7 +30,7 @@
             style="@style/addressTextViewStyle"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/consignee"
-            android:text="杨雪"
+            android:text=""
             android:textStyle="bold" />
 
         <TextView
@@ -48,7 +48,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/address_tell"
-            android:text="18888888888" />
+            android:text="" />
 
         <TextView
             android:id="@+id/address_unit"
@@ -65,7 +65,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/address_unit"
-            android:text="华科建邺" />
+            android:text="" />
 
         <TextView
             android:id="@+id/detail_address"
@@ -82,7 +82,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/detail_address"
-            android:text="贵州省贵阳市" />
+            android:text="" />
     </RelativeLayout>
 
     <View style="@style/line_diliver" />

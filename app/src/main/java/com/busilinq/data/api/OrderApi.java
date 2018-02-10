@@ -2,10 +2,8 @@ package com.busilinq.data.api;
 
 import com.busilinq.data.BaseData;
 import com.busilinq.data.PageEntity;
-import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.HomeOrderEntity;
 import com.busilinq.data.entity.OrderEntity;
-import com.busilinq.xsm.data.entity.Order;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -27,11 +25,13 @@ import rx.Observable;
 public interface OrderApi {
     @GET("/api/order/list")
     Observable<BaseData<PageEntity<HomeOrderEntity>>> getOrders(@Query("userId") int userId, @Query("page") int page, @Query("limit") int limit);
+
     @GET("/api/order/detail")
-    Observable<BaseData<HomeOrderEntity>> getOrdersDetial(@Query("userId") int userId,@Query("orderNum") String orderNum);
+    Observable<BaseData<HomeOrderEntity>> getOrdersDetial(@Query("userId") int userId, @Query("orderNum") String orderNum);
 
     /**
      * 提交订单
+     *
      * @param body
      * @return
      */
@@ -40,10 +40,11 @@ public interface OrderApi {
 
     /**
      * 删除订单
+     *
      * @param userId
      * @return
      */
     @DELETE("/api/order/delete")
-    Observable<BaseData> deleteOrder(@Query("userId") int userId, @Query("orderId") int orderId,@Query("orderNum") String orderNum);
+    Observable<BaseData> deleteOrder(@Query("userId") int userId, @Query("orderId") int orderId, @Query("orderNum") String orderNum);
 
 }
