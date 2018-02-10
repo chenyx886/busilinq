@@ -88,8 +88,6 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
 
     @Override
     protected void initUI() {
-
-
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
