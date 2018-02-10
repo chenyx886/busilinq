@@ -165,7 +165,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
      * 提交订单相关类
      * @param bundle
      */
-    private int addressId=-1;//收货地址Id
+    private int addressId;//收货地址Id
     private String shippingType;//配送方式
     private int activityId = 1;//活动Iid,暂未启用
     private String payType;//支付方式
@@ -292,10 +292,10 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
                         mTotalPay.setText(total_pay[which]);
                         switch (which) {
                             case 0:
-                                payType = "ONLINE";
+                                shippingType = "ONLINE";
                                 break;
                             case 1:
-                                payType = "SETTLEMENT";
+                                shippingType = "SETTLEMENT";
                                 break;
                             default:
                                 break;
@@ -373,6 +373,21 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
 
     }
 
+
+    private void submit() {
+        OrderCreateASK orderCreateASK = new OrderCreateASK();
+        orderCreateASK.setUserId(UserCache.GetUserId());
+        List<OrderGoodsPO> goodsPOList = new ArrayList<>();
+        for (int position = 0; position < list.size(); position++) {
+            OrderGoodsPO orderGoodsPO = new OrderGoodsPO();
+            orderGoodsPO.setGoodsId(list.get(position).getGoods().getGoods().getGoodsId());
+            orderGoodsPO.setCount(list.get(position).getCart().getNumber());
+            goodsPOList.add(orderGoodsPO);
+        }
+        orderCreateASK.setGoodsList(goodsPOList);
+    }
+
+
     /**
      * 获取默认收货地址
      * @param addrDefaultEntity
@@ -389,6 +404,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     @Override
     public void submitSuccess(OrderEntity orderEntity) {
         JumpUtil.overlay(this,SubmitSuccessActivity.class);
+        ToastUtils.showShort(orderEntity.getOrderId()+"");
     }
 
     /**

@@ -1,9 +1,12 @@
 package com.busilinq.ui.home;
 
 
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.base.AbstractRecyclerViewAdapter;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
@@ -24,7 +28,9 @@ import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.home.MainPresenter;
 import com.busilinq.ui.HtmlActivity;
+import com.busilinq.ui.MainActivity;
 import com.busilinq.ui.ToDevelopedActivity;
+import com.busilinq.ui.cart.FragmentCart;
 import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.busilinq.ui.classify.GoodsListActivity;
 import com.busilinq.ui.home.adapter.HomeListAdapter;
@@ -44,6 +50,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 
 /**
  * Company：华科建邺
@@ -170,6 +177,14 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         BindViewItem();
         mDataList.addHeaderView(view);
         initData();
+        mAdapter.setOnItemViewClickListener(new AbstractRecyclerViewAdapter.OnItemViewClickListener() {
+            @Override
+            public void onViewClick(View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("goodsId", mDatas.get(position).getGoods().getGoodsId());
+                JumpUtil.startForResult(getActivity(),GoodsDetailActivity.class,GoodsDetailActivity.HOME_REQUESTCODE,bundle);
+            }
+        });
     }
 
     private void initData() {

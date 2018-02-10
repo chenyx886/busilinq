@@ -2,6 +2,7 @@ package com.busilinq.ui;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import com.busilinq.base.BaseActivity;
 import com.busilinq.data.event.MenuEvent;
 import com.busilinq.ui.cart.FragmentCart;
 import com.busilinq.ui.classify.FragmentClassify;
+import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.busilinq.ui.home.FragmentHome;
 import com.busilinq.ui.mine.FragmentMine;
 import com.busilinq.widget.MLoadingDialog;
@@ -91,6 +93,19 @@ public class MainActivity extends BaseActivity {
         getPersimmions();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case GoodsDetailActivity.HOME_REQUESTCODE:
+                android.support.v4.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fl_relcontent,new FragmentCart());
+                transaction.commit();
+                mCart.setChecked(true);
+                break;
+        }
+    }
 
     /**
      * showFragment

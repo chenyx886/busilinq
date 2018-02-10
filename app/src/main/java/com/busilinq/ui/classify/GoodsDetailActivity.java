@@ -50,6 +50,7 @@ import butterknife.OnClick;
  * Update Remark：
  */
 public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> implements IGoodsDetailView {
+    public static final int HOME_REQUESTCODE = 1;
     /**
      * 标题
      */
@@ -241,7 +242,9 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
                 break;
             //购物车
             case R.id.ll_cart:
-                EventBus.getDefault().post(new MenuEvent(2));
+               EventBus.getDefault().post(new MenuEvent(2));
+                //目的是为了跳转到购物车fragment
+                setResult(RESULT_OK);
                 finish();
                 break;
             //加

@@ -54,15 +54,6 @@ public class HomeListAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity
             vHolder.mTitle.setText(item.getGoods().getName());
             vHolder.mPrice.setText("￥" + item.getGoods().getPrice());
             GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
-            vHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("goodsId", item.getGoods().getGoodsId());
-                    JumpUtil.overlay(mContext, GoodsDetailActivity.class, bundle);
-                }
-            });
-
         }
     }
 
