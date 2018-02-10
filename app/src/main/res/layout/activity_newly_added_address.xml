@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/button_default_bg"
-                android:text="联系方式"
+                android:text="联系电话"
                 android:textColor="@color/page_title_color"
                 android:textSize="15sp" />
 
@@ -107,6 +107,8 @@
                 android:background="@null"
                 android:paddingLeft="5dp"
                 android:singleLine="true"
+                android:inputType="phone"
+                android:maxLength="11"
                 android:textColor="@color/page_text_color"
                 android:textSize="15sp" />
 

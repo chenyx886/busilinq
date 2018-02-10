@@ -11,7 +11,10 @@ import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.cart.INewlyAddedAddress;
 import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.cart.NewlyAddedAddressPresenter;
+import com.busilinq.ui.MainActivity;
 import com.busilinq.widget.MLoadingDialog;
+import com.busilinq.xsm.ulits.StringUtils;
+import com.chenyx.libs.utils.Toasts;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -143,14 +146,26 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
         tell = new_tell_et.getText().toString();
         detailAddress = new_detail_address.getText().toString();
         UserShopAddrEntity entity = new UserShopAddrEntity();
-        if (unit != null)
-            entity.setCompany(unit);
-        if (consignee != null)
-            entity.setName(consignee);
-        if (tell != null)
-            entity.setCell(tell);
-        if (detailAddress != null)
-            entity.setSpecificAddr(detailAddress);
+        if (StringUtils.isEmpty(unit)) {
+            Toasts.showShort(this, "请填写收货单位");
+            return;
+        }
+        entity.setCompany(unit);
+        if (StringUtils.isEmpty(consignee)) {
+            Toasts.showShort(this, "请填写联系人");
+            return;
+        }
+        entity.setName(consignee);
+        if (StringUtils.isEmpty(tell)) {
+            Toasts.showShort(this, "请填写联系电话");
+            return;
+        }
+        entity.setCell(tell);
+        if (StringUtils.isEmpty(detailAddress)) {
+            Toasts.showShort(this, "请填写详细地址");
+            return;
+        }
+        entity.setSpecificAddr(detailAddress);
 
         if (come.equals("add")) {
             mPresenter.addAddress(entity);
