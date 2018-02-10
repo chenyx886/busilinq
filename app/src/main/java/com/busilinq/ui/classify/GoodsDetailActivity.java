@@ -292,6 +292,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
 
     @Override
     public void Success(CartEntity data) {
+        UserCache.putCartRefresh(true);
         ToastUtils.showShort("加入购物车成功");
     }
 

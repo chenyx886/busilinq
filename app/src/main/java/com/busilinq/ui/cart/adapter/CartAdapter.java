@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -13,17 +12,9 @@ import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
-import com.busilinq.data.cache.AssembleProduct;
-import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.MainCartEntity;
-import com.busilinq.xsm.ulits.Logger;
-import com.busilinq.xsm.ulits.PreciseCompute;
 import com.chenyx.libs.glide.GlideShowImageUtils;
 import com.chenyx.libs.utils.ToastUtils;
-import com.longsh.optionframelibrary.OptionCenterDialog;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +32,6 @@ import butterknife.ButterKnife;
 public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
     private DataUpdateListener mDataUpdateListener;
     private int checkNumber = 0;
-
 
     public int getCheckNumber() {
         return checkNumber;
