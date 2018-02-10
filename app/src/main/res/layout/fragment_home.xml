@@ -22,7 +22,8 @@
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-            <include layout="@layout/include_home_search_layout" />
+            <include layout="@layout/include_home_search_layout"
+                android:visibility="gone"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -34,7 +35,8 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
-        <include layout="@layout/include_home_search_layout" />
+        <include layout="@layout/include_home_search_layout"
+            android:visibility="gone"/>
 
     </android.support.design.widget.AppBarLayout>
 
