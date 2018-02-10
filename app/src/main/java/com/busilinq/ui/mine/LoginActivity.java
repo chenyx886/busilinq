@@ -103,6 +103,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
 
     @Override
     public void Success(UserEntity user) {
+        //提示购物车刷新用
+        UserCache.putCartRefresh(true);
         //缓存用户信息
         UserCache.put(user);
         Intent intent = new Intent();
