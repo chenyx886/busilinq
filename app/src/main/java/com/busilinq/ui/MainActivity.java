@@ -96,14 +96,12 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case GoodsDetailActivity.HOME_REQUESTCODE:
-                android.support.v4.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fl_relcontent,new FragmentCart());
-                transaction.commit();
-                mCart.setChecked(true);
-                break;
+        if(requestCode == GoodsDetailActivity.HOME_REQUESTCODE && resultCode == 10){
+            android.support.v4.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fl_relcontent,new FragmentCart());
+            transaction.commit();
+            mCart.setChecked(true);
         }
     }
 

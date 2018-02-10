@@ -244,7 +244,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
             case R.id.ll_cart:
                EventBus.getDefault().post(new MenuEvent(2));
                 //目的是为了跳转到购物车fragment
-                setResult(RESULT_OK);
+                setResult(10);
                 finish();
                 break;
             //加
