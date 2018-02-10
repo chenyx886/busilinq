@@ -1,5 +1,7 @@
 package com.busilinq.ui.mine.order;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -152,7 +154,17 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
                 finish();
                 break;
             case R.id.btn_delete_order:
-                mPresenter.deletedOrder(orderId,orderNum);
+                new  AlertDialog.Builder(this)
+                        .setTitle("提示" )
+                        .setMessage("确定要删除吗？" )
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mPresenter.deletedOrder(orderId,orderNum);
+                            }
+                        })
+                        .setNegativeButton("否" , null)
+                        .show();
                 break;
             case R.id.btn_pay:
                 JumpUtil.overlay(this, ToDevelopedActivity.class);

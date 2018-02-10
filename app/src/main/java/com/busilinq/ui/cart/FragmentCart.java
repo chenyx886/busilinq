@@ -4,6 +4,7 @@ package com.busilinq.ui.cart;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import com.busilinq.data.entity.OrderGoodsPO;
 import com.busilinq.presenter.cart.CartPresenter;
 import com.busilinq.ui.MainActivity;
 import com.busilinq.ui.cart.adapter.CartAdapter;
+import com.busilinq.ui.mine.LoginActivity;
+import com.busilinq.ui.mine.UpdateAvatarActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.busilinq.xsm.ulits.StringParse;
 import com.chenyx.libs.utils.JumpUtil;
@@ -150,9 +153,21 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (UserCache.get() != null) {
+            mPresenter.getOrderList(page);
+        }
+        Log.d(TAG, "onResume: ------------");
+    }
 
     @Override
     protected void initUI() {
+
+        if (UserCache.get() == null) {
+            JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+        }
         mTitle.setText("购物车");
         mEdit.setVisibility(View.GONE);
         mEdit.setText("编辑");

@@ -51,7 +51,8 @@ public class MyOrdersAdapter extends AbstractRecyclerViewAdapter<HomeOrderEntity
             vHolder.mCodeTv.setText(entity.getOrder().getOrderNumber());
             vHolder.mTimeTv.setText(entity.getOrder().getOrderTime());
             vHolder.mAmountTv.setText(StringParse.formatMoney(entity.getOrder().getPayMoney()));
-            vHolder.mStateTv.setText(OrderStringParse.parseOrderState(entity.getOrder().getStatus()));
+            //vHolder.mStateTv.setText(OrderStringParse.parseOrderState(entity.getOrder().getStatus()));
+            vHolder.mStateTv.setText(entity.getOrder().getStatus());
             vHolder.mAgainBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
