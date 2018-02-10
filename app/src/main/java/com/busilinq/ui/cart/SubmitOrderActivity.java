@@ -292,10 +292,10 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
                         mTotalPay.setText(total_pay[which]);
                         switch (which) {
                             case 0:
-                                shippingType = "ONLINE";
+                                payType = "ONLINE";
                                 break;
                             case 1:
-                                shippingType = "SETTLEMENT";
+                                payType = "SETTLEMENT";
                                 break;
                             default:
                                 break;
@@ -404,7 +404,8 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     @Override
     public void submitSuccess(OrderEntity orderEntity) {
         JumpUtil.overlay(this,SubmitSuccessActivity.class);
-        ToastUtils.showShort(orderEntity.getOrderId()+"");
+        finish();
+        //ToastUtils.showShort(orderEntity.getOrderId()+"");
     }
 
     /**

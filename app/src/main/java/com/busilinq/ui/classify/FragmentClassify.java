@@ -142,12 +142,13 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
         mSonCateList.setOnItemClickListener(new PinnedHeaderListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int section, int position, long id) {
+
                 Bundle bundle = new Bundle();
                 int cateId = mCateDatalist.get(mCateSelectedPostion).getList().get(position).getId();
                 String cateName = mCateDatalist.get(mCateSelectedPostion).getList().get(position).getName();
                 bundle.putInt("classifyId", cateId);
                 bundle.putString("cateName", cateName);
-                JumpUtil.overlay(getActivity(), GoodsListActivity.class, bundle);
+                JumpUtil.startForResult(getActivity(), GoodsListActivity.class,GoodsListActivity.HOME_REQUESTCODE, bundle);//进入详情时点击购物车跳转到FragmentCart用
             }
 
             @Override

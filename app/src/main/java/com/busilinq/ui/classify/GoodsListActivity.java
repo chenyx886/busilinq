@@ -1,6 +1,8 @@
 package com.busilinq.ui.classify;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +17,8 @@ import com.busilinq.data.PageEntity;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.classify.GoodsListPresenter;
+import com.busilinq.ui.MainActivity;
+import com.busilinq.ui.cart.FragmentCart;
 import com.busilinq.ui.classify.adapter.GoodsAdapter;
 import com.chenyx.libs.utils.JumpUtil;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -34,6 +38,7 @@ import butterknife.OnClick;
  * Update Remark：
  */
 public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> implements IGoodsListView {
+    public static final int HOME_REQUESTCODE = 1;
     /**
      * 返回
      */
@@ -100,6 +105,15 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == GoodsDetailActivity.HOME_REQUESTCODE && resultCode == 10){
+            setResult(10);
+            finish();
+        }
+    }
+
+    @Override
     protected void initUI() {
         mBack.setVisibility(View.VISIBLE);
         classifyId = getIntent().getIntExtra("classifyId", 0);
@@ -117,9 +131,10 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
         mAdapter.setOnItemClickListener(new AbstractRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
+
                 Bundle bundle = new Bundle();
-                bundle.putInt("goodsId", mAdapter.getItem(position).getGoods().getGoodsId());
-                JumpUtil.overlay(mContext, GoodsDetailActivity.class, bundle);
+                bundle.putInt("goodsId",mAdapter.getItem(position).getGoods().getGoodsId());
+                JumpUtil.startForResult(GoodsListActivity.this,GoodsDetailActivity.class,GoodsDetailActivity.HOME_REQUESTCODE,bundle);
             }
         });
 
