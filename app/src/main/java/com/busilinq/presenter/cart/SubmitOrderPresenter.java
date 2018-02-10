@@ -57,12 +57,12 @@ public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView>{
         });
     }
 
-    public void submitOrder(int addressId, String shippingId, String payId,int activityId, String remark,List<OrderGoodsPO> goodsList) {
+    public void submitOrder(int addressId, String shippingType, String payType,int activityId, String remark,List<OrderGoodsPO> goodsList) {
         Map<String, Object> param = new HashMap<>();
         param.put("userId", UserCache.GetUserId());
         param.put("addressId", addressId);
-        param.put("shippingId", shippingId);
-        param.put("payId", payId);
+        param.put("shippingType", shippingType);
+        param.put("payType", payType);
         param.put("activityId", activityId);
         param.put("remark", remark);
         param.put("goodsList", goodsList);

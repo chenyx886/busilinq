@@ -166,9 +166,9 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
      * @param bundle
      */
     private int addressId;//收货地址Id
-    private String shippingId;//配送方式
+    private String shippingType;//配送方式
     private int activityId = 1;//活动Iid,暂未启用
-    private String payId;//支付方式
+    private String payType;//支付方式
     private String mRemark;//备注
 
     /**
@@ -258,7 +258,22 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mTakeWay.setText(take_way[which]);
-                        shippingId = take_way[which];
+                        switch (which) {
+                            case 0:
+                                shippingType = "DELIVERY";
+                                break;
+                            case 1:
+                                shippingType = "EXPRESS";
+                                break;
+                            case 2:
+                                shippingType = "FREIGHT";
+                                break;
+                            case 3:
+                                shippingType = "ONDOOR";
+                                break;
+                                default:
+                                    break;
+                        };
                     }
                 });
                 builder_take.show();
@@ -275,7 +290,16 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mTotalPay.setText(total_pay[which]);
-                        payId = total_pay[which];
+                        switch (which) {
+                            case 0:
+                                payType = "ONLINE";
+                                break;
+                            case 1:
+                                payType = "SETTLEMENT";
+                                break;
+                            default:
+                                break;
+                        };
                     }
                 });
                 builder_total.show();
@@ -292,13 +316,13 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
             case R.id.btn_settlement:
                 if(addressId<0){
                     ToastUtils.showShort("请选择收货地址");
-                }else if(TextUtils.isEmpty(shippingId)){
+                }else if(TextUtils.isEmpty(shippingType)){
                     ToastUtils.showShort("请选择配送方式");
-                }else if(TextUtils.isEmpty(payId)){
+                }else if(TextUtils.isEmpty(payType)){
                     ToastUtils.showShort("请选择支付类型");
                 }else{
                     mRemark = medit_Remark.getText().toString().trim();
-                    mPresenter.submitOrder(addressId,shippingId,payId,activityId,mRemark,webNeedgoodList);
+                    mPresenter.submitOrder(addressId,shippingType,payType,activityId,mRemark,webNeedgoodList);
                 }
                 break;
             /**
@@ -349,21 +373,6 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
 
     }
 
-
-    private void submit() {
-        OrderCreateASK orderCreateASK = new OrderCreateASK();
-        orderCreateASK.setUserId(UserCache.GetUserId());
-        List<OrderGoodsPO> goodsPOList = new ArrayList<>();
-        for (int position = 0; position < list.size(); position++) {
-            OrderGoodsPO orderGoodsPO = new OrderGoodsPO();
-            orderGoodsPO.setGoodsId(list.get(position).getGoods().getGoods().getGoodsId());
-            orderGoodsPO.setCount(list.get(position).getCart().getNumber());
-            goodsPOList.add(orderGoodsPO);
-        }
-        orderCreateASK.setGoodsList(goodsPOList);
-    }
-
-
     /**
      * 获取默认收货地址
      * @param addrDefaultEntity
@@ -380,7 +389,6 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     @Override
     public void submitSuccess(OrderEntity orderEntity) {
         JumpUtil.overlay(this,SubmitSuccessActivity.class);
-        ToastUtils.showShort(orderEntity.getOrderId()+"");
     }
 
     /**
