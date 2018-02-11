@@ -92,7 +92,7 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
             final MainCartEntity item = getItem(position);
             vHolder.mTitle.setText(item.getGoods().getGoods().getName());//商品名称
             vHolder.mNum.setText(item.getCart().getNumber() + "");//数量
-            vHolder.mPrice.setText("¥" + item.getGoods().getGoods().getPrice() + "/" + item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
+            vHolder.mPrice.setText("¥" + item.getGoods().getPrice().getSalesPrice() + "/" + item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
             GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
             vHolder.mAdd.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -290,7 +290,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         double totalMoney = 0;
         for (MainCartEntity entity : mAdapter.getItems()) {
             if (entity.getCart().getIsChecked() == 1)
-                totalMoney = totalMoney + entity.getCart().getTotalMoney();
+                totalMoney = totalMoney + entity.getGoods().getPrice().getSalesPrice()*entity.getCart().getNumber();
         }
 
         mTotalMoney.setText(StringParse.formatMoney(totalMoney));
