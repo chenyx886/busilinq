@@ -22,4 +22,9 @@ public interface ISubmitOrderView extends IBaseMvpView{
      * @param
      */
     void submitSuccess(OrderEntity orderEntity);
+    /**
+     * 批量删除结果
+     * @param
+     */
+    void deleteResult();
 }

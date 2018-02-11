@@ -29,7 +29,7 @@ public class RetrofitApiFactory {
     //服务器Api地址
 //  private static   String BASE_URL = "http://bd.busilinq.com:19090";
     //测试地址
-    private static String BASE_URL = "http://www.busilinq.com:8002";
+    private static String BASE_URL = "http://mall.busilinq.com";
 
     /**
      * 代理接口构建类

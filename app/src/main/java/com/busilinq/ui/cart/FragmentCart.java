@@ -28,6 +28,7 @@ import com.busilinq.ui.MainActivity;
 import com.busilinq.ui.cart.adapter.CartAdapter;
 import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.widget.MLoadingDialog;
+import com.busilinq.xsm.ulits.Logger;
 import com.busilinq.xsm.ulits.StringParse;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
@@ -133,13 +134,25 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        Logger.e("onHiddenChanged----"+hidden);
         if (!hidden) {
             if (UserCache.getCartRefresh()) {
                 UserCache.putCartRefresh(false);
                 page = 1;
-                mRecycleView.setRefreshing(true);
+                mPresenter.getOrderList(page);
             }
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Logger.e("onStart----");
+            if (UserCache.getCartRefresh()) {
+                UserCache.putCartRefresh(false);
+                page = 1;
+                mPresenter.getOrderList(page);
+            }
     }
 
     @Override
@@ -164,7 +177,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
 
     @Override
     protected void initUI() {
-
+        Logger.e("initUI----");
         if (UserCache.get() == null) {
             JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
         }

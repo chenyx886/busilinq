@@ -59,7 +59,6 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
 
         Map<String, Object> param = new HashMap<>();
         param.put("userId", UserCache.GetUserId());
-        param.put("userId", UserCache.GetUserId());
         param.put("goodsId", goodsId);
         param.put("number", number);
         param.put("price", price);

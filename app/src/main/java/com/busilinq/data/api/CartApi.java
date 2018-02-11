@@ -10,6 +10,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -71,5 +72,11 @@ public interface CartApi {
      */
     @DELETE("/api/user/cart")
     Observable<BaseData> deleteCart(@Query("userId") int userId, @Query("cartId") int cartId);
-
+    /**
+     * 批量删除购物车
+     * @param body
+     * @return
+     */
+    @HTTP(method = "DELETE",path = "/api/user/cart/batch",hasBody = true)
+    Observable<BaseData> deleteCarts(@Body RequestBody body);
 }

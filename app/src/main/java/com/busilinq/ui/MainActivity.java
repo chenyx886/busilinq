@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
@@ -23,6 +24,7 @@ import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.busilinq.ui.home.FragmentHome;
 import com.busilinq.ui.mine.FragmentMine;
 import com.busilinq.widget.MLoadingDialog;
+import com.busilinq.xsm.ulits.Logger;
 import com.chenyx.libs.utils.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
@@ -96,10 +98,10 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == GoodsDetailActivity.HOME_REQUESTCODE && resultCode == 10){
+        if (requestCode == GoodsDetailActivity.HOME_REQUESTCODE && resultCode == 10) {
             android.support.v4.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.fl_relcontent,new FragmentCart());
+            transaction.replace(R.id.fl_relcontent, new FragmentCart());
             transaction.commit();
             mCart.setChecked(true);
         }

@@ -231,4 +231,6 @@ public interface MineApi {
     @GET("/api/common/service")
     Observable<BaseData<List<TServiceAccountEntity>>> getService();
 
+
+
 }

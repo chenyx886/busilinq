@@ -7,12 +7,16 @@ import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.CartEntity;
+import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.data.entity.OrderEntity;
 import com.busilinq.data.entity.OrderGoodsPO;
 import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.BasePresenter;
+import com.busilinq.ui.cart.SubmitSuccessActivity;
 import com.busilinq.xsm.data.entity.Order;
+import com.chenyx.libs.utils.JumpUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +75,7 @@ public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView>{
         addSubscription(RetrofitApiFactory.getOrderApi().submitOrder(body), new SubscriberCallBack<OrderEntity>() {
             @Override
             protected void onSuccess(OrderEntity data) {
+                UserCache.putCartRefresh(true);//通知購物車刷新
                 MvpView.submitSuccess(data);
             }
 
@@ -79,5 +84,30 @@ public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView>{
             }
         });
 
+    }
+    public void  deleteCartList(List<MainCartEntity> list)
+    {
+        List<Integer> deleteList=new ArrayList<>();
+        for (int i=0;i<list.size();i++)
+        {
+            deleteList.add(list.get(i).getCart().getCartId());
+        }
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", UserCache.GetUserId());
+        param.put("cartIds", deleteList);
+        RequestBody body = JsonRequestBody.createJsonBody(param);
+        MvpView.showProgress("加载中...");
+        addSubscription(RetrofitApiFactory.getCartApi().deleteCarts(body), new SubscriberCallBack<BaseData>() {
+            @Override
+            protected void onSuccess(BaseData data) {
+                MvpView.deleteResult();
+            }
+
+            @Override
+            public void onCompleted() {
+                MvpView.deleteResult();
+            }
+
+        });
     }
 }
