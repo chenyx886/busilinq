@@ -243,7 +243,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
 
             }
         });
-
     }
 
 
