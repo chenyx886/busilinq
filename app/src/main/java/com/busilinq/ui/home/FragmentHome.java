@@ -285,10 +285,11 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         llSpecialGoods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("classifyId", 0);
-                bundle.putString("cateName", "特价商品");
-                JumpUtil.overlay(getActivity(), GoodsListActivity.class, bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("classifyId", 0);
+//                bundle.putString("cateName", "特价商品");
+//                JumpUtil.overlay(getActivity(), GoodsListActivity.class, bundle);
+                JumpUtil.overlay(getActivity(), ToDevelopedActivity.class);
             }
         });
         llCollectionGoods = view.findViewById(R.id.ll_collection_goods);

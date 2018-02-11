@@ -130,11 +130,13 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
      * @return
      */
     String passTotal;
+    //第一次加载
+    private boolean firstLoad = true;
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Logger.e("onHiddenChanged----"+hidden);
+        Logger.e("onHiddenChanged----" + hidden);
         if (!hidden) {
             if (UserCache.getCartRefresh()) {
                 UserCache.putCartRefresh(false);
@@ -147,12 +149,16 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     @Override
     public void onStart() {
         super.onStart();
+        if (firstLoad) {
+            firstLoad = false;
+            return;
+        }
         Logger.e("onStart----");
-            if (UserCache.getCartRefresh()) {
-                UserCache.putCartRefresh(false);
-                page = 1;
-                mPresenter.getOrderList(page);
-            }
+        if (UserCache.getCartRefresh()) {
+            UserCache.putCartRefresh(false);
+            page = 1;
+            mPresenter.getOrderList(page);
+        }
     }
 
     @Override
@@ -303,7 +309,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         double totalMoney = 0;
         for (MainCartEntity entity : mAdapter.getItems()) {
             if (entity.getCart().getIsChecked() == 1)
-                totalMoney = totalMoney + entity.getGoods().getPrice().getSalesPrice()*entity.getCart().getNumber();
+                totalMoney = totalMoney + entity.getGoods().getPrice().getSalesPrice() * entity.getCart().getNumber();
         }
 
         mTotalMoney.setText(StringParse.formatMoney(totalMoney));
