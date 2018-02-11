@@ -149,15 +149,16 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     @Override
     public void onStart() {
         super.onStart();
+        Logger.e("onStart----");
         if (firstLoad) {
             firstLoad = false;
-            return;
-        }
-        Logger.e("onStart----");
-        if (UserCache.getCartRefresh()) {
-            UserCache.putCartRefresh(false);
-            page = 1;
             mPresenter.getOrderList(page);
+        }else {
+            if (UserCache.getCartRefresh()) {
+                UserCache.putCartRefresh(false);
+                page = 1;
+                mPresenter.getOrderList(page);
+            }
         }
     }
 
@@ -252,7 +253,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 mPresenter.getOrderList(page);
             }
         });
-        mRecycleView.setRefreshing(true);
+//        mRecycleView.setRefreshing(true);
     }
 
     @OnClick({R.id.btn_purchase, R.id.btn_settlement, R.id.check_select, R.id.tv_confirm})

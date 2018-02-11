@@ -75,12 +75,12 @@ public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView>{
         addSubscription(RetrofitApiFactory.getOrderApi().submitOrder(body), new SubscriberCallBack<OrderEntity>() {
             @Override
             protected void onSuccess(OrderEntity data) {
-                UserCache.putCartRefresh(true);//通知購物車刷新
                 MvpView.submitSuccess(data);
             }
 
             @Override
             public void onCompleted() {
+
             }
         });
 
@@ -100,11 +100,11 @@ public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView>{
         addSubscription(RetrofitApiFactory.getCartApi().deleteCarts(body), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData data) {
-                MvpView.deleteResult();
             }
 
             @Override
             public void onCompleted() {
+                UserCache.putCartRefresh(true);//通知購物車刷新
                 MvpView.deleteResult();
             }
 
