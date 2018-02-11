@@ -405,6 +405,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     public void submitSuccess(OrderEntity orderEntity) {
        mPresenter.deleteCartList(list);
         //ToastUtils.showShort(orderEntity.getOrderId()+"");
+        finish();
     }
 
     @Override
