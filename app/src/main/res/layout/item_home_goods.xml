@@ -2,13 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/item_sel"
     android:padding="8dp">
+    <!--android:background="@drawable/item_sel"-->
+    <LinearLayout
+        android:id="@+id/rel_img"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:gravity="center">
+        <!--android:background="@drawable/shape_corner"-->
+        <ImageView
+            android:id="@+id/iv_good_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv_price"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/banner1" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/rel_img"
         android:ellipsize="end"
         android:lines="1"
         android:text="过总理政府工作报过总理政府工作报过总理政府工作报过总理政府工作报过总理政府工作报过总理政府工作报"
@@ -24,23 +39,5 @@
         android:text="98"
         android:textColor="@color/color_e44010"
         android:textSize="@dimen/text_size12" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_below="@id/tv_price"
-        android:background="@drawable/shape_corner"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/iv_good_pic"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/tv_price"
-            android:padding="2dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/banner1" />
-    </LinearLayout>
 
 </RelativeLayout>

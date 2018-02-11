@@ -107,8 +107,8 @@ public class UpdatePwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
     public void Success() {
         ToastUtils.showShort("修改成功");
         UserCache.clear();
-        MApplication.getInstance().appManager.finishAllActivity();
         JumpUtil.overlay(mContext, LoginActivity.class);
+        finish();
     }
 
     @Override

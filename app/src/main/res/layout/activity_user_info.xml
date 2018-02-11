@@ -40,6 +40,7 @@
             android:id="@+id/et_user_account"
             style="@style/userEditTextStyle"
             android:hint="@string/input_user_account"
+            android:editable="false"
             />
 
     </LinearLayout>
