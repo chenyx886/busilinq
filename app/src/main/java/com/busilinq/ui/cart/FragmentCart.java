@@ -1,6 +1,7 @@
 package com.busilinq.ui.cart;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -130,13 +131,10 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
      * @return
      */
     String passTotal;
-    //第一次加载
-    private boolean firstLoad = true;
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Logger.e("onHiddenChanged----" + hidden);
         if (!hidden) {
             if (UserCache.getCartRefresh()) {
                 UserCache.putCartRefresh(false);
@@ -146,21 +144,6 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Logger.e("onStart----");
-        if (firstLoad) {
-            firstLoad = false;
-            mPresenter.getOrderList(page);
-        }else {
-            if (UserCache.getCartRefresh()) {
-                UserCache.putCartRefresh(false);
-                page = 1;
-                mPresenter.getOrderList(page);
-            }
-        }
-    }
 
     @Override
     protected CartPresenter createPresenter() {
@@ -181,6 +164,15 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (UserCache.getCartRefresh()) {
+            UserCache.putCartRefresh(false);
+            page = 1;
+            mPresenter.getOrderList(page);
+        }
+    }
 
     @Override
     protected void initUI() {
@@ -253,7 +245,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 mPresenter.getOrderList(page);
             }
         });
-//        mRecycleView.setRefreshing(true);
+        mRecycleView.setRefreshing(true);
     }
 
     @OnClick({R.id.btn_purchase, R.id.btn_settlement, R.id.check_select, R.id.tv_confirm})
@@ -278,7 +270,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(SubmitOrderActivity.class.getSimpleName(), (Serializable) list);
                     bundle.putString("passTotal", passTotal);
-                    JumpUtil.overlay(getActivity(), SubmitOrderActivity.class, bundle);
+                    JumpUtil.startForResult(getActivity(), SubmitOrderActivity.class,10, bundle);
                 } else
                     ToastUtils.showShort("请选择需要购买的商品！");
 

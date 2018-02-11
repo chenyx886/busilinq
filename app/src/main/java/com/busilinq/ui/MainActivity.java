@@ -105,6 +105,10 @@ public class MainActivity extends BaseActivity {
             transaction.commit();
             mCart.setChecked(true);
         }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(FragmentCart.TAG);
+        if (fragment != null)
+            fragment.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
