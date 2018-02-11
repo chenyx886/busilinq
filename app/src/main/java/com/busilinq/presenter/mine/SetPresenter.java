@@ -42,7 +42,7 @@ public class SetPresenter extends BasePresenter<ISetView> {
         param.put("type ", "0");
         param.put("version ", AppUtils.getVersionCode(mContext));
         RequestBody body = JsonRequestBody.createJsonBody(param);
-        MvpView.showProgress("注册中...");
+        MvpView.showProgress("检测中...");
         addSubscription(RetrofitApiFactory.getMineApi().upgrade(body), new SubscriberCallBack<TUpgradeEntity>() {
             @Override
             protected void onSuccess(TUpgradeEntity data) {

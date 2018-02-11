@@ -166,7 +166,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         BindBanner(data.getBanner());
         //商品基本信息
         mName.setText(data.getGoods().getGoods().getName());
-        mPrice.setText("￥" + data.getGoods().getGoods().getPrice() + "/" + data.getGoods().getGoods().getUnit());
+        mPrice.setText("￥" + data.getGoods().getPrice().getSalesPrice()+ "/" + data.getGoods().getGoods().getUnit());
         price = data.getGoods().getGoods().getPrice();
         BindImageArr(data.getImage());
     }

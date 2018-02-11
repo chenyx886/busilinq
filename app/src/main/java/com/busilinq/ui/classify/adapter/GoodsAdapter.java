@@ -50,7 +50,7 @@ public class GoodsAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity> {
             HomeGoodsEntity entity = getItem(position);
             vHolder.mGoodTitleTIv.setText(entity.getGoods().getName());
             vHolder.tv_nickname.setText(entity.getGoods().getNickname());
-            vHolder.mGoodPriceTv.setText("￥" + entity.getGoods().getPrice() + "/" + entity.getGoods().getUnit());
+            vHolder.mGoodPriceTv.setText("￥" + entity.getPrice().getSalesPrice() + "/" + entity.getGoods().getUnit());
             GlideShowImageUtils.displayNetImage(mContext, entity.getGoods().getImage(), vHolder.mGoodPicIv, R.mipmap.default_error);
             vHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

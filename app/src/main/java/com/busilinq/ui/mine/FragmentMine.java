@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -148,6 +149,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
 
     /**
      * 获取用户成功
+     *
      * @param user
      */
     @Override
@@ -185,7 +187,11 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
     private void initData() {
         Logs.d(TAG, "刷新了");
         if (UserCache.GetUserId() > 0) {
-            mName.setText(UserCache.get().getRealName());
+            if (!TextUtils.isEmpty(UserCache.get().getRealName())) {
+                mName.setText(UserCache.get().getRealName());
+            } else {
+                mName.setText("名称");
+            }
             mPhone.setText(UserCache.get().getCell());
             GlideShowImageUtils.displayCircleNetImage(getActivity(), UserCache.get().getHeadimgurl(), mUserIco, R.mipmap.ic_user);
         } else {

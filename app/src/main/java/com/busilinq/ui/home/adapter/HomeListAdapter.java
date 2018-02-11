@@ -52,7 +52,7 @@ public class HomeListAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity
         if (getItem(position) != null) {
             final HomeGoodsEntity item = getItem(position);
             vHolder.mTitle.setText(item.getGoods().getName());
-            vHolder.mPrice.setText("￥" + item.getGoods().getPrice());
+            vHolder.mPrice.setText("￥" + item.getPrice().getSalesPrice());
             GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
         }
     }

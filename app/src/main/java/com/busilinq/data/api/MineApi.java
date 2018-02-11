@@ -131,7 +131,7 @@ public interface MineApi {
     Observable<BaseData<List<UserShopAddrEntity>>> getAddressList(@Query("userId") int userId);
 
     /**
-     * 修改密码
+     * 查询当前版本
      *
      * @param body
      * @return
