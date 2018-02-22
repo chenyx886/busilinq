@@ -27,7 +27,6 @@ import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.glide.GlideShowImageUtils;
 import com.chenyx.libs.utils.JumpUtil;
-import com.chenyx.libs.utils.Logs;
 import com.chenyx.libs.utils.ToastUtils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -180,12 +179,10 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         mLLImage.removeAllViews();
         mLLImage.setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
         for (int i = 0; i < imgList.size(); i++) {
-            Logs.d("ImgList", imgList.get(i).getImage());
             ImageView imageView = new ImageView(this);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
             GlideShowImageUtils.displayNetImage(this, imgList.get(i).getImage(), imageView, R.mipmap.default_error);
-
             mLLImage.addView(imageView);
         }
     }

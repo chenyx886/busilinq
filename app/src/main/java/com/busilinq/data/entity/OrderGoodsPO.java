@@ -1,7 +1,5 @@
 package com.busilinq.data.entity;
 
-import java.io.Serializable;
-
 /**
  * @author aleyds
  * @Copyright 华科建邺
@@ -10,7 +8,7 @@ import java.io.Serializable;
  * @版本号: 1.0
  * @包名: com.busilinq.orders.facade.po
  */
-public class OrderGoodsPO implements Serializable{
+public class OrderGoodsPO extends BaseEntity {
     private int goodsId;//商品ID
     private int merchantId;//商户ID 暂时为空
     private int count;//商品数量

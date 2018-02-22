@@ -15,9 +15,9 @@ import android.os.Parcelable;
 public class UserShopAddrEntity extends BaseEntity implements Parcelable {
 
     //id
-    private Integer addrId;
+    private int addrId;
     //用户ID
-    private Integer userId;
+    private int userId;
     //默认标志 0普通地址  1默认地址
     private String isDefault;
     //收货人电话
@@ -39,19 +39,19 @@ public class UserShopAddrEntity extends BaseEntity implements Parcelable {
     //收货单位
     private String company;
 
-    public Integer getAddrId() {
+    public int getAddrId() {
         return addrId;
     }
 
-    public void setAddrId(Integer addrId) {
+    public void setAddrId(int addrId) {
         this.addrId = addrId;
     }
 
-    public Integer getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -133,6 +133,10 @@ public class UserShopAddrEntity extends BaseEntity implements Parcelable {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public static Creator<UserShopAddrEntity> getCREATOR() {
+        return CREATOR;
     }
 
     @Override

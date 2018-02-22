@@ -1,7 +1,6 @@
 package com.busilinq.data.entity;
 
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,12 +11,12 @@ import java.util.List;
  * @版本号: 1.0
  * @包名: com.busilinq.webs.controller.ask
  */
-public class OrderCreateASK implements Serializable{
+public class OrderCreateASK extends BaseEntity {
     private int userId;//下单用户ID
     private int addressId;//收货地址ID
     private int shippingId;//收货方式ID 暂时为空
     private int activityId;//活动ID 暂时为空
-    List<OrderGoodsPO> goodsList;
+    private List<OrderGoodsPO> goodsList;
 
     public int getUserId() {
         return userId;

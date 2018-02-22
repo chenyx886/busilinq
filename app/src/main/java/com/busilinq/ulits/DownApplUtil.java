@@ -48,7 +48,7 @@ public class DownApplUtil {
     }
 
     private void showUpdateDialog(final TUpgradeEntity updateInfo) {
-        ((Activity) mContext).runOnUiThread(new Runnable() {
+        (mContext).runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);

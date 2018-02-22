@@ -12,7 +12,7 @@ import com.chenyx.libs.utils.ToastUtils;
 
 /**
  * Company：华科建邺
- * Class Describe：
+ * Class Describe：我的收藏
  * Create Person：wangshimei
  * Create Time：18/2/6 下午1:54
  * Update Person：

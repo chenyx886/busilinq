@@ -1,6 +1,7 @@
 package com.busilinq.ui.mine;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,10 +23,12 @@ import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.ISetView;
 import com.busilinq.data.cache.UserCache;
+import com.busilinq.data.entity.TUpgradeEntity;
 import com.busilinq.presenter.mine.SetPresenter;
 import com.busilinq.ui.ToDevelopedActivity;
 import com.busilinq.ulits.AppUtils;
 import com.busilinq.ulits.CatchUtil;
+import com.busilinq.ulits.DownApplUtil;
 import com.busilinq.widget.IconTextItem;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.Apps;
@@ -33,7 +36,6 @@ import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +43,6 @@ import butterknife.OnClick;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * Company：华科建邺
@@ -112,7 +113,7 @@ public class SetActivity extends BaseMvpActivity<SetPresenter> implements ISetVi
             }
         } else {
             // 联网更新app
-            mPresenter.upgrade();
+            mPresenter.upgrade(AppUtils.getVersionCode(mContext));
         }
     }
 
@@ -121,7 +122,7 @@ public class SetActivity extends BaseMvpActivity<SetPresenter> implements ISetVi
         if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // 已授权
-                mPresenter.upgrade();
+                mPresenter.upgrade(AppUtils.getVersionCode(mContext));
             } else {
                 // 用户拒绝授权
                 ToastUtils.showShort("版本更新失败，请在 设置-应用管理 中开启此应用的存储！");
@@ -236,6 +237,11 @@ public class SetActivity extends BaseMvpActivity<SetPresenter> implements ISetVi
 
 
     @Override
+    public void showUpgrade(TUpgradeEntity data) {
+        DownApplUtil util = new DownApplUtil((Activity) mContext);
+        util.getVersionNo(data);
+    }
+
     public void showProgress(String message) {
         MLoadingDialog.show(this, message);
     }

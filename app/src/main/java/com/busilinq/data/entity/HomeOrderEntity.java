@@ -4,14 +4,15 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author aleyds
- * @Copyright 华科建邺
- * @类的作用：
- * @创建时间: 2018/2/7 8:56
- * @版本号: 1.0
- * @包名: com.busilinq.orders.facade.po
+ * Company：华科建邺
+ * Class Describe：
+ * Create Person：Chenyx
+ * Create Time：2018/1/31 上午11:27
+ * Update Person：
+ * Update Time：
+ * Update Remark：
  */
-public class HomeOrderEntity implements Serializable{
+public class HomeOrderEntity implements Serializable {
     private OrderEntity order;
     private OrderAddressEntity addr;
     private OrderShippingEntity shipping;

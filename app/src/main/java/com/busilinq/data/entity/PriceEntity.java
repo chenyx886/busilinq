@@ -1,7 +1,5 @@
 package com.busilinq.data.entity;
 
-import java.io.Serializable;
-
 /**
  * Company：华科建邺
  * Class Describe：商品价格实体
@@ -11,7 +9,7 @@ import java.io.Serializable;
  * Update Time：
  * Update Remark：
  */
-public class PriceEntity extends BaseEntity implements Serializable {
+public class PriceEntity extends BaseEntity {
     //
     private int priceId;
     //

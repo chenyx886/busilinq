@@ -97,7 +97,6 @@ def releaseTime() {
 dependencies {
     //libs 文件夹
     compile files('libs/bugout_release.jar')
-    compile files('libs/AMap_Location_V3.7.0_20171218.jar')
     //库项目
     compile project(':libs')
     compile project(':photopicker')

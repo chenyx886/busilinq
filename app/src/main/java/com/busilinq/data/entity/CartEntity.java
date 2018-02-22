@@ -1,8 +1,6 @@
 package com.busilinq.data.entity;
 
 
-import java.io.Serializable;
-
 /**
  * Company：华科建邺
  * Class Describe：
@@ -12,13 +10,13 @@ import java.io.Serializable;
  * Update Time：
  * Update Remark：
  */
-public class CartEntity extends BaseEntity implements Serializable {
+public class CartEntity extends BaseEntity {
     private String userId;
     private int cartId;//购物车列表Id
     private int goodsId;//商品Id
     private int number;//商品购买数量
     private double totalMoney;//单独列表总的商品价格
-    private int  isChecked;//是否被选中 0：取消  1：选中
+    private int isChecked;//是否被选中 0：取消  1：选中
 
 
     public String getUserId() {
