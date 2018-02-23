@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.busilinq.ulits.BugGoutAgent;
+import com.busilinq.xsm.ulits.Logger;
 import com.testin.agent.Bugout;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
@@ -55,6 +56,7 @@ public abstract class BaseFragment extends RxFragment implements IBackHandled {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //依赖注入绑定
+        Logger.e("onViewCreated---bind");
         unbinder = ButterKnife.bind(this, view);
     }
 
@@ -81,6 +83,7 @@ public abstract class BaseFragment extends RxFragment implements IBackHandled {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Logger.e("onDestroyView---unbind");
         unbinder.unbind();
     }
 
