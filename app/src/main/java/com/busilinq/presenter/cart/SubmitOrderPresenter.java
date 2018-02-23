@@ -6,15 +6,11 @@ import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.cache.UserCache;
-import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.data.entity.OrderEntity;
 import com.busilinq.data.entity.OrderGoodsPO;
 import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.BasePresenter;
-import com.busilinq.ui.cart.SubmitSuccessActivity;
-import com.busilinq.xsm.data.entity.Order;
-import com.chenyx.libs.utils.JumpUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,9 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.RequestBody;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
-import rx.Observable;
 
 /**
  * Company：华科建邺
@@ -45,12 +38,12 @@ public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView>{
      * 获取默认地址
      * @param userId
      */
-    public void getDeaaultAddress(String userId) {
+    public void getDeaaultAddress(int userId) {
         MvpView.showProgress("获取中...");
         addSubscription(RetrofitApiFactory.getCartApi().getDefaultAddress(userId), new SubscriberCallBack<UserShopAddrEntity>() {
             @Override
-            protected void onSuccess(UserShopAddrEntity response) {
-                MvpView.getDefaultAddress(response);
+            protected void onSuccess(UserShopAddrEntity entity) {
+                MvpView.showDefaultAddress(entity);
             }
 
             @Override

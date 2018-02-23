@@ -70,7 +70,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
 
     UserEntity userEntity = null;
 
-    String user_name,user_account,user_email,user_tell;
+    String user_name, user_account, user_email, user_tell;
 
 
     @Override
@@ -97,10 +97,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
             case R.id.tv_back:
                 finish();
                 break;
-
-            /**
-             * 修改用户资料按钮
-             */
+            //修改用户资料按钮
             case R.id.user_info_btn_confirm:
                 modifyUserInfo();
                 break;
@@ -152,6 +149,4 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
         UserCache.put(user);
         finish();
     }
-
-
 }

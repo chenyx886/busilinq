@@ -44,7 +44,7 @@ public interface CartApi {
      * @return
      */
     @GET("/api/user/address/default")
-    Observable<BaseData<UserShopAddrEntity>> getDefaultAddress(@Query("userId") String userId);
+    Observable<BaseData<UserShopAddrEntity>> getDefaultAddress(@Query("userId") int userId);
 
     /**
      * 编辑购物车，包括增加减少修改，共用一接口

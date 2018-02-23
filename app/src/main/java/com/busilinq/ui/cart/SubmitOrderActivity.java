@@ -6,24 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.cart.ISubmitOrderView;
-import com.busilinq.contract.mine.AddressListView;
-import com.busilinq.data.BaseData;
 import com.busilinq.data.cache.UserCache;
-import com.busilinq.data.entity.HomeOrderEntity;
 import com.busilinq.data.entity.MainCartEntity;
-import com.busilinq.data.entity.OrderCreateASK;
 import com.busilinq.data.entity.OrderDetailsEntity;
 import com.busilinq.data.entity.OrderEntity;
 import com.busilinq.data.entity.OrderGoodsPO;
@@ -34,8 +28,6 @@ import com.busilinq.ui.mine.adapter.MyOrderDetailAdapter;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,11 +68,6 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
      */
     @BindView(R.id.line_address_empty_layout)
     LinearLayout mAddressEmpty;
-    /**
-     * 新增收货地址
-     */
-    @BindView(R.id.tv_add_address)
-    TextView mAddAddress;
     /**
      * 商品清单布局
      */
@@ -163,9 +150,10 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     private MyOrderDetailAdapter mAdapter;
     /**
      * 提交订单相关类
+     *
      * @param bundle
      */
-    private int addressId=-1;//收货地址Id
+    private int addressId = -1;//收货地址Id
     private String shippingType;//配送方式
     private int activityId = 1;//活动Iid,暂未启用
     private String payType;//支付方式
@@ -174,16 +162,16 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     /**
      * 从上一页面传递的总价
      */
-    String passTotal;
+    private String passTotal;
 
     /**
      * 显示的商品清单
      */
-    List<OrderDetailsEntity> localgoodList;
+    private List<OrderDetailsEntity> localgoodList;
     /**
      * 提交到后台的商品清单
      */
-    List<OrderGoodsPO> webNeedgoodList;
+    private List<OrderGoodsPO> webNeedgoodList;
 
 
     @Override
@@ -203,14 +191,13 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     @Override
     protected void initUI() {
         mTitle.setText("确认订单");
-        mPresenter.getDeaaultAddress(UserCache.get().getUserId());
+        mPresenter.getDeaaultAddress(UserCache.GetUserId());
         list = (List<MainCartEntity>) this.getIntent().getSerializableExtra(SubmitOrderActivity.class.getSimpleName());
         passTotal = getIntent().getStringExtra("passTotal");
         mTotalmoney.setText(passTotal);
         handData();
-        mListNum.setText("共"+localgoodList.size()+"种");
-        mTotalNum.setText(localgoodList.size()+"");
-        mPresenter.getDeaaultAddress(UserCache.get().getUserId());
+        mListNum.setText("共" + localgoodList.size() + "种");
+        mTotalNum.setText(localgoodList.size() + "");
 
         //商品清单
         mGoodsList.setLayoutManager(new LinearLayoutManager(this));
@@ -221,7 +208,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
         mGoodsList.setAdapter(mAdapter);
     }
 
-    @OnClick({R.id.tv_back,R.id.tv_add_address,R.id.rel_item,R.id.rel_take_way,R.id.rel_total_pay,R.id.et_remark,R.id.btn_settlement,R.id.line_address_full_layout})
+    @OnClick({R.id.tv_back, R.id.line_address_empty_layout, R.id.rel_item, R.id.rel_take_way, R.id.rel_total_pay, R.id.et_remark, R.id.btn_settlement, R.id.line_address_full_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             /**
@@ -233,16 +220,19 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
             /**
              * 新增地址
              */
-            case R.id.tv_add_address:
-                JumpUtil.overlay(this, NewlyAddedAddressActivity.class);
+            case R.id.line_address_empty_layout:
+                Bundle bundle = new Bundle();
+                bundle.putString("come", "add");
+                bundle.putString("isDefault", "1");
+                JumpUtil.startForResult(this, NewlyAddedAddressActivity.class, NewlyAddedAddressActivity.ADDRESS_REQUESTCODE, bundle);
                 break;
             /**
              * 商品清单的显示和隐藏
              */
             case R.id.rel_item:
-                if(mGoodsList.getVisibility() == View.VISIBLE){
+                if (mGoodsList.getVisibility() == View.VISIBLE) {
                     mGoodsList.setVisibility(View.GONE);
-                }else{
+                } else {
                     mGoodsList.setVisibility(View.VISIBLE);
                 }
                 break;
@@ -253,7 +243,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
                 AlertDialog.Builder builder_take = new AlertDialog.Builder(this);
                 //builder_take.setIcon(R.mipmap.ic_logo);
                 builder_take.setTitle("配送方式");
-                final String[] take_way = {"送货上门", "快递","货运","上门自取"};
+                final String[] take_way = {"送货上门", "快递", "货运", "上门自取"};
                 builder_take.setItems(take_way, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -271,9 +261,10 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
                             case 3:
                                 shippingType = "ONDOOR";
                                 break;
-                                default:
-                                    break;
-                        };
+                            default:
+                                break;
+                        }
+                        ;
                     }
                 });
                 builder_take.show();
@@ -299,7 +290,8 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
                                 break;
                             default:
                                 break;
-                        };
+                        }
+                        ;
                     }
                 });
                 builder_total.show();
@@ -314,24 +306,24 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
              * 提交订单
              */
             case R.id.btn_settlement:
-                if(addressId<0){
+                if (addressId < 0) {
                     ToastUtils.showShort("请选择收货地址");
-                }else if(TextUtils.isEmpty(shippingType)){
+                } else if (TextUtils.isEmpty(shippingType)) {
                     ToastUtils.showShort("请选择配送方式");
-                }else if(TextUtils.isEmpty(payType)){
+                } else if (TextUtils.isEmpty(payType)) {
                     ToastUtils.showShort("请选择支付类型");
-                }else{
+                } else {
                     mRemark = medit_Remark.getText().toString().trim();
-                    mPresenter.submitOrder(addressId,shippingType,payType,activityId,mRemark,webNeedgoodList);
+                    mPresenter.submitOrder(addressId, shippingType, payType, activityId, mRemark, webNeedgoodList);
                 }
                 break;
             /**
              * 选择收货地址
              */
             case R.id.line_address_full_layout:
-                Bundle bundle = new Bundle();
-                bundle.putString("order_req","1");
-                JumpUtil.startForResult(this,AddressActivity.class, AddressActivity.ADDRESS_REQUESTCODE,bundle);
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("order_req", "1");
+                JumpUtil.startForResult(this, AddressActivity.class, AddressActivity.ADDRESS_REQUESTCODE, bundle1);
                 break;
             default:
                 break;
@@ -342,6 +334,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
 
     /**
      * 选择地址时返回数据显示
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -349,17 +342,14 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case AddressActivity.ADDRESS_REQUESTCODE:
-                switch (resultCode) {
-                    case RESULT_OK:
-                        mName.setText("收货人："+data.getStringExtra("name"));
-                        tvPhone.setText("电话："+data.getStringExtra("phone"));
-                        tvCompany.setText("收货单位："+data.getStringExtra("company"));
-                        mAddress.setText("收货地址："+data.getStringExtra("address"));
-                        addressId = data.getIntExtra("addressId",-1);
-                        break;
-                }
+        if (resultCode == RESULT_OK && requestCode == AddressActivity.ADDRESS_REQUESTCODE) {
+            mName.setText("收货人：" + data.getStringExtra("name"));
+            tvPhone.setText("电话：" + data.getStringExtra("phone"));
+            tvCompany.setText("收货单位：" + data.getStringExtra("company"));
+            mAddress.setText("收货地址：" + data.getStringExtra("address"));
+            addressId = data.getIntExtra("addressId", -1);
+        } else if (resultCode == RESULT_OK && requestCode == NewlyAddedAddressActivity.ADDRESS_REQUESTCODE) {
+            mPresenter.getDeaaultAddress(UserCache.GetUserId());
         }
     }
 
@@ -374,52 +364,41 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     }
 
 
-    private void submit() {
-        OrderCreateASK orderCreateASK = new OrderCreateASK();
-        orderCreateASK.setUserId(UserCache.GetUserId());
-        List<OrderGoodsPO> goodsPOList = new ArrayList<>();
-        for (int position = 0; position < list.size(); position++) {
-            OrderGoodsPO orderGoodsPO = new OrderGoodsPO();
-            orderGoodsPO.setGoodsId(list.get(position).getGoods().getGoods().getGoodsId());
-            orderGoodsPO.setCount(list.get(position).getCart().getNumber());
-            goodsPOList.add(orderGoodsPO);
-        }
-        orderCreateASK.setGoodsList(goodsPOList);
-    }
-
-
     /**
      * 获取默认收货地址
-     * @param addrDefaultEntity
+     *
+     * @param entity
      */
     @Override
-    public void getDefaultAddress(UserShopAddrEntity addrDefaultEntity) {
-        if(null!=addrDefaultEntity){
+    public void showDefaultAddress(UserShopAddrEntity entity) {
+        if (null != entity) {
             mAddressEmpty.setVisibility(View.GONE);
             mAddressFull.setVisibility(View.VISIBLE);
-            showAddress(addrDefaultEntity);
+            showAddress(entity);
+        } else {
+            mAddressEmpty.setVisibility(View.VISIBLE);
+            mAddressFull.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void submitSuccess(OrderEntity orderEntity) {
-       mPresenter.deleteCartList(list);
-        //ToastUtils.showShort(orderEntity.getOrderId()+"");
+        mPresenter.deleteCartList(list);
         finish();
     }
 
     @Override
     public void deleteResult() {
-        JumpUtil.overlay(this,SubmitSuccessActivity.class);
+        JumpUtil.overlay(this, SubmitSuccessActivity.class);
         finish();
     }
 
     /**
      * 处理从购物车传递过来的数据
      */
-    private void handData(){
+    private void handData() {
         localgoodList = new ArrayList<>();
-        for(int i = 0;i < list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             OrderDetailsEntity localgood = new OrderDetailsEntity();
             localgood.setNumber(list.get(i).getCart().getNumber());
             localgood.setGoodsName(list.get(i).getGoods().getGoods().getName());
@@ -428,7 +407,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
         }
 
         webNeedgoodList = new ArrayList<>();
-        for(int j = 0;j < localgoodList.size(); j++){
+        for (int j = 0; j < localgoodList.size(); j++) {
             OrderGoodsPO orderGoodsPO = new OrderGoodsPO();
             orderGoodsPO.setGoodsId(list.get(j).getGoods().getGoods().getGoodsId());
             orderGoodsPO.setCount(list.get(j).getCart().getNumber());
@@ -439,14 +418,14 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
 
     /**
      * 显示收货地址
-     * @param addrDefaultEntity
+     *
+     * @param entity
      */
-    private void showAddress(UserShopAddrEntity addrDefaultEntity){
-        mName.setText("收货人："+addrDefaultEntity.getName());
-        tvPhone.setText("电话："+addrDefaultEntity.getCell());
-        tvCompany.setText("收货单位："+addrDefaultEntity.getCompany());
-        mAddress.setText("收货地址："+addrDefaultEntity.getProvince()+addrDefaultEntity.getCity()+addrDefaultEntity.getCity()+addrDefaultEntity.getSpecificAddr());
-
-        addressId = addrDefaultEntity.getAddrId();
+    private void showAddress(UserShopAddrEntity entity) {
+        mName.setText("收货人：" + entity.getName());
+        tvPhone.setText("电话：" + entity.getCell());
+        tvCompany.setText("收货单位：" + entity.getCompany());
+        mAddress.setText("收货地址：" + entity.getProvince() + entity.getCity() + entity.getCity() + entity.getSpecificAddr());
+        addressId = entity.getAddrId();
     }
 }

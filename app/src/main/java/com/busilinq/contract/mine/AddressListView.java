@@ -20,5 +20,5 @@ public interface AddressListView extends IBaseMvpView {
      * 获取收货地址列表
      * @param addrEntityList
      */
-    void getAddressList(List<UserShopAddrEntity> addrEntityList);
+    void showAddressList(List<UserShopAddrEntity> addrEntityList);
 }

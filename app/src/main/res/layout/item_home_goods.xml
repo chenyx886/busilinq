@@ -2,21 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/item_sel"
     android:padding="8dp">
-    <!--android:background="@drawable/item_sel"-->
+
     <LinearLayout
         android:id="@+id/rel_img"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:gravity="center">
-        <!--android:background="@drawable/shape_corner"-->
         <ImageView
             android:id="@+id/iv_good_pic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/tv_price"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/banner1" />
+            android:scaleType="centerCrop" />
     </LinearLayout>
 
     <TextView
@@ -26,7 +25,6 @@
         android:layout_below="@id/rel_img"
         android:ellipsize="end"
         android:lines="1"
-        android:text="过总理政府工作报过总理政府工作报过总理政府工作报过总理政府工作报过总理政府工作报过总理政府工作报"
         android:textColor="@color/page_title_color"
         android:textSize="@dimen/text_size14" />
 
@@ -36,7 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_title"
         android:layout_marginBottom="8dp"
-        android:text="98"
         android:textColor="@color/color_e44010"
         android:textSize="@dimen/text_size12" />
 

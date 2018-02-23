@@ -26,6 +26,7 @@ import com.busilinq.ui.PhotoActivity;
 import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.glide.GlideShowImageUtils;
+import com.chenyx.libs.picasso.PicassoLoader;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -136,6 +137,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
     protected void initUI() {
         mTitle.setText(R.string.goods_detail);
         goodsId = getIntent().getIntExtra("goodsId", -1);
+        mIvCollection.setBackgroundResource(R.mipmap.ic_collection_normal);
 
         ProgressLayout headerView = new ProgressLayout(this);
         refreshLayout.setHeaderView(headerView);
@@ -165,7 +167,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         BindBanner(data.getBanner());
         //商品基本信息
         mName.setText(data.getGoods().getGoods().getName());
-        mPrice.setText("￥" + data.getGoods().getPrice().getSalesPrice()+ "/" + data.getGoods().getGoods().getUnit());
+        mPrice.setText("￥" + data.getGoods().getPrice().getSalesPrice() + "/" + data.getGoods().getGoods().getUnit());
         price = data.getGoods().getGoods().getPrice();
         BindImageArr(data.getImage());
     }
@@ -182,7 +184,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
             ImageView imageView = new ImageView(this);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
-            GlideShowImageUtils.displayNetImage(this, imgList.get(i).getImage(), imageView, R.mipmap.default_error);
+            PicassoLoader.displayImage(mContext, imgList.get(i).getImage(), imageView, R.mipmap.default_error);
             mLLImage.addView(imageView);
         }
     }
@@ -239,7 +241,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
                 break;
             //购物车
             case R.id.ll_cart:
-               EventBus.getDefault().post(new MenuEvent(2));
+                EventBus.getDefault().post(new MenuEvent(2));
                 //目的是为了跳转到购物车fragment
                 setResult(10);
                 finish();

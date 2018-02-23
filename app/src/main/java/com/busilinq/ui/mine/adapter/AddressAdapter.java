@@ -13,14 +13,12 @@ import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.UserShopAddrEntity;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Company：华科建邺
- * Class Describe：
+ * Class Describe：收货地址  适配器
  * Create Person：wangshimei
  * Create Time：18/2/1 上午9:27
  * Update Person：
@@ -28,27 +26,11 @@ import butterknife.ButterKnife;
  * Update Remark：
  */
 public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEntity> {
-    private List<UserShopAddrEntity> dataList;
 
     public AddressAdapter(Context context) {
         super(context);
     }
 
-    /**
-     * 添加数据
-     *
-     * @param dataList
-     */
-    public void setData(List<UserShopAddrEntity> dataList) {
-        this.dataList = dataList;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemCount() {
-        return dataList != null && dataList.size() > 0 ? dataList.size() : 0;
-
-    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -60,7 +42,7 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder != null) {
             ViewHolder vHolder = ((ViewHolder) holder);
-            UserShopAddrEntity entity = dataList.get(position);
+            UserShopAddrEntity entity = items.get(position);
             vHolder.consignee_tv.setText(entity.getName());
             vHolder.address_tell_tv.setText(entity.getCell());
             vHolder.address_unit_tv.setText(entity.getCompany());
@@ -137,7 +119,6 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
             delete_tv.setOnClickListener(this);
             edit_tv.setOnClickListener(this);
             item_line.setOnClickListener(this);
-
         }
 
         @Override
@@ -193,7 +174,7 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
          */
         void editClick(View view, int pos);
 
-        void itermClick(View view ,int pos);
+        void itermClick(View view, int pos);
     }
 
     private ButtonOnClickListener mOnclickListener;

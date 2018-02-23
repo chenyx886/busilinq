@@ -66,8 +66,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:scrollbars">none</item>
-        <item name="android:overScrollMode">never</item>
     </style>
+
     <style name="style_14_ffffff">
         <item name="android:textSize">@dimen/text_size12</item>
         <item name="android:textColor">#ffffff</item>

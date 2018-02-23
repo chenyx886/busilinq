@@ -26,17 +26,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitApiFactory {
 
-    //服务器Api地址
-//  private static   String BASE_URL = "http://bd.busilinq.com:19090";
-    //测试地址
-    private static String BASE_URL = "http://mall.busilinq.com";
+    //公网地址
+//    private static String BASE_URL = "http://mall.busilinq.com";
+    //测试
+    private static String BASE_URL = "http://www.busilinq.com:8002";
 
     /**
      * 代理接口构建类
      */
     public static Retrofit mRetrofit;
     /**
-     * Http连接超时
+     * Http 连接超时
      */
     private static int CONNECT_TIMEOUT = 20;
     /**

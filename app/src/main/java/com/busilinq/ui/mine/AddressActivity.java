@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.AddressListView;
@@ -17,6 +16,8 @@ import com.busilinq.presenter.mine.AddressPresenter;
 import com.busilinq.ui.cart.NewlyAddedAddressActivity;
 import com.busilinq.ui.mine.adapter.AddressAdapter;
 import com.busilinq.widget.MLoadingDialog;
+import com.chenyx.libs.utils.JumpUtil;
+import com.chenyx.libs.utils.Logs;
 
 import java.util.List;
 
@@ -49,7 +50,6 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
 
     private AddressAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private List<UserShopAddrEntity> addressList;
 
 
     @Override
@@ -80,7 +80,6 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
     public void onResume() {
         super.onResume();
         mPresenter.getAddressList(UserCache.GetUserId());
-
     }
 
     @OnClick({R.id.tv_back, R.id.add_address_layout})
@@ -90,9 +89,9 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
                 finish();
                 break;
             case R.id.add_address_layout:
-                Intent intent = new Intent(AddressActivity.this, NewlyAddedAddressActivity.class);
-                intent.putExtra("come", "add");
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString("come", "add");
+                JumpUtil.overlay(this, NewlyAddedAddressActivity.class, bundle);
                 break;
 
         }
@@ -109,11 +108,8 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
     }
 
     @Override
-    public void getAddressList(List<UserShopAddrEntity> addrEntityList) {
-        if (addrEntityList != null && addrEntityList.size() > 0) {
-            addressList = addrEntityList;
-            mAdapter.setData(addressList);
-        }
+    public void showAddressList(List<UserShopAddrEntity> list) {
+        mAdapter.setData(list);
     }
 
     /**
@@ -124,9 +120,7 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
      */
     @Override
     public void selectedClick(View view, int pos) {
-        if (addressList != null) {
-            mPresenter.setDefaultAddress(UserCache.GetUserId(), addressList.get(pos).getAddrId());
-        }
+        mPresenter.setDefaultAddress(UserCache.GetUserId(), mAdapter.getItem(pos).getAddrId());
     }
 
     /**
@@ -137,9 +131,7 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
      */
     @Override
     public void deletedClick(View view, int pos) {
-        if (addressList != null) {
-            mPresenter.deletedAddress(UserCache.GetUserId(), addressList.get(pos).getAddrId());
-        }
+        mPresenter.deletedAddress(UserCache.GetUserId(), mAdapter.getItem(pos).getAddrId());
     }
 
     /**
@@ -150,30 +142,25 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
      */
     @Override
     public void editClick(View view, int pos) {
-        if (addressList != null) {
-            UserShopAddrEntity entity = addressList.get(pos);
-            Intent intent = new Intent(AddressActivity.this, NewlyAddedAddressActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("editAddressInfo", entity);
-            intent.putExtra("come", "edit");
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("editAddressInfo", mAdapter.getItem(pos));
+        bundle.putString("come", "edit");
+        JumpUtil.overlay(this, NewlyAddedAddressActivity.class, bundle);
     }
 
     @Override
     public void itermClick(View view, int pos) {
-        Intent intent = getIntent();
-        String a = intent.getStringExtra("order_req");
-        if(null != a){
-            if(a.equals("1")) {
-                UserShopAddrEntity item = addressList.get(pos);
+        String a = getIntent().getStringExtra("order_req");
+        if (null != a) {
+            if (a.equals("1")) {
+                UserShopAddrEntity item = mAdapter.getItem(pos);
                 Intent data = new Intent();
                 data.putExtra("name", item.getName());
                 data.putExtra("phone", item.getCell());
                 data.putExtra("company", item.getCompany());
                 data.putExtra("address", item.getSpecificAddr());
                 data.putExtra("addressId", item.getAddrId());
+                Logs.d("AddressActivity", "执行");
                 setResult(RESULT_OK, data);
                 finish();
             }

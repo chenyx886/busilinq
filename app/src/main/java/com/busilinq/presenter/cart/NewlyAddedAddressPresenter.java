@@ -41,6 +41,7 @@ public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress
         param.put("cell", entity.getCell());
         param.put("name", entity.getName());
         param.put("specificAddr", entity.getSpecificAddr());
+        param.put("isDefault", entity.getIsDefault());
         RequestBody body = JsonRequestBody.createJsonBody(param);
         MvpView.showProgress("加载中...");
         addSubscription(RetrofitApiFactory.getMineApi().addAddress(body), new SubscriberCallBack<BaseData>() {

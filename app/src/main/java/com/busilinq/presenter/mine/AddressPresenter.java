@@ -30,7 +30,7 @@ public class AddressPresenter extends BasePresenter<AddressListView> {
         addSubscription(RetrofitApiFactory.getMineApi().getAddressList(userId), new SubscriberCallBack<List<UserShopAddrEntity>>() {
             @Override
             protected void onSuccess(List<UserShopAddrEntity> response) {
-                MvpView.getAddressList(response);
+                MvpView.showAddressList(response);
             }
 
             @Override

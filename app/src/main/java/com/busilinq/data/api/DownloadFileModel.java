@@ -23,24 +23,21 @@ public class DownloadFileModel {
     public OkHttpClient client = new OkHttpClient();
 
 
-
     /**
      * post请求
+     *
      * @param address
      * @param callback
      * @param map
      */
 
-    public void post(String address, okhttp3.Callback callback, Map<String,String> map)
-    {
+    public void post(String address, okhttp3.Callback callback, Map<String, String> map) {
 
         OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
-        if (map!=null)
-        {
-            for (Map.Entry<String,String> entry:map.entrySet())
-            {
-                builder.add(entry.getKey(),entry.getValue());
+        if (map != null) {
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                builder.add(entry.getKey(), entry.getValue());
             }
         }
         FormBody body = builder.build();
@@ -54,12 +51,12 @@ public class DownloadFileModel {
 
     /**
      * get请求
+     *
      * @param address
      * @param callback
      */
 
-    public void get(String address, okhttp3.Callback callback)
-    {
+    public void get(String address, okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
         FormBody body = builder.build();

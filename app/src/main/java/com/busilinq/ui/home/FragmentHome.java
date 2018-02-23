@@ -1,12 +1,9 @@
 package com.busilinq.ui.home;
 
 
-import android.app.FragmentManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,20 +21,19 @@ import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
 import com.busilinq.contract.home.IMainView;
 import com.busilinq.data.PageEntity;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.home.MainPresenter;
 import com.busilinq.ui.HtmlActivity;
-import com.busilinq.ui.MainActivity;
 import com.busilinq.ui.ToDevelopedActivity;
-import com.busilinq.ui.cart.FragmentCart;
 import com.busilinq.ui.classify.GoodsDetailActivity;
-import com.busilinq.ui.classify.GoodsListActivity;
 import com.busilinq.ui.home.adapter.HomeListAdapter;
+import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.ui.mine.MyCollectionActivity;
 import com.busilinq.ui.mine.order.MyOrdersActivity;
 import com.busilinq.widget.GridDividerItemDecoration;
-import com.chenyx.libs.glide.GlideShowImageUtils;
+import com.chenyx.libs.picasso.PicassoLoader;
 import com.chenyx.libs.utils.JumpUtil;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -48,8 +44,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 /**
@@ -108,8 +102,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
      */
     LinearLayout llInfoNotice;
 
-    Unbinder unbinder;
-
     /**
      * 数据适配器
      */
@@ -153,7 +145,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -182,7 +173,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
             public void onViewClick(View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("goodsId", mDatas.get(position).getGoods().getGoodsId());
-                JumpUtil.startForResult(getActivity(),GoodsDetailActivity.class,GoodsDetailActivity.HOME_REQUESTCODE,bundle);
+                JumpUtil.startForResult(getActivity(), GoodsDetailActivity.class, GoodsDetailActivity.HOME_REQUESTCODE, bundle);
             }
         });
     }
@@ -259,7 +250,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         public void UpdateUI(Context context, int position, BannerEntity data) {
             ((TextView) view.findViewById(R.id.tv_title)).setText(data.getHref());
             ImageView imageView = view.findViewById(R.id.iv_image);
-            GlideShowImageUtils.displayNetImage(context, data.getImageUrl(), imageView, R.mipmap.banner1);
+            PicassoLoader.displayImage(context, data.getImageUrl(), imageView, R.mipmap.default_error);
         }
     }
 
@@ -296,7 +287,11 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         llCollectionGoods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.overlay(getActivity(), MyCollectionActivity.class);
+                if (UserCache.get() != null) {
+                    JumpUtil.overlay(getActivity(), MyCollectionActivity.class);
+                } else {
+                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                }
             }
         });
         llBookedGoods = view.findViewById(R.id.ll_booked_goods);
@@ -317,7 +312,11 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         llOrderGoods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.overlay(getActivity(), MyOrdersActivity.class);
+                if (UserCache.get() != null) {
+                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class);
+                } else {
+                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                }
             }
         });
         llPaymentGoods = view.findViewById(R.id.ll_payment_goods);
@@ -354,11 +353,4 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         refreshLayout.finishRefreshing();
         refreshLayout.finishLoadmore();
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
 }

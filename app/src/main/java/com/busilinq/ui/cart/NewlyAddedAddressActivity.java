@@ -1,6 +1,5 @@
 package com.busilinq.ui.cart;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,7 +10,6 @@ import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.cart.INewlyAddedAddress;
 import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.cart.NewlyAddedAddressPresenter;
-import com.busilinq.ui.MainActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.busilinq.xsm.ulits.StringUtils;
 import com.chenyx.libs.utils.Toasts;
@@ -30,6 +28,9 @@ import butterknife.OnClick;
  */
 
 public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresenter> implements INewlyAddedAddress {
+
+    public static final int ADDRESS_REQUESTCODE = 2;
+
     /**
      * 返回
      */
@@ -65,6 +66,7 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
     @BindView(R.id.new_detail_address)
     EditText new_detail_address;
 
+    private String isDefault; // 是否默认
     private String come; // 来源
     private String unit;
     private String consignee;
@@ -90,15 +92,14 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
     @Override
     protected void initUI() {
         mTitle.setText("收货地址");
-        Intent intent = getIntent();
+
         Bundle bundle;
         UserShopAddrEntity entity = null;
-        if (intent != null) {
-            come = intent.getStringExtra("come");
-        }
+        come = getIntent().getStringExtra("come");
+        isDefault = getIntent().getStringExtra("isDefault");
         if (come != null) {
             if (come.equals("edit")) {
-                bundle = intent.getExtras();
+                bundle = getIntent().getExtras();
                 entity = bundle.getParcelable("editAddressInfo");
                 addressId = entity.getAddrId();
                 new_unit_et.setText(entity.getCompany());
@@ -136,6 +137,7 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
 
     @Override
     public void addAddressSuccess() {
+        setResult(RESULT_OK);
         finish();
     }
 
@@ -166,6 +168,7 @@ public class NewlyAddedAddressActivity extends BaseMvpActivity<NewlyAddedAddress
             return;
         }
         entity.setSpecificAddr(detailAddress);
+        entity.setIsDefault(isDefault);
 
         if (come.equals("add")) {
             mPresenter.addAddress(entity);

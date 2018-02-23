@@ -13,7 +13,8 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent">
+        android:background="@android:color/transparent"
+        android:overScrollMode="never">
 
         <com.busilinq.widget.MyScrollView
             android:layout_width="match_parent"
@@ -37,7 +38,8 @@
                     android:background="@color/white"
                     android:orientation="vertical"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_name"

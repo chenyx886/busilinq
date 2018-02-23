@@ -93,7 +93,6 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
             @Override
             public void onRefresh() {
                 mPresenter.getClassifyList(UserCache.GetUserId());
-
             }
         });
 
@@ -182,7 +181,6 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
         setCateListSelected(mCateSelectedPostion);
         mCateRigthAdapter = new CateRightAdapter(getActivity(), mCateDatalist.get(mCateSelectedPostion));
         mSonCateList.setAdapter(mCateRigthAdapter);
-
     }
 
     /**
