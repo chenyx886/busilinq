@@ -20,7 +20,7 @@ public class BugGoutAgent {
     public static void init(Context context, boolean debugModel) {
         String userinfo = "";
         BugoutConfig config = new BugoutConfig.Builder(context)
-                .withAppKey("47c72b6cfc6362449e05915e9c7e126b")     // 您的应用的项目 Key,如果已经在 Manifest 中配置则此处可略
+                .withAppKey("a08ad27eba2a727fc2e64b74e46770dc")     // 您的应用的项目 Key,如果已经在 Manifest 中配置则此处可略
                 .withAppChannel("cnl")     // 发布应用的渠道,如果已经在 Manifest 中配置则此处可略
                 .withUserInfo(userinfo)    // 用户信息-崩溃分析根据用户记录崩溃信息
                 .withDebugModel(true)    // 输出更多SDK的debug信息

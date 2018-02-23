@@ -201,6 +201,7 @@
         <activity
             android:name=".ui.mine.order.MyOrdersDetailActivity"
             android:screenOrientation="portrait" />
+
         <!--新商盟界面-->
         <activity
             android:name=".xsm.ui.XsmAccountsActivity"
@@ -251,5 +252,15 @@
         <meta-data
             android:name="design_height"
             android:value="1280" />
+
+
+        <!-- 设置Bugout-AppKey -->
+        <meta-data
+            android:name="PROJECT_KEY"
+            android:value="a08ad27eba2a727fc2e64b74e46770dc" />
+        <!-- 设置渠道信息 -->
+        <meta-data
+            android:name="CHANNEL"
+            android:value="Channel_ID" />
     </application>
 </manifest>
