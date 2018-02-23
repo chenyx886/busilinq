@@ -105,7 +105,7 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
                 @Override
                 public void onClick(View view) {
                     if (item.getCart().getNumber() == 1) {
-                        ToastUtils.showShort("數量為最小值，可长按删除本条记录");
+                        ToastUtils.showShort("数量为最小值，可长按删除本条记录");
                         return;
                     }
                     int number = item.getCart().getNumber() - 1;

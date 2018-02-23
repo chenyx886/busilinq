@@ -145,7 +145,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:padding="0dp" />
+                     />
             </LinearLayout>
         </com.busilinq.widget.MyScrollView>
 

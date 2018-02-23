@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -182,8 +183,12 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
             ImageView imageView = new ImageView(this);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
+
             GlideShowImageUtils.displayNetImage(this, imgList.get(i).getImage(), imageView, R.mipmap.default_error);
             mLLImage.addView(imageView);
+//            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(imageView.getLayoutParams());
+//            lp.setMargins(0, -10, 0, 0);
+//            imageView.setLayoutParams(lp);
         }
     }
 
