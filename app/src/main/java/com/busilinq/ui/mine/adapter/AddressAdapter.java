@@ -139,6 +139,7 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
                     if (onClickListener != null) {
                         onClickListener.editClick(view, getPosition());
                     }
+                    break;
                 case R.id.item_line:
                     if (onClickListener != null) {
                         onClickListener.itermClick(view, getPosition());

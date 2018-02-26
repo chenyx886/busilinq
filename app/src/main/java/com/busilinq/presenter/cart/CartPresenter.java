@@ -1,6 +1,8 @@
 package com.busilinq.presenter.cart;
 
 
+import android.util.Log;
+
 import com.busilinq.contract.cart.ICartView;
 import com.busilinq.data.BaseData;
 import com.busilinq.data.JsonRequestBody;
@@ -49,7 +51,7 @@ public class CartPresenter extends BasePresenter<ICartView> {
         addSubscription(RetrofitApiFactory.getCartApi().cart(page, SysConfig.limit, UserCache.GetUserId()), new SubscriberCallBack<PageEntity<MainCartEntity>>() {
             @Override
             protected void onSuccess(PageEntity<MainCartEntity> hGoodsList) {
-                if (null == hGoodsList.getList()) {
+                if (hGoodsList.getLimit() == 0) {
                     MvpView.showEmptyView();
                 } else {
                     MvpView.CartList(hGoodsList);
