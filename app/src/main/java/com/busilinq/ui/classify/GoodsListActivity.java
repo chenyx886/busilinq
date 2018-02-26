@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,12 +37,6 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
 
     public static final int HOME_REQUESTCODE = 1;
     /**
-     * 返回
-     */
-    @BindView(R.id.tv_back)
-    TextView mBack;
-
-    /**
      * 数据列表
      */
     @BindView(R.id.xr_data_list)
@@ -52,7 +45,7 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
      * 搜索框
      */
     @BindView(R.id.et_search)
-    EditText mEtSearch;
+    TextView mEtSearch;
     /**
      * 搜索图标
      */
@@ -84,7 +77,7 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
     /**
      * 分类id
      */
-    private int classifyId;
+    private String classifyId;
     /**
      * 名称
      */
@@ -105,7 +98,7 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == GoodsDetailActivity.HOME_REQUESTCODE && resultCode == 10){
+        if (requestCode == GoodsDetailActivity.HOME_REQUESTCODE && resultCode == 10) {
             setResult(10);
             finish();
         }
@@ -113,8 +106,7 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
 
     @Override
     protected void initUI() {
-        mBack.setVisibility(View.VISIBLE);
-        classifyId = getIntent().getIntExtra("classifyId", 0);
+        classifyId = getIntent().getStringExtra("classifyId" );
         cateName = getIntent().getStringExtra("cateName");
         mEtSearch.setText(cateName + "");
 
@@ -131,8 +123,8 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
             public void onItemClick(View itemView, int position) {
 
                 Bundle bundle = new Bundle();
-                bundle.putInt("goodsId",mAdapter.getItem(position).getGoods().getGoodsId());
-                JumpUtil.startForResult(GoodsListActivity.this,GoodsDetailActivity.class,GoodsDetailActivity.HOME_REQUESTCODE,bundle);
+                bundle.putInt("goodsId", mAdapter.getItem(position).getGoods().getGoodsId());
+                JumpUtil.startForResult(GoodsListActivity.this, GoodsDetailActivity.class, GoodsDetailActivity.HOME_REQUESTCODE, bundle);
             }
         });
 
@@ -187,11 +179,21 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
         }
     }
 
-    @OnClick({R.id.tv_back})
+    @OnClick({R.id.tv_back, R.id.et_search, R.id.iv_search})
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
+        bundle.putString("classifyId", classifyId);
+        bundle.putString("cateName", cateName);
+        
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();
+                break;
+            case R.id.et_search:
+                JumpUtil.overlay(this, GoodSearchActivity.class, bundle);
+                break;
+            case R.id.iv_search:
+                JumpUtil.overlay(this, GoodSearchActivity.class, bundle);
                 break;
         }
     }

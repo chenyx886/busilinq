@@ -1,9 +1,6 @@
 package com.busilinq.data.entity;
 
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-
 /**
  * Company：华科建邺
  * Class Describe：
@@ -13,7 +10,7 @@ import java.math.BigDecimal;
  * Update Time：
  * Update Remark：
  */
-public class CategoryEntity extends BaseEntity implements Serializable {
+public class CategoryEntity extends BaseEntity {
 
 
     private String name;

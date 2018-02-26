@@ -5,6 +5,7 @@ import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.GoodsCategoryEntity;
 import com.busilinq.data.entity.GoodsDetailEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
+import com.busilinq.data.entity.SpecialGoodsEntity;
 
 import java.util.List;
 
@@ -42,7 +43,31 @@ public interface ClassifyApi {
      * @return
      */
     @GET("/api/goods/list")
-    Observable<BaseData<PageEntity<HomeGoodsEntity>>> getGoodsList(@Query("userId") int userId, @Query("classifyId") int classifyId, @Query("page") int page, @Query("limit") int limit);
+    Observable<BaseData<PageEntity<HomeGoodsEntity>>> getGoodsList(@Query("userId") int userId, @Query("classifyId") String classifyId, @Query("page") int page, @Query("limit") int limit);
+
+    /**
+     * 获取特价商品列表
+     *
+     * @param userId     用户id
+     * @param classifyId 分类ID
+     * @param page       当前页
+     * @param limit      每页条数
+     * @return
+     */
+    @GET("/api/goods/special")
+    Observable<BaseData<PageEntity<SpecialGoodsEntity>>> getSpecialGoodsList(@Query("userId") int userId, @Query("classifyId") int classifyId, @Query("page") int page, @Query("limit") int limit);
+
+    /**
+     * 商品搜索列表
+     *
+     * @param userId     用户id
+     * @param classifyId 分类ID
+     * @param page       当前页
+     * @param limit      每页条数
+     * @return
+     */
+    @GET("/api/goods/search")
+    Observable<BaseData<PageEntity<HomeGoodsEntity>>> getGoodsSearchList(@Query("userId") int userId, @Query("classifyId") String classifyId, @Query("page") int page, @Query("limit") int limit, @Query("name") String name);
 
     /**
      * 获取商品详情

@@ -212,10 +212,10 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.et_search:
-                JumpUtil.overlay(getActivity(), GoodsListActivity.class);
+                JumpUtil.overlay(getActivity(), GoodSearchActivity.class);
                 break;
             case R.id.iv_search:
-                JumpUtil.overlay(getActivity(), GoodsListActivity.class);
+                JumpUtil.overlay(getActivity(), GoodSearchActivity.class);
                 break;
 
         }

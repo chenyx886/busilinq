@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/include_search_text_layout" />
+    <include layout="@layout/include_search_edit_layout" />
 
     <LinearLayout
         android:layout_width="match_parent"

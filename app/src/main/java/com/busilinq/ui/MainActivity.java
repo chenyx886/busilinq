@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
@@ -17,19 +16,13 @@ import android.widget.RadioButton;
 import com.busilinq.MApplication;
 import com.busilinq.R;
 import com.busilinq.base.BaseActivity;
-import com.busilinq.data.event.MenuEvent;
 import com.busilinq.ui.cart.FragmentCart;
 import com.busilinq.ui.classify.FragmentClassify;
 import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.busilinq.ui.home.FragmentHome;
 import com.busilinq.ui.mine.FragmentMine;
 import com.busilinq.widget.MLoadingDialog;
-import com.busilinq.xsm.ulits.Logger;
 import com.chenyx.libs.utils.Toasts;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -71,6 +64,7 @@ public class MainActivity extends BaseActivity {
     private CompoundButton selectView;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +77,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initUI() {
-
-        EventBus.getDefault().register(this);
 
         mHome.setTag(FragmentHome.TAG);
         mClassify.setTag(FragmentClassify.TAG);
@@ -168,20 +160,6 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-
-    /**
-     * 刷新界面
-     *
-     * @param menuEvent
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void MenuEvent(MenuEvent menuEvent) {
-        if (menuEvent.getIndex() == 2) {
-//            mCart.setChecked(true);
-
-
-        }
-    }
 
 
     private long mKeyDownTime = 0;
@@ -274,9 +252,4 @@ public class MainActivity extends BaseActivity {
         MLoadingDialog.dismiss();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
 }

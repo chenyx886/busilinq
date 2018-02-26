@@ -30,7 +30,6 @@
         android:visibility="gone" />
 
     <FrameLayout
-        android:id="@+id/fl_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -42,7 +41,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <EditText
+        <TextView
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -57,7 +56,7 @@
             android:paddingLeft="8dp"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/HintColor"
             android:textSize="@dimen/text_size14" />
 
         <ImageView

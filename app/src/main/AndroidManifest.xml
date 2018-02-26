@@ -103,6 +103,14 @@
         <activity
             android:name=".ui.classify.GoodsListActivity"
             android:screenOrientation="portrait" />
+        <!--特价商品列表-->
+        <activity
+            android:name=".ui.classify.SpecialGoodsListActivity"
+            android:screenOrientation="portrait" />
+        <!--商品搜索-->
+        <activity
+            android:name=".ui.classify.GoodSearchActivity"
+            android:screenOrientation="portrait" />
         <!--商品详情-->
         <activity
             android:name=".ui.classify.GoodsDetailActivity"

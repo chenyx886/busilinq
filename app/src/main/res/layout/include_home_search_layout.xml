@@ -15,6 +15,7 @@
         android:src="@mipmap/ic_search_list" />
 
     <FrameLayout
+        android:id="@+id/fl_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -26,8 +27,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <EditText
-            android:id="@+id/et_search"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginLeft="8dp"
@@ -45,7 +45,6 @@
             android:textSize="@dimen/text_size14" />
 
         <ImageView
-            android:id="@+id/iv_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"

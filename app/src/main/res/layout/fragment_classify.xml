@@ -5,7 +5,7 @@
     android:background="@color/body_bg"
     android:orientation="vertical">
 
-    <include layout="@layout/include_search_layout" />
+    <include layout="@layout/include_search_text_layout" />
 
 
     <android.support.v4.widget.SwipeRefreshLayout

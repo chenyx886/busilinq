@@ -52,12 +52,12 @@
             android:ellipsize="end"
             android:focusableInTouchMode="true"
             android:gravity="center_vertical"
-            android:hint="商品搜索"
+            android:hint="请输入商品名称"
             android:imeOptions="actionSearch"
             android:paddingLeft="8dp"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/HintColor"
             android:textSize="@dimen/text_size14" />
 
         <ImageView

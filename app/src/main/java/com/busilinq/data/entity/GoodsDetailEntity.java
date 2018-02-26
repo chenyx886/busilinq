@@ -1,7 +1,6 @@
 package com.busilinq.data.entity;
 
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ import java.util.List;
  * Update Time：
  * Update Remark：
  */
-public class GoodsDetailEntity extends BaseEntity implements Serializable {
+public class GoodsDetailEntity extends BaseEntity {
 
     //
     private int detailId;

@@ -27,7 +27,9 @@ import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.home.MainPresenter;
 import com.busilinq.ui.HtmlActivity;
 import com.busilinq.ui.ToDevelopedActivity;
+import com.busilinq.ui.classify.GoodSearchActivity;
 import com.busilinq.ui.classify.GoodsDetailActivity;
+import com.busilinq.ui.classify.SpecialGoodsListActivity;
 import com.busilinq.ui.home.adapter.HomeListAdapter;
 import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.ui.mine.MyCollectionActivity;
@@ -44,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 /**
@@ -272,17 +275,15 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
      */
     private void BindViewItem() {
 
+        //特价商品
         llSpecialGoods = view.findViewById(R.id.ll_special_goods);
         llSpecialGoods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("classifyId", 0);
-//                bundle.putString("cateName", "特价商品");
-//                JumpUtil.overlay(getActivity(), GoodsListActivity.class, bundle);
-                JumpUtil.overlay(getActivity(), ToDevelopedActivity.class);
+                JumpUtil.overlay(getActivity(), SpecialGoodsListActivity.class);
             }
         });
+        //我的收藏
         llCollectionGoods = view.findViewById(R.id.ll_collection_goods);
         llCollectionGoods.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -346,6 +347,17 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
     @Override
     public void showProgress(String message) {
 
+    }
+
+    @OnClick({R.id.fl_search})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fl_search:
+                Bundle bundle = new Bundle();
+                bundle.putString("cateName", "请输入商品名称");
+                JumpUtil.overlay(getActivity(), GoodSearchActivity.class, bundle);
+                break;
+        }
     }
 
     @Override

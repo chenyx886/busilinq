@@ -4,59 +4,43 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
-import com.busilinq.contract.classify.IGoodsSearchView;
+import com.busilinq.contract.classify.ISpecialGoodsListView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.cache.UserCache;
-import com.busilinq.data.entity.HomeGoodsEntity;
-import com.busilinq.presenter.classify.GoodsSearchPresenter;
-import com.busilinq.ui.classify.adapter.GoodsAdapter;
+import com.busilinq.data.entity.SpecialGoodsEntity;
+import com.busilinq.presenter.classify.SpecialGoodsListPresenter;
+import com.busilinq.ui.classify.adapter.SpecialGoodsAdapter;
 import com.chenyx.libs.utils.JumpUtil;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * Company：华科建邺
- * Class Describe：商品搜索
+ * Class Describe：特价商品列表
  * Create Person：Chenyx
- * Create Time：2018/1/31 下午3:37
+ * Create Time：2018/1/31 下午3:35
  * Update Person：
  * Update Time：
  * Update Remark：
  */
-public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> implements IGoodsSearchView {
+public class SpecialGoodsListActivity extends BaseMvpActivity<SpecialGoodsListPresenter> implements ISpecialGoodsListView {
 
     public static final int HOME_REQUESTCODE = 1;
-    /**
-     * 返回
-     */
-    @BindView(R.id.tv_back)
-    TextView mBack;
 
     /**
      * 数据列表
      */
     @BindView(R.id.xr_data_list)
     XRecyclerView mDataList;
-    /**
-     * 搜索框
-     */
-    @BindView(R.id.et_search)
-    EditText mEtSearch;
-    /**
-     * 搜索图标
-     */
-    @BindView(R.id.iv_search)
-    ImageView mIvSearch;
     /**
      * 人气
      */
@@ -73,7 +57,7 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
     @BindView(R.id.tv_price)
     TextView mPrice;
 
-    private GoodsAdapter mAdapter;
+    private SpecialGoodsAdapter mAdapter;
 
     private static int state = -1;
     private static int STATE_LOAD_MORE = 0X10;
@@ -83,21 +67,22 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
     /**
      * 分类id
      */
-    private String classifyId;
+    private int classifyId;
     /**
      * 名称
      */
-    private String Name;
+    private String cateName;
 
     @Override
-    protected GoodsSearchPresenter createPresenter() {
-        return new GoodsSearchPresenter(this);
+    protected SpecialGoodsListPresenter createPresenter() {
+        return new SpecialGoodsListPresenter(this);
     }
 
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.activity_goods_search_list);
+        setContentView(R.layout.activity_special_goods_list);
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -111,8 +96,8 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
 
     @Override
     protected void initUI() {
-        mBack.setVisibility(View.VISIBLE);
-        classifyId = getIntent().getStringExtra("classifyId");
+        classifyId = getIntent().getIntExtra("classifyId", 0);
+        cateName = getIntent().getStringExtra("cateName");
 
         mDataList.setLayoutManager(new LinearLayoutManager(this));
         mDataList.setNoMore(true);
@@ -120,44 +105,44 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
         mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallScaleMultiple);
         mDataList.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
 
-        mAdapter = new GoodsAdapter(this);
+        mAdapter = new SpecialGoodsAdapter(this);
         mDataList.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new AbstractRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
 
                 Bundle bundle = new Bundle();
-                bundle.putInt("goodsId", mAdapter.getItem(position).getGoods().getGoodsId());
-                JumpUtil.startForResult(GoodSearchActivity.this, GoodsDetailActivity.class, GoodsDetailActivity.HOME_REQUESTCODE, bundle);
+                bundle.putInt("goodsId", mAdapter.getItem(position).getGoods().getGoods().getGoodsId());
+                JumpUtil.startForResult(SpecialGoodsListActivity.this, GoodsDetailActivity.class, GoodsDetailActivity.HOME_REQUESTCODE, bundle);
             }
         });
 
         mDataList.setLoadingListener(new XRecyclerView.LoadingListener() {
+
             @Override
             public void onRefresh() {
                 page = 1;
                 state = STATE_PULL_REFRESH;
-                Name = mEtSearch.getText().toString().trim();
-                mPresenter.getGoodsSearchList(UserCache.GetUserId(), classifyId, page, Name);
+                mPresenter.getSpecialGoodsList(UserCache.GetUserId(), classifyId, page);
             }
 
             @Override
             public void onLoadMore() {
                 state = STATE_LOAD_MORE;
-                Name = mEtSearch.getText().toString().trim();
-                mPresenter.getGoodsSearchList(UserCache.GetUserId(), classifyId, page, Name);
+                mPresenter.getSpecialGoodsList(UserCache.GetUserId(), classifyId, page);
             }
         });
+        mDataList.setRefreshing(true);
     }
 
 
     /**
-     * 商品列表
+     * 显示特价商品
      *
      * @param list
      */
     @Override
-    public void ShowGoodsList(PageEntity<HomeGoodsEntity> list) {
+    public void ShowGoodsList(PageEntity<SpecialGoodsEntity> list) {
         if (state == STATE_PULL_REFRESH) {
             page = 1;
             mAdapter.setData(list.getList());
@@ -169,6 +154,7 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
 
     @Override
     public void showProgress(String message) {
+
     }
 
     @Override
@@ -182,18 +168,11 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
         }
     }
 
-
-    @OnClick({R.id.tv_back, R.id.et_search, R.id.iv_search})
+    @OnClick({R.id.tv_back})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();
-                break;
-            case R.id.et_search:
-                mDataList.setRefreshing(true);
-                break;
-            case R.id.iv_search:
-                mDataList.setRefreshing(true);
                 break;
         }
     }

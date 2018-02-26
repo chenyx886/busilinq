@@ -1,9 +1,6 @@
 package com.busilinq.data.entity;
 
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-
 /**
  * Company：华科建邺
  * Class Describe： 公共商品
@@ -13,7 +10,7 @@ import java.math.BigDecimal;
  * Update Time：
  * Update Remark：
  */
-public class GoodsEntity extends BaseEntity implements Serializable {
+public class GoodsEntity extends BaseEntity {
     //商品id
     private int goodsId;
     //删除状态：1.启用 -1.未启用 （后台未启用页面不显示，前台显示已下架）
