@@ -8,6 +8,10 @@ import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseActivity;
+import com.busilinq.base.BaseMvpActivity;
+import com.busilinq.contract.mine.FeedbackView;
+import com.busilinq.data.cache.UserCache;
+import com.busilinq.presenter.mine.FeedbackPresenter;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.Toasts;
 
@@ -23,7 +27,7 @@ import butterknife.OnClick;
  * Update Time：
  * Update Remark：
  */
-public class FeedbackActivity extends BaseActivity {
+public class FeedbackActivity extends BaseMvpActivity<FeedbackPresenter> implements FeedbackView{
     /**
      * 标题
      */
@@ -44,6 +48,11 @@ public class FeedbackActivity extends BaseActivity {
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_feedback);
+    }
+
+    @Override
+    protected FeedbackPresenter createPresenter() {
+        return new FeedbackPresenter(this);
     }
 
     @Override
@@ -78,9 +87,12 @@ public class FeedbackActivity extends BaseActivity {
                     mContent.setFocusable(true);
                     mContent.requestFocus();
                     return;
+                } else {
+                    String content = mContent.getText().toString().trim();
+                    mPresenter.submitContent(UserCache.GetUserId(),content);
+
                 }
-                Toasts.showShort(FeedbackActivity.this, "您的反馈已提交，我们会尽量为什么解答。");
-                finish();
+
                 break;
         }
     }
@@ -95,4 +107,9 @@ public class FeedbackActivity extends BaseActivity {
         MLoadingDialog.dismiss();
     }
 
+    @Override
+    public void submitSuccess(String msg) {
+        Toasts.showShort(FeedbackActivity.this, "您的反馈已提交，我们会尽量为什么解答。");
+        finish();
+    }
 }

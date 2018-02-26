@@ -231,6 +231,12 @@ public interface MineApi {
     @GET("/api/common/service")
     Observable<BaseData<List<TServiceAccountEntity>>> getService();
 
-
+    /**
+     * 提交意见反馈
+     *
+     * @return
+     */
+    @POST("/api/user/opinion")
+    Observable<BaseData> submitFeedback(@Body RequestBody body);
 
 }

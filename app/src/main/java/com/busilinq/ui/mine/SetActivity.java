@@ -170,7 +170,7 @@ public class SetActivity extends BaseMvpActivity<SetPresenter> implements ISetVi
                 JumpUtil.overlay(mContext, GetCodeActivity.class, bundle);
                 break;
             case R.id.it_about_me:
-                JumpUtil.overlay(mContext, ToDevelopedActivity.class);
+                JumpUtil.overlay(mContext, AboutMeActivity.class);
 //                JumpUtil.overlay(mContext, AboutMeActivity.class);
                 break;
             case R.id.btn_quit:
