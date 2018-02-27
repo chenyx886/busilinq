@@ -70,7 +70,7 @@ public class InfoNoticeActivity extends BaseMvpActivity<InfoNoticePresenter> imp
     @Override
     protected void initUI() {
         mBack.setVisibility(View.VISIBLE);
-        mTitle.setText("信息公告");
+        mTitle.setText("消息公告");
         mDataList.setLayoutManager(new LinearLayoutManager(this));
         mDataList.setNoMore(true);
         mDataList.setLoadingMoreEnabled(false);
