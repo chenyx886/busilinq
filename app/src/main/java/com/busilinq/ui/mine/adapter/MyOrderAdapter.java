@@ -1,6 +1,7 @@
 package com.busilinq.ui.mine.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -110,7 +111,9 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                     @Override
                     public void onClick(View v) {
                         if (UserCache.get() != null) {
-                            JumpUtil.overlay(mContext, ToDevelopedActivity.class);
+                            Bundle bundle=new Bundle();
+                            bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.REFUND);
+                            JumpUtil.overlay(mContext, MyOrdersActivity.class,bundle);
                         } else {
                             ToastUtils.showShort("请先登录");
                         }
@@ -125,7 +128,9 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                     @Override
                     public void onClick(View v) {
                         if (UserCache.get() != null) {
-                            JumpUtil.overlay(mContext, ToDevelopedActivity.class);
+                            Bundle bundle=new Bundle();
+                            bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.WAIT_SEND);
+                            JumpUtil.overlay(mContext, MyOrdersActivity.class,bundle);
                         } else {
                             ToastUtils.showShort("请先登录");
                         }
@@ -140,7 +145,9 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                     @Override
                     public void onClick(View v) {
                         if (UserCache.get() != null) {
-                            JumpUtil.overlay(mContext, ToDevelopedActivity.class);
+                            Bundle bundle=new Bundle();
+                            bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.WAIT_RECEIVE);
+                            JumpUtil.overlay(mContext, MyOrdersActivity.class,bundle);
                         } else {
                             ToastUtils.showShort("请先登录");
                         }

@@ -26,8 +26,8 @@ public class MyOrderPresenter extends BasePresenter<IMyOrdersView> {
      * @param userId
      * @param page
      */
-    public void getOrdersList(int userId, int page) {
-        addSubscription(RetrofitApiFactory.getOrderApi().getOrders(userId, page, limit), new SubscriberCallBack<PageEntity<HomeOrderEntity>>() {
+    public void getOrdersList(int userId, int page, String status) {
+        addSubscription(RetrofitApiFactory.getOrderApi().getOrders(userId, page, limit, status), new SubscriberCallBack<PageEntity<HomeOrderEntity>>() {
             @Override
             protected void onSuccess(PageEntity<HomeOrderEntity> list) {
                 MvpView.OrdersList(list);
