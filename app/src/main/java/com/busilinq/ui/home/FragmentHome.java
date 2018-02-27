@@ -306,7 +306,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         llOnlineService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.overlay(getActivity(), ToDevelopedActivity.class);
+                JumpUtil.overlay(getActivity(), OnlineServiceActivity.class);
             }
         });
         llOrderGoods = view.findViewById(R.id.ll_order_goods);
@@ -338,7 +338,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         llInfoNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.overlay(getActivity(), ToDevelopedActivity.class);
+                JumpUtil.overlay(getActivity(), InfoNoticeActivity.class);
             }
         });
     }
