@@ -24,7 +24,7 @@ import rx.Observable;
  */
 public interface OrderApi {
     @GET("/api/order/list")
-    Observable<BaseData<PageEntity<HomeOrderEntity>>> getOrders(@Query("userId") int userId, @Query("page") int page, @Query("limit") int limit);
+    Observable<BaseData<PageEntity<HomeOrderEntity>>> getOrders(@Query("userId") int userId, @Query("page") int page, @Query("limit") int limit, @Query("status") String status);
 
     @GET("/api/order/detail")
     Observable<BaseData<HomeOrderEntity>> getOrdersDetial(@Query("userId") int userId, @Query("orderNum") String orderNum);
