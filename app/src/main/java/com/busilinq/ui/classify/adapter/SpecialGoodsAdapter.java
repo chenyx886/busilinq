@@ -32,11 +32,6 @@ public class SpecialGoodsAdapter extends AbstractRecyclerViewAdapter<SpecialGood
     }
 
     @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_goods_layout, parent, false);
         return new ViewHolder(view);

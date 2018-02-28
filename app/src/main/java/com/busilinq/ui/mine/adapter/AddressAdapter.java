@@ -110,7 +110,6 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
 
         ButtonOnClickListener onClickListener;
 
-
         public ViewHolder(View itemView, ButtonOnClickListener listener) {
             super(itemView);
             ButterKnife.bind(this, itemView);

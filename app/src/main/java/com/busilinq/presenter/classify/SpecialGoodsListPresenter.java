@@ -28,9 +28,9 @@ public class SpecialGoodsListPresenter extends BasePresenter<ISpecialGoodsListVi
      *
      * @param userId
      */
-    public void getSpecialGoodsList(int userId, int classifyId, int page) {
+    public void getSpecialGoodsList(int userId, int classifyId, int page, String sort, String field) {
 
-        addSubscription(RetrofitApiFactory.getClassifyApi().getSpecialGoodsList(userId, classifyId, page, SysConfig.limit), new SubscriberCallBack<PageEntity<SpecialGoodsEntity>>() {
+        addSubscription(RetrofitApiFactory.getClassifyApi().getSpecialGoodsList(userId, classifyId, page, SysConfig.limit, sort, field), new SubscriberCallBack<PageEntity<SpecialGoodsEntity>>() {
             @Override
             protected void onSuccess(PageEntity<SpecialGoodsEntity> list) {
                 MvpView.ShowGoodsList(list);

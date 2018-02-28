@@ -234,7 +234,6 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
     @Override
     public void onResume() {
         super.onResume();
-        //开始自动翻页
         mCBanner.startTurning(scrollDuration);
     }
 

@@ -19,17 +19,19 @@ import com.chenyx.libs.utils.SysConfig;
  */
 public class GoodsSearchPresenter extends BasePresenter<IGoodsSearchView> {
 
+
     public GoodsSearchPresenter(IGoodsSearchView MvpView) {
         super(MvpView);
     }
 
     /**
-     * 获取商品分类列表
+     * 获取商品列表
      *
      * @param userId
      */
-    public void getGoodsSearchList(int userId, String classifyId, int page, String name) {
-        addSubscription(RetrofitApiFactory.getClassifyApi().getGoodsSearchList(userId, classifyId, page, SysConfig.limit, name), new SubscriberCallBack<PageEntity<HomeGoodsEntity>>() {
+    public void getGoodsSearchList(int userId, String classifyId, int page, String name, String sort, String field) {
+
+        addSubscription(RetrofitApiFactory.getClassifyApi().getGoodsSearchList(userId, classifyId, page, SysConfig.limit, name, sort, field), new SubscriberCallBack<PageEntity<HomeGoodsEntity>>() {
             @Override
             protected void onSuccess(PageEntity<HomeGoodsEntity> list) {
                 MvpView.ShowGoodsList(list);

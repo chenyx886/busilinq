@@ -1,7 +1,6 @@
 package com.busilinq.ui.home.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +11,7 @@ import android.widget.TextView;
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.HomeGoodsEntity;
-import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.chenyx.libs.glide.GlideShowImageUtils;
-import com.chenyx.libs.utils.JumpUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +35,6 @@ public class HomeListAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         //数据列表
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_goods, parent, false);
         return new GoodsListViewHolder(view);

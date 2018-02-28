@@ -27,7 +27,6 @@ import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.home.MainPresenter;
 import com.busilinq.ui.HtmlActivity;
-import com.busilinq.ui.ToDevelopedActivity;
 import com.busilinq.ui.classify.GoodSearchActivity;
 import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.busilinq.ui.classify.SpecialGoodsListActivity;
@@ -380,6 +379,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
                 }
             }
         });
+        //信息公告
         llInfoNotice = view.findViewById(R.id.ll_info_notice);
         llInfoNotice.setOnClickListener(new View.OnClickListener() {
             @Override
