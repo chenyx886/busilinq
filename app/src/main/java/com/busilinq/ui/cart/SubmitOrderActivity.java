@@ -402,7 +402,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
             OrderDetailsEntity localgood = new OrderDetailsEntity();
             localgood.setNumber(list.get(i).getCart().getNumber());
             localgood.setGoodsName(list.get(i).getGoods().getGoods().getName());
-            localgood.setGoodsPrice(list.get(i).getGoods().getGoods().getPrice());
+            localgood.setGoodsPrice(list.get(i).getGoods().getPrice().getSalesPrice()*list.get(i).getCart().getNumber());
             localgoodList.add(localgood);
         }
 

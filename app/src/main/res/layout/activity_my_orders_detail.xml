@@ -357,5 +357,14 @@
                 android:text="付款"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size15" />
+        <Button
+            android:id="@+id/btn_logistics"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/len_40"
+            android:layout_marginLeft="@dimen/len_10"
+            android:background="@drawable/btn_e44010_frame_e44010_rad5"
+            android:text="查看物流"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size15" />
         </LinearLayout>
 </LinearLayout>
