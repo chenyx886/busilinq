@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
@@ -39,7 +40,11 @@ import butterknife.OnClick;
 public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> implements IClassifyView {
 
     public static String TAG = FragmentClassify.class.getName();
-
+    /**
+     * 返回图标
+     */
+    @BindView(R.id.tv_back)
+    TextView mBack;
     /**
      * 分类列表
      */
@@ -88,6 +93,7 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
 
     @Override
     protected void initUI() {
+        mBack.setVisibility(View.GONE);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -145,9 +151,9 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
                 Bundle bundle = new Bundle();
                 int cateId = mCateDatalist.get(mCateSelectedPostion).getList().get(position).getId();
                 String cateName = mCateDatalist.get(mCateSelectedPostion).getList().get(position).getName();
-                bundle.putInt("classifyId", cateId);
+                bundle.putString("classifyId", cateId + "");
                 bundle.putString("cateName", cateName);
-                JumpUtil.startForResult(getActivity(), GoodsListActivity.class,GoodsListActivity.HOME_REQUESTCODE, bundle);//进入详情时点击购物车跳转到FragmentCart用
+                JumpUtil.startForResult(getActivity(), GoodsListActivity.class, GoodsListActivity.HOME_REQUESTCODE, bundle);//进入详情时点击购物车跳转到FragmentCart用
             }
 
             @Override

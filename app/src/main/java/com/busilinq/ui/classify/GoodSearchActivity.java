@@ -183,14 +183,11 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
     }
 
 
-    @OnClick({R.id.tv_back, R.id.et_search, R.id.iv_search})
+    @OnClick({R.id.tv_back, R.id.iv_search})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();
-                break;
-            case R.id.et_search:
-                mDataList.setRefreshing(true);
                 break;
             case R.id.iv_search:
                 mDataList.setRefreshing(true);

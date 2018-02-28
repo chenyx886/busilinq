@@ -20,7 +20,6 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -35,7 +34,11 @@ import butterknife.OnClick;
 public class SpecialGoodsListActivity extends BaseMvpActivity<SpecialGoodsListPresenter> implements ISpecialGoodsListView {
 
     public static final int HOME_REQUESTCODE = 1;
-
+    /**
+     * 标题
+     */
+    @BindView(R.id.tv_title)
+    TextView mTitle;
     /**
      * 数据列表
      */
@@ -68,10 +71,6 @@ public class SpecialGoodsListActivity extends BaseMvpActivity<SpecialGoodsListPr
      * 分类id
      */
     private int classifyId;
-    /**
-     * 名称
-     */
-    private String cateName;
 
     @Override
     protected SpecialGoodsListPresenter createPresenter() {
@@ -82,7 +81,6 @@ public class SpecialGoodsListActivity extends BaseMvpActivity<SpecialGoodsListPr
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_special_goods_list);
-        ButterKnife.bind(this);
     }
 
     @Override
@@ -97,8 +95,7 @@ public class SpecialGoodsListActivity extends BaseMvpActivity<SpecialGoodsListPr
     @Override
     protected void initUI() {
         classifyId = getIntent().getIntExtra("classifyId", 0);
-        cateName = getIntent().getStringExtra("cateName");
-
+        mTitle.setText("特价商品");
         mDataList.setLayoutManager(new LinearLayoutManager(this));
         mDataList.setNoMore(true);
         mDataList.setLoadingMoreEnabled(false);

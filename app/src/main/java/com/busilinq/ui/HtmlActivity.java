@@ -18,7 +18,6 @@ import com.busilinq.R;
 import com.busilinq.base.BaseActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -63,7 +62,6 @@ public class HtmlActivity extends BaseActivity {
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_webview);
-        ButterKnife.bind(this);
     }
 
 

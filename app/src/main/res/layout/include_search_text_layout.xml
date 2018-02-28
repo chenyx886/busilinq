@@ -16,8 +16,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size14"
-        android:visibility="gone" />
+        android:textSize="@dimen/text_size14"  />
 
     <ImageView
         android:id="@+id/iv_search_list"
