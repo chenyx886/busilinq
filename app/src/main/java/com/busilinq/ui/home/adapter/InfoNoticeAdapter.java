@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
@@ -30,13 +31,17 @@ public class InfoNoticeAdapter extends AbstractRecyclerViewAdapter<InfoNoticeEnt
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == EMPTY_VIEW) {
+            View view = getInflater().inflate(R.layout.layout_empty_view, parent, false);
+            return new EmptyViewHolder(view);
+        }
         View view = getInflater().inflate(R.layout.item_info_notice_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder != null) {
+        if (holder instanceof ViewHolder) {
             ViewHolder vHolder = ((ViewHolder) holder);
             InfoNoticeEntity entity = getItem(position);
             vHolder.mTime.setText(entity.getTime());
@@ -49,6 +54,21 @@ public class InfoNoticeAdapter extends AbstractRecyclerViewAdapter<InfoNoticeEnt
             });
         }
 
+    }
+
+    /**
+     * 无数据时 显示
+     */
+    public class EmptyViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_empty)
+        public ImageView img;
+        @BindView(R.id.empty_msg_tv)
+        public TextView msgTv;
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
