@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
-import com.busilinq.data.entity.GoodsEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
 import com.chenyx.libs.glide.GlideShowImageUtils;
 
@@ -30,11 +29,6 @@ public class GoodsAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity> {
 
     public GoodsAdapter(Context context) {
         super(context);
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
     }
 
     @Override

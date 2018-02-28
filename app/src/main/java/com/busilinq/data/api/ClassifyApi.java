@@ -52,10 +52,12 @@ public interface ClassifyApi {
      * @param classifyId 分类ID
      * @param page       当前页
      * @param limit      每页条数
+     * @param sort       排序方式ASC DESC逆序
+     * @param field      排序字段按人气(销量):salesVolume,按价格:price,按时间:update_time
      * @return
      */
     @GET("/api/goods/special")
-    Observable<BaseData<PageEntity<SpecialGoodsEntity>>> getSpecialGoodsList(@Query("userId") int userId, @Query("classifyId") int classifyId, @Query("page") int page, @Query("limit") int limit);
+    Observable<BaseData<PageEntity<SpecialGoodsEntity>>> getSpecialGoodsList(@Query("userId") int userId, @Query("classifyId") int classifyId, @Query("page") int page, @Query("limit") int limit, @Query("sort") String sort, @Query("field") String field);
 
     /**
      * 商品搜索列表
@@ -64,10 +66,13 @@ public interface ClassifyApi {
      * @param classifyId 分类ID
      * @param page       当前页
      * @param limit      每页条数
+     * @param name       商品名称
+     * @param sort       排序方式ASC DESC逆序
+     * @param field      排序字段按人气(销量):salesVolume,按价格:price,按时间:update_time
      * @return
      */
     @GET("/api/goods/search")
-    Observable<BaseData<PageEntity<HomeGoodsEntity>>> getGoodsSearchList(@Query("userId") int userId, @Query("classifyId") String classifyId, @Query("page") int page, @Query("limit") int limit, @Query("name") String name);
+    Observable<BaseData<PageEntity<HomeGoodsEntity>>> getGoodsSearchList(@Query("userId") int userId, @Query("classifyId") String classifyId, @Query("page") int page, @Query("limit") int limit, @Query("name") String name, @Query("sort") String sort, @Query("field") String field);
 
     /**
      * 获取商品详情

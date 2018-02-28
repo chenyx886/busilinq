@@ -64,10 +64,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
 
     @Override
     protected MinePresenter createPresenter() {
-        if (null == mPresenter) {
-            mPresenter = new MinePresenter(this);
-        }
-        return mPresenter;
+        return new MinePresenter(this);
     }
 
     @Override
@@ -78,12 +75,6 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_mine, container, false);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        initData();
     }
 
     @Override

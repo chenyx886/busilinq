@@ -18,16 +18,19 @@
         <TextView
             android:id="@+id/tv_popularity"
             style="@style/screen_textView_item_style"
+            android:background="@drawable/item_sel"
             android:text="@string/popularity" />
 
         <TextView
             android:id="@+id/tv_time"
             style="@style/screen_textView_item_style"
+            android:background="@drawable/item_sel"
             android:text="@string/time" />
 
         <TextView
             android:id="@+id/tv_price"
             style="@style/screen_textView_item_style"
+            android:background="@drawable/item_sel"
             android:text="@string/price" />
 
     </LinearLayout>

@@ -9,7 +9,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <com.bigkoo.convenientbanner.ConvenientBanner
             android:id="@+id/cb_Banner"
             android:layout_width="match_parent"
