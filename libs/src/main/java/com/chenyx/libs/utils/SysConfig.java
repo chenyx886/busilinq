@@ -20,21 +20,6 @@ public class SysConfig {
     public static final String PATH_DOWNLOAD = PATH_ROOT + "download/"; // 下载文件
 
 
-    public static class Coor {
-
-        // 开始时间
-        public static final String START_TIME = "START_TIME";
-
-        // 结束时间
-        public static final String END_TIME = "END_TIME";
-
-        // 时间间隔
-        public static final String INTERVAL_TIME = "INTERVAL_TIME";
-
-
-    }
-
-
     public static String nullToString(String param) {
         String str = "";
         if (!TextUtils.isEmpty(param)) {

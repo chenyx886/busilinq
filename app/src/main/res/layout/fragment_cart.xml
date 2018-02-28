@@ -7,51 +7,14 @@
 
     <include layout="@layout/include_header_layout" />
 
-    <!--购物车没有商品显示的布局-->
-    <LinearLayout
-        android:id="@+id/line_cart_empty_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/empty_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/empty_cart" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/empty_img"
-            android:layout_marginTop="10dp"
-            android:text="@string/cart_empty"
-            android:textColor="@color/colorTabNormal"
-            android:textSize="@dimen/text_size16" />
-
-        <Button
-            android:id="@+id/btn_purchase"
-            android:layout_width="145.00dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="45dp"
-            android:background="@mipmap/ic_btn_login_bg"
-            android:text="@string/start_to_buy"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size18" />
-    </LinearLayout>
-    <!--购物车有商品显示列表与结算按钮-->
     <RelativeLayout
-        android:id="@+id/rela_cart_full_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.jcodecraeer.xrecyclerview.XRecyclerView
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"  />
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,9 +32,9 @@
                 android:button="@null"
                 android:checked="false"
                 android:drawableLeft="@drawable/checkbox_selector"
+                android:drawablePadding="5dp"
                 android:paddingLeft="15dp"
                 android:text="合计："
-                android:drawablePadding="5dp"
                 android:textColor="@color/page_title_color"
                 android:textSize="@dimen/text_size14" />
 
@@ -84,13 +47,14 @@
                 android:textSize="@dimen/text_size14" />
 
         </LinearLayout>
+
         <Button
             android:id="@+id/btn_settlement"
             android:layout_width="100dp"
             android:layout_height="48dp"
-            android:background="@drawable/button_shap_square"
-            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button_shap_square"
             android:text="@string/go_to_pay"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size18" />

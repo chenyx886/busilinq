@@ -3,10 +3,10 @@ package com.busilinq.ui.mine.order.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,7 +14,6 @@ import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.HomeOrderEntity;
 import com.busilinq.ui.mine.order.MyOrdersDetailActivity;
-import com.busilinq.ulits.OrderStringParse;
 import com.busilinq.xsm.ulits.StringParse;
 import com.chenyx.libs.utils.JumpUtil;
 
@@ -32,19 +31,18 @@ public class MyOrdersAdapter extends AbstractRecyclerViewAdapter<HomeOrderEntity
     }
 
     @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_my_orders, parent, false);
+        if (viewType == EMPTY_VIEW) {
+            View view = getInflater().inflate(R.layout.layout_empty_view, parent, false);
+            return new EmptyViewHolder(view);
+        }
+        View view = getInflater().inflate(R.layout.item_my_orders, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder != null) {
+        if (holder instanceof ViewHolder) {
             ViewHolder vHolder = ((ViewHolder) holder);
             final HomeOrderEntity entity = getItem(position);
             vHolder.mCodeTv.setText(entity.getOrder().getOrderNumber());
@@ -66,6 +64,21 @@ public class MyOrdersAdapter extends AbstractRecyclerViewAdapter<HomeOrderEntity
                     JumpUtil.overlay(mContext, MyOrdersDetailActivity.class, bundle);
                 }
             });
+        }
+    }
+
+    /**
+     * 无数据时 显示
+     */
+    class EmptyViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_empty)
+        public ImageView img;
+        @BindView(R.id.empty_msg_tv)
+        public TextView msgTv;
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 

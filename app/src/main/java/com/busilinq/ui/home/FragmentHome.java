@@ -1,22 +1,17 @@
 package com.busilinq.ui.home;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
@@ -35,17 +30,16 @@ import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.ui.mine.MyCollectionActivity;
 import com.busilinq.ui.mine.order.MyOrdersActivity;
 import com.busilinq.widget.GridDividerItemDecoration;
-import com.chenyx.libs.picasso.PicassoLoader;
+import com.busilinq.widget.NetworkImageHomeBanner;
 import com.chenyx.libs.utils.JumpUtil;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 /**
@@ -65,62 +59,26 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
      * 数据列表
      */
     @BindView(R.id.xr_data_list)
-    XRecyclerView mDataList;
+    RecyclerView mDataList;
     /**
      * 下拉刷新 加载更多
      */
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout refreshLayout;
-    /**
-     * 特价商品
-     */
-    LinearLayout llSpecialGoods;
-    /**
-     * 我的收藏
-     */
-    LinearLayout llCollectionGoods;
-    /**
-     * 我订过的
-     */
-    LinearLayout llBookedGoods;
-    /**
-     * 在线客服
-     */
-    LinearLayout llOnlineService;
-    /**
-     * 我的订单
-     */
-    LinearLayout llOrderGoods;
-    /**
-     * 付款单
-     */
-    LinearLayout llPaymentGoods;
-    /**
-     * 发货单
-     */
-    LinearLayout llDeliveryGoods;
-    /**
-     * 信息公告
-     */
-    LinearLayout llInfoNotice;
 
     /**
      * 数据适配器
      */
     private HomeListAdapter mAdapter;
-
-    public List<HomeGoodsEntity> mDatas = new ArrayList<>();
-
     /**
      * 当前页
      */
     public int page = 1;
 
-
-    public View view;
     /**
      * 轮播组件
      */
+    @BindView(R.id.cb_Banner)
     ConvenientBanner mCBanner;
     /**
      * 广播索引值
@@ -164,17 +122,12 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         mAdapter = new HomeListAdapter(getActivity());
         mDataList.setAdapter(mAdapter);
 
-        view = LayoutInflater.from(getActivity()).inflate(R.layout.include_home_menu, null);
-        mCBanner = view.findViewById(R.id.cb_Banner);
-
-        BindViewItem();
-        mDataList.addHeaderView(view);
         initData();
         mAdapter.setOnItemViewClickListener(new AbstractRecyclerViewAdapter.OnItemViewClickListener() {
             @Override
             public void onViewClick(View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("goodsId", mDatas.get(position).getGoods().getGoodsId());
+                bundle.putInt("goodsId", mAdapter.getItem(position).getGoods().getGoodsId());
                 JumpUtil.startForResult(getActivity(), GoodsDetailActivity.class, GoodsDetailActivity.HOME_REQUESTCODE, bundle);
             }
         });
@@ -192,7 +145,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
 
             @Override
             public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
-                ++page;
                 mPresenter.getGoodsList(page);
             }
         });
@@ -206,10 +158,10 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
     @Override
     public void BannerList(final List<BannerEntity> list) {
         mCBanner.stopTurning();
-        mCBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
+        mCBanner.setPages(new CBViewHolderCreator<NetworkImageHomeBanner>() {
             @Override
-            public NetworkImageHolderView createHolder() {
-                return new NetworkImageHolderView();
+            public NetworkImageHomeBanner createHolder() {
+                return new NetworkImageHomeBanner();
             }
         }, list).setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focus})
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
@@ -255,24 +207,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
     }
 
 
-
-    public class NetworkImageHolderView implements Holder<BannerEntity> {
-        private View view;
-
-        @Override
-        public View createView(Context context) {
-            view = LayoutInflater.from(context).inflate(R.layout.banner_item, null, false);
-            return view;
-        }
-
-        @Override
-        public void UpdateUI(Context context, int position, BannerEntity data) {
-            ((TextView) view.findViewById(R.id.tv_title)).setText(data.getHref());
-            ImageView imageView = view.findViewById(R.id.iv_image);
-            PicassoLoader.displayImage(context, data.getImageUrl(), imageView, R.mipmap.default_error);
-        }
-    }
-
     /**
      * 商品列表
      *
@@ -281,114 +215,87 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
     @Override
     public void GoodsList(PageEntity<HomeGoodsEntity> data) {
         if (page == 1)
-            mDatas.clear();
-        mDatas.addAll(data.getList());
-        mAdapter.setData(mDatas);
+            mAdapter.setData(data.getList());
+        else
+            mAdapter.insert(mAdapter.getItemCount(), data.getList());
+
+        if (data.getList().size() > 0)
+            ++page;
     }
 
     /**
      * 菜单点击 跳转事件
      */
-    private void BindViewItem() {
-        FrameLayout search = view.findViewById(R.id.fl_search);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+
+    @OnClick({R.id.fl_search, R.id.ll_special_goods, R.id.ll_collection_goods, R.id.ll_info_notice, R.id.ll_delivery_goods, R.id.ll_payment_goods, R.id.ll_order_goods, R.id.ll_booked_goods, R.id.ll_online_service})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fl_search:
                 Bundle bundle = new Bundle();
                 bundle.putString("cateName", "请输入商品名称");
                 JumpUtil.overlay(getActivity(), GoodSearchActivity.class, bundle);
-            }
-        });
-        //特价商品
-        llSpecialGoods = view.findViewById(R.id.ll_special_goods);
-        llSpecialGoods.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JumpUtil.overlay(getActivity(), SpecialGoodsListActivity.class);
-            }
-        });
-        //我的收藏
-        llCollectionGoods = view.findViewById(R.id.ll_collection_goods);
-        llCollectionGoods.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            //我订过的
+            case R.id.ll_booked_goods:
+                if (UserCache.get() != null) {
+                    Bundle bundle3 = new Bundle();
+                    bundle3.putString(MyOrdersActivity.class.getSimpleName(), MyOrdersActivity.COMPLETE);
+                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class, bundle3);
+                } else {
+                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                }
+                break;
+            //我的收藏
+            case R.id.ll_collection_goods:
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), MyCollectionActivity.class);
                 } else {
                     JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
                 }
-            }
-        });
-        llBookedGoods = view.findViewById(R.id.ll_booked_goods);
-        llBookedGoods.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //我订过的
-                if (UserCache.get() != null) {
-                    Bundle bundle=new Bundle();
-                    bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.COMPLETE);
-                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class,bundle);
-                } else {
-                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
-                }
-            }
-        });
-        llOnlineService = view.findViewById(R.id.ll_online_service);
-        llOnlineService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            //付款單（待发货）
+            case R.id.ll_online_service:
                 JumpUtil.overlay(getActivity(), OnlineServiceActivity.class);
-            }
-        });
-        llOrderGoods = view.findViewById(R.id.ll_order_goods);
-        llOrderGoods.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            //特价商品
+            case R.id.ll_special_goods:
+                JumpUtil.overlay(getActivity(), SpecialGoodsListActivity.class);
+                break;
+            //付款單（待发货）
+            case R.id.ll_order_goods:
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), MyOrdersActivity.class);
                 } else {
                     JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
                 }
-            }
-        });
-        llPaymentGoods = view.findViewById(R.id.ll_payment_goods);
-        llPaymentGoods.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //付款單（待发货）
+                break;
+            //付款單（待发货）
+            case R.id.ll_payment_goods:
                 if (UserCache.get() != null) {
-                    Bundle bundle=new Bundle();
-                    bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.WAIT_SEND);
-                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class,bundle);
+                    Bundle bundle2 = new Bundle();
+                    bundle2.putString(MyOrdersActivity.class.getSimpleName(), MyOrdersActivity.WAIT_SEND);
+                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class, bundle2);
                 } else {
                     JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
                 }
-            }
-        });
-        llDeliveryGoods = view.findViewById(R.id.ll_delivery_goods);
-        llDeliveryGoods.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //发货单（待接收）
-                if (UserCache.get() != null) {
-                    Bundle bundle=new Bundle();
-                    bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.WAIT_RECEIVE);
-                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class,bundle);
-                } else {
-                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
-                }
-            }
-        });
-        //信息公告
-        llInfoNotice = view.findViewById(R.id.ll_info_notice);
-        llInfoNotice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            //信息公告
+            case R.id.ll_info_notice:
                 JumpUtil.overlay(getActivity(), InfoNoticeActivity.class);
-            }
-        });
+                break;
+            //发货单（待接收）
+            case R.id.ll_delivery_goods:
+                if (UserCache.get() != null) {
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString(MyOrdersActivity.class.getSimpleName(), MyOrdersActivity.WAIT_RECEIVE);
+                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class, bundle1);
+                } else {
+                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                }
+                break;
+        }
     }
-
 
     @Override
     public void showProgress(String message) {

@@ -2,9 +2,9 @@ package com.busilinq.ui.mine.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
@@ -25,14 +25,18 @@ public class MyOrderDetailAdapter extends AbstractRecyclerViewAdapter<OrderDetai
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.assem_selected_goods_item, parent, false);
+        if (viewType == EMPTY_VIEW) {
+            View view = getInflater().inflate(R.layout.layout_empty_view, parent, false);
+            return new EmptyViewHolder(view);
+        }
+        View view = getInflater().inflate(R.layout.assem_selected_goods_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
-        if (holder != null) {
+        if (holder instanceof ViewHolder) {
             ViewHolder vHolder = (ViewHolder) holder;
             OrderDetailsEntity ge = items.get(position);
             vHolder.mTitle.setText(ge.getGoodsName());
@@ -41,6 +45,20 @@ public class MyOrderDetailAdapter extends AbstractRecyclerViewAdapter<OrderDetai
         }
     }
 
+    /**
+     * 无数据时 显示
+     */
+    class EmptyViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_empty)
+        public ImageView img;
+        @BindView(R.id.empty_msg_tv)
+        public TextView msgTv;
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         /**

@@ -2,7 +2,6 @@ package com.busilinq.ui.mine.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,14 +10,13 @@ import android.widget.TextView;
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.MyCollectionEntity;
-import com.chenyx.libs.glide.GlideShowImageUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Company：华科建邺
- * Class Describe：
+ * Class Describe：我的收藏 列表适配器
  * Create Person：wangshimei
  * Create Time：18/2/6 下午2:53
  * Update Person：
@@ -33,19 +31,23 @@ public class MyCollectionAdapter extends AbstractRecyclerViewAdapter<MyCollectio
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_goods_layout, parent, false);
+        if (viewType == EMPTY_VIEW) {
+            View view = getInflater().inflate(R.layout.layout_empty_view, parent, false);
+            return new EmptyViewHolder(view);
+        }
+        View view = getInflater().inflate(R.layout.item_goods_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder != null) {
+        if (holder instanceof ViewHolder) {
             ViewHolder vHolder = ((ViewHolder) holder);
             MyCollectionEntity entity = getItem(position);
             vHolder.mGoodTitleTIv.setText(entity.getGoods().getGoods().getName());
             vHolder.tv_nickname.setText(entity.getGoods().getGoods().getNickname());
             vHolder.mGoodPriceTv.setText("￥" + entity.getGoods().getPrice().getSalesPrice() + "/" + entity.getGoods().getGoods().getUnit());
-            GlideShowImageUtils.displayNetImage(mContext, entity.getGoods().getGoods().getImage(), vHolder.mGoodPicIv, R.mipmap.default_error);
+            showImageView(entity.getGoods().getGoods().getImage(), vHolder.mGoodPicIv, R.mipmap.default_error);
             vHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -63,6 +65,21 @@ public class MyCollectionAdapter extends AbstractRecyclerViewAdapter<MyCollectio
 
         }
 
+    }
+
+    /**
+     * 无数据时 显示
+     */
+    public class EmptyViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_empty)
+        public ImageView img;
+        @BindView(R.id.empty_msg_tv)
+        public TextView msgTv;
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

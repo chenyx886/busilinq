@@ -2,7 +2,6 @@ package com.busilinq.ui.home.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.HomeGoodsEntity;
-import com.chenyx.libs.glide.GlideShowImageUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,25 +33,44 @@ public class HomeListAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //数据列表
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_goods, parent, false);
+
+        if (viewType == EMPTY_VIEW) {
+            View view = getInflater().inflate(R.layout.layout_empty_view, parent, false);
+            return new EmptyViewHolder(view);
+        }
+        View view = getInflater().inflate(R.layout.item_home_goods, parent, false);
         return new GoodsListViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
-
-        GoodsListViewHolder vHolder = (GoodsListViewHolder) holder;
-        if (getItem(position) != null) {
-            final HomeGoodsEntity item = getItem(position);
-            vHolder.mTitle.setText(item.getGoods().getName());
-            vHolder.mPrice.setText("￥" + item.getPrice().getSalesPrice());
-            GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
+        if (holder instanceof  GoodsListViewHolder) {
+            GoodsListViewHolder vHolder = (GoodsListViewHolder) holder;
+            if (getItem(position) != null) {
+                final HomeGoodsEntity item = getItem(position);
+                vHolder.mTitle.setText(item.getGoods().getName());
+                vHolder.mPrice.setText("￥" + item.getPrice().getSalesPrice());
+                showImageView(item.getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
+            }
         }
+
     }
 
+    /**
+     * 无数据时 显示
+     */
+    public class EmptyViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_empty)
+        public ImageView img;
+        @BindView(R.id.empty_msg_tv)
+        public TextView msgTv;
 
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
     static class GoodsListViewHolder extends RecyclerView.ViewHolder {
 
         /**

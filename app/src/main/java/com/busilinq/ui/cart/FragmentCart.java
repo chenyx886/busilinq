@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
@@ -25,10 +22,8 @@ import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.presenter.cart.CartPresenter;
-import com.busilinq.ui.MainActivity;
 import com.busilinq.ui.cart.adapter.CartAdapter;
 import com.busilinq.ui.mine.LoginActivity;
-import com.busilinq.widget.MLoadingDialog;
 import com.busilinq.xsm.ulits.Logger;
 import com.busilinq.xsm.ulits.StringParse;
 import com.chenyx.libs.utils.JumpUtil;
@@ -71,21 +66,6 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
      */
     @BindView(R.id.tv_confirm)
     TextView mEdit;
-    /**
-     * 购物车为空显示的布局
-     */
-    @BindView(R.id.line_cart_empty_layout)
-    LinearLayout cart_empty_layout;
-    /**
-     * 购物车为空开始订购按钮
-     */
-    @BindView(R.id.btn_purchase)
-    Button mBtnPurchase;
-    /**
-     * 购物车有商品显示的布局
-     */
-    @BindView(R.id.rela_cart_full_layout)
-    RelativeLayout cart_full_layout;
     /**
      * RecycleView
      */
@@ -205,9 +185,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         mRecycleView.setAdapter(mAdapter);
 
 
-//        /**
-//         * 长按删除
-//         */
+        //长按删除
         mAdapter.setOnItemLongClickListener(new AbstractRecyclerViewAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(final View itemView, final int positions) {
@@ -248,15 +226,9 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         mRecycleView.setRefreshing(true);
     }
 
-    @OnClick({R.id.btn_purchase, R.id.btn_settlement, R.id.check_select, R.id.tv_confirm})
+    @OnClick({R.id.btn_settlement, R.id.check_select, R.id.tv_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
-            /**
-             * 开始订购
-             */
-            case R.id.btn_purchase:
-                JumpUtil.overlay(getActivity(), MainActivity.class);
-                break;
             /**
              * 去结算
              */
@@ -270,7 +242,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(SubmitOrderActivity.class.getSimpleName(), (Serializable) list);
                     bundle.putString("passTotal", passTotal);
-                    JumpUtil.startForResult(getActivity(), SubmitOrderActivity.class,10, bundle);
+                    JumpUtil.startForResult(getActivity(), SubmitOrderActivity.class, 10, bundle);
                 } else
                     ToastUtils.showShort("请选择需要购买的商品！");
 
@@ -349,7 +321,6 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
 
     @Override
     public void showProgress(String message) {
-        MLoadingDialog.show(getActivity(), message);
     }
 
     @Override
@@ -361,16 +332,6 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
             if (mRecycleView != null)
                 mRecycleView.loadMoreComplete();
         }
-    }
-
-    /**
-     * 购物车无数据时显示的布局
-     */
-    @Override
-    public void showEmptyView() {
-        mEdit.setVisibility(View.GONE);
-        cart_full_layout.setVisibility(View.GONE);
-        cart_empty_layout.setVisibility(View.VISIBLE);
     }
 
 }

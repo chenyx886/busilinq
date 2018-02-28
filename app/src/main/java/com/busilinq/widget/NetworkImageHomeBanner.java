@@ -6,19 +6,19 @@ import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.busilinq.R;
-import com.busilinq.data.entity.GoodsImgEntity;
-import com.chenyx.libs.glide.GlideShowImageUtils;
+import com.busilinq.data.entity.BannerEntity;
+import com.chenyx.libs.picasso.PicassoLoader;
 
 /**
  * Company：华科建邺
- * Class Describe：
+ * Class Describe：首页轮播图 加载
  * Create Person：Chenyx
- * Create Time：2018/2/27 下午3:15
+ * Create Time：2018/2/28 下午12:53
  * Update Person：
  * Update Time：
  * Update Remark：
  */
-public class NetworkImageHolderView implements Holder<GoodsImgEntity> {
+public class NetworkImageHomeBanner implements Holder<BannerEntity> {
 
     private ImageView imageView;
 
@@ -31,9 +31,10 @@ public class NetworkImageHolderView implements Holder<GoodsImgEntity> {
     }
 
     @Override
-    public void UpdateUI(Context context, int position, GoodsImgEntity data) {
+    public void UpdateUI(Context context, int position, BannerEntity data) {
         imageView.setImageResource(R.mipmap.default_error);
-        GlideShowImageUtils.displayNetImage(context, data.getImage(), imageView, R.mipmap.default_error);
+        PicassoLoader.displayImage(context, data.getImageUrl(), imageView, R.mipmap.default_error);
+
     }
 }
 

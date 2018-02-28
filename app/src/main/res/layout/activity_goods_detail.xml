@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        android:overScrollMode="never">
+        android:overScrollMode="never"
+        app:tr_enable_loadmore="false">
 
         <com.busilinq.widget.MyScrollView
             android:layout_width="match_parent"
@@ -146,8 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:background="@color/white"
-                    android:orientation="vertical"
-                     />
+                    android:orientation="vertical" />
             </LinearLayout>
         </com.busilinq.widget.MyScrollView>
 

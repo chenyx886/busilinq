@@ -2,9 +2,9 @@ package com.busilinq.ui.cart.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -13,7 +13,8 @@ import android.widget.TextView;
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.MainCartEntity;
-import com.chenyx.libs.glide.GlideShowImageUtils;
+import com.busilinq.ui.MainActivity;
+import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 
 import butterknife.BindView;
@@ -78,52 +79,68 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //数据列表
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart_list, parent, false);
-        return new CartAdapter.ViewHolder(view);
+        if (viewType == EMPTY_VIEW) {
+            View view = getInflater().inflate(R.layout.layout_empty_view, parent, false);
+            return new EmptyViewHolder(view);
+        }
+        View view = getInflater().inflate(R.layout.item_cart_list, parent, false);
+        return new ViewHolder(view);
     }
 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
-        final CartAdapter.ViewHolder vHolder = (CartAdapter.ViewHolder) holder;
-        if (getItem(position) != null) {
-            final MainCartEntity item = getItem(position);
-            vHolder.mTitle.setText(item.getGoods().getGoods().getName());//商品名称
-            vHolder.mNum.setText(item.getCart().getNumber() + "");//数量
-            vHolder.mPrice.setText("¥" + item.getGoods().getPrice().getSalesPrice() + "/" + item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
-            GlideShowImageUtils.displayNetImage(mContext, item.getGoods().getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
-            vHolder.mAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int number = item.getCart().getNumber() + 1;
-                    mDataUpdateListener.update(position, number);
-                }
-            });
-            vHolder.mReduce.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (item.getCart().getNumber() == 1) {
-                        ToastUtils.showShort("数量为最小值，可长按删除本条记录");
-                        return;
+        if (holder instanceof ViewHolder) {
+            final ViewHolder vHolder = (ViewHolder) holder;
+            if (getItem(position) != null) {
+                final MainCartEntity item = getItem(position);
+                vHolder.mTitle.setText(item.getGoods().getGoods().getName());//商品名称
+                vHolder.mNum.setText(item.getCart().getNumber() + "");//数量
+                vHolder.mPrice.setText("¥" + item.getGoods().getPrice().getSalesPrice() + "/" + item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
+                showImageView(item.getGoods().getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
+                vHolder.mAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int number = item.getCart().getNumber() + 1;
+                        mDataUpdateListener.update(position, number);
                     }
-                    int number = item.getCart().getNumber() - 1;
-                    mDataUpdateListener.update(position, number);
-                }
-            });
-            vHolder.mIsCheck.setChecked(item.getCart().getIsChecked() == 0 ? false : true);
-            vHolder.mIsCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    if (isChecked) {
-                        item.getCart().setIsChecked(1);
-                        checkNumber++;
-                    } else {
-                        item.getCart().setIsChecked(0);
-                        checkNumber--;
+                });
+                vHolder.mReduce.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (item.getCart().getNumber() == 1) {
+                            ToastUtils.showShort("数量为最小值，可长按删除本条记录");
+                            return;
+                        }
+                        int number = item.getCart().getNumber() - 1;
+                        mDataUpdateListener.update(position, number);
                     }
-                    mDataUpdateListener.updateCheck();
+                });
+                vHolder.mIsCheck.setChecked(item.getCart().getIsChecked() == 0 ? false : true);
+                vHolder.mIsCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if (isChecked) {
+                            item.getCart().setIsChecked(1);
+                            checkNumber++;
+                        } else {
+                            item.getCart().setIsChecked(0);
+                            checkNumber--;
+                        }
+                        mDataUpdateListener.updateCheck();
+                    }
+                });
+            }
+        } else {
+            final EmptyViewHolder vHolder = (EmptyViewHolder) holder;
+            vHolder.img.setBackgroundResource(R.mipmap.empty_cart);
+            vHolder.msgTv.setText(mContext.getResources().getText(R.string.cart_empty));
+            vHolder.mPurchase.setVisibility(View.VISIBLE);
+            vHolder.mPurchase.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    JumpUtil.overlay(mContext, MainActivity.class);
                 }
             });
         }
@@ -133,6 +150,23 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
         void update(int position, int number);
 
         void updateCheck();
+    }
+
+    /**
+     * 无数据时 显示
+     */
+    class EmptyViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_empty)
+        ImageView img;
+        @BindView(R.id.empty_msg_tv)
+        TextView msgTv;
+        @BindView(R.id.btn_purchase)
+        Button mPurchase;
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

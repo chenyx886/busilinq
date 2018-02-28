@@ -15,6 +15,22 @@
         <item name="actionMenuTextAppearance">@style/ActionMenuTextStyle</item>
     </style>
 
+    <style name="Theme.Light" parent="Theme.AppCompat.Light">
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="android:windowBackground">@color/default_window_bg</item>
+        <!--<item name="clickableBackground">@drawable/clickable_background</item>-->
+        <item name="font_color">@color/ssxinheihui1</item>
+        <item name="main_bg">@color/white</item>
+        <item name="font_color2">@color/ssxinzi3</item>
+        <item name="divider_black">@color/write_comment_divider_color</item>
+        <item name="divider_light_grey">@color/ssxinxian1</item>
+        <item name="font_red">@color/subscribe_category_btn_bg_normal</item>
+        <item name="white_bg">@color/white</item>
+        <item name="windowNoTitle">?android:windowNoTitle</item>
+        <item name="tab_bg">@color/colorPrimary</item>
+    </style>
+
+
 
     <!-- 设置ActionBar菜单字体 -->
     <style name="ActionMenuTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">

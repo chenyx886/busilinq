@@ -101,6 +101,7 @@
             android:layout_centerVertical="true" />
 
         <TextView
+            android:id="@+id/selected_tv"
             style="@style/addressTextViewStyle"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
