@@ -76,21 +76,25 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
         mTitle.setText(R.string.my_orders_title);
         if (tilteValue != null && tilteValue.equals(COMPLETE)) {
             seachType = COMPLETE;
+            mTitle.setText("我订过的");
         } else if (tilteValue != null && tilteValue.equals(WAIT_SEND)) {
             //代发货就是已付款的单子
             seachType = WAIT_SEND;
+            mTitle.setText("付款单");
         } else if (tilteValue != null && tilteValue.equals(WAIT_RECEIVE)) {
             //代接收就是发货单
             seachType = WAIT_RECEIVE;
+            mTitle.setText("发货单");
         }
         else if (tilteValue != null && tilteValue.equals(REFUND)) {
-            //退款单
+            //退货单
             seachType = REFUND;
+            mTitle.setText("退货单");
         }
 
         mDataList.setLayoutManager(new LinearLayoutManager(this));
         mDataList.setNoMore(true);
-        mDataList.setLoadingMoreEnabled(false);
+        mDataList.setLoadingMoreEnabled(true);
         mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         mDataList.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
         mMyOrdersAdapter = new MyOrdersAdapter(this);

@@ -110,12 +110,22 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
      */
     @BindView(R.id.btn_delete_order)
     Button mDeleteBtn;
-
+    /**
+     * 付款按钮
+     */
+    @BindView(R.id.btn_pay)
+    Button mPayBtn;
+    /**
+     * 物流按钮
+     */
+    @BindView(R.id.btn_logistics)
+    Button mLogisticsBtn;
 
     private MyOrderDetailAdapter mAdapter;
 
     private String orderNum;
     private int orderId;
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -147,23 +157,26 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
         MLoadingDialog.dismiss();
     }
 
-    @OnClick({R.id.tv_back,R.id.btn_delete_order,R.id.btn_pay})
+    @OnClick({R.id.btn_logistics,R.id.tv_back, R.id.btn_delete_order, R.id.btn_pay})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();
                 break;
+            case R.id.btn_logistics:
+                JumpUtil.overlay(this, ToDevelopedActivity.class);
+                break;
             case R.id.btn_delete_order:
-                new  AlertDialog.Builder(this)
-                        .setTitle("提示" )
-                        .setMessage("确定要删除吗？" )
+                new AlertDialog.Builder(this)
+                        .setTitle("提示")
+                        .setMessage("确定要删除吗？")
                         .setPositiveButton("是", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                mPresenter.deletedOrder(orderId,orderNum);
+                                mPresenter.deletedOrder(orderId, orderNum);
                             }
                         })
-                        .setNegativeButton("否" , null)
+                        .setNegativeButton("否", null)
                         .show();
                 break;
             case R.id.btn_pay:
@@ -179,9 +192,17 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
 
         //订单信息
         mOrderNum.setText(detail.getOrder().getOrderNumber());
-        mOrderMoney.setText(detail.getOrder().getTotalMoney()+"");
+        mOrderMoney.setText(detail.getOrder().getTotalMoney() + "");
         mOrderTime.setText(detail.getOrder().getOrderTime());
         mOrderStatus.setText(detail.getOrder().getStatus());
+        if (detail.getOrder().getStatus().equals("待支付"))
+            mPayBtn.setVisibility(View.VISIBLE);
+        else
+            mPayBtn.setVisibility(View.GONE);
+        if(detail.getOrder().getStatus().equals("待接收")||detail.getOrder().getStatus().equals("完成"))
+            mLogisticsBtn.setVisibility(View.VISIBLE);
+        else
+            mLogisticsBtn.setVisibility(View.GONE);
         //收货信息
         mTakePerson.setText(detail.getAddr().getName());
         mPhone.setText(detail.getAddr().getCell());
