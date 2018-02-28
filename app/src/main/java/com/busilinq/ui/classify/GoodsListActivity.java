@@ -66,6 +66,12 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
      */
     @BindView(R.id.tv_price)
     TextView mPrice;
+    /**
+     * 判断排序状态
+     */
+    private int clickStatus = 0;
+    private String field;//排序类型
+    private String sort;//升降
 
     private GoodsAdapter mAdapter;
 
@@ -134,13 +140,13 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
             public void onRefresh() {
                 page = 1;
                 state = STATE_PULL_REFRESH;
-                mPresenter.getGoodsList(UserCache.GetUserId(), classifyId, page);
+                mPresenter.getGoodsList(UserCache.GetUserId(), classifyId, page,field,sort);
             }
 
             @Override
             public void onLoadMore() {
                 state = STATE_LOAD_MORE;
-                mPresenter.getGoodsList(UserCache.GetUserId(), classifyId, page);
+                mPresenter.getGoodsList(UserCache.GetUserId(), classifyId, page,field,sort);
             }
         });
         mDataList.setRefreshing(true);
@@ -197,15 +203,33 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
                 break;
             //人气
             case R.id.tv_popularity:
+                field = "salesVolume";
+                sort = mPopularity.getTag().toString();
                 mDataList.setRefreshing(true);
+                if (sort.equals("ASC"))
+                    mPopularity.setTag("DESC");
+                else
+                    mPopularity.setTag("ASC");
                 break;
             //时间
             case R.id.tv_time:
+                field = "update_time";
+                sort = mTime.getTag().toString();
                 mDataList.setRefreshing(true);
+                if (sort.equals("ASC"))
+                    mTime.setTag("DESC");
+                else
+                    mTime.setTag("ASC");
                 break;
             //价格
             case R.id.tv_price:
+                field = "price";
+                sort = mPrice.getTag().toString();
                 mDataList.setRefreshing(true);
+                if (sort.equals("ASC"))
+                    mPrice.setTag("DESC");
+                else
+                    mPrice.setTag("ASC");
                 break;
         }
     }

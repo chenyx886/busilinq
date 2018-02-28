@@ -3,6 +3,8 @@ package com.busilinq.ui.home;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
@@ -112,7 +115,7 @@ public class OnlineServiceActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_back,R.id.tv_phone})
+    @OnClick({R.id.tv_back, R.id.tv_phone, R.id.tv_qq})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -124,6 +127,30 @@ public class OnlineServiceActivity extends BaseActivity {
                 intent.setData(data);
                 startActivity(intent);
                 break;
+            case R.id.tv_qq:
+                if (checkApkExist(this, "com.tencent.mobileqq")) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=" + "1111111" + "&version=1")));
+                } else {
+                    ToastUtils.showShort("本机未安装QQ应用");
+                }
+                break;
+        }
+    }
+
+    /**
+     * 检查手机是否安装qq
+     * @param context
+     * @param packageName
+     * @return
+     */
+    public boolean checkApkExist(Context context, String packageName) {
+        if (packageName == null || "".equals(packageName))
+            return false;
+        try {
+            ApplicationInfo info = context.getPackageManager().getApplicationInfo(packageName, PackageManager.GET_UNINSTALLED_PACKAGES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
         }
     }
 
