@@ -22,7 +22,7 @@ import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.busilinq.ui.home.FragmentHome;
 import com.busilinq.ui.mine.FragmentMine;
 import com.busilinq.widget.MLoadingDialog;
-import com.chenyx.libs.utils.Toasts;
+import com.chenyx.libs.utils.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -62,7 +62,6 @@ public class MainActivity extends BaseActivity {
     RadioButton mMine;
 
     private CompoundButton selectView;
-
 
 
     @Override
@@ -161,7 +160,6 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
     private long mKeyDownTime = 0;
 
     @Override
@@ -171,7 +169,7 @@ public class MainActivity extends BaseActivity {
                 MApplication.getInstance().appManager.finishAllActivity();
                 System.exit(0);
             } else {
-                Toasts.showShort(MainActivity.this, R.string.press_one_more_to_exit);
+                ToastUtils.showShort(getResources().getString(R.string.press_one_more_to_exit));
             }
             mKeyDownTime = System.currentTimeMillis();
             return true;

@@ -5,14 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
-import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.data.entity.InfoNoticeEntity;
-import com.chenyx.libs.glide.GlideShowImageUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,11 +27,6 @@ public class InfoNoticeAdapter extends AbstractRecyclerViewAdapter<InfoNoticeEnt
 
     public InfoNoticeAdapter(Context context) {
         super(context);
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
     }
 
     @Override

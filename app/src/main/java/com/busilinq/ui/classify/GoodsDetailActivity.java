@@ -1,6 +1,5 @@
 package com.busilinq.ui.classify;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
@@ -20,20 +18,17 @@ import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.GoodsDetailEntity;
 import com.busilinq.data.entity.GoodsImgEntity;
 import com.busilinq.data.entity.UserFavoriteEntity;
-import com.busilinq.data.event.MenuEvent;
 import com.busilinq.presenter.classify.GoodsDetailPresenter;
 import com.busilinq.ui.PhotoActivity;
 import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.widget.MLoadingDialog;
-import com.chenyx.libs.glide.GlideShowImageUtils;
+import com.busilinq.widget.NetworkImageHolderView;
 import com.chenyx.libs.picasso.PicassoLoader;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -61,6 +56,23 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
      */
     @BindView(R.id.iv_collection)
     ImageView mIvCollection;
+    /**
+     * 收藏文本
+     */
+    @BindView(R.id.tv_collection)
+    TextView mTvCollection;
+
+    /**
+     * 购物车图标
+     */
+    @BindView(R.id.iv_cart)
+    ImageView mIvCart;
+    /**
+     * 购物车文本
+     */
+    @BindView(R.id.tv_cart)
+    TextView mTvCart;
+
     /**
      * 商品名称
      */
@@ -138,6 +150,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         mTitle.setText(R.string.goods_detail);
         goodsId = getIntent().getIntExtra("goodsId", -1);
         mIvCollection.setBackgroundResource(R.mipmap.ic_collection_normal);
+        mIvCart.setBackgroundResource(R.mipmap.ic_cart_normal);
 
         ProgressLayout headerView = new ProgressLayout(this);
         refreshLayout.setHeaderView(headerView);
@@ -197,7 +210,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
                 return new NetworkImageHolderView();
             }
         }, bList).setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focus})
-                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
         mCBanner.setCanLoop(true);
         mCBanner.setcurrentitem(bannerIndex);
         mCBanner.startTurning(scrollDuration);
@@ -215,6 +228,21 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
                 JumpUtil.overlay(mContext, PhotoActivity.class, b, Intent.FLAG_ACTIVITY_NEW_TASK);
             }
         });
+    }
+
+    // 开始自动翻页
+    @Override
+    public void onResume() {
+        super.onResume();
+        mCBanner.startTurning(scrollDuration);
+    }
+
+    // 停止自动翻页
+    @Override
+    public void onPause() {
+        super.onPause();
+        //停止翻页
+        mCBanner.stopTurning();
     }
 
 
@@ -241,7 +269,8 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
                 break;
             //购物车
             case R.id.ll_cart:
-                EventBus.getDefault().post(new MenuEvent(2));
+                mIvCart.setBackgroundResource(R.mipmap.ic_cart_pressed);
+                mTvCart.setTextColor(getResources().getColor(R.color.colorTabChecked));
                 //目的是为了跳转到购物车fragment
                 setResult(10);
                 finish();
@@ -274,23 +303,6 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
 
     }
 
-    public class NetworkImageHolderView implements Holder<GoodsImgEntity> {
-        private ImageView imageView;
-
-        @Override
-        public View createView(Context context) {
-            //你可以通过layout文件来创建，也可以像我一样用代码创建，不一定是Image，任何控件都可以进行翻页
-            imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            return imageView;
-        }
-
-        @Override
-        public void UpdateUI(Context context, int position, GoodsImgEntity data) {
-            imageView.setImageResource(R.mipmap.default_error);
-            GlideShowImageUtils.displayNetImage(context, data.getImage(), imageView, R.mipmap.default_error);
-        }
-    }
 
     @Override
     public void Success(CartEntity data) {
@@ -303,16 +315,19 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         if (type == 0) {
             isFavorite = true;
             mIvCollection.setBackgroundResource(R.mipmap.ic_collection_pressed);
+            mTvCollection.setTextColor(getResources().getColor(R.color.colorTabChecked));
         }
         //添加收藏
         else if (type == 1) {
             isFavorite = true;
             mIvCollection.setBackgroundResource(R.mipmap.ic_collection_pressed);
+            mTvCollection.setTextColor(getResources().getColor(R.color.colorTabChecked));
         }
         //取消收藏
         else if (type == -1) {
             isFavorite = false;
             mIvCollection.setBackgroundResource(R.mipmap.ic_collection_normal);
+            mTvCollection.setTextColor(getResources().getColor(R.color.colorTabNormal));
         }
     }
 

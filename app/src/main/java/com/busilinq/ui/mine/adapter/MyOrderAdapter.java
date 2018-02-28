@@ -13,10 +13,9 @@ import android.widget.TextView;
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.cache.UserCache;
-import com.busilinq.ui.ToDevelopedActivity;
+import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.ui.mine.order.MyOrdersActivity;
 import com.chenyx.libs.utils.JumpUtil;
-import com.chenyx.libs.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +34,9 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
 
 
     private final String[] tvs = {"我的订单", "退货单", "付款单", "发货单"};
+
+
+
 
     private final int[] ic = {R.mipmap.ic_goods_order, R.mipmap.ic_return_order,
             R.mipmap.ic_payment_order, R.mipmap.ic_delivery_order};
@@ -60,8 +62,6 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
             ApplicationViewHolder appHolder = ((ApplicationViewHolder) holder);
             appHolder.tvName.setText(tvs[position]);
             appHolder.ivImage.setImageResource(ic[position]);
-
-
             JumpAcivity(position, appHolder);
         }
     }
@@ -99,7 +99,7 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                         if (UserCache.get() != null) {
                             JumpUtil.overlay(mContext, MyOrdersActivity.class);
                         } else {
-                            ToastUtils.showShort("请先登录");
+                            JumpUtil.overlay(mContext, LoginActivity.class);
                         }
                     }
                 });
@@ -111,11 +111,11 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                     @Override
                     public void onClick(View v) {
                         if (UserCache.get() != null) {
-                            Bundle bundle=new Bundle();
-                            bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.REFUND);
-                            JumpUtil.overlay(mContext, MyOrdersActivity.class,bundle);
+                            Bundle bundle = new Bundle();
+                            bundle.putString(MyOrdersActivity.class.getSimpleName(), MyOrdersActivity.REFUND);
+                            JumpUtil.overlay(mContext, MyOrdersActivity.class, bundle);
                         } else {
-                            ToastUtils.showShort("请先登录");
+                            JumpUtil.overlay(mContext, LoginActivity.class);
                         }
 
                     }
@@ -128,11 +128,11 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                     @Override
                     public void onClick(View v) {
                         if (UserCache.get() != null) {
-                            Bundle bundle=new Bundle();
-                            bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.WAIT_SEND);
-                            JumpUtil.overlay(mContext, MyOrdersActivity.class,bundle);
+                            Bundle bundle = new Bundle();
+                            bundle.putString(MyOrdersActivity.class.getSimpleName(), MyOrdersActivity.WAIT_SEND);
+                            JumpUtil.overlay(mContext, MyOrdersActivity.class, bundle);
                         } else {
-                            ToastUtils.showShort("请先登录");
+                            JumpUtil.overlay(mContext, LoginActivity.class);
                         }
 
                     }
@@ -145,11 +145,11 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
                     @Override
                     public void onClick(View v) {
                         if (UserCache.get() != null) {
-                            Bundle bundle=new Bundle();
-                            bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.WAIT_RECEIVE);
-                            JumpUtil.overlay(mContext, MyOrdersActivity.class,bundle);
+                            Bundle bundle = new Bundle();
+                            bundle.putString(MyOrdersActivity.class.getSimpleName(), MyOrdersActivity.WAIT_RECEIVE);
+                            JumpUtil.overlay(mContext, MyOrdersActivity.class, bundle);
                         } else {
-                            ToastUtils.showShort("请先登录");
+                            JumpUtil.overlay(mContext, LoginActivity.class);
                         }
 
                     }

@@ -21,7 +21,6 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -98,7 +97,6 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_goods_list);
-        ButterKnife.bind(this);
     }
 
     @Override
@@ -112,7 +110,7 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
 
     @Override
     protected void initUI() {
-        classifyId = getIntent().getStringExtra("classifyId" );
+        classifyId = getIntent().getStringExtra("classifyId");
         cateName = getIntent().getStringExtra("cateName");
         mEtSearch.setText(cateName + "");
 
@@ -190,7 +188,7 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
         Bundle bundle = new Bundle();
         bundle.putString("classifyId", classifyId);
         bundle.putString("cateName", cateName);
-        
+
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();

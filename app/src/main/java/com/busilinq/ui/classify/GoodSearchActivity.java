@@ -88,6 +88,14 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
      * 名称
      */
     private String Name;
+    /**
+     * 排序方式ASC DESC逆序
+     */
+    private String sort = "DESC";
+    /**
+     * 排序字段按人气(销量):salesVolume,按价格:price,按时间:update_time
+     */
+    private String field;
 
     @Override
     protected GoodsSearchPresenter createPresenter() {
@@ -138,14 +146,14 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
                 page = 1;
                 state = STATE_PULL_REFRESH;
                 Name = mEtSearch.getText().toString().trim();
-                mPresenter.getGoodsSearchList(UserCache.GetUserId(), classifyId, page, Name);
+                mPresenter.getGoodsSearchList(UserCache.GetUserId(), classifyId, page, Name, sort, field);
             }
 
             @Override
             public void onLoadMore() {
                 state = STATE_LOAD_MORE;
                 Name = mEtSearch.getText().toString().trim();
-                mPresenter.getGoodsSearchList(UserCache.GetUserId(), classifyId, page, Name);
+                mPresenter.getGoodsSearchList(UserCache.GetUserId(), classifyId, page, Name, sort, field);
             }
         });
     }
@@ -183,17 +191,44 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
     }
 
 
-    @OnClick({R.id.tv_back, R.id.et_search, R.id.iv_search})
+    @OnClick({R.id.tv_back, R.id.iv_search, R.id.tv_popularity, R.id.tv_time, R.id.tv_price})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();
                 break;
-            case R.id.et_search:
-                mDataList.setRefreshing(true);
-                break;
             case R.id.iv_search:
                 mDataList.setRefreshing(true);
+                break;
+            //人气
+            case R.id.tv_popularity:
+                field = "salesVolume";
+                sort = mPopularity.getTag().toString();
+                mDataList.setRefreshing(true);
+                if (sort.equals("ASC"))
+                    mPopularity.setTag("DESC");
+                else
+                    mPopularity.setTag("ASC");
+                break;
+            //时间
+            case R.id.tv_time:
+                field = "update_time";
+                sort = mTime.getTag().toString();
+                mDataList.setRefreshing(true);
+                if (sort.equals("ASC"))
+                    mTime.setTag("DESC");
+                else
+                    mTime.setTag("ASC");
+                break;
+            //价格
+            case R.id.tv_price:
+                field = "price";
+                sort = mPrice.getTag().toString();
+                mDataList.setRefreshing(true);
+                if (sort.equals("ASC"))
+                    mPrice.setTag("DESC");
+                else
+                    mPrice.setTag("ASC");
                 break;
         }
     }

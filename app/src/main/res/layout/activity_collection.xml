@@ -12,29 +12,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_popularity"
             style="@style/screen_textView_item_style"
+            android:background="@drawable/item_sel"
             android:text="@string/popularity" />
 
         <TextView
             android:id="@+id/tv_time"
             style="@style/screen_textView_item_style"
+            android:background="@drawable/item_sel"
             android:text="@string/time" />
 
         <TextView
             android:id="@+id/tv_price"
             style="@style/screen_textView_item_style"
+            android:background="@drawable/item_sel"
             android:text="@string/price" />
 
     </LinearLayout>
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/xr_data_list"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

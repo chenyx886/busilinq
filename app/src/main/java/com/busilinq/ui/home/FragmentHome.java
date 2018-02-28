@@ -8,6 +8,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,7 +27,6 @@ import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
 import com.busilinq.presenter.home.MainPresenter;
 import com.busilinq.ui.HtmlActivity;
-import com.busilinq.ui.ToDevelopedActivity;
 import com.busilinq.ui.classify.GoodSearchActivity;
 import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.busilinq.ui.classify.SpecialGoodsListActivity;
@@ -46,7 +46,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 
 /**
@@ -213,7 +212,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
                 return new NetworkImageHolderView();
             }
         }, list).setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focus})
-                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
         mCBanner.setCanLoop(true);
         mCBanner.setcurrentitem(bannerIndex);
         mCBanner.startTurning(scrollDuration);
@@ -238,6 +237,23 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
             }
         });
     }
+
+    // 开始自动翻页
+    @Override
+    public void onResume() {
+        super.onResume();
+        //开始自动翻页
+        mCBanner.startTurning(scrollDuration);
+    }
+
+    // 停止自动翻页
+    @Override
+    public void onPause() {
+        super.onPause();
+        //停止翻页
+        mCBanner.stopTurning();
+    }
+
 
 
     public class NetworkImageHolderView implements Holder<BannerEntity> {
@@ -274,7 +290,15 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
      * 菜单点击 跳转事件
      */
     private void BindViewItem() {
-
+        FrameLayout search = view.findViewById(R.id.fl_search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("cateName", "请输入商品名称");
+                JumpUtil.overlay(getActivity(), GoodSearchActivity.class, bundle);
+            }
+        });
         //特价商品
         llSpecialGoods = view.findViewById(R.id.ll_special_goods);
         llSpecialGoods.setOnClickListener(new View.OnClickListener() {
@@ -355,6 +379,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
                 }
             }
         });
+        //信息公告
         llInfoNotice = view.findViewById(R.id.ll_info_notice);
         llInfoNotice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -370,16 +395,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
 
     }
 
-    @OnClick({R.id.fl_search})
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fl_search:
-                Bundle bundle = new Bundle();
-                bundle.putString("cateName", "请输入商品名称");
-                JumpUtil.overlay(getActivity(), GoodSearchActivity.class, bundle);
-                break;
-        }
-    }
 
     @Override
     public void hideProgress() {

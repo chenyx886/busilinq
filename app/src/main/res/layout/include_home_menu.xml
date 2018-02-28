@@ -6,11 +6,17 @@
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
-    <com.bigkoo.convenientbanner.ConvenientBanner
-        android:id="@+id/cb_Banner"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        app:canLoop="true" />
+        android:layout_height="wrap_content">
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/cb_Banner"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:canLoop="true" />
+
+        <include layout="@layout/include_home_search_layout" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
