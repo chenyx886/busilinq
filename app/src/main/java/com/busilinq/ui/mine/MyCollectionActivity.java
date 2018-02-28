@@ -76,8 +76,8 @@ public class MyCollectionActivity extends BaseMvpActivity<MyCollectionPresenter>
     @Override
     protected void initUI() {
         mTitle.setText(R.string.my_collection);
-        tv_confirm.setVisibility(View.VISIBLE);
-        tv_confirm.setText("筛选");
+//        tv_confirm.setVisibility(View.VISIBLE);
+//        tv_confirm.setText("筛选");
 
         mDataList.setLayoutManager(new LinearLayoutManager(this));
         mDataList.setNoMore(true);

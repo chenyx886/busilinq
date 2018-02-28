@@ -177,7 +177,7 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
         }
     }
 
-    @OnClick({R.id.tv_back, R.id.et_search, R.id.iv_search})
+    @OnClick({R.id.tv_back, R.id.et_search, R.id.iv_search,R.id.tv_popularity,R.id.tv_time,R.id.tv_price})
     public void onClick(View v) {
         Bundle bundle = new Bundle();
         bundle.putString("classifyId", classifyId);
@@ -192,6 +192,18 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
                 break;
             case R.id.iv_search:
                 JumpUtil.overlay(this, GoodSearchActivity.class, bundle);
+                break;
+            //人气
+            case R.id.tv_popularity:
+                mDataList.setRefreshing(true);
+                break;
+            //时间
+            case R.id.tv_time:
+                mDataList.setRefreshing(true);
+                break;
+            //价格
+            case R.id.tv_price:
+                mDataList.setRefreshing(true);
                 break;
         }
     }

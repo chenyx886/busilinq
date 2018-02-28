@@ -8,10 +8,10 @@
 
     <include layout="@layout/include_header_layout" />
 
-    <ImageView
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/info_notice_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/about_us"
-        android:scaleType="fitXY"
-        />
+        android:layout_marginTop="10dp" />
+
 </LinearLayout>

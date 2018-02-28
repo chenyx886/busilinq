@@ -324,14 +324,21 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         llBookedGoods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.overlay(getActivity(), ToDevelopedActivity.class);
+                //我订过的
+                if (UserCache.get() != null) {
+                    Bundle bundle=new Bundle();
+                    bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.COMPLETE);
+                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class,bundle);
+                } else {
+                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                }
             }
         });
         llOnlineService = view.findViewById(R.id.ll_online_service);
         llOnlineService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.overlay(getActivity(), ToDevelopedActivity.class);
+                JumpUtil.overlay(getActivity(), OnlineServiceActivity.class);
             }
         });
         llOrderGoods = view.findViewById(R.id.ll_order_goods);
@@ -349,21 +356,35 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
         llPaymentGoods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.overlay(getActivity(), ToDevelopedActivity.class);
+                //付款單（待发货）
+                if (UserCache.get() != null) {
+                    Bundle bundle=new Bundle();
+                    bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.WAIT_SEND);
+                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class,bundle);
+                } else {
+                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                }
             }
         });
         llDeliveryGoods = view.findViewById(R.id.ll_delivery_goods);
         llDeliveryGoods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.overlay(getActivity(), ToDevelopedActivity.class);
+                //发货单（待接收）
+                if (UserCache.get() != null) {
+                    Bundle bundle=new Bundle();
+                    bundle.putString(MyOrdersActivity.class.getSimpleName(),MyOrdersActivity.WAIT_RECEIVE);
+                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class,bundle);
+                } else {
+                    JumpUtil.startForResult(getActivity(), LoginActivity.class, LoginActivity.REQUEST, null);
+                }
             }
         });
         llInfoNotice = view.findViewById(R.id.ll_info_notice);
         llInfoNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.overlay(getActivity(), ToDevelopedActivity.class);
+                JumpUtil.overlay(getActivity(), InfoNoticeActivity.class);
             }
         });
     }

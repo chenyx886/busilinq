@@ -5,6 +5,7 @@ import com.busilinq.data.BaseData;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
+import com.busilinq.data.entity.InfoNoticeEntity;
 
 import java.util.List;
 
@@ -41,4 +42,14 @@ public interface HomeApi {
      */
     @GET("/api/goods/recommend")
     Observable<BaseData<PageEntity<HomeGoodsEntity>>> recommend(@Query("page") int page, @Query("limit") int limit);
+
+    /**
+     * 信息公告列表
+     * @param userId
+     * @param page
+     * @param limit
+     * @return
+     */
+    @GET("api/common/affache")
+    Observable<BaseData<PageEntity<InfoNoticeEntity>>> getInfoNoticeList(@Query("userId") int userId, @Query("page") int page, @Query("limit") int limit);
 }

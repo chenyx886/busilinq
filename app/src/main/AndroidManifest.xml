@@ -201,13 +201,23 @@
         <activity
             android:name="com.foamtrace.photopicker.PhotoPreviewActivity"
             android:theme="@style/PhotoPickerTheme" />
-
-
         <activity
             android:name=".ui.mine.order.MyOrdersActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.mine.order.MyOrdersDetailActivity"
+            android:screenOrientation="portrait" />
+        <!--消息公告-->
+        <activity
+            android:name=".ui.home.InfoNoticeActivity"
+            android:screenOrientation="portrait" />
+        <!--消息公告详情-->
+        <activity
+            android:name=".ui.home.InfoNoticeDetailActivity"
+            android:screenOrientation="portrait" />
+        <!--在线客服-->
+        <activity
+            android:name=".ui.home.OnlineServiceActivity"
             android:screenOrientation="portrait" />
 
         <!--新商盟界面-->

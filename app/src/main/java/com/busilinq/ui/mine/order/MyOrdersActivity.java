@@ -22,10 +22,18 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
+ * 我的订单（我订过的，退货单）
  * Created by yu on 2018/1/31.
  */
 
 public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implements IMyOrdersView {
+    public static final String WAIT_PAY = "WAIT_PAY";//待审核
+    public static final String WAIT_OUT = "WAIT_OUT";//待出库
+    public static final String WAIT_SEND = "WAIT_SEND";//待发货
+    public static final String WAIT_RECEIVE = "WAIT_RECEIVE";//待接收
+    public static final String COMPLETE = "COMPLETE";//完成
+    public static final String REFUND = "REFUND";//退款
+    public static final String UNUSUAL = "UNUSUAL";//异常
     /**
      * 标题
      */
@@ -41,6 +49,7 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
     private static int STATE_LOAD_MORE = 0X10;
     private static int STATE_PULL_REFRESH = 0X20;
     private int page = 1;
+    private String seachType;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -53,7 +62,7 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
         super.onResume();
         page = 1;
         state = STATE_PULL_REFRESH;
-        mPresenter.getOrdersList(UserCache.GetUserId(), page);
+        mPresenter.getOrdersList(UserCache.GetUserId(), page, seachType);
     }
 
     @Override
@@ -63,7 +72,22 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
 
     @Override
     protected void initUI() {
+        String tilteValue = getIntent().getStringExtra(MyOrdersActivity.class.getSimpleName());
         mTitle.setText(R.string.my_orders_title);
+        if (tilteValue != null && tilteValue.equals(COMPLETE)) {
+            seachType = COMPLETE;
+        } else if (tilteValue != null && tilteValue.equals(WAIT_SEND)) {
+            //代发货就是已付款的单子
+            seachType = WAIT_SEND;
+        } else if (tilteValue != null && tilteValue.equals(WAIT_RECEIVE)) {
+            //代接收就是发货单
+            seachType = WAIT_RECEIVE;
+        }
+        else if (tilteValue != null && tilteValue.equals(REFUND)) {
+            //退款单
+            seachType = REFUND;
+        }
+
         mDataList.setLayoutManager(new LinearLayoutManager(this));
         mDataList.setNoMore(true);
         mDataList.setLoadingMoreEnabled(false);
@@ -77,13 +101,13 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
             public void onRefresh() {
                 page = 1;
                 state = STATE_PULL_REFRESH;
-                mPresenter.getOrdersList(UserCache.GetUserId(), page);
+                mPresenter.getOrdersList(UserCache.GetUserId(), page, seachType);
             }
 
             @Override
             public void onLoadMore() {
                 state = STATE_LOAD_MORE;
-                mPresenter.getOrdersList(UserCache.GetUserId(), page);
+                mPresenter.getOrdersList(UserCache.GetUserId(), page, seachType);
             }
         });
         mDataList.setRefreshing(true);
