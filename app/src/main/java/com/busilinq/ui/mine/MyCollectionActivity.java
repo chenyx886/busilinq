@@ -111,7 +111,6 @@ public class MyCollectionActivity extends BaseMvpActivity<MyCollectionPresenter>
                         optionCenterDialog.dismiss();
                     }
                 });
-
             }
         });
 

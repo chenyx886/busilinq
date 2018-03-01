@@ -19,8 +19,8 @@
         android:gravity="bottom"
         android:maxLines="2"
         android:padding="10dp"
+        android:visibility="gone"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size14"
-        android:visibility="gone" />
+        android:textSize="@dimen/text_size14"  />
 
 </RelativeLayout>

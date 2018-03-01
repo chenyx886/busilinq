@@ -22,7 +22,7 @@ import com.busilinq.presenter.classify.GoodsDetailPresenter;
 import com.busilinq.ui.PhotoActivity;
 import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.widget.MLoadingDialog;
-import com.busilinq.widget.NetworkImageHolderView;
+import com.busilinq.widget.NetworkImageGoodsDetail;
 import com.chenyx.libs.picasso.PicassoLoader;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
@@ -204,10 +204,10 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
 
     private void BindBanner(final List<GoodsImgEntity> bList) {
         mCBanner.stopTurning();
-        mCBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
+        mCBanner.setPages(new CBViewHolderCreator<NetworkImageGoodsDetail>() {
             @Override
-            public NetworkImageHolderView createHolder() {
-                return new NetworkImageHolderView();
+            public NetworkImageGoodsDetail createHolder() {
+                return new NetworkImageGoodsDetail();
             }
         }, bList).setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focus})
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);

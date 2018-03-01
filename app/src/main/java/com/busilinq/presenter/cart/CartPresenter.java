@@ -1,8 +1,6 @@
 package com.busilinq.presenter.cart;
 
 
-import android.util.Log;
-
 import com.busilinq.contract.cart.ICartView;
 import com.busilinq.data.BaseData;
 import com.busilinq.data.JsonRequestBody;
@@ -13,7 +11,6 @@ import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.presenter.BasePresenter;
-import com.busilinq.ui.cart.adapter.CartAdapter;
 import com.chenyx.libs.utils.SysConfig;
 import com.chenyx.libs.utils.ToastUtils;
 
@@ -38,11 +35,6 @@ public class CartPresenter extends BasePresenter<ICartView> {
     }
 
     /**
-     * 数据适配器
-     */
-    private CartAdapter mAdapter;
-
-    /**
      * 获取订单列表
      *
      * @param page
@@ -51,11 +43,7 @@ public class CartPresenter extends BasePresenter<ICartView> {
         addSubscription(RetrofitApiFactory.getCartApi().cart(page, SysConfig.limit, UserCache.GetUserId()), new SubscriberCallBack<PageEntity<MainCartEntity>>() {
             @Override
             protected void onSuccess(PageEntity<MainCartEntity> hGoodsList) {
-                if (hGoodsList.getLimit() == 0) {
-                    MvpView.showEmptyView();
-                } else {
-                    MvpView.CartList(hGoodsList);
-                }
+                MvpView.CartList(hGoodsList);
             }
 
             @Override
@@ -67,6 +55,8 @@ public class CartPresenter extends BasePresenter<ICartView> {
     }
 
     /**
+     * 修改购物车
+     *
      * @param cartId
      * @param number 修改数量
      * @param price  价格

@@ -18,6 +18,15 @@
     <color name="button_default_bg">#ffffff</color>
     <color name="button_press_bg">#e6eff5</color>
 
+    <color name="default_window_bg">#ffffffff</color>
+    <color name="write_comment_divider_color">#ffe6e6e6</color>
+    <color name="ssxinheihui1">#ff222222</color>
+    <color name="ssxinzi3">@color/ssxinheihui3</color>
+    <color name="ssxinheihui3">#ff999999</color>
+    <color name="subscribe_category_btn_bg_normal">#ffd43d3d</color>
+    <color name="ssxinjiangexian1">#ffe8e8e8</color>
+    <color name="ssxinxian1">@color/ssxinjiangexian1</color>
+
     <color name="page_title_color">#333</color>
     <color name="page_text_color">#999</color>
     <color name="HintColor">#cbcbcbcb</color>

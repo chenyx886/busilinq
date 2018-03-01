@@ -3,7 +3,6 @@ package com.busilinq.ui.mine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,6 +17,8 @@ import com.busilinq.ui.mine.adapter.AddressAdapter;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.Logs;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
@@ -46,10 +47,9 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
      * 数据列表
      */
     @BindView(R.id.xr_data_list)
-    RecyclerView recyclerView;
+    XRecyclerView recyclerView;
 
     private AddressAdapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
 
     @Override
@@ -66,20 +66,36 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
     @Override
     protected void initUI() {
         mTitle.setText(R.string.my_receiv_address);
-        recyclerView.setBackgroundColor(getResources().getColor(R.color.white));
-        //LayoutManager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setNoMore(true);
+        recyclerView.setLoadingMoreEnabled(false);
+        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallScaleMultiple);
+        recyclerView.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
 
         mAdapter = new AddressAdapter(this);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnclickListener(this);
+
+        recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+
+            @Override
+            public void onRefresh() {
+                mPresenter.getAddressList(UserCache.GetUserId());
+            }
+
+            @Override
+            public void onLoadMore() {
+                mPresenter.getAddressList(UserCache.GetUserId());
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.getAddressList(UserCache.GetUserId());
+        recyclerView.setRefreshing(true);
     }
 
     @OnClick({R.id.tv_back, R.id.add_address_layout})
@@ -105,6 +121,8 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
     @Override
     public void hideProgress() {
         MLoadingDialog.dismiss();
+        recyclerView.refreshComplete();
+        recyclerView.loadMoreComplete();
     }
 
     @Override

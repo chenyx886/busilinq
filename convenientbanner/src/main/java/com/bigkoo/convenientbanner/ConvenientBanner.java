@@ -89,10 +89,9 @@ public class ConvenientBanner<T> extends LinearLayout {
     }
 
     private void init(Context context) {
-        View hView = LayoutInflater.from(context).inflate(
-                R.layout.include_viewpager, this, true);
-        viewPager = (CBLoopViewPager) hView.findViewById(R.id.cbLoopViewPager);
-        loPageTurningPoint = (ViewGroup) hView.findViewById(R.id.loPageTurningPoint);
+        View hView = LayoutInflater.from(context).inflate(R.layout.include_viewpager, this, true);
+        viewPager = hView.findViewById(R.id.cbLoopViewPager);
+        loPageTurningPoint = hView.findViewById(R.id.loPageTurningPoint);
         initViewPagerScroll();
         adSwitchTask = new AdSwitchTask(this);
     }
@@ -102,7 +101,7 @@ public class ConvenientBanner<T> extends LinearLayout {
         private final WeakReference<ConvenientBanner> reference;
 
         AdSwitchTask(ConvenientBanner convenientBanner) {
-            this.reference = new WeakReference<ConvenientBanner>(convenientBanner);
+            this.reference = new WeakReference<>(convenientBanner);
         }
 
         @Override
@@ -170,8 +169,7 @@ public class ConvenientBanner<T> extends LinearLayout {
             mPointViews.add(pointView);
             loPageTurningPoint.addView(pointView);
         }
-        pageChangeListener = new CBPageChangeListener(mPointViews,
-                page_indicatorId);
+        pageChangeListener = new CBPageChangeListener(mPointViews, page_indicatorId);
         viewPager.setOnPageChangeListener(pageChangeListener);
         pageChangeListener.onPageSelected(viewPager.getRealItem());
         if (onPageChangeListener != null)

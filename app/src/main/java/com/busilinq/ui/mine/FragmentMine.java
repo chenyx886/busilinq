@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpFragment;
 import com.busilinq.contract.mine.IMineView;
@@ -20,6 +21,7 @@ import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.mine.MinePresenter;
 import com.busilinq.ui.mine.adapter.MyOrderAdapter;
+import com.busilinq.ui.mine.order.MyOrdersActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.glide.GlideShowImageUtils;
 import com.chenyx.libs.utils.JumpUtil;
@@ -62,6 +64,8 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
     @BindView(R.id.iv_user_ico)
     ImageView mUserIco;
 
+    private MyOrderAdapter myOrderAdapter;
+
     @Override
     protected MinePresenter createPresenter() {
         return new MinePresenter(this);
@@ -79,9 +83,42 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
 
     @Override
     protected void initUI() {
-        mOrderItem.setAdapter(new MyOrderAdapter(getContext()));
+        myOrderAdapter = new MyOrderAdapter(getContext());
+        mOrderItem.setAdapter(myOrderAdapter);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
         mOrderItem.setLayoutManager(staggeredGridLayoutManager);
+        myOrderAdapter.setOnItemClickListener(new AbstractRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                if (UserCache.get() == null) {
+                    JumpUtil.startForResult(FragmentMine.this, LoginActivity.class, LoginActivity.REQUEST, null);
+                    return;
+                }
+                //我的订单
+                if (position == 0) {
+                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class);
+                }
+                //退货单
+                else if (position == 1) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(MyOrdersActivity.class.getSimpleName(), MyOrdersActivity.REFUND);
+                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class, bundle);
+                }
+                //付款单
+                else if (position == 2) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(MyOrdersActivity.class.getSimpleName(), MyOrdersActivity.WAIT_SEND);
+                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class, bundle);
+                }
+                //发货单
+                else if (position == 3) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(MyOrdersActivity.class.getSimpleName(), MyOrdersActivity.WAIT_RECEIVE);
+                    JumpUtil.overlay(getActivity(), MyOrdersActivity.class, bundle);
+                }
+            }
+        });
+
         initData();
     }
 
