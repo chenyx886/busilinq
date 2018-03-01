@@ -327,7 +327,8 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
             mAdapter.setData(cartList.getList());
             if (cartList.getList().size() > 0)
                 mllSettlement.setVisibility(View.VISIBLE);
-
+            else
+                mllSettlement.setVisibility(View.GONE);
         } else if (state == STATE_LOAD_MORE && cartList.getLimit() > 0) {
             mAdapter.insert(mAdapter.getItemCount(), cartList.getList());
         } else {
