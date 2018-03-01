@@ -129,7 +129,10 @@
     <string name="cleanCache">清除缓存</string>
     <string name="app_update">当前版本</string>
     <string name="app_quit">退出登录</string>
-
+    <string name="pay_unionpay">银联支付</string>
+    <string name="pay_wechat">微信支付</string>
+    <string name="pay_alipay">支付宝支付</string>
+    <string name="pay_transfer_accounts">线下转账</string>
 
     <string name="set_user_avatar">设置个人头像</string>
     <string name="next_step">下一步</string>

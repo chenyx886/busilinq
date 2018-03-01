@@ -223,6 +223,10 @@
         <activity
             android:name=".ui.home.OnlineServiceActivity"
             android:screenOrientation="portrait" />
+        <!--支付选择界面-->
+        <activity
+            android:name=".ui.mine.order.PaymentActivity"
+            android:screenOrientation="portrait" />
 
         <!--新商盟界面-->
         <activity

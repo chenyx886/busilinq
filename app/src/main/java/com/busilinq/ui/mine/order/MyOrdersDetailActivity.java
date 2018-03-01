@@ -175,7 +175,7 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
                         .show();
                 break;
             case R.id.btn_pay:
-                JumpUtil.overlay(this, ToDevelopedActivity.class);
+                JumpUtil.overlay(this, PaymentActivity.class);
                 break;
         }
     }
