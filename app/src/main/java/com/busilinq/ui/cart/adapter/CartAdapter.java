@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.data.event.MenuEvent;
 import com.chenyx.libs.utils.ToastUtils;
@@ -144,11 +145,23 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
             final EmptyViewHolder vHolder = (EmptyViewHolder) holder;
             vHolder.img.setBackgroundResource(R.mipmap.empty_cart);
             vHolder.msgTv.setText(mContext.getResources().getText(R.string.cart_empty));
+
+            if (UserCache.get() != null) {
+                vHolder.msgTv.setVisibility(View.VISIBLE);
+                vHolder.mPurchase.setText(mContext.getResources().getText(R.string.start_to_buy));
+            } else {
+                vHolder.msgTv.setText("");
+                vHolder.mPurchase.setText(mContext.getResources().getText(R.string.please_login));
+            }
             vHolder.mPurchase.setVisibility(View.VISIBLE);
             vHolder.mPurchase.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EventBus.getDefault().post(new MenuEvent(1));
+                    if (UserCache.get() != null) {
+                        EventBus.getDefault().post(new MenuEvent(1));
+                    } else {
+                        onItemViewClickListener.onViewClick(v, position);
+                    }
                 }
             });
         }

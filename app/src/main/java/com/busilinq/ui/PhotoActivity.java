@@ -2,6 +2,7 @@ package com.busilinq.ui;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -11,16 +12,18 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bm.library.PhotoView;
 import com.busilinq.R;
-import com.busilinq.base.BaseActivity;
 import com.busilinq.ulits.FileUtils;
 import com.chenyx.libs.utils.ToastUtils;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.squareup.picasso.Picasso;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import java.io.File;
 
@@ -35,7 +38,7 @@ import java.io.File;
  * Update Remark：
  */
 
-public class PhotoActivity extends BaseActivity implements View.OnClickListener {
+public class PhotoActivity extends RxAppCompatActivity implements View.OnClickListener {
     private ImageView crossIv;
     private ViewPager mPager;
     private ImageView loadingIv;
@@ -52,11 +55,12 @@ public class PhotoActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setTranslucentStatus(R.color.cate_color);
         setContentView(R.layout.activity_photo);
+        initUI();
     }
 
-    @Override
-    protected void initUI() {
+    private void initUI() {
         imageUrls = getIntent().getStringArrayExtra("imageUrls");
         curImageUrl = getIntent().getStringExtra("curImageUrl");
         initialedPositions = new int[imageUrls.length];
@@ -270,15 +274,32 @@ public class PhotoActivity extends BaseActivity implements View.OnClickListener 
     }
 
 
-    @Override
-    public void showProgress(String message) {
-
+    /**
+     * 沉浸式状态栏
+     */
+    protected void setTranslucentStatus(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintResource(color);
+        }
     }
 
-    @Override
-    public void hideProgress() {
 
+    @TargetApi(19)
+    protected void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
+
 
     @Override
     protected void onDestroy() {

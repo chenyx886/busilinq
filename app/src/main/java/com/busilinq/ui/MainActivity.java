@@ -108,6 +108,7 @@ public class MainActivity extends RxAppCompatActivity {
         android.support.v4.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.commit();
+
         if (menuEvent.getIndex() == 1) {
             mHome.setChecked(true);
         } else if (menuEvent.getIndex() == 2) {
@@ -126,7 +127,6 @@ public class MainActivity extends RxAppCompatActivity {
      */
 
     private void showFragment(CompoundButton curView) {
-
         if (selectView != null) {
             selectView.setChecked(false);
         }
@@ -149,7 +149,6 @@ public class MainActivity extends RxAppCompatActivity {
      * @param lastView
      */
     private void hideFragment(CompoundButton lastView) {
-
         if (lastView != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -174,6 +173,7 @@ public class MainActivity extends RxAppCompatActivity {
         } else {
             hideFragment(buttonView);
         }
+
     }
 
 

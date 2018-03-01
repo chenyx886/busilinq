@@ -122,7 +122,8 @@
         <!--商品图片放大-->
         <activity
             android:name=".ui.PhotoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/PhotoPickerTheme" />
         <!--外部连接-->
         <activity
             android:name=".ui.HtmlActivity"

@@ -204,9 +204,13 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == getActivity().RESULT_OK && requestCode == UpdateAvatarActivity.REQUEST) {
             mPresenter.getUserInfo(UserCache.GetUserId(), "");
-        } else {
-            initData();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
     }
 
     /**

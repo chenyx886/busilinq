@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,9 +26,11 @@ import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UploadEntity;
 import com.busilinq.data.entity.UserEntity;
 import com.busilinq.presenter.mine.UpdateAvatarPresenter;
+import com.busilinq.ui.PhotoActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.glide.GlideShowImageUtils;
 import com.chenyx.libs.utils.Files;
+import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 import com.chenyx.libs.utils.Toasts;
 import com.foamtrace.photopicker.PhotoPickerActivity;
@@ -98,11 +101,23 @@ public class UpdateAvatarActivity extends BaseMvpActivity<UpdateAvatarPresenter>
         GlideShowImageUtils.displayCircleNetImage(mContext, UserCache.get().getHeadimgurl(), mIvAvatar, R.mipmap.ic_user);
     }
 
-    @OnClick({R.id.tv_back, R.id.btn_album_selection})
+    @OnClick({R.id.tv_back, R.id.iv_avatar, R.id.btn_album_selection})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();
+                break;
+            case R.id.iv_avatar:
+                if (!TextUtils.isEmpty(UserCache.get().getHeadimgurl())) {
+                    String imageUrl[] = new String[1];
+                    imageUrl[0] = UserCache.get().getHeadimgurl();
+                    Bundle b = new Bundle();
+                    b.putStringArray("imageUrls", imageUrl);
+                    b.putString("curImageUrl", UserCache.get().getHeadimgurl());
+                    JumpUtil.overlay(mContext, PhotoActivity.class, b, Intent.FLAG_ACTIVITY_NEW_TASK);
+                } else {
+                    ToastUtils.showShort("请先上传头像");
+                }
                 break;
             case R.id.btn_album_selection:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED

@@ -26,7 +26,6 @@ import com.busilinq.presenter.cart.CartPresenter;
 import com.busilinq.ui.cart.adapter.CartAdapter;
 import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.busilinq.ui.mine.LoginActivity;
-import com.busilinq.xsm.ulits.Logger;
 import com.busilinq.xsm.ulits.StringParse;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
@@ -125,8 +124,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         if (!hidden) {
             if (UserCache.getCartRefresh()) {
                 UserCache.putCartRefresh(false);
-                page = 1;
-                mPresenter.getOrderList(page);
+                mDataList.setRefreshing(true);
             }
         }
     }
@@ -159,14 +157,13 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
             UserCache.putCartRefresh(false);
             mDataList.setRefreshing(true);
         }
+        if (resultCode == FragmentCart.this.getActivity().RESULT_OK && requestCode == LoginActivity.REQUEST) {
+            mDataList.setRefreshing(true);
+        }
     }
 
     @Override
     protected void initUI() {
-        Logger.e("initUI----");
-        if (UserCache.get() == null) {
-            JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
-        }
         mTitle.setText("购物车");
         mEdit.setVisibility(View.GONE);
         mEdit.setText("编辑");
@@ -201,6 +198,12 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 Bundle bundle = new Bundle();
                 bundle.putInt("goodsId", mAdapter.getItem(position).getCart().getGoodsId());
                 JumpUtil.overlay(getActivity(), GoodsDetailActivity.class, bundle);
+            }
+        });
+        mAdapter.setOnItemViewClickListener(new AbstractRecyclerViewAdapter.OnItemViewClickListener() {
+            @Override
+            public void onViewClick(View view, int position) {
+                JumpUtil.startForResult(FragmentCart.this, LoginActivity.class, LoginActivity.REQUEST, null);
             }
         });
         //长按删除
