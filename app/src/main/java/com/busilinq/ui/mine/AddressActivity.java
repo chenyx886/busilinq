@@ -71,8 +71,9 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNoMore(true);
         recyclerView.setLoadingMoreEnabled(false);
-        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallScaleMultiple);
-        recyclerView.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
+        recyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
+        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallPulse);
+        recyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
 
         mAdapter = new AddressAdapter(this);
         recyclerView.setAdapter(mAdapter);

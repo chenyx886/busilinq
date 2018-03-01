@@ -11,18 +11,13 @@ import android.widget.TextView;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.order.IMyOrdersDetailView;
-import com.busilinq.contract.mine.order.IMyOrdersView;
 import com.busilinq.data.entity.HomeOrderEntity;
-import com.busilinq.presenter.classify.ClassifyPresenter;
-import com.busilinq.presenter.mine.order.MyOrderPresenter;
 import com.busilinq.presenter.mine.order.MyOrdersDetailPresenter;
 import com.busilinq.ui.ToDevelopedActivity;
 import com.busilinq.ui.mine.adapter.MyOrderDetailAdapter;
-import com.busilinq.ui.mine.order.adapter.MyOrdersAdapter;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import butterknife.BindView;

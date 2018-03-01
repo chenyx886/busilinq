@@ -99,6 +99,13 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
                 vHolder.mNum.setText(item.getCart().getNumber() + "");//数量
                 vHolder.mPrice.setText("¥" + item.getGoods().getPrice().getSalesPrice() + "/" + item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
                 showImageView(item.getGoods().getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
+
+                vHolder.mItemPic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onItemClickListener.onItemClick(v, position);
+                    }
+                });
                 vHolder.mAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

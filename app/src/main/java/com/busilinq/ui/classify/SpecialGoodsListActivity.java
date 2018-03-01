@@ -107,8 +107,9 @@ public class SpecialGoodsListActivity extends BaseMvpActivity<SpecialGoodsListPr
         mDataList.setLayoutManager(new LinearLayoutManager(this));
         mDataList.setNoMore(true);
         mDataList.setLoadingMoreEnabled(false);
-        mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallScaleMultiple);
-        mDataList.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
+        mDataList.setArrowImageView(R.mipmap.iconfont_downgrey);
+        mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallPulse);
+        mDataList.setRefreshProgressStyle(ProgressStyle.BallPulse);
 
         mAdapter = new SpecialGoodsAdapter(this);
         mDataList.setAdapter(mAdapter);
@@ -151,8 +152,11 @@ public class SpecialGoodsListActivity extends BaseMvpActivity<SpecialGoodsListPr
         if (state == STATE_PULL_REFRESH) {
             page = 1;
             mAdapter.setData(list.getList());
-        } else if (state == STATE_LOAD_MORE) {
+        } else if (state == STATE_LOAD_MORE && list.getLimit() > 0) {
             mAdapter.insert(mAdapter.getItemCount(), list.getList());
+        } else {
+            if (mDataList != null)
+                mDataList.setNoMore(true);
         }
         ++page;
     }
@@ -170,6 +174,11 @@ public class SpecialGoodsListActivity extends BaseMvpActivity<SpecialGoodsListPr
         } else if (state == STATE_LOAD_MORE) {
             if (mDataList != null)
                 mDataList.loadMoreComplete();
+        }
+        if (mAdapter.getItemCount() - 1 > 0) {
+            mDataList.setLoadingMoreEnabled(true);
+        } else {
+            mDataList.setLoadingMoreEnabled(false);
         }
     }
 

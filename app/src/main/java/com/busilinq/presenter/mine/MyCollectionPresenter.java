@@ -8,7 +8,6 @@ import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.MyCollectionEntity;
 import com.busilinq.presenter.BasePresenter;
 import com.chenyx.libs.utils.SysConfig;
-import com.chenyx.libs.utils.ToastUtils;
 
 /**
  * Company：华科建邺
@@ -25,6 +24,12 @@ public class MyCollectionPresenter extends BasePresenter<MyCollectionView> {
         super(mvpView);
     }
 
+    /**
+     * 收藏列表
+     *
+     * @param userId
+     * @param page
+     */
     public void getMyCollectionList(int userId, int page) {
         addSubscription(RetrofitApiFactory.getMineApi().getMyCollectionList(userId, page, SysConfig.limit), new SubscriberCallBack<PageEntity<MyCollectionEntity>>() {
             @Override
@@ -39,12 +44,17 @@ public class MyCollectionPresenter extends BasePresenter<MyCollectionView> {
         });
     }
 
-    public void deleteMyCollection(final int userId, final int page, String favoriteId) {
+    /**
+     * 删除收藏
+     *
+     * @param userId
+     * @param favoriteId
+     */
+    public void deleteMyCollection(int userId, final int pos, String favoriteId) {
         addSubscription(RetrofitApiFactory.getMineApi().deleteMyCollection(userId, favoriteId, ""), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData response) {
-                ToastUtils.showShort("删除成功");
-                getMyCollectionList(userId, page);
+                MvpView.deleteSuccess(pos);
             }
 
             @Override

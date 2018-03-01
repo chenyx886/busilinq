@@ -14,21 +14,21 @@
         <com.jcodecraeer.xrecyclerview.XRecyclerView
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/len_48" />
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/ll_settlement"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:background="@color/button_default_bg"
-            android:gravity="center_vertical"
-
-            android:orientation="horizontal">
+            android:gravity="center_vertical">
 
             <CheckBox
                 android:id="@+id/check_select"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:button="@null"
                 android:checked="false"
                 android:drawableLeft="@drawable/checkbox_selector"
@@ -41,23 +41,27 @@
             <TextView
                 android:id="@+id/tv_total_money"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/check_select"
+                android:gravity="center"
                 android:text="¥0"
                 android:textColor="@color/colorTabChecked"
                 android:textSize="@dimen/text_size14" />
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/btn_settlement"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:background="@drawable/button_shap_square"
+                android:text="@string/go_to_pay"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size18" />
+        </RelativeLayout>
 
-        <Button
-            android:id="@+id/btn_settlement"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/button_shap_square"
-            android:text="@string/go_to_pay"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size18" />
+
     </RelativeLayout>
 
 </LinearLayout>

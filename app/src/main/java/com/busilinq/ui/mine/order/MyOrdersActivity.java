@@ -11,7 +11,6 @@ import com.busilinq.contract.mine.order.IMyOrdersView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.HomeOrderEntity;
-import com.busilinq.data.entity.OrderEntity;
 import com.busilinq.presenter.mine.order.MyOrderPresenter;
 import com.busilinq.ui.mine.order.adapter.MyOrdersAdapter;
 import com.busilinq.widget.MLoadingDialog;
@@ -44,11 +43,16 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
      */
     @BindView(R.id.my_orders_data_list)
     XRecyclerView mDataList;
-    private MyOrdersAdapter mMyOrdersAdapter;
+    /**
+     * 订单适配器
+     */
+    private MyOrdersAdapter mAdapter;
+
     private static int state = -1;
     private static int STATE_LOAD_MORE = 0X10;
     private static int STATE_PULL_REFRESH = 0X20;
     private int page = 1;
+
     private String seachType;
 
     @Override
@@ -60,9 +64,7 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
     @Override
     public void onResume() {
         super.onResume();
-        page = 1;
-        state = STATE_PULL_REFRESH;
-        mPresenter.getOrdersList(UserCache.GetUserId(), page, seachType);
+        mDataList.setRefreshing(true);
     }
 
     @Override
@@ -85,8 +87,7 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
             //代接收就是发货单
             seachType = WAIT_RECEIVE;
             mTitle.setText("发货单");
-        }
-        else if (tilteValue != null && tilteValue.equals(REFUND)) {
+        } else if (tilteValue != null && tilteValue.equals(REFUND)) {
             //退货单
             seachType = REFUND;
             mTitle.setText("退货单");
@@ -94,11 +95,13 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
 
         mDataList.setLayoutManager(new LinearLayoutManager(this));
         mDataList.setNoMore(true);
-        mDataList.setLoadingMoreEnabled(true);
-        mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
-        mDataList.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
-        mMyOrdersAdapter = new MyOrdersAdapter(this);
-        mDataList.setAdapter(mMyOrdersAdapter);
+        mDataList.setLoadingMoreEnabled(false);
+        mDataList.setArrowImageView(R.mipmap.iconfont_downgrey);
+        mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallPulse);
+        mDataList.setRefreshProgressStyle(ProgressStyle.BallPulse);
+
+        mAdapter = new MyOrdersAdapter(this);
+        mDataList.setAdapter(mAdapter);
         mDataList.setLoadingListener(new XRecyclerView.LoadingListener() {
 
             @Override
@@ -131,6 +134,11 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
             if (mDataList != null)
                 mDataList.loadMoreComplete();
         }
+        if (mAdapter.getItemCount() - 1 > 0) {
+            mDataList.setLoadingMoreEnabled(true);
+        } else {
+            mDataList.setLoadingMoreEnabled(false);
+        }
     }
 
     @OnClick({R.id.tv_back})
@@ -139,7 +147,6 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
             case R.id.tv_back:
                 finish();
                 break;
-
         }
     }
 
@@ -147,9 +154,12 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
     public void OrdersList(PageEntity<HomeOrderEntity> list) {
         if (state == STATE_PULL_REFRESH) {
             page = 1;
-            mMyOrdersAdapter.setData(list.getList());
-        } else if (state == STATE_LOAD_MORE) {
-            mMyOrdersAdapter.insert(mMyOrdersAdapter.getItemCount(), list.getList());
+            mAdapter.setData(list.getList());
+        } else if (state == STATE_LOAD_MORE && list.getLimit() > 0) {
+            mAdapter.insert(mAdapter.getItemCount(), list.getList());
+        } else {
+            if (mDataList != null)
+                mDataList.setNoMore(true);
         }
         ++page;
     }

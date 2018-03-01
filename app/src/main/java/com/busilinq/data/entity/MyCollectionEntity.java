@@ -9,7 +9,7 @@ package com.busilinq.data.entity;
  * Update Time：
  * Update Remark：
  */
-public class MyCollectionEntity extends BaseEntity{
+public class MyCollectionEntity extends BaseEntity {
     private UserFavoriteEntity favorite;
     private HomeGoodsEntity goods;
 

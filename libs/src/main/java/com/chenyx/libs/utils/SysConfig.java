@@ -13,11 +13,10 @@ public class SysConfig {
     /**
      * 每一页条数
      */
-    public static int limit = 20;
+    public static int limit = 6;
 
 
-    public static final String PATH_ROOT = "/gywgj/"; // 根目录
-    public static final String PATH_DOWNLOAD = PATH_ROOT + "download/"; // 下载文件
+    public static final String PATH_ROOT = "/busilinq/"; // 根目录
 
 
     public static String nullToString(String param) {

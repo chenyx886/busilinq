@@ -82,8 +82,9 @@ public class MyCollectionActivity extends BaseMvpActivity<MyCollectionPresenter>
         mDataList.setLayoutManager(new LinearLayoutManager(this));
         mDataList.setNoMore(true);
         mDataList.setLoadingMoreEnabled(false);
-        mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallScaleMultiple);
-        mDataList.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
+        mDataList.setArrowImageView(R.mipmap.iconfont_downgrey);
+        mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallPulse);
+        mDataList.setRefreshProgressStyle(ProgressStyle.BallPulse);
 
         mAdapter = new MyCollectionAdapter(this);
         mDataList.setAdapter(mAdapter);
@@ -98,16 +99,16 @@ public class MyCollectionActivity extends BaseMvpActivity<MyCollectionPresenter>
         // 长按删除
         mAdapter.setOnItemLongClickListener(new AbstractRecyclerViewAdapter.OnItemLongClickListener() {
             @Override
-            public void onItemLongClick(View itemView, int position) {
-                final ArrayList<String> list = new ArrayList<>();
+            public void onItemLongClick(View itemView, final int pos) {
+                ArrayList<String> list = new ArrayList<>();
                 list.add("删除");
                 final OptionCenterDialog optionCenterDialog = new OptionCenterDialog();
                 optionCenterDialog.show(MyCollectionActivity.this, list);
                 optionCenterDialog.setItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        MyCollectionEntity entity = mAdapter.getItem(position);
-                        mPresenter.deleteMyCollection(UserCache.GetUserId(), page, entity.getFavorite().getFavoriteId());
+                        MyCollectionEntity entity = mAdapter.getItem(pos);
+                        mPresenter.deleteMyCollection(UserCache.GetUserId(), pos, entity.getFavorite().getFavoriteId());
                         optionCenterDialog.dismiss();
                     }
                 });
@@ -144,6 +145,11 @@ public class MyCollectionActivity extends BaseMvpActivity<MyCollectionPresenter>
     }
 
     @Override
+    public void deleteSuccess(int pos) {
+        mAdapter.remove(pos);
+    }
+
+    @Override
     public void showProgress(String message) {
     }
 
@@ -156,6 +162,11 @@ public class MyCollectionActivity extends BaseMvpActivity<MyCollectionPresenter>
             if (mDataList != null)
                 mDataList.loadMoreComplete();
         }
+        if (mAdapter.getItemCount() - 1 > 0) {
+            mDataList.setLoadingMoreEnabled(true);
+        } else {
+            mDataList.setLoadingMoreEnabled(false);
+        }
     }
 
     @Override
@@ -163,8 +174,11 @@ public class MyCollectionActivity extends BaseMvpActivity<MyCollectionPresenter>
         if (state == STATE_PULL_REFRESH) {
             page = 1;
             mAdapter.setData(list.getList());
-        } else if (state == STATE_LOAD_MORE) {
+        } else if (state == STATE_LOAD_MORE && list.getLimit() > 0) {
             mAdapter.insert(mAdapter.getItemCount(), list.getList());
+        } else {
+            if (mDataList != null)
+                mDataList.setNoMore(true);
         }
         ++page;
     }

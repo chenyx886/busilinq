@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
@@ -23,6 +24,7 @@ import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.presenter.cart.CartPresenter;
 import com.busilinq.ui.cart.adapter.CartAdapter;
+import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.xsm.ulits.Logger;
 import com.busilinq.xsm.ulits.StringParse;
@@ -67,10 +69,15 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     @BindView(R.id.tv_confirm)
     TextView mEdit;
     /**
+     * 结算
+     */
+    @BindView(R.id.ll_settlement)
+    RelativeLayout mllSettlement;
+    /**
      * RecycleView
      */
     @BindView(R.id.recycleView)
-    XRecyclerView mRecycleView;
+    XRecyclerView mDataList;
     /**
      * 数据列表
      */
@@ -110,7 +117,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
      *
      * @return
      */
-    String passTotal;
+    private String passTotal;
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -149,8 +156,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         super.onActivityResult(requestCode, resultCode, data);
         if (UserCache.getCartRefresh()) {
             UserCache.putCartRefresh(false);
-            page = 1;
-            mRecycleView.setRefreshing(true);
+            mDataList.setRefreshing(true);
         }
     }
 
@@ -164,11 +170,14 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         mEdit.setVisibility(View.GONE);
         mEdit.setText("编辑");
         mBack.setVisibility(View.GONE);
-        mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecycleView.setNoMore(true);
-        mRecycleView.setLoadingMoreEnabled(false);
-        mRecycleView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
-        mRecycleView.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
+
+        mDataList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mDataList.setNoMore(true);
+        mDataList.setLoadingMoreEnabled(false);
+        mDataList.setArrowImageView(R.mipmap.iconfont_downgrey);
+        mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallPulse);
+        mDataList.setRefreshProgressStyle(ProgressStyle.BallPulse);
+
         mAdapter = new CartAdapter(getActivity(), new CartAdapter.DataUpdateListener() {
             @Override
             public void update(final int position, int number) {
@@ -182,9 +191,17 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 totalMoney();
             }
         });
-        mRecycleView.setAdapter(mAdapter);
+        mDataList.setAdapter(mAdapter);
 
 
+        mAdapter.setOnItemClickListener(new AbstractRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("goodsId", mAdapter.getItem(position).getCart().getGoodsId());
+                JumpUtil.startForResult(getActivity(), GoodsDetailActivity.class, GoodsDetailActivity.HOME_REQUESTCODE, bundle);
+            }
+        });
         //长按删除
         mAdapter.setOnItemLongClickListener(new AbstractRecyclerViewAdapter.OnItemLongClickListener() {
             @Override
@@ -197,7 +214,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         MainCartEntity item = mAdapter.getItem(positions);
-                        mPresenter.deletedCart(position, UserCache.GetUserId(), item.getCart().getCartId());
+                        mPresenter.deletedCart(positions, UserCache.GetUserId(), item.getCart().getCartId());
                         optionCenterDialog.dismiss();
                     }
                 });
@@ -208,10 +225,9 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
 
     private void initData() {
 
-        mRecycleView.setLoadingListener(new XRecyclerView.LoadingListener() {
+        mDataList.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                mRecycleView.setLoadingMoreEnabled(false);
                 state = STATE_PULL_REFRESH;
                 page = 1;
                 mPresenter.getOrderList(page);
@@ -223,7 +239,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 mPresenter.getOrderList(page);
             }
         });
-        mRecycleView.setRefreshing(true);
+        mDataList.setRefreshing(true);
     }
 
     @OnClick({R.id.btn_settlement, R.id.check_select, R.id.tv_confirm})
@@ -307,15 +323,20 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
      */
     @Override
     public void CartList(PageEntity<MainCartEntity> cartList) {
-        if (page == 1) {
+        if (state == STATE_PULL_REFRESH) {
             mAdapter.setData(cartList.getList());
-            if (mRecycleView != null)
-                mRecycleView.setLoadingMoreEnabled(true);
-        } else {
             if (cartList.getList().size() > 0)
-                mAdapter.insert(mAdapter.getItemCount(), cartList.getList());
+                mllSettlement.setVisibility(View.VISIBLE);
+
+        } else if (state == STATE_LOAD_MORE && cartList.getLimit() > 0) {
+            mAdapter.insert(mAdapter.getItemCount(), cartList.getList());
+        } else {
+            if (mDataList != null)
+                mDataList.setNoMore(true);
         }
         ++page;
+
+
         checkAll();
         totalMoney();
     }
@@ -327,11 +348,16 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     @Override
     public void hideProgress() {
         if (state == STATE_PULL_REFRESH) {
-            if (mRecycleView != null)
-                mRecycleView.refreshComplete();
+            if (mDataList != null)
+                mDataList.refreshComplete();
         } else if (state == STATE_LOAD_MORE) {
-            if (mRecycleView != null)
-                mRecycleView.loadMoreComplete();
+            if (mDataList != null)
+                mDataList.loadMoreComplete();
+        }
+        if (mAdapter.getItemCount() - 1 > 0) {
+            mDataList.setLoadingMoreEnabled(true);
+        } else {
+            mDataList.setLoadingMoreEnabled(false);
         }
     }
 

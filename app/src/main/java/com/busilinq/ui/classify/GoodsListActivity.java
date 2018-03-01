@@ -117,8 +117,9 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
         mDataList.setLayoutManager(new LinearLayoutManager(this));
         mDataList.setNoMore(true);
         mDataList.setLoadingMoreEnabled(false);
-        mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallScaleMultiple);
-        mDataList.setRefreshProgressStyle(ProgressStyle.BallClipRotateMultiple);
+        mDataList.setArrowImageView(R.mipmap.iconfont_downgrey);
+        mDataList.setLoadingMoreProgressStyle(ProgressStyle.BallPulse);
+        mDataList.setRefreshProgressStyle(ProgressStyle.BallPulse);
 
         mAdapter = new GoodsAdapter(this);
         mDataList.setAdapter(mAdapter);
@@ -138,13 +139,13 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
             public void onRefresh() {
                 page = 1;
                 state = STATE_PULL_REFRESH;
-                mPresenter.getGoodsList(UserCache.GetUserId(), classifyId, page,field,sort);
+                mPresenter.getGoodsList(UserCache.GetUserId(), classifyId, page, field, sort);
             }
 
             @Override
             public void onLoadMore() {
                 state = STATE_LOAD_MORE;
-                mPresenter.getGoodsList(UserCache.GetUserId(), classifyId, page,field,sort);
+                mPresenter.getGoodsList(UserCache.GetUserId(), classifyId, page, field, sort);
             }
         });
         mDataList.setRefreshing(true);
@@ -161,8 +162,11 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
         if (state == STATE_PULL_REFRESH) {
             page = 1;
             mAdapter.setData(list.getList());
-        } else if (state == STATE_LOAD_MORE) {
+        } else if (state == STATE_LOAD_MORE && list.getLimit() > 0) {
             mAdapter.insert(mAdapter.getItemCount(), list.getList());
+        } else {
+            if (mDataList != null)
+                mDataList.setNoMore(true);
         }
         ++page;
     }
@@ -181,9 +185,14 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
             if (mDataList != null)
                 mDataList.loadMoreComplete();
         }
+        if (mAdapter.getItemCount() - 1 > 0) {
+            mDataList.setLoadingMoreEnabled(true);
+        } else {
+            mDataList.setLoadingMoreEnabled(false);
+        }
     }
 
-    @OnClick({R.id.tv_back, R.id.et_search, R.id.iv_search,R.id.tv_popularity,R.id.tv_time,R.id.tv_price})
+    @OnClick({R.id.tv_back, R.id.et_search, R.id.iv_search, R.id.tv_popularity, R.id.tv_time, R.id.tv_price})
     public void onClick(View v) {
         Bundle bundle = new Bundle();
         bundle.putString("classifyId", classifyId);

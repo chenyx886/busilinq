@@ -45,6 +45,7 @@ import butterknife.OnClick;
  * Update Remark：
  */
 public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> implements IGoodsDetailView {
+
     public static final int HOME_REQUESTCODE = 1;
     /**
      * 标题
