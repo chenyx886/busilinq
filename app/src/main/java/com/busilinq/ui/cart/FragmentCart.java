@@ -295,6 +295,11 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
 
         mTotalMoney.setText(StringParse.formatMoney(totalMoney));
         passTotal = StringParse.formatMoney(totalMoney);
+        //判断是否显示合计结算
+        if (mAdapter.getItems().size() > 0)
+            mllSettlement.setVisibility(View.VISIBLE);
+        else
+            mllSettlement.setVisibility(View.GONE);
     }
 
     private void checkAll() {
@@ -325,10 +330,6 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     public void CartList(PageEntity<MainCartEntity> cartList) {
         if (state == STATE_PULL_REFRESH) {
             mAdapter.setData(cartList.getList());
-            if (cartList.getList().size() > 0)
-                mllSettlement.setVisibility(View.VISIBLE);
-            else
-                mllSettlement.setVisibility(View.GONE);
         } else if (state == STATE_LOAD_MORE && cartList.getLimit() > 0) {
             mAdapter.insert(mAdapter.getItemCount(), cartList.getList());
         } else {
@@ -336,8 +337,6 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 mDataList.setNoMore(true);
         }
         ++page;
-
-
         checkAll();
         totalMoney();
     }
