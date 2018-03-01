@@ -114,8 +114,6 @@ public class GetCodeActivity extends BaseMvpActivity<CodePresenter> implements I
     @Override
     public void Success(String code) {
         if (state.equals("getCode")) {
-//            mVCode.setText(code);
-            ToastUtils.showShort("发送中...");
             mGetCode.setEnabled(false);
             mGetCode.setBackgroundResource(R.drawable.textview_send_vode_style);
             startTimer();
@@ -226,6 +224,7 @@ public class GetCodeActivity extends BaseMvpActivity<CodePresenter> implements I
         closeTimer();
         seconds = DEFAULT_SECONDS;
         mGetCode.setText(ResourceUtils.getString(MApplication.getAppContext(), R.string.get_code));
+        mGetCode.setBackgroundResource(R.drawable.textview_default_vode_style);
         mGetCode.setEnabled(true);
     }
 
