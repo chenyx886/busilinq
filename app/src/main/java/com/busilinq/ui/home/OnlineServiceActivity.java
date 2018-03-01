@@ -144,6 +144,7 @@ public class OnlineServiceActivity extends BaseActivity {
      * @return
      */
     public boolean checkApkExist(Context context, String packageName) {
+
         if (packageName == null || "".equals(packageName))
             return false;
         try {
