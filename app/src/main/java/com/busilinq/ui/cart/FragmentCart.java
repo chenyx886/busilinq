@@ -150,7 +150,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         if (UserCache.getCartRefresh()) {
             UserCache.putCartRefresh(false);
             page = 1;
-            mPresenter.getOrderList(page);
+            mRecycleView.setRefreshing(true);
         }
     }
 
@@ -312,7 +312,8 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
             if (mRecycleView != null)
                 mRecycleView.setLoadingMoreEnabled(true);
         } else {
-            mAdapter.insert(mAdapter.getItemCount(), cartList.getList());
+            if (cartList.getList().size() > 0)
+                mAdapter.insert(mAdapter.getItemCount(), cartList.getList());
         }
         ++page;
         checkAll();
