@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.busilinq.MApplication;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.classify.IGoodsDetailView;
@@ -18,6 +19,7 @@ import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.GoodsDetailEntity;
 import com.busilinq.data.entity.GoodsImgEntity;
 import com.busilinq.data.entity.UserFavoriteEntity;
+import com.busilinq.data.event.MenuEvent;
 import com.busilinq.presenter.classify.GoodsDetailPresenter;
 import com.busilinq.ui.PhotoActivity;
 import com.busilinq.ui.mine.LoginActivity;
@@ -29,6 +31,8 @@ import com.chenyx.libs.utils.ToastUtils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -46,7 +50,7 @@ import butterknife.OnClick;
  */
 public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> implements IGoodsDetailView {
 
-    public static final int HOME_REQUESTCODE = 1;
+    private boolean isCart = false;
     /**
      * 标题
      */
@@ -256,7 +260,6 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
             //收藏或取消
             case R.id.ll_order_goods:
                 if (UserCache.GetUserId() > 0) {
-
                     if (!isFavorite) {
                         type = 1;
                         mPresenter.addFavorite(goodsId);
@@ -270,11 +273,10 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
                 break;
             //购物车
             case R.id.ll_cart:
+                isCart = true;
                 mIvCart.setBackgroundResource(R.mipmap.ic_cart_pressed);
                 mTvCart.setTextColor(getResources().getColor(R.color.colorTabChecked));
-                //目的是为了跳转到购物车fragment
-                setResult(10);
-                finish();
+                MApplication.getInstance().appManager.finishAllActivity();
                 break;
             //加
             case R.id.btnadd:
@@ -297,13 +299,6 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
 
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-    }
-
 
     @Override
     public void Success(CartEntity data) {
@@ -342,5 +337,13 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
         refreshLayout.finishRefreshing();
         refreshLayout.finishLoadmore();
         MLoadingDialog.dismiss();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isCart) {
+            EventBus.getDefault().post(new MenuEvent(3));
+        }
     }
 }

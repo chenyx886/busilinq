@@ -151,6 +151,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         return view;
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -199,7 +200,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
             public void onItemClick(View itemView, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("goodsId", mAdapter.getItem(position).getCart().getGoodsId());
-                JumpUtil.startForResult(getActivity(), GoodsDetailActivity.class, GoodsDetailActivity.HOME_REQUESTCODE, bundle);
+                JumpUtil.overlay(getActivity(), GoodsDetailActivity.class, bundle);
             }
         });
         //长按删除

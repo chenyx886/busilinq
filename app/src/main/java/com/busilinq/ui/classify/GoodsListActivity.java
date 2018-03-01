@@ -1,6 +1,5 @@
 package com.busilinq.ui.classify;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -34,7 +33,6 @@ import butterknife.OnClick;
  */
 public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> implements IGoodsListView {
 
-    public static final int HOME_REQUESTCODE = 1;
     /**
      * 数据列表
      */
@@ -99,14 +97,6 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
         setContentView(R.layout.activity_goods_list);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GoodsDetailActivity.HOME_REQUESTCODE && resultCode == 10) {
-            setResult(10);
-            finish();
-        }
-    }
 
     @Override
     protected void initUI() {
@@ -129,7 +119,7 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("goodsId", mAdapter.getItem(position).getGoods().getGoodsId());
-                JumpUtil.startForResult(GoodsListActivity.this, GoodsDetailActivity.class, GoodsDetailActivity.HOME_REQUESTCODE, bundle);
+                JumpUtil.overlay(GoodsListActivity.this, GoodsDetailActivity.class, bundle);
             }
         });
 

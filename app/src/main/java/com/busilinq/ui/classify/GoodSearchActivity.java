@@ -1,6 +1,5 @@
 package com.busilinq.ui.classify;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -35,7 +34,6 @@ import butterknife.OnClick;
  */
 public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> implements IGoodsSearchView {
 
-    public static final int HOME_REQUESTCODE = 1;
     /**
      * 返回
      */
@@ -109,15 +107,6 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GoodsDetailActivity.HOME_REQUESTCODE && resultCode == 10) {
-            setResult(10);
-            finish();
-        }
-    }
-
-    @Override
     protected void initUI() {
         mBack.setVisibility(View.VISIBLE);
         classifyId = getIntent().getStringExtra("classifyId");
@@ -137,7 +126,7 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("goodsId", mAdapter.getItem(position).getGoods().getGoodsId());
-                JumpUtil.startForResult(GoodSearchActivity.this, GoodsDetailActivity.class, GoodsDetailActivity.HOME_REQUESTCODE, bundle);
+                JumpUtil.overlay(GoodSearchActivity.this, GoodsDetailActivity.class, bundle);
             }
         });
 
@@ -241,6 +230,4 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
                 break;
         }
     }
-
-
 }

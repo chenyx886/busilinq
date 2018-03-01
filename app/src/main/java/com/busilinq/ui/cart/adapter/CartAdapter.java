@@ -13,9 +13,10 @@ import android.widget.TextView;
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.MainCartEntity;
-import com.busilinq.ui.MainActivity;
-import com.chenyx.libs.utils.JumpUtil;
+import com.busilinq.data.event.MenuEvent;
 import com.chenyx.libs.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -147,7 +148,7 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
             vHolder.mPurchase.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    JumpUtil.overlay(mContext, MainActivity.class);
+                    EventBus.getDefault().post(new MenuEvent(1));
                 }
             });
         }

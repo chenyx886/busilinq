@@ -128,7 +128,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
             public void onViewClick(View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("goodsId", mAdapter.getItem(position).getGoods().getGoodsId());
-                JumpUtil.startForResult(getActivity(), GoodsDetailActivity.class, GoodsDetailActivity.HOME_REQUESTCODE, bundle);
+                JumpUtil.overlay(getActivity(), GoodsDetailActivity.class, bundle);
             }
         });
     }
@@ -260,7 +260,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
                 break;
             //特价商品
             case R.id.ll_special_goods:
-                JumpUtil.overlay(getActivity(), SpecialGoodsListActivity.class);
+                JumpUtil.overlay(getActivity(), SpecialGoodsListActivity.class, null);
                 break;
             //付款單（待发货）
             case R.id.ll_order_goods:

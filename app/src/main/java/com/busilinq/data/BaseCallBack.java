@@ -169,7 +169,6 @@ public abstract class BaseCallBack<T> extends Subscriber<T> {
         ToastUtils.showShort(ex.getMsg());
     }
 
-
     protected void onFailure(BaseData response) {
         onError(response.getMsg());
     }

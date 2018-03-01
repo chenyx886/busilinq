@@ -1,6 +1,5 @@
 package com.busilinq.ui.classify;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -33,7 +32,6 @@ import butterknife.OnClick;
  */
 public class SpecialGoodsListActivity extends BaseMvpActivity<SpecialGoodsListPresenter> implements ISpecialGoodsListView {
 
-    public static final int HOME_REQUESTCODE = 1;
     /**
      * 标题
      */
@@ -92,15 +90,6 @@ public class SpecialGoodsListActivity extends BaseMvpActivity<SpecialGoodsListPr
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GoodsDetailActivity.HOME_REQUESTCODE && resultCode == 10) {
-            setResult(10);
-            finish();
-        }
-    }
-
-    @Override
     protected void initUI() {
         classifyId = getIntent().getIntExtra("classifyId", 0);
         mTitle.setText("特价商品");
@@ -116,10 +105,9 @@ public class SpecialGoodsListActivity extends BaseMvpActivity<SpecialGoodsListPr
         mAdapter.setOnItemClickListener(new AbstractRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
-
                 Bundle bundle = new Bundle();
                 bundle.putInt("goodsId", mAdapter.getItem(position).getGoods().getGoods().getGoodsId());
-                JumpUtil.startForResult(SpecialGoodsListActivity.this, GoodsDetailActivity.class, GoodsDetailActivity.HOME_REQUESTCODE, bundle);
+                JumpUtil.overlay(SpecialGoodsListActivity.this, GoodsDetailActivity.class, bundle);
             }
         });
 

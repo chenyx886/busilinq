@@ -22,7 +22,7 @@ public class GoodsCategoryEntity extends BaseEntity {
     //商品种类名称
     private String name;
     //商品种类识别图-图标
-    private String image;
+    private String imageUrl;
     //简要描述
     private String describe;
     //子分类
@@ -53,11 +53,11 @@ public class GoodsCategoryEntity extends BaseEntity {
     }
 
     public String getImage() {
-        return image;
+        return imageUrl;
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.imageUrl = image;
     }
 
     public String getDescribe() {

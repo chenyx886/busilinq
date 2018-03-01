@@ -1,14 +1,18 @@
 package com.busilinq.ui.classify.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.GoodsCategoryEntity;
-import com.busilinq.widget.SectionedBaseAdapter;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Company：华科建邺
@@ -19,102 +23,72 @@ import com.busilinq.widget.SectionedBaseAdapter;
  * Update Time：
  * Update Remark：
  */
-public class CateRightAdapter extends SectionedBaseAdapter {
-
-    private Context mContext;
-
-    private GoodsCategoryEntity mGoodsCate;
+public class CateRightAdapter extends AbstractRecyclerViewAdapter<GoodsCategoryEntity> {
 
 
-    public CateRightAdapter(Context context, GoodsCategoryEntity mGoodsCate) {
-        this.mContext = context;
-        this.mGoodsCate = mGoodsCate;
+    public CateRightAdapter(Context context) {
+        super(context);
     }
 
-    public void appendList(GoodsCategoryEntity mgoods) {
-        if (mgoods == null) {
-            return;
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == EMPTY_VIEW) {
+            View view = getInflater().inflate(R.layout.layout_empty_view, parent, false);
+            return new EmptyViewHolder(view);
         }
-        mGoodsCate = mgoods;
-        notifyDataSetChanged();
-    }
-
-
-    @Override
-    public Object getItem(int section, int position) {
-        return mGoodsCate.getList().get(position);
+        View view = getInflater().inflate(R.layout.item_classify_right, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public long getItemId(int section, int position) {
-        return 0;
-    }
-
-    @Override
-    public int getPositionInSectionForPosition(int position) {
-        return super.getPositionInSectionForPosition(position);
-    }
-
-    @Override
-    public int getSectionCount() {
-        if (mGoodsCate == null) {
-            return 0;
-        }
-        return 1;
-    }
-
-
-    @Override
-    public int getCountForSection(int section) {
-        if (mGoodsCate.getList() == null || mGoodsCate.getList().size() == 0) {
-            return 0;
-        }
-        return mGoodsCate.getList().size();
-    }
-
-    @Override
-    public View getItemView(final int section, final int position, View convertView, ViewGroup parent) {
-
-        final ViewHolder holder;
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_classify_right, null);
-            holder.mSonName = convertView.findViewById(R.id.tv_son_name);
-            convertView.setTag(holder);
-
-        } else {
-            holder = (ViewHolder) convertView.getTag();
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        if (holder instanceof ViewHolder) {
+            ViewHolder vHolder = ((ViewHolder) holder);
+            GoodsCategoryEntity entity = getItem(position);
+            vHolder.mSonName.setText(entity.getName());
+            showImageView(entity.getImage(), vHolder.mIvClassify, R.mipmap.default_error);
+            vHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(v, position);
+                }
+            });
         }
 
-        final GoodsCategoryEntity categoryEntity = mGoodsCate.getList().get(position);
-        holder.mSonName.setText(categoryEntity.getName());
-        return convertView;
-
     }
 
-    static class ViewHolder {
+    /**
+     * 无数据时 显示
+     */
+    class EmptyViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_empty)
+        public ImageView img;
+        @BindView(R.id.empty_msg_tv)
+        public TextView msgTv;
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * 分类图片
+         */
+        @BindView(R.id.iv_classify_img)
+        ImageView mIvClassify;
+        /**
+         * 分类名称
+         */
+        @BindView(R.id.tv_son_name)
         TextView mSonName;
-    }
 
-    @Override
-    public View getSectionHeaderView(int section, View convertView, ViewGroup parent) {
-        final ViewHolderHeader holder;
-        if (convertView == null) {
-            holder = new ViewHolderHeader();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.cate_list_header, null);
-            holder.mTitle = convertView.findViewById(R.id.goods_list_header_tv);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolderHeader) convertView.getTag();
+        public ViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
-        GoodsCategoryEntity GoodsCatesHeader = mGoodsCate;
-
-        holder.mTitle.setText(GoodsCatesHeader.getName());
-        return convertView;
     }
 
-    static class ViewHolderHeader {
-        TextView mTitle;
-    }
 
 }

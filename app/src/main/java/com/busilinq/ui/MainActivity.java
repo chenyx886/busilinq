@@ -2,32 +2,41 @@ package com.busilinq.ui;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
 import com.busilinq.MApplication;
 import com.busilinq.R;
-import com.busilinq.base.BaseActivity;
+import com.busilinq.data.event.MenuEvent;
 import com.busilinq.ui.cart.FragmentCart;
 import com.busilinq.ui.classify.FragmentClassify;
-import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.busilinq.ui.home.FragmentHome;
 import com.busilinq.ui.mine.FragmentMine;
-import com.busilinq.widget.MLoadingDialog;
+import com.busilinq.ulits.BugGoutAgent;
 import com.chenyx.libs.utils.ToastUtils;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
+import butterknife.Unbinder;
 
 /**
  * Company：华科建邺
@@ -38,7 +47,7 @@ import butterknife.OnCheckedChanged;
  * Update Time：
  * Update Remark：
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends RxAppCompatActivity {
 
     /**
      * 首页
@@ -63,20 +72,23 @@ public class MainActivity extends BaseActivity {
 
     private CompoundButton selectView;
 
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        unbinder = ButterKnife.bind(this);
+        setTranslucentStatus();
+        BugGoutAgent.init(this, false);
+        EventBus.getDefault().register(this);
+        initUI();
     }
 
     /**
      * UI初始化
      */
-
-    @Override
-    protected void initUI() {
-
+    private void initUI() {
         mHome.setTag(FragmentHome.TAG);
         mClassify.setTag(FragmentClassify.TAG);
         mCart.setTag(FragmentCart.TAG);
@@ -86,20 +98,25 @@ public class MainActivity extends BaseActivity {
         getPersimmions();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GoodsDetailActivity.HOME_REQUESTCODE && resultCode == 10) {
-            android.support.v4.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.fl_relcontent, new FragmentCart());
-            transaction.commit();
+    /**
+     * 菜单选中
+     *
+     * @param menuEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void mMenuEvent(MenuEvent menuEvent) {
+        android.support.v4.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.commit();
+        if (menuEvent.getIndex() == 1) {
+            mHome.setChecked(true);
+        } else if (menuEvent.getIndex() == 2) {
+            mClassify.setChecked(true);
+        } else if (menuEvent.getIndex() == 3) {
             mCart.setChecked(true);
+        } else if (menuEvent.getIndex() == 4) {
+            mMine.setChecked(true);
         }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(FragmentCart.TAG);
-        if (fragment != null)
-            fragment.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
@@ -177,6 +194,31 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    /**
+     * 沉浸式状态栏
+     */
+    protected void setTranslucentStatus() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintResource(R.color.colorPrimary);
+        }
+    }
+
+    @TargetApi(19)
+    protected void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
+
 
     private final int SDK_PERMISSION_REQUEST = 127;
     private String permissionInfo;
@@ -241,13 +283,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void showProgress(String message) {
-        MLoadingDialog.show(this, message);
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        if (unbinder != null && unbinder != Unbinder.EMPTY)
+            unbinder.unbind();
+        this.unbinder = null;
     }
-
-    @Override
-    public void hideProgress() {
-        MLoadingDialog.dismiss();
-    }
-
 }

@@ -52,7 +52,7 @@ public class CateLeftAdapter extends AbstractBaseAdapter<GoodsCategoryEntity> {
         vHolder.mTitle.setText(ge.getName());
 
         if (selectPostion == position) {
-            vHolder.item_layout.setBackgroundResource(R.color.white);
+            vHolder.item_layout.setBackgroundResource(R.color.body_bg);
             vHolder.mView.setVisibility(View.VISIBLE);
             vHolder.mTitle.setTextColor(mContext.getResources().getColor(R.color.color_e44010));
         } else {
