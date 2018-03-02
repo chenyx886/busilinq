@@ -147,9 +147,10 @@ dependencies {
     //点击图片 查处相册大图 支持绽放
     compile 'com.nhaarman.supertooltips:library:3.0.0'
     compile 'com.bm.photoview:library:1.4.1'
-    /**
-     *  新商盟
-     */
+    //省市区
+    compile 'com.youth.picker:pickerview:0.1.4@aar'
+
+    //新商盟
     compile 'com.zhy:autolayout:1.4.5'
     implementation files('libs/UPPayAssistEx.jar')
     implementation files('libs/UPPayPluginExPro.jar')

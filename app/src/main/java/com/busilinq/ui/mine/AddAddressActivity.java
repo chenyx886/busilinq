@@ -148,7 +148,6 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
         super.onCreate(bundle);
         setContentView(R.layout.activity_newly_added_address);
 
-        initProvinceDatas();
     }
 
 
@@ -213,6 +212,7 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
         } finally {
 
         }
+
     }
 
 
@@ -235,6 +235,8 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
                 new_detail_address.setText(entity.getSpecificAddr());
             }
         }
+
+        initProvinceDatas();
 
         //选择器数据实体类封装
         PickerData data = new PickerData();
