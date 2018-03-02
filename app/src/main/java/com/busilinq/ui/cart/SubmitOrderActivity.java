@@ -25,6 +25,7 @@ import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.data.event.RefreshCartEvent;
 import com.busilinq.presenter.cart.SubmitOrderPresenter;
 import com.busilinq.ui.mine.AddressActivity;
+import com.busilinq.ui.mine.AddAddressActivity;
 import com.busilinq.ui.mine.adapter.MyOrderDetailAdapter;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
@@ -227,7 +228,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
                 Bundle bundle = new Bundle();
                 bundle.putString("come", "add");
                 bundle.putString("isDefault", "1");
-                JumpUtil.startForResult(this, NewlyAddedAddressActivity.class, NewlyAddedAddressActivity.ADDRESS_REQUESTCODE, bundle);
+                JumpUtil.startForResult(this, AddAddressActivity.class, AddAddressActivity.ADDRESS_REQUESTCODE, bundle);
                 break;
             /**
              * 商品清单的显示和隐藏
@@ -350,7 +351,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
             tvCompany.setText("收货单位：" + data.getStringExtra("company"));
             mAddress.setText("收货地址：" + data.getStringExtra("address"));
             addressId = data.getIntExtra("addressId", -1);
-        } else if (resultCode == RESULT_OK && requestCode == NewlyAddedAddressActivity.ADDRESS_REQUESTCODE) {
+        } else if (resultCode == RESULT_OK && requestCode == AddAddressActivity.ADDRESS_REQUESTCODE) {
             mPresenter.getDeaaultAddress(UserCache.GetUserId());
         }
     }

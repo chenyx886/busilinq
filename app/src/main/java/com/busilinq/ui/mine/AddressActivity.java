@@ -12,7 +12,6 @@ import com.busilinq.contract.mine.AddressListView;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserShopAddrEntity;
 import com.busilinq.presenter.mine.AddressPresenter;
-import com.busilinq.ui.cart.NewlyAddedAddressActivity;
 import com.busilinq.ui.mine.adapter.AddressAdapter;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
@@ -108,7 +107,7 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
             case R.id.add_address_layout:
                 Bundle bundle = new Bundle();
                 bundle.putString("come", "add");
-                JumpUtil.overlay(this, NewlyAddedAddressActivity.class, bundle);
+                JumpUtil.overlay(this, AddAddressActivity.class, bundle);
                 break;
 
         }
@@ -164,7 +163,7 @@ public class AddressActivity extends BaseMvpActivity<AddressPresenter> implement
         Bundle bundle = new Bundle();
         bundle.putParcelable("editAddressInfo", mAdapter.getItem(pos));
         bundle.putString("come", "edit");
-        JumpUtil.overlay(this, NewlyAddedAddressActivity.class, bundle);
+        JumpUtil.overlay(this, AddAddressActivity.class, bundle);
     }
 
     @Override

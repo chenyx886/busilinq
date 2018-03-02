@@ -182,7 +182,7 @@
             android:screenOrientation="portrait" />
         <!--新增收货地址-->
         <activity
-            android:name=".ui.cart.NewlyAddedAddressActivity"
+            android:name=".ui.mine.AddAddressActivity"
             android:screenOrientation="portrait" />
         <!--订单提交成功提示-->
         <activity

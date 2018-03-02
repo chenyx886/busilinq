@@ -3,6 +3,7 @@
     android:id="@+id/ll_items_application"
     android:layout_width="80dp"
     android:layout_height="80dp"
+    android:background="@drawable/item_sel"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -10,7 +11,7 @@
         android:id="@+id/iv_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_goods_order"/>
+        android:src="@mipmap/ic_goods_order" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -20,5 +21,5 @@
         android:gravity="center"
         android:text="名称"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_size12"/>
+        android:textSize="@dimen/text_size12" />
 </LinearLayout>
