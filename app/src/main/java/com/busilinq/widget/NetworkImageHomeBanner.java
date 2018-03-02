@@ -33,7 +33,7 @@ public class NetworkImageHomeBanner implements Holder<BannerEntity> {
     @Override
     public void UpdateUI(Context context, int position, BannerEntity data) {
         imageView.setImageResource(R.mipmap.default_error);
-        PicassoLoader.displayImage(context, data.getImageUrl(), imageView, R.mipmap.default_error);
+        PicassoLoader.displayImage(context, data.getImageUrl(), imageView, R.mipmap.default_home_adv);
 
     }
 }

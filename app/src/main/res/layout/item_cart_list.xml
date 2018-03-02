@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/item_sel"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <View
         style="@style/line_diliver"
@@ -14,10 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_sel"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <CheckBox
             android:id="@+id/check_select"
@@ -61,7 +61,6 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingRight="10dp"
-                android:text="这些人见过总理、政府工作报告改变他们的生活"
                 android:textColor="@color/page_title_color"
                 android:textSize="@dimen/text_size14" />
 
@@ -69,13 +68,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="15dp">
+                android:gravity="center_vertical">
 
                 <TextView
-
                     android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
                     android:paddingLeft="12dp"
                     android:singleLine="true"
                     android:text="¥59.9/盒"
@@ -93,14 +93,15 @@
                         android:id="@+id/img_reduce"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="10dp"
                         android:src="@mipmap/reduce_normal" />
 
                     <TextView
                         android:id="@+id/tv_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
+                        android:gravity="center"
+                        android:minWidth="20dp"
                         android:text="1"
                         android:textColor="@color/page_title_color"
                         android:textSize="@dimen/text_size14" />
@@ -109,6 +110,7 @@
                         android:id="@+id/img_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="10dp"
                         android:src="@mipmap/add_normal" />
                 </LinearLayout>
 

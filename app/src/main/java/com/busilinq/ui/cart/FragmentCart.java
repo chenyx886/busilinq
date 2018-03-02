@@ -22,10 +22,10 @@ import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.data.event.RefreshCartEvent;
+import com.busilinq.data.event.RefreshNumEvent;
 import com.busilinq.presenter.cart.CartPresenter;
 import com.busilinq.ui.cart.adapter.CartAdapter;
 import com.busilinq.ui.classify.GoodsDetailActivity;
-import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.xsm.ulits.StringParse;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.Logs;
@@ -182,12 +182,6 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 JumpUtil.overlay(getActivity(), GoodsDetailActivity.class, bundle);
             }
         });
-        mAdapter.setOnItemViewClickListener(new AbstractRecyclerViewAdapter.OnItemViewClickListener() {
-            @Override
-            public void onViewClick(View view, int position) {
-                JumpUtil.startForResult(FragmentCart.this, LoginActivity.class, LoginActivity.REQUEST, null);
-            }
-        });
         //长按删除
         mAdapter.setOnItemLongClickListener(new AbstractRecyclerViewAdapter.OnItemLongClickListener() {
             @Override
@@ -304,6 +298,8 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     @Override
     public void deleteItem(int position) {
         mAdapter.delectItem(position);
+        //刷新主界面 购物车数量值
+        EventBus.getDefault().post(new RefreshNumEvent());
         checkAll();
         totalMoney();
     }
@@ -315,6 +311,10 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
      */
     @Override
     public void CartList(PageEntity<MainCartEntity> cartList) {
+
+        //刷新主界面 购物车数量值
+        EventBus.getDefault().post(new RefreshNumEvent());
+
         if (state == STATE_PULL_REFRESH) {
             mAdapter.setData(cartList.getList());
         } else if (state == STATE_LOAD_MORE && cartList.getLimit() > 0) {
@@ -324,6 +324,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                 mDataList.setNoMore(true);
         }
         ++page;
+
         checkAll();
         totalMoney();
     }

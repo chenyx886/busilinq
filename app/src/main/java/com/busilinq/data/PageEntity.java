@@ -25,6 +25,10 @@ public class PageEntity<T> extends BaseEntity {
      */
     public int limit;
     /**
+     * 总条数
+     */
+    public int total;
+    /**
      * 数据列表
      */
     public List<T> list = new ArrayList<>();
@@ -43,6 +47,14 @@ public class PageEntity<T> extends BaseEntity {
 
     public void setLimit(int limit) {
         this.limit = limit;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     public List<T> getList() {

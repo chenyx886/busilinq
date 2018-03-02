@@ -15,6 +15,8 @@ import com.busilinq.R;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.data.event.MenuEvent;
+import com.busilinq.ui.mine.LoginActivity;
+import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -160,7 +162,7 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
                     if (UserCache.get() != null) {
                         EventBus.getDefault().post(new MenuEvent(1));
                     } else {
-                        onItemViewClickListener.onViewClick(v, position);
+                        JumpUtil.overlay(mContext, LoginActivity.class);
                     }
                 }
             });

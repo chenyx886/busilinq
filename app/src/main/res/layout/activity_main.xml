@@ -34,12 +34,40 @@
             android:drawableTop="@drawable/selector_tab_classify"
             android:text="@string/classify" />
 
-        <RadioButton
-            android:id="@+id/rb_cart"
-            style="@style/home_rb_style"
-            android:drawableTop="@drawable/selector_tab_cart"
-            android:text="@string/cart" />
 
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+
+            <RadioButton
+                android:id="@+id/rb_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@null"
+                android:button="@null"
+                android:drawablePadding="3dp"
+                android:drawableTop="@drawable/selector_tab_cart"
+                android:gravity="center_horizontal"
+                android:text="@string/cart"
+                android:textColor="@color/home_rb_color_selector"
+                android:textSize="@dimen/text_size12" />
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/bg_red_circle"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size10"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <RadioButton
             android:id="@+id/rb_mine"

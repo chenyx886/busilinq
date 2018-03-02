@@ -10,19 +10,29 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.busilinq.MApplication;
 import com.busilinq.R;
+import com.busilinq.data.BaseData;
+import com.busilinq.data.PageEntity;
+import com.busilinq.data.api.CartApi;
+import com.busilinq.data.api.RetrofitApiFactory;
+import com.busilinq.data.cache.UserCache;
+import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.data.event.MenuEvent;
+import com.busilinq.data.event.RefreshNumEvent;
 import com.busilinq.ui.cart.FragmentCart;
 import com.busilinq.ui.classify.FragmentClassify;
 import com.busilinq.ui.home.FragmentHome;
 import com.busilinq.ui.mine.FragmentMine;
 import com.busilinq.ulits.BugGoutAgent;
+import com.chenyx.libs.utils.Logs;
 import com.chenyx.libs.utils.ToastUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
@@ -32,11 +42,19 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.Unbinder;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Company：华科建邺
@@ -70,6 +88,12 @@ public class MainActivity extends RxAppCompatActivity {
     @BindView(R.id.rb_mine)
     RadioButton mMine;
 
+    /**
+     * 数量消息
+     */
+    @BindView(R.id.tv_num)
+    TextView mNum;
+
     private CompoundButton selectView;
 
     private Unbinder unbinder;
@@ -89,14 +113,18 @@ public class MainActivity extends RxAppCompatActivity {
      * UI初始化
      */
     private void initUI() {
+
         mHome.setTag(FragmentHome.TAG);
         mClassify.setTag(FragmentClassify.TAG);
         mCart.setTag(FragmentCart.TAG);
         mMine.setTag(FragmentMine.TAG);
         mHome.setChecked(true);//默认选中第一个
 
+        QueryCartNum();
+
         getPersimmions();
     }
+
 
     /**
      * 菜单选中
@@ -118,6 +146,76 @@ public class MainActivity extends RxAppCompatActivity {
         } else if (menuEvent.getIndex() == 4) {
             mMine.setChecked(true);
         }
+    }
+
+    /**
+     * 查询总数量
+     *
+     * @param mEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void mRefreshNumEvent(RefreshNumEvent mEvent) {
+        Logs.d("FragmentCart", "刷新数量");
+        QueryCartNum();
+    }
+
+    /**
+     * 查询购物车总数量
+     */
+    private void QueryCartNum() {
+
+        OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
+        builder.connectTimeout(50, TimeUnit.SECONDS)
+                .readTimeout(50, TimeUnit.SECONDS)
+                .writeTimeout(50, TimeUnit.SECONDS);
+
+        OkHttpClient mOkHttpClient = builder.build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(RetrofitApiFactory.BASE_URL)
+                .client(mOkHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//对转换后的数据进行再包装
+                .build();
+        retrofit.create(CartApi.class)
+                .cart(1, 10, UserCache.GetUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseData<PageEntity<MainCartEntity>>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BaseData<PageEntity<MainCartEntity>> data) {
+                        if (data.getCode().equals("0000")) {
+                            RefreshNum(data.getData().getTotal());
+                        } else {
+                            RefreshNum(0);
+                        }
+                    }
+                });
+    }
+    /**
+     * 显示购物车数量
+     *
+     * @param total
+     */
+    private void RefreshNum(int total) {
+        if (total > 0) {
+            mNum.setVisibility(View.VISIBLE);
+        } else {
+            mNum.setVisibility(View.GONE);
+        }
+        if (total > 99)
+            mNum.setText("99+");
+        else
+            mNum.setText(total + "");
     }
 
     /**

@@ -50,7 +50,6 @@ public class CartPresenter extends BasePresenter<ICartView> {
                 MvpView.hideProgress();
             }
         });
-
     }
 
     /**

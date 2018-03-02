@@ -33,7 +33,7 @@ public class NetworkImageGoodsDetail implements Holder<GoodsImgEntity> {
     @Override
     public void UpdateUI(Context context, int position, GoodsImgEntity data) {
         imageView.setImageResource(R.mipmap.default_error);
-        PicassoLoader.displayImage(context, data.getImage(), imageView, R.mipmap.default_error);
+        PicassoLoader.displayImage(context, data.getImage(), imageView, R.mipmap.default_good_detail);
     }
 }
 
