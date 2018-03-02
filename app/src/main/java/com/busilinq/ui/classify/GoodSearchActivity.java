@@ -1,8 +1,11 @@
 package com.busilinq.ui.classify;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -186,6 +189,26 @@ public class GoodSearchActivity extends BaseMvpActivity<GoodsSearchPresenter> im
         } else {
             mDataList.setLoadingMoreEnabled(false);
         }
+    }
+
+    /**
+     * 键盘上回车键 事件
+     *
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+            /*隐藏软键盘*/
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (inputMethodManager.isActive()) {
+                inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+            }
+            mDataList.setRefreshing(true);
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
     }
 
 
