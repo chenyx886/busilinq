@@ -12,10 +12,14 @@ import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.ILoginView;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.UserEntity;
+import com.busilinq.data.event.RefreshCartEvent;
 import com.busilinq.presenter.LoginPresenter;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
+import com.chenyx.libs.utils.ToastUtils;
 import com.chenyx.libs.utils.Toasts;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -64,8 +68,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
 
     @Override
     protected void initUI() {
-//        tvPhone.setText("18285011583");
-//        tvPwd.setText("123456");
     }
 
 
@@ -84,13 +86,13 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
             case R.id.tv_login:
                 String name = tvPhone.getText().toString();
                 if (TextUtils.isEmpty(name)) {
-                    Toasts.showShort(LoginActivity.this, "请输入手机号或用户名");
+                    ToastUtils.showShort("请输入手机号或用户名");
                     tvPhone.requestFocus();
                     return;
                 }
                 String password = tvPwd.getText().toString();
                 if (TextUtils.isEmpty(password)) {
-                    Toasts.showShort(LoginActivity.this, "请输入密码");
+                    ToastUtils.showShort("请输入密码");
                     tvPwd.requestFocus();
                     return;
                 }
@@ -103,10 +105,10 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
 
     @Override
     public void Success(UserEntity user) {
-        //提示购物车刷新用
-        UserCache.putCartRefresh(true);
         //缓存用户信息
         UserCache.put(user);
+        //刷新购物车
+        EventBus.getDefault().post(new RefreshCartEvent());
         Intent intent = new Intent();
         setResult(REQUEST, intent);
         finish();

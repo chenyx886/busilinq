@@ -7,7 +7,6 @@ import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
-import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.presenter.BasePresenter;
@@ -39,8 +38,8 @@ public class CartPresenter extends BasePresenter<ICartView> {
      *
      * @param page
      */
-    public void getOrderList(int page) {
-        addSubscription(RetrofitApiFactory.getCartApi().cart(page, SysConfig.limit, UserCache.GetUserId()), new SubscriberCallBack<PageEntity<MainCartEntity>>() {
+    public void getOrderList(int page, int userId) {
+        addSubscription(RetrofitApiFactory.getCartApi().cart(page, SysConfig.limit, userId), new SubscriberCallBack<PageEntity<MainCartEntity>>() {
             @Override
             protected void onSuccess(PageEntity<MainCartEntity> hGoodsList) {
                 MvpView.CartList(hGoodsList);
@@ -61,9 +60,9 @@ public class CartPresenter extends BasePresenter<ICartView> {
      * @param number 修改数量
      * @param price  价格
      */
-    public void UpdateCart(final int position, int cartId, int number, double price) {
+    public void UpdateCart(int userId, final int position, int cartId, int number, double price) {
         Map<String, Object> param = new HashMap<>();
-        param.put("userId", UserCache.GetUserId());
+        param.put("userId", userId);
         param.put("cartId", cartId);
         param.put("number", number);
         param.put("price", price);

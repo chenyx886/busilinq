@@ -1,7 +1,6 @@
 package com.busilinq.ui.cart;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,16 +21,22 @@ import com.busilinq.data.PageEntity;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
+import com.busilinq.data.event.RefreshCartEvent;
 import com.busilinq.presenter.cart.CartPresenter;
 import com.busilinq.ui.cart.adapter.CartAdapter;
 import com.busilinq.ui.classify.GoodsDetailActivity;
 import com.busilinq.ui.mine.LoginActivity;
 import com.busilinq.xsm.ulits.StringParse;
 import com.chenyx.libs.utils.JumpUtil;
+import com.chenyx.libs.utils.Logs;
 import com.chenyx.libs.utils.ToastUtils;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.longsh.optionframelibrary.OptionCenterDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -119,18 +124,6 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     private String passTotal;
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            if (UserCache.getCartRefresh()) {
-                UserCache.putCartRefresh(false);
-                mDataList.setRefreshing(true);
-            }
-        }
-    }
-
-
-    @Override
     protected CartPresenter createPresenter() {
         if (null == mPresenter) {
             mPresenter = new CartPresenter(this);
@@ -149,25 +142,13 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         return view;
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (UserCache.getCartRefresh()) {
-            UserCache.putCartRefresh(false);
-            mDataList.setRefreshing(true);
-        }
-        if (resultCode == FragmentCart.this.getActivity().RESULT_OK && requestCode == LoginActivity.REQUEST) {
-            mDataList.setRefreshing(true);
-        }
-    }
-
     @Override
     protected void initUI() {
         mTitle.setText("购物车");
         mEdit.setVisibility(View.GONE);
         mEdit.setText("编辑");
         mBack.setVisibility(View.GONE);
+        EventBus.getDefault().register(this);
 
         mDataList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mDataList.setNoMore(true);
@@ -180,7 +161,8 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
             @Override
             public void update(final int position, int number) {
                 MainCartEntity item = mAdapter.getItem(position);
-                mPresenter.UpdateCart(position, item.getCart().getCartId(), number, item.getGoods().getGoods().getPrice());
+
+                mPresenter.UpdateCart(UserCache.GetUserId(), position, item.getCart().getCartId(), number, item.getGoods().getGoods().getPrice());
             }
 
             @Override
@@ -234,13 +216,13 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
             public void onRefresh() {
                 state = STATE_PULL_REFRESH;
                 page = 1;
-                mPresenter.getOrderList(page);
+                mPresenter.getOrderList(page, UserCache.GetUserId());
             }
 
             @Override
             public void onLoadMore() {
                 state = STATE_LOAD_MORE;
-                mPresenter.getOrderList(page);
+                mPresenter.getOrderList(page, UserCache.GetUserId());
             }
         });
         mDataList.setRefreshing(true);
@@ -262,10 +244,10 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(SubmitOrderActivity.class.getSimpleName(), (Serializable) list);
                     bundle.putString("passTotal", passTotal);
-                    JumpUtil.startForResult(getActivity(), SubmitOrderActivity.class, 10, bundle);
-                } else
+                    JumpUtil.overlay(getActivity(), SubmitOrderActivity.class, bundle);
+                } else {
                     ToastUtils.showShort("请选择需要购买的商品！");
-
+                }
                 break;
             /**
              * 全选
@@ -289,6 +271,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         checkAll();
         totalMoney();
     }
+
 
     private void totalMoney() {
         double totalMoney = 0;
@@ -365,4 +348,20 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         }
     }
 
+    /**
+     * 刷新购物车
+     *
+     * @param mEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void mRefreshCartEvent(RefreshCartEvent mEvent) {
+        mDataList.setRefreshing(true);
+        Logs.d(TAG, "刷新购物车");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

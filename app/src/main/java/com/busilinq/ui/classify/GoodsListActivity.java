@@ -63,10 +63,7 @@ public class GoodsListActivity extends BaseMvpActivity<GoodsListPresenter> imple
      */
     @BindView(R.id.tv_price)
     TextView mPrice;
-    /**
-     * 判断排序状态
-     */
-    private int clickStatus = 0;
+
     private String field;//排序类型
     private String sort;//升降
 

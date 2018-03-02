@@ -20,6 +20,7 @@ import com.busilinq.data.entity.GoodsDetailEntity;
 import com.busilinq.data.entity.GoodsImgEntity;
 import com.busilinq.data.entity.UserFavoriteEntity;
 import com.busilinq.data.event.MenuEvent;
+import com.busilinq.data.event.RefreshCartEvent;
 import com.busilinq.presenter.classify.GoodsDetailPresenter;
 import com.busilinq.ui.PhotoActivity;
 import com.busilinq.ui.mine.LoginActivity;
@@ -302,7 +303,8 @@ public class GoodsDetailActivity extends BaseMvpActivity<GoodsDetailPresenter> i
 
     @Override
     public void Success(CartEntity data) {
-        UserCache.putCartRefresh(true);
+        //刷新购物车
+        EventBus.getDefault().post(new RefreshCartEvent());
         ToastUtils.showShort("加入购物车成功");
     }
 

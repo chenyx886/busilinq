@@ -3,12 +3,7 @@ package com.busilinq.data.cache;
 import android.text.TextUtils;
 
 import com.busilinq.data.entity.UserEntity;
-import com.busilinq.ulits.JsonUtils;
-import com.busilinq.xsm.ulits.StringUtils;
 import com.chenyx.libs.utils.SysConfig;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Company：华科建邺
@@ -20,10 +15,6 @@ import java.util.Map;
  * Update Remark：
  */
 public class UserCache {
-    /**
-     * 购物车刷新标识
-     */
-    private static final String CARTREFRESH = "CARTREFRESH";
     /**
      * 购物车选中记录
      */
@@ -61,32 +52,6 @@ public class UserCache {
      * 登录保存的session
      */
     public static final String SESSION = "session";
-
-    /**
-     * 购物车刷新标识（true刷新，false不刷新）
-     * @param isRefresh
-     */
-    public static void putCartRefresh(boolean isRefresh) {
-        PrefCache.putData(CARTREFRESH, isRefresh);
-    }
-
-    public static boolean getCartRefresh() {
-        boolean isRefresh = (boolean) PrefCache.getData(CARTREFRESH, false);
-        return isRefresh;
-    }
-
-    public static void putUserCart(Map<?, ?> map) {
-        String json = JsonUtils.map2json(map);
-        PrefCache.putData(USERCART, json);
-    }
-
-    public static Map<?, ?> getUserCart() {
-        HashMap<Integer, Integer> hashMap = new HashMap<>();
-        String json = (String) PrefCache.getData(USERCART, "");
-        if (!StringUtils.isEmpty(json))
-            hashMap = (HashMap<Integer, Integer>) JsonUtils.jsonToMap(json);
-        return hashMap;
-    }
 
     /**
      * 保存登陆用户信息

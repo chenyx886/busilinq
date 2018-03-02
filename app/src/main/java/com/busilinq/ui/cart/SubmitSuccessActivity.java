@@ -2,15 +2,14 @@ package com.busilinq.ui.cart;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseActivity;
 import com.busilinq.ui.mine.order.MyOrdersActivity;
+import com.busilinq.ui.mine.order.PaymentActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
-import com.chenyx.libs.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,22 +29,6 @@ public class SubmitSuccessActivity extends BaseActivity {
      */
     @BindView(R.id.tv_title)
     TextView mTitle;
-    /**
-     * 返回
-     */
-    @BindView(R.id.tv_back)
-    TextView mBack;
-    /**
-     * 查看订单
-     */
-    @BindView(R.id.btn_view_order)
-    Button mViewOrder;
-    /**
-     * 去付款
-     */
-    @BindView(R.id.btn_go_pay)
-    Button mGoPay;
-
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -59,7 +42,7 @@ public class SubmitSuccessActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_back,R.id.btn_view_order,R.id.btn_go_pay})
+    @OnClick({R.id.tv_back, R.id.btn_view_order, R.id.btn_go_pay})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -67,9 +50,11 @@ public class SubmitSuccessActivity extends BaseActivity {
                 break;
             case R.id.btn_view_order:
                 JumpUtil.overlay(this, MyOrdersActivity.class);
+                finish();
                 break;
             case R.id.btn_go_pay:
-                ToastUtils.showShort("付款");
+                JumpUtil.overlay(this, PaymentActivity.class);
+                finish();
                 break;
 
         }

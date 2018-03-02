@@ -29,13 +29,14 @@ import okhttp3.RequestBody;
  * Update Remark：
  */
 
-public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView>{
+public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView> {
     public SubmitOrderPresenter(ISubmitOrderView mvpView) {
         super(mvpView);
     }
 
     /**
      * 获取默认地址
+     *
      * @param userId
      */
     public void getDeaaultAddress(int userId) {
@@ -54,7 +55,7 @@ public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView>{
         });
     }
 
-    public void submitOrder(int addressId, String shippingType, String payType,int activityId, String remark,List<OrderGoodsPO> goodsList) {
+    public void submitOrder(int addressId, String shippingType, String payType, int activityId, String remark, List<OrderGoodsPO> goodsList) {
         Map<String, Object> param = new HashMap<>();
         param.put("userId", UserCache.GetUserId());
         param.put("addressId", addressId);
@@ -78,11 +79,15 @@ public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView>{
         });
 
     }
-    public void  deleteCartList(List<MainCartEntity> list)
-    {
-        List<Integer> deleteList=new ArrayList<>();
-        for (int i=0;i<list.size();i++)
-        {
+
+    /**
+     * 删除购物车
+     *
+     * @param list
+     */
+    public void deleteCartList(List<MainCartEntity> list) {
+        List<Integer> deleteList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
             deleteList.add(list.get(i).getCart().getCartId());
         }
         Map<String, Object> param = new HashMap<>();
@@ -93,12 +98,12 @@ public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView>{
         addSubscription(RetrofitApiFactory.getCartApi().deleteCarts(body), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData data) {
+                MvpView.deleteResult();
             }
 
             @Override
             public void onCompleted() {
-                UserCache.putCartRefresh(true);//通知購物車刷新
-                MvpView.deleteResult();
+                MvpView.hideProgress();
             }
 
         });

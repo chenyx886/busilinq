@@ -22,12 +22,15 @@ import com.busilinq.data.entity.OrderDetailsEntity;
 import com.busilinq.data.entity.OrderEntity;
 import com.busilinq.data.entity.OrderGoodsPO;
 import com.busilinq.data.entity.UserShopAddrEntity;
+import com.busilinq.data.event.RefreshCartEvent;
 import com.busilinq.presenter.cart.SubmitOrderPresenter;
 import com.busilinq.ui.mine.AddressActivity;
 import com.busilinq.ui.mine.adapter.MyOrderDetailAdapter;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -274,7 +277,6 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
              */
             case R.id.rel_total_pay:
                 AlertDialog.Builder builder_total = new AlertDialog.Builder(this);
-                //builder_total.setIcon(R.mipmap.ic_logo);
                 builder_total.setTitle("请选择配送方式");
                 final String[] total_pay = {"网上支付", "累计结算"};
                 builder_total.setItems(total_pay, new DialogInterface.OnClickListener() {
@@ -384,12 +386,12 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
     @Override
     public void submitSuccess(OrderEntity orderEntity) {
         mPresenter.deleteCartList(list);
-        finish();
     }
 
     @Override
     public void deleteResult() {
         JumpUtil.overlay(this, SubmitSuccessActivity.class);
+        EventBus.getDefault().post(new RefreshCartEvent());
         finish();
     }
 
@@ -402,7 +404,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
             OrderDetailsEntity localgood = new OrderDetailsEntity();
             localgood.setNumber(list.get(i).getCart().getNumber());
             localgood.setGoodsName(list.get(i).getGoods().getGoods().getName());
-            localgood.setGoodsPrice(list.get(i).getGoods().getPrice().getSalesPrice()*list.get(i).getCart().getNumber());
+            localgood.setGoodsPrice(list.get(i).getGoods().getPrice().getSalesPrice() * list.get(i).getCart().getNumber());
             localgoodList.add(localgood);
         }
 

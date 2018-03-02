@@ -24,6 +24,7 @@ import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.ISetView;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.TUpgradeEntity;
+import com.busilinq.data.event.RefreshCartEvent;
 import com.busilinq.presenter.mine.SetPresenter;
 import com.busilinq.ulits.AppUtils;
 import com.busilinq.ulits.CatchUtil;
@@ -33,6 +34,8 @@ import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.Apps;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.TimeUnit;
 
@@ -223,6 +226,8 @@ public class SetActivity extends BaseMvpActivity<SetPresenter> implements ISetVi
             @Override
             public void onClick(View v) {
                 UserCache.clear();
+                //刷新购物车
+                EventBus.getDefault().post(new RefreshCartEvent());
                 dialog.dismiss();
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
