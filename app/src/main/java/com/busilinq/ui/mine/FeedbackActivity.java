@@ -109,7 +109,7 @@ public class FeedbackActivity extends BaseMvpActivity<FeedbackPresenter> impleme
 
     @Override
     public void submitSuccess(String msg) {
-        Toasts.showShort(FeedbackActivity.this, "您的反馈已提交，我们会尽量为您解答");
+        Toasts.showShort(FeedbackActivity.this, "您的反馈已提交，我们会尽量为您解答!");
         finish();
     }
 }
