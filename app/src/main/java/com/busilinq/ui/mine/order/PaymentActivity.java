@@ -52,12 +52,16 @@ public class PaymentActivity extends BaseMvpActivity<PaymentPresenter> implement
      */
     @BindView(R.id.it_transfer_accounts)
     IconTextItem itTransferAccounts;
+    private int orderId;
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_payment);
+        orderId = getIntent().getIntExtra(PaymentActivity.class.getSimpleName(), -1);
     }
-    @OnClick({R.id.tv_back, R.id.it_pay_unionpay, R.id.it_pay_wechat,R.id.it_pay_alipay,R.id.it_transfer_accounts})
+
+    @OnClick({R.id.tv_back, R.id.it_pay_unionpay, R.id.it_pay_wechat, R.id.it_pay_alipay, R.id.it_transfer_accounts})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -70,22 +74,31 @@ public class PaymentActivity extends BaseMvpActivity<PaymentPresenter> implement
                 JumpUtil.overlay(this, ToDevelopedActivity.class);
                 break;
             case R.id.it_pay_alipay:
-                JumpUtil.overlay(this, ToDevelopedActivity.class);
+                payAlipayOrder();
                 break;
             case R.id.it_transfer_accounts:
                 JumpUtil.overlay(this, ToDevelopedActivity.class);
                 break;
         }
     }
+
+    private void payAlipayOrder() {
+        mPresenter.payAlipayOrder(orderId);
+    }
+
     @Override
     protected PaymentPresenter createPresenter() {
-        return null;
+        if (mPresenter == null)
+            return new PaymentPresenter(this);
+        else
+            return mPresenter;
     }
 
     @Override
     protected void initUI() {
         mTitle.setText("选择支付方式");
     }
+
     @Override
     public void showProgress(String message) {
 

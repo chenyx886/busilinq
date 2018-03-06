@@ -391,8 +391,8 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
 
     @Override
     public void deleteResult() {
-        JumpUtil.overlay(this, SubmitSuccessActivity.class);
         EventBus.getDefault().post(new RefreshCartEvent());
+        JumpUtil.overlay(this, SubmitSuccessActivity.class);
         finish();
     }
 

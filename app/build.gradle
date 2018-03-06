@@ -149,9 +149,9 @@ dependencies {
     compile 'com.bm.photoview:library:1.4.1'
     //省市区
     compile 'com.youth.picker:pickerview:0.1.4@aar'
-
     //新商盟
     compile 'com.zhy:autolayout:1.4.5'
     implementation files('libs/UPPayAssistEx.jar')
     implementation files('libs/UPPayPluginExPro.jar')
+    implementation files('libs/alipaySdk-20170922.jar')
 }

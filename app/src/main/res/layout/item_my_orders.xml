@@ -88,7 +88,7 @@
             android:id="@+id/order_payment_method_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="现金付款(未付款)"
+            android:text=""
             android:textColor="@color/color_333333"
             android:textSize="@dimen/text_size13" />
     </LinearLayout>
