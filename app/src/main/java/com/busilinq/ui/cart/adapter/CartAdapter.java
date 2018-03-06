@@ -128,6 +128,7 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
                         mDataUpdateListener.update(position, number);
                     }
                 });
+
                 vHolder.mIsCheck.setChecked(item.getCart().getIsChecked() == 0 ? false : true);
                 vHolder.mIsCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
@@ -170,6 +171,7 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
     }
 
     public interface DataUpdateListener {
+
         void update(int position, int number);
 
         void updateCheck();

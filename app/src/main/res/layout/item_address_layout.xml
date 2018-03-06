@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_line"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/item_sel"
-    android:id="@+id/item_line"
     android:orientation="vertical">
 
     <View
@@ -89,8 +89,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp">
+        android:layout_height="wrap_content">
 
         <CheckBox
             android:id="@+id/selected_iv"
@@ -98,14 +97,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp" />
 
         <TextView
             android:id="@+id/selected_tv"
             style="@style/addressTextViewStyle"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/selected_iv"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:text="默认地址"
             android:textStyle="bold" />
 
@@ -115,6 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:padding="15dp"
             android:text="删除"
             android:textColor="@color/colorTabChecked"
             android:textSize="@dimen/text_size13" />
@@ -124,8 +128,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="25dp"
             android:layout_toLeftOf="@id/delete_tv"
+            android:padding="15dp"
             android:text="编辑"
             android:textColor="@color/colorTabChecked"
             android:textSize="@dimen/text_size13" />

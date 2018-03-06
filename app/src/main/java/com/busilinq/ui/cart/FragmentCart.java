@@ -161,7 +161,6 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
             @Override
             public void update(final int position, int number) {
                 MainCartEntity item = mAdapter.getItem(position);
-
                 mPresenter.UpdateCart(UserCache.GetUserId(), position, item.getCart().getCartId(), number, item.getGoods().getGoods().getPrice());
             }
 
@@ -254,6 +253,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         }
     }
 
+
     @Override
     public void Success(int position, CartEntity data) {
         if (data != null) {
@@ -284,15 +284,19 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     }
 
     private void checkAll() {
-        if (mAdapter.getCheckNumber() == 0)
+        if (mSelect.isChecked()) {
             mSelect.setChecked(false);
-        else {
-            if (mAdapter.getCheckNumber() == mAdapter.getItems().size())
-                mSelect.setChecked(true);
-            else
-                mSelect.setChecked(false);
+        }else {
+            mSelect.setChecked(true);
         }
-
+//        if (mAdapter.getCheckNumber() == 0)
+//            mSelect.setChecked(false);
+//        else {
+//            if (mAdapter.getCheckNumber() == mAdapter.getItems().size() - 1)
+//                mSelect.setChecked(true);
+//            else
+//                mSelect.setChecked(false);
+//        }
     }
 
     @Override

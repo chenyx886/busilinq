@@ -143,7 +143,7 @@ public interface MineApi {
     Observable<BaseData<TUpgradeEntity>> upgrade(@Body RequestBody body);
 
     /**
-     * 设置默认收货地址
+     * 设置默认地址
      *
      * @param userId
      * @return
@@ -154,7 +154,7 @@ public interface MineApi {
 
 
     /**
-     * 添加收货地址
+     * 添加地址
      *
      * @param body
      * @return
@@ -163,7 +163,7 @@ public interface MineApi {
     Observable<BaseData> addAddress(@Body RequestBody body);
 
     /**
-     * 设置默认收货地址
+     * 设置默认地址
      *
      * @param userId
      * @return
@@ -173,7 +173,7 @@ public interface MineApi {
                                        @Query("addrId") Integer addrId);
 
     /**
-     * 添加收货地址
+     * 修改地址
      *
      * @param body
      * @return
