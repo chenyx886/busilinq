@@ -2,6 +2,7 @@ package com.busilinq.ui.mine.order;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -174,7 +175,7 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
         MLoadingDialog.dismiss();
     }
 
-    @OnClick({R.id.btn_logistics,R.id.tv_back, R.id.btn_delete_order, R.id.btn_pay})
+    @OnClick({R.id.btn_logistics, R.id.tv_back, R.id.btn_delete_order, R.id.btn_pay})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -197,16 +198,26 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
                         .show();
                 break;
             case R.id.btn_pay:
-                JumpUtil.overlay(this, PaymentActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putInt(PaymentActivity.class.getSimpleName(), orderId);
+//                JumpUtil.overlay(this, PaymentActivity.class,bundle);
+                Intent intent = new Intent(this, PaymentActivity.class);
+                intent.putExtra(PaymentActivity.class.getSimpleName(), orderId);
+                startActivityForResult(intent, 1);
                 break;
         }
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            this.finish();
+        }
+    }
+
+    @Override
     public void OrdersListDetail(HomeOrderEntity detail) {
-
         orderId = detail.getOrder().getOrderId();
-
         //订单信息
         mOrderNum.setText(detail.getOrder().getOrderNumber());
         mOrderMoney.setText(detail.getOrder().getTotalMoney() + "");
@@ -216,7 +227,7 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
             mPayBtn.setVisibility(View.VISIBLE);
         else
             mPayBtn.setVisibility(View.GONE);
-        if(detail.getOrder().getStatus().equals("待接收")||detail.getOrder().getStatus().equals("完成"))
+        if (detail.getOrder().getStatus().equals("待接收") || detail.getOrder().getStatus().equals("完成"))
             mLogisticsBtn.setVisibility(View.VISIBLE);
         else
             mLogisticsBtn.setVisibility(View.GONE);

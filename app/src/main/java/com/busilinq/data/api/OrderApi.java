@@ -4,6 +4,7 @@ import com.busilinq.data.BaseData;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.entity.HomeOrderEntity;
 import com.busilinq.data.entity.OrderEntity;
+import com.busilinq.data.entity.payAlipayEntity;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -46,5 +47,21 @@ public interface OrderApi {
      */
     @DELETE("/api/order/delete")
     Observable<BaseData> deleteOrder(@Query("userId") int userId, @Query("orderId") int orderId, @Query("orderNum") String orderNum);
+    /**
+     * 订单支付（支付宝）
+     *
+     * @param body
+     * @return
+     */
+    @POST("/api/order/pay/aliPay")
+    Observable<BaseData<payAlipayEntity>> payAliPay(@Body RequestBody body);
 
+    /**
+     * 支付后的订单结果查询
+     * @param merchantId
+     * @param orderId
+     * @return
+     */
+    @GET("/api/order/pay/isPayed")
+    Observable<BaseData<OrderEntity>> isPayed(@Query("merchantId") int merchantId, @Query("orderId") int orderId);
 }

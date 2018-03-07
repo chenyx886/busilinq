@@ -123,7 +123,7 @@ public class OnlineServiceActivity extends BaseActivity {
                 break;
             case R.id.tv_phone:
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                Uri data = Uri.parse("tel:" + "18700000000");
+                Uri data = Uri.parse("tel:" + mPhone.getText().toString().trim());
                 intent.setData(data);
                 startActivity(intent);
                 break;

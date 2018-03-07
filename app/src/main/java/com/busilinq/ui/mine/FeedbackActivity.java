@@ -83,7 +83,7 @@ public class FeedbackActivity extends BaseMvpActivity<FeedbackPresenter> impleme
                 break;
             case R.id.btn_submit:
                 if (TextUtils.isEmpty(mContent.getText().toString().trim())) {
-                    Toasts.showShort(FeedbackActivity.this, "说说点什么吧");
+                    Toasts.showShort(FeedbackActivity.this, "说点什么吧");
                     mContent.setFocusable(true);
                     mContent.requestFocus();
                     return;
@@ -109,7 +109,7 @@ public class FeedbackActivity extends BaseMvpActivity<FeedbackPresenter> impleme
 
     @Override
     public void submitSuccess(String msg) {
-        Toasts.showShort(FeedbackActivity.this, "您的反馈已提交，我们会尽量为什么解答。");
+        Toasts.showShort(FeedbackActivity.this, "您的反馈已提交，我们会尽量为您解答!");
         finish();
     }
 }
