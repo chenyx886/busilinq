@@ -129,7 +129,7 @@ public class OnlineServiceActivity extends BaseActivity {
                 break;
             case R.id.tv_qq:
                 if (checkApkExist(this, "com.tencent.mobileqq")) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=" + "1111111" + "&version=1")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=" + mQq.getText().toString().trim() + "&version=1")));
                 } else {
                     ToastUtils.showShort("本机未安装QQ应用");
                 }
