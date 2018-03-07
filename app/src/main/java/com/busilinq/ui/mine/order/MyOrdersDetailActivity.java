@@ -19,6 +19,9 @@ import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -116,6 +119,12 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
     @BindView(R.id.btn_logistics)
     Button mLogisticsBtn;
 
+    /**
+     * 下拉刷新 加载更多
+     */
+    @BindView(R.id.refreshLayout)
+    TwinklingRefreshLayout refreshLayout;
+
     private MyOrderDetailAdapter mAdapter;
 
     private String orderNum;
@@ -139,7 +148,18 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
     protected void initUI() {
         mTitle.setText(R.string.my_orders_detail_title);
         orderNum = getIntent().getStringExtra("orderNum");
-        mPresenter.getOrdersListDetail(orderNum);
+
+        ProgressLayout headerView = new ProgressLayout(this);
+        refreshLayout.setHeaderView(headerView);
+        refreshLayout.setOverScrollRefreshShow(false);
+
+        refreshLayout.startRefresh();
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
+                mPresenter.getOrdersListDetail(orderNum);
+            }
+        });
     }
 
     @Override
@@ -149,6 +169,8 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
 
     @Override
     public void hideProgress() {
+        refreshLayout.finishRefreshing();
+        refreshLayout.finishLoadmore();
         MLoadingDialog.dismiss();
     }
 

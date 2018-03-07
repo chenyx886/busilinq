@@ -289,14 +289,15 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
         }else {
             mSelect.setChecked(true);
         }
-//        if (mAdapter.getCheckNumber() == 0)
-//            mSelect.setChecked(false);
-//        else {
-//            if (mAdapter.getCheckNumber() == mAdapter.getItems().size() - 1)
-//                mSelect.setChecked(true);
-//            else
-//                mSelect.setChecked(false);
-//        }
+
+        if (mAdapter.getCheckNumber() == 0)
+            mSelect.setChecked(false);
+        else {
+            if (mAdapter.getCheckNumber() == mAdapter.getItems().size() - 1)
+                mSelect.setChecked(true);
+            else
+                mSelect.setChecked(false);
+        }
     }
 
     @Override
