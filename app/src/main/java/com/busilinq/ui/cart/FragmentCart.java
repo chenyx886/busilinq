@@ -284,16 +284,10 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
     }
 
     private void checkAll() {
-        if (mSelect.isChecked()) {
-            mSelect.setChecked(false);
-        }else {
-            mSelect.setChecked(true);
-        }
-
         if (mAdapter.getCheckNumber() == 0)
             mSelect.setChecked(false);
         else {
-            if (mAdapter.getCheckNumber() == mAdapter.getItems().size() - 1)
+            if (mAdapter.getCheckNumber() == mAdapter.getItems().size())
                 mSelect.setChecked(true);
             else
                 mSelect.setChecked(false);
