@@ -49,7 +49,8 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
             vHolder.consignee_tv.setText(entity.getName());
             vHolder.address_tell_tv.setText(entity.getCell());
             vHolder.address_unit_tv.setText(entity.getCompany());
-            vHolder.detail_address_tv.setText(entity.getSpecificAddr());
+            vHolder.detail_address_tv.setText(entity.getProvince() + entity.getCity() + entity.getDistrict() + entity.getSpecificAddr());
+            vHolder.selected_iv.setChecked(false);
 
             if (entity.getIsDefault().equals("1")) { // 默认地址
                 vHolder.selected_iv.setChecked(true);

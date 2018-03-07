@@ -10,7 +10,6 @@ import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.CartEntity;
 import com.busilinq.data.entity.MainCartEntity;
 import com.busilinq.presenter.BasePresenter;
-import com.chenyx.libs.utils.SysConfig;
 import com.chenyx.libs.utils.ToastUtils;
 
 import java.util.HashMap;
@@ -39,7 +38,7 @@ public class CartPresenter extends BasePresenter<ICartView> {
      * @param page
      */
     public void getOrderList(int page, int userId) {
-        addSubscription(RetrofitApiFactory.getCartApi().cart(page, SysConfig.limit, userId), new SubscriberCallBack<PageEntity<MainCartEntity>>() {
+        addSubscription(RetrofitApiFactory.getCartApi().cart(page, 2000, userId), new SubscriberCallBack<PageEntity<MainCartEntity>>() {
             @Override
             protected void onSuccess(PageEntity<MainCartEntity> hGoodsList) {
                 MvpView.CartList(hGoodsList);

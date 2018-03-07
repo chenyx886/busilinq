@@ -97,52 +97,50 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
         super.onBindViewHolder(holder, position);
         if (holder instanceof ViewHolder) {
             final ViewHolder vHolder = (ViewHolder) holder;
-            if (getItem(position) != null) {
-                final MainCartEntity item = getItem(position);
-                vHolder.mTitle.setText(item.getGoods().getGoods().getName());//商品名称
-                vHolder.mNum.setText(item.getCart().getNumber() + "");//数量
-                vHolder.mPrice.setText("¥" + item.getGoods().getPrice().getSalesPrice() + "/" + item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
-                showImageView(item.getGoods().getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
+            final MainCartEntity item = getItem(position);
+            vHolder.mTitle.setText(item.getGoods().getGoods().getName());//商品名称
+            vHolder.mNum.setText(item.getCart().getNumber() + "");//数量
+            vHolder.mPrice.setText("¥" + item.getGoods().getPrice().getSalesPrice() + "/" + item.getGoods().getGoods().getUnit());//价格：¥58.5/盒
+            showImageView(item.getGoods().getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
 
-                vHolder.mItemPic.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onItemClickListener.onItemClick(v, position);
+            vHolder.mItemPic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(v, position);
+                }
+            });
+            vHolder.mAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int number = item.getCart().getNumber() + 1;
+                    mDataUpdateListener.update(position, number);
+                }
+            });
+            vHolder.mReduce.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (item.getCart().getNumber() == 1) {
+                        ToastUtils.showShort("数量为最小值，可长按删除本条记录");
+                        return;
                     }
-                });
-                vHolder.mAdd.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int number = item.getCart().getNumber() + 1;
-                        mDataUpdateListener.update(position, number);
+                    int number = item.getCart().getNumber() - 1;
+                    mDataUpdateListener.update(position, number);
+                }
+            });
+            vHolder.mIsCheck.setChecked(item.getCart().getIsChecked() == 0 ? false : true);
+            vHolder.mIsCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        item.getCart().setIsChecked(1);
+                        checkNumber++;
+                    } else {
+                        item.getCart().setIsChecked(0);
+                        checkNumber--;
                     }
-                });
-                vHolder.mReduce.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (item.getCart().getNumber() == 1) {
-                            ToastUtils.showShort("数量为最小值，可长按删除本条记录");
-                            return;
-                        }
-                        int number = item.getCart().getNumber() - 1;
-                        mDataUpdateListener.update(position, number);
-                    }
-                });
-                vHolder.mIsCheck.setChecked(item.getCart().getIsChecked() == 0 ? false : true);
-                vHolder.mIsCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                        if (isChecked) {
-                            item.getCart().setIsChecked(1);
-                            checkNumber++;
-                        } else {
-                            item.getCart().setIsChecked(0);
-                            checkNumber--;
-                        }
-                        mDataUpdateListener.updateCheck();
-                    }
-                });
-            }
+                    mDataUpdateListener.updateCheck();
+                }
+            });
         } else {
             final EmptyViewHolder vHolder = (EmptyViewHolder) holder;
             vHolder.img.setBackgroundResource(R.mipmap.empty_cart);
@@ -170,6 +168,7 @@ public class CartAdapter extends AbstractRecyclerViewAdapter<MainCartEntity> {
     }
 
     public interface DataUpdateListener {
+
         void update(int position, int number);
 
         void updateCheck();

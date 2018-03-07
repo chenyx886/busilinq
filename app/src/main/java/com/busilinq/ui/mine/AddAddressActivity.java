@@ -129,11 +129,14 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
     private String unit;
     private String consignee;
     private String tell;
+    private String province;
+    private String city;
+    private String district;
     private String detailAddress;
     private int addressId;
 
     private PickerView pickerView;
-
+    private PickerData data;
 
     @Override
     protected NewlyAddedAddressPresenter createPresenter() {
@@ -146,10 +149,9 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.activity_newly_added_address);
+        setContentView(R.layout.activity_add_address);
 
     }
-
 
     /**
      * 解析省市区的XML数据
@@ -219,7 +221,6 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
     @Override
     protected void initUI() {
         mTitle.setText("收货地址");
-
         Bundle bundle;
         UserShopAddrEntity entity = null;
         come = getIntent().getStringExtra("come");
@@ -232,6 +233,7 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
                 new_unit_et.setText(entity.getCompany());
                 new_consignee_et.setText(entity.getName());
                 new_tell_et.setText(entity.getCell());
+                mssq.setText(entity.getProvince() + entity.getCity() + entity.getDistrict());
                 new_detail_address.setText(entity.getSpecificAddr());
             }
         }
@@ -239,7 +241,7 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
         initProvinceDatas();
 
         //选择器数据实体类封装
-        PickerData data = new PickerData();
+        data = new PickerData();
         //设置数据，有多少层级自己确定
         data.setFirstDatas(mProvinceDatas);
         data.setSecondDatas(mCitisDatasMap);
@@ -249,6 +251,7 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
 //        data.setInitSelectText("河北省","石家庄市","平山县");
         //初始化选择器
         pickerView = new PickerView(this, data);
+
         mssq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -262,6 +265,9 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
             @Override
             public void OnPickerClick(PickerData pickerData) {
                 //想获取单个选择项 PickerData内也有方法（弹出框手动关闭）
+                province = pickerData.getFirstText();
+                city = pickerData.getSecondText();
+                district = pickerData.getThirdText();
                 mssq.setText(pickerData.getSelectText());
                 pickerView.dismiss();//关闭选择器
             }
@@ -269,11 +275,12 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
             //点击确定按钮触发的事件（自动关闭）
             @Override
             public void OnPickerConfirmClick(PickerData pickerData) {
+                province = pickerData.getFirstText();
+                city = pickerData.getSecondText();
+                district = pickerData.getThirdText();
                 mssq.setText(pickerData.getSelectText());
             }
         });
-
-
     }
 
     @OnClick({R.id.tv_back, R.id.btn_save})
@@ -311,7 +318,7 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
         unit = new_unit_et.getText().toString();
         consignee = new_consignee_et.getText().toString();
         tell = new_tell_et.getText().toString();
-        detailAddress = mssq.getText().toString() + new_detail_address.getText().toString();
+        detailAddress = new_detail_address.getText().toString();
         UserShopAddrEntity entity = new UserShopAddrEntity();
         if (StringUtils.isEmpty(unit)) {
             Toasts.showShort(this, "请填写收货单位");
@@ -328,6 +335,14 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
             return;
         }
         entity.setCell(tell);
+        if (StringUtils.isEmpty(mssq.getText().toString().trim())) {
+            Toasts.showShort(this, "请选择省市区/县");
+            return;
+        }
+        entity.setProvince(province);
+        entity.setCity(city);
+        entity.setDistrict(district);
+
         if (StringUtils.isEmpty(detailAddress)) {
             Toasts.showShort(this, "请填写详细地址");
             return;

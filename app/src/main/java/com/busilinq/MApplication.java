@@ -22,7 +22,7 @@ import java.util.concurrent.ThreadFactory;
  * Update Remark：
  */
 public class MApplication extends Application {
-    
+
     private static MApplication instance;
     /**
      * 线程池

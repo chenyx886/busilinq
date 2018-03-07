@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.busilinq.MApplication;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.ISetNewPwdView;
@@ -80,23 +79,28 @@ public class UpdatePwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
 
             case R.id.btn_confirm:
                 if (TextUtils.isEmpty(mOldPwd.getText().toString())) {
-                    Toasts.showShort(mContext, "请输入旧密码");
+                    ToastUtils.showShort("请输入旧密码");
                     mOldPwd.setFocusable(true);
                     mOldPwd.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(mNewsPwd.getText().toString())) {
-                    Toasts.showShort(mContext, "请输入新密码");
+                if (TextUtils.isEmpty(mNewsPwd.getText().toString().trim())) {
+                    ToastUtils.showShort("请输入新密码");
                     mNewsPwd.setFocusable(true);
                     mNewsPwd.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(mConfirmPwd.getText().toString())) {
-                    Toasts.showShort(mContext, "请再次输入新密码");
+                if (TextUtils.isEmpty(mConfirmPwd.getText().toString().trim())) {
+                    ToastUtils.showShort("请再次输入新密码");
                     mConfirmPwd.setFocusable(true);
                     mConfirmPwd.requestFocus();
                     return;
                 }
+                if (!TextUtils.equals(mNewsPwd.getText().toString().trim(), mConfirmPwd.getText().toString().trim())) {
+                    ToastUtils.showShort("两次密码输入不一致");
+                    return;
+                }
+
                 mPresenter.modifyPassword(mOldPwd.getText().toString().trim(), mConfirmPwd.getText().toString().trim());
                 break;
 

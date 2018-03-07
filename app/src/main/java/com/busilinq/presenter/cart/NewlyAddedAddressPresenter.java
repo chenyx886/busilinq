@@ -35,15 +35,19 @@ public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress
      * @param entity
      */
     public void addAddress(UserShopAddrEntity entity) {
+
         Map<String, Object> param = new HashMap<>();
         param.put("userId", UserCache.GetUserId());
         param.put("company", entity.getCompany());
         param.put("cell", entity.getCell());
         param.put("name", entity.getName());
+        param.put("province", entity.getProvince());
+        param.put("city", entity.getCity());
+        param.put("district", entity.getDistrict());
         param.put("specificAddr", entity.getSpecificAddr());
         param.put("isDefault", entity.getIsDefault());
         RequestBody body = JsonRequestBody.createJsonBody(param);
-        MvpView.showProgress("加载中...");
+        MvpView.showProgress("操作中...");
         addSubscription(RetrofitApiFactory.getMineApi().addAddress(body), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData data) {
@@ -71,10 +75,12 @@ public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress
         param.put("company", entity.getCompany());
         param.put("cell", entity.getCell());
         param.put("name", entity.getName());
+        param.put("province", entity.getProvince());
+        param.put("city", entity.getCity());
+        param.put("district", entity.getDistrict());
         param.put("specificAddr", entity.getSpecificAddr());
         RequestBody body = JsonRequestBody.createJsonBody(param);
-
-        MvpView.showProgress("加载中...");
+        MvpView.showProgress("修改中...");
         addSubscription(RetrofitApiFactory.getMineApi().editAddress(body), new SubscriberCallBack<BaseData>() {
             @Override
             protected void onSuccess(BaseData data) {

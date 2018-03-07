@@ -76,21 +76,21 @@ public class SetNewPwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
                 break;
 
             case R.id.btn_confirm:
-                if (TextUtils.isEmpty(mNewsPwd.getText().toString())) {
-                    Toasts.showShort(mContext, "请输入新密码");
+                if (TextUtils.isEmpty(mNewsPwd.getText().toString().trim())) {
+                    ToastUtils.showShort("请输入新密码");
                     mNewsPwd.setFocusable(true);
                     mNewsPwd.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(mConfirmPwd.getText().toString())) {
-                    Toasts.showShort(mContext, "请再次输入新密码");
+                if (TextUtils.isEmpty(mConfirmPwd.getText().toString().trim())) {
+                    ToastUtils.showShort("请再次输入新密码");
                     mConfirmPwd.setFocusable(true);
                     mConfirmPwd.requestFocus();
                     return;
                 }
 
-                if (!TextUtils.equals(mNewsPwd.getText().toString(), mConfirmPwd.getText().toString())) {
-                    Toasts.showShort(this, "两次密码输入不一致");
+                if (!TextUtils.equals(mNewsPwd.getText().toString().trim(), mConfirmPwd.getText().toString().trim())) {
+                    ToastUtils.showShort("两次密码输入不一致");
                     return;
                 }
                 mPresenter.forgetPassword(phone, mConfirmPwd.getText().toString().trim());

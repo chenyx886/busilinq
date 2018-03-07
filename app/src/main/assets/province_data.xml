@@ -761,6 +761,36 @@
     </city>
   </province>
   <province name="贵州省">
+    <city name="贵阳市">
+      <district name="白云区" zipcode="550000" />
+      <district name="花溪区" zipcode="550000" />
+      <district name="开阳县" zipcode="550000" />
+      <district name="南明区" zipcode="550000" />
+      <district name="清镇市" zipcode="550000" />
+      <district name="乌当区" zipcode="550000" />
+      <district name="息烽县" zipcode="550000" />
+      <district name="小河区" zipcode="550000" />
+      <district name="修文县" zipcode="550000" />
+      <district name="云岩区" zipcode="550000" />
+      <district name="其他" zipcode="550000" />
+    </city>
+    <city name="遵义市">
+      <district name="赤水市" zipcode="563000" />
+      <district name="道真仡佬族苗族自治县" zipcode="563000" />
+      <district name="凤冈县" zipcode="563000" />
+      <district name="红花岗区" zipcode="563000" />
+      <district name="汇川区" zipcode="563000" />
+      <district name="湄潭县" zipcode="563000" />
+      <district name="仁怀市" zipcode="563000" />
+      <district name="绥阳县" zipcode="563000" />
+      <district name="桐梓县" zipcode="563000" />
+      <district name="务川仡佬族苗族自治县" zipcode="563000" />
+      <district name="习水县" zipcode="563000" />
+      <district name="余庆县" zipcode="563000" />
+      <district name="正安县" zipcode="563000" />
+      <district name="遵义县" zipcode="563000" />
+      <district name="其他" zipcode="563000" />
+    </city>
     <city name="安顺市">
       <district name="关岭布依族苗族自治县" zipcode="561000" />
       <district name="平坝县" zipcode="561000" />
@@ -781,25 +811,26 @@
       <district name="织金县" zipcode="551700" />
       <district name="其他" zipcode="551700" />
     </city>
-    <city name="贵阳市">
-      <district name="白云区" zipcode="550000" />
-      <district name="花溪区" zipcode="550000" />
-      <district name="开阳县" zipcode="550000" />
-      <district name="南明区" zipcode="550000" />
-      <district name="清镇市" zipcode="550000" />
-      <district name="乌当区" zipcode="550000" />
-      <district name="息烽县" zipcode="550000" />
-      <district name="小河区" zipcode="550000" />
-      <district name="修文县" zipcode="550000" />
-      <district name="云岩区" zipcode="550000" />
-      <district name="其他" zipcode="550000" />
-    </city>
+
     <city name="六盘水市">
       <district name="六枝特区" zipcode="553000" />
       <district name="盘县" zipcode="553000" />
       <district name="水城县" zipcode="553000" />
       <district name="钟山区" zipcode="553000" />
       <district name="其他" zipcode="553000" />
+    </city>
+    <city name="铜仁市">
+      <district name="德江县" zipcode="554300" />
+      <district name="江口县" zipcode="554300" />
+      <district name="石阡县" zipcode="554300" />
+      <district name="思南县" zipcode="554300" />
+      <district name="松桃苗族自治县" zipcode="554300" />
+      <district name="铜仁市" zipcode="554300" />
+      <district name="万山特区" zipcode="554300" />
+      <district name="沿河土家族自治县" zipcode="554300" />
+      <district name="印江土家族苗族自治县" zipcode="554300" />
+      <district name="玉屏侗族自治县" zipcode="554300" />
+      <district name="其他" zipcode="554300" />
     </city>
     <city name="黔东南苗族侗族自治州">
       <district name="岑巩县" zipcode="556000" />
@@ -846,36 +877,7 @@
       <district name="贞丰县" zipcode="562400" />
       <district name="其他" zipcode="562400" />
     </city>
-    <city name="铜仁地区">
-      <district name="德江县" zipcode="554300" />
-      <district name="江口县" zipcode="554300" />
-      <district name="石阡县" zipcode="554300" />
-      <district name="思南县" zipcode="554300" />
-      <district name="松桃苗族自治县" zipcode="554300" />
-      <district name="铜仁市" zipcode="554300" />
-      <district name="万山特区" zipcode="554300" />
-      <district name="沿河土家族自治县" zipcode="554300" />
-      <district name="印江土家族苗族自治县" zipcode="554300" />
-      <district name="玉屏侗族自治县" zipcode="554300" />
-      <district name="其他" zipcode="554300" />
-    </city>
-    <city name="遵义市">
-      <district name="赤水市" zipcode="563000" />
-      <district name="道真仡佬族苗族自治县" zipcode="563000" />
-      <district name="凤冈县" zipcode="563000" />
-      <district name="红花岗区" zipcode="563000" />
-      <district name="汇川区" zipcode="563000" />
-      <district name="湄潭县" zipcode="563000" />
-      <district name="仁怀市" zipcode="563000" />
-      <district name="绥阳县" zipcode="563000" />
-      <district name="桐梓县" zipcode="563000" />
-      <district name="务川仡佬族苗族自治县" zipcode="563000" />
-      <district name="习水县" zipcode="563000" />
-      <district name="余庆县" zipcode="563000" />
-      <district name="正安县" zipcode="563000" />
-      <district name="遵义县" zipcode="563000" />
-      <district name="其他" zipcode="563000" />
-    </city>
+
   </province>
   <province name="海南省">
     <city name="三亚市">

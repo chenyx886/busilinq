@@ -171,10 +171,6 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
     @Override
     public void CategoryList(List<GoodsCategoryEntity> categoryList) {
         mCateDatalist = categoryList;
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
-
         mCateLeftAdapter.setData(mCateDatalist);
         mCateSelectedPostion = 0;
         setCateListSelected(mCateSelectedPostion);
@@ -214,6 +210,8 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
 
     @Override
     public void hideProgress() {
-
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 }
