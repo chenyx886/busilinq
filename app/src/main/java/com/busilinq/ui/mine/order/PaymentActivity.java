@@ -12,6 +12,7 @@ import com.busilinq.presenter.mine.order.PaymentPresenter;
 import com.busilinq.ui.ToDevelopedActivity;
 import com.busilinq.widget.IconTextItem;
 import com.chenyx.libs.utils.JumpUtil;
+import com.chenyx.libs.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -57,7 +58,11 @@ public class PaymentActivity extends BaseMvpActivity<PaymentPresenter> implement
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_payment);
-        orderId = getIntent().getIntExtra(PaymentActivity.class.getSimpleName(), -1);
+        orderId = getIntent().getIntExtra("orderId", 0);
+        if (orderId < 0) {
+            ToastUtils.showShort("订单号异常");
+            finish();
+        }
     }
 
     @OnClick({R.id.tv_back, R.id.it_pay_unionpay, R.id.it_pay_wechat, R.id.it_pay_alipay, R.id.it_transfer_accounts})

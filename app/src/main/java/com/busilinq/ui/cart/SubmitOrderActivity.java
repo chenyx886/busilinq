@@ -325,8 +325,6 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
                 bundle1.putString("order_req", "1");
                 JumpUtil.startForResult(this, AddressActivity.class, AddressActivity.ADDRESS_REQUESTCODE, bundle1);
                 break;
-            default:
-                break;
         }
 
 
@@ -381,15 +379,20 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
         }
     }
 
+    private OrderEntity mOrderEntity;
+
     @Override
     public void submitSuccess(OrderEntity orderEntity) {
+        mOrderEntity = orderEntity;
         mPresenter.deleteCartList(list);
     }
 
     @Override
     public void deleteResult() {
         EventBus.getDefault().post(new RefreshCartEvent());
-        JumpUtil.overlay(this, SubmitSuccessActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("orderId", mOrderEntity.getOrderId());
+        JumpUtil.overlay(this, SubmitSuccessActivity.class, bundle);
         finish();
     }
 

@@ -55,6 +55,16 @@ public class SubmitOrderPresenter extends BasePresenter<ISubmitOrderView> {
         });
     }
 
+    /**
+     * 提交订单
+     *
+     * @param addressId
+     * @param shippingType
+     * @param payType
+     * @param activityId
+     * @param remark
+     * @param goodsList
+     */
     public void submitOrder(int addressId, String shippingType, String payType, int activityId, String remark, List<OrderGoodsPO> goodsList) {
         Map<String, Object> param = new HashMap<>();
         param.put("userId", UserCache.GetUserId());

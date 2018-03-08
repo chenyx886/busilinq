@@ -10,6 +10,7 @@ import com.busilinq.ui.mine.order.MyOrdersActivity;
 import com.busilinq.ui.mine.order.PaymentActivity;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
+import com.chenyx.libs.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,6 +30,10 @@ public class SubmitSuccessActivity extends BaseActivity {
      */
     @BindView(R.id.tv_title)
     TextView mTitle;
+    /**
+     * 订单号
+     */
+    private int orderId;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -39,6 +44,11 @@ public class SubmitSuccessActivity extends BaseActivity {
     @Override
     protected void initUI() {
         mTitle.setText("提交成功");
+        orderId = getIntent().getIntExtra("orderId", 0);
+        if (orderId == 0) {
+            ToastUtils.showShort("订单号异常");
+            finish();
+        }
     }
 
 
@@ -53,7 +63,9 @@ public class SubmitSuccessActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_go_pay:
-                JumpUtil.overlay(this, PaymentActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("orderId", orderId);
+                JumpUtil.startForResult(this, PaymentActivity.class, 1, bundle);
                 finish();
                 break;
 

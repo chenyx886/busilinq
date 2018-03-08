@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -175,6 +176,8 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
                 finish();
                 break;
             case R.id.btn_logistics:
@@ -195,7 +198,7 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
                 break;
             case R.id.btn_pay:
                 Bundle bundle = new Bundle();
-                bundle.putInt(PaymentActivity.class.getSimpleName(), orderId);
+                bundle.putInt("orderId", orderId);
                 JumpUtil.startForResult(this, PaymentActivity.class, 1, bundle);
                 break;
         }
@@ -252,4 +255,16 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
         setResult(RESULT_OK, intent);
         finish();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent();
+            setResult(RESULT_OK, intent);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
