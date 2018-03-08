@@ -150,7 +150,7 @@ public interface MineApi {
      */
     @PUT("/api/user/address/default")
     Observable<BaseData<List<UserShopAddrEntity>>> setDefaultAddress(@Query("userId") int userId,
-                                                                     @Query("addrId") Integer addrId);
+                                                                     @Query("addrId") int addrId);
 
 
     /**
@@ -163,14 +163,14 @@ public interface MineApi {
     Observable<BaseData> addAddress(@Body RequestBody body);
 
     /**
-     * 设置默认地址
+     * 删除地址
      *
      * @param userId
      * @return
      */
     @DELETE("/api/user/address")
     Observable<BaseData> deleteAddress(@Query("userId") int userId,
-                                       @Query("addrId") Integer addrId);
+                                       @Query("addrId") int addrId);
 
     /**
      * 修改地址

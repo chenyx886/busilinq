@@ -17,7 +17,6 @@ import com.busilinq.presenter.LoginPresenter;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
-import com.chenyx.libs.utils.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -52,10 +51,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements IL
 
     @Override
     protected LoginPresenter createPresenter() {
-        if (null == mPresenter) {
-            mPresenter = new LoginPresenter(this);
-        }
-        return mPresenter;
+        return new LoginPresenter(this);
     }
 
     @Override

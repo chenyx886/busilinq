@@ -1,4 +1,4 @@
-package com.busilinq.contract.cart;
+package com.busilinq.contract.mine;
 
 import com.busilinq.contract.IBaseMvpView;
 
@@ -12,12 +12,10 @@ import com.busilinq.contract.IBaseMvpView;
  * Update Remark：
  */
 
-public interface INewlyAddedAddress extends IBaseMvpView{
+public interface IAddedAddress extends IBaseMvpView{
 
     /**
      * 成功添加收货地址
      */
     void addAddressSuccess();
-
-    void addAddressInfo();
 }

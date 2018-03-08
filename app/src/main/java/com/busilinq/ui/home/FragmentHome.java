@@ -20,7 +20,6 @@ import com.busilinq.data.PageEntity;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.BannerEntity;
 import com.busilinq.data.entity.HomeGoodsEntity;
-import com.busilinq.data.event.RefreshCartEvent;
 import com.busilinq.presenter.home.MainPresenter;
 import com.busilinq.ui.HtmlActivity;
 import com.busilinq.ui.classify.GoodSearchActivity;
@@ -36,8 +35,6 @@ import com.chenyx.libs.utils.JumpUtil;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -94,10 +91,7 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
 
     @Override
     protected MainPresenter createPresenter() {
-        if (null == mPresenter) {
-            mPresenter = new MainPresenter(this);
-        }
-        return mPresenter;
+        return new MainPresenter(this);
     }
 
     @Override

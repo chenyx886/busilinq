@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.busilinq.R;
@@ -108,17 +107,17 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
      * 删除订单
      */
     @BindView(R.id.btn_delete_order)
-    Button mDeleteBtn;
+    TextView mDeleteBtn;
     /**
      * 付款按钮
      */
     @BindView(R.id.btn_pay)
-    Button mPayBtn;
+    TextView mPayBtn;
     /**
      * 物流按钮
      */
     @BindView(R.id.btn_logistics)
-    Button mLogisticsBtn;
+    TextView mLogisticsBtn;
 
     /**
      * 下拉刷新 加载更多
@@ -139,10 +138,7 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
 
     @Override
     protected MyOrdersDetailPresenter createPresenter() {
-        if (null == mPresenter) {
-            mPresenter = new MyOrdersDetailPresenter(this);
-        }
-        return mPresenter;
+        return new MyOrdersDetailPresenter(this);
     }
 
     @Override
@@ -198,20 +194,17 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
                         .show();
                 break;
             case R.id.btn_pay:
-//                Bundle bundle = new Bundle();
-//                bundle.putInt(PaymentActivity.class.getSimpleName(), orderId);
-//                JumpUtil.overlay(this, PaymentActivity.class,bundle);
-                Intent intent = new Intent(this, PaymentActivity.class);
-                intent.putExtra(PaymentActivity.class.getSimpleName(), orderId);
-                startActivityForResult(intent, 1);
+                Bundle bundle = new Bundle();
+                bundle.putInt(PaymentActivity.class.getSimpleName(), orderId);
+                JumpUtil.startForResult(this, PaymentActivity.class, 1, bundle);
                 break;
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            this.finish();
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            refreshLayout.startRefresh();
         }
     }
 
@@ -255,6 +248,8 @@ public class MyOrdersDetailActivity extends BaseMvpActivity<MyOrdersDetailPresen
     @Override
     public void success() {
         ToastUtils.showShort("删除成功");
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
         finish();
     }
 }

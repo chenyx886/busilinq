@@ -1,11 +1,9 @@
 package com.busilinq.ui.mine.order.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,16 +11,19 @@ import android.widget.TextView;
 import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.data.entity.HomeOrderEntity;
-import com.busilinq.ui.mine.order.MyOrdersDetailActivity;
 import com.busilinq.xsm.ulits.StringParse;
-import com.chenyx.libs.utils.JumpUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 /**
- * Created by yu on 2018/1/31.
+ * Company：华科建邺
+ * Class Describe：订单列表 适配器
+ * Create Person：wenxin.li
+ * Create Time：2018/1/31 11:22
+ * Update Person：
+ * Update Time：
+ * Update Remark：
  */
 public class MyOrdersAdapter extends AbstractRecyclerViewAdapter<HomeOrderEntity> {
 
@@ -41,7 +42,7 @@ public class MyOrdersAdapter extends AbstractRecyclerViewAdapter<HomeOrderEntity
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ViewHolder) {
             ViewHolder vHolder = ((ViewHolder) holder);
             final HomeOrderEntity entity = getItem(position);
@@ -53,16 +54,13 @@ public class MyOrdersAdapter extends AbstractRecyclerViewAdapter<HomeOrderEntity
             vHolder.mAgainBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    onItemClickListener.onItemClick(view, position);
                 }
             });
             vHolder.mOrdersItemLly.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Bundle bundle = new Bundle();
-                    String orderNum = entity.getOrder().getOrderNumber();
-                    bundle.putString("orderNum", orderNum);
-                    JumpUtil.overlay(mContext, MyOrdersDetailActivity.class, bundle);
+                    onItemViewClickListener.onViewClick(view, position);
                 }
             });
         }
@@ -118,7 +116,8 @@ public class MyOrdersAdapter extends AbstractRecyclerViewAdapter<HomeOrderEntity
          * 再次订购
          */
         @BindView(R.id.order_again_btn)
-        Button mAgainBtn;
+        TextView mAgainBtn;
+
         @BindView(R.id.my_orders_items_lly)
         LinearLayout mOrdersItemLly;
 

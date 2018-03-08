@@ -353,37 +353,43 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        android:gravity="right"
+        android:gravity="right|center_vertical"
         android:orientation="horizontal"
         android:padding="@dimen/len_10">
 
-        <Button
+        <TextView
             android:id="@+id/btn_delete_order"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="@dimen/len_40"
             android:background="@drawable/btn_e44010_rad5"
+            android:gravity="center"
+            android:padding="6dp"
             android:text="删除订单"
             android:textColor="@color/color_e44010"
-            android:textSize="@dimen/text_size15" />
+            android:textSize="@dimen/text_size16" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_pay"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="@dimen/len_40"
             android:layout_marginLeft="@dimen/len_10"
             android:background="@drawable/btn_e44010_frame_e44010_rad5"
+            android:gravity="center"
+            android:padding="6dp"
             android:text="付款"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size15" />
+            android:textSize="@dimen/text_size16" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_logistics"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="@dimen/len_40"
             android:layout_marginLeft="@dimen/len_10"
             android:background="@drawable/btn_e44010_frame_e44010_rad5"
+            android:gravity="center"
+            android:padding="6dp"
             android:text="查看物流"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size15" />
+            android:textSize="@dimen/text_size16" />
     </LinearLayout>
 </RelativeLayout>

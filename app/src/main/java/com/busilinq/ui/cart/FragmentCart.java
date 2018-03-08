@@ -125,10 +125,7 @@ public class FragmentCart extends BaseMvpFragment<CartPresenter> implements ICar
 
     @Override
     protected CartPresenter createPresenter() {
-        if (null == mPresenter) {
-            mPresenter = new CartPresenter(this);
-        }
-        return mPresenter;
+        return new CartPresenter(this);
     }
 
     @Override

@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
-import com.busilinq.contract.cart.INewlyAddedAddress;
+import com.busilinq.contract.mine.IAddedAddress;
 import com.busilinq.data.entity.UserShopAddrEntity;
-import com.busilinq.presenter.cart.NewlyAddedAddressPresenter;
+import com.busilinq.presenter.mine.AddedAddressPresenter;
 import com.busilinq.ui.mine.domian.CityModel;
 import com.busilinq.ui.mine.domian.DistrictModel;
 import com.busilinq.ui.mine.domian.ProvinceModel;
@@ -42,7 +42,7 @@ import butterknife.OnClick;
  * Update Remark：
  */
 
-public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresenter> implements INewlyAddedAddress {
+public class AddAddressActivity extends BaseMvpActivity<AddedAddressPresenter> implements IAddedAddress {
 
     public static final int ADDRESS_REQUESTCODE = 2;
 
@@ -139,11 +139,8 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
     private PickerData data;
 
     @Override
-    protected NewlyAddedAddressPresenter createPresenter() {
-        if (null == mPresenter) {
-            mPresenter = new NewlyAddedAddressPresenter(this);
-        }
-        return mPresenter;
+    protected AddedAddressPresenter createPresenter() {
+        return new AddedAddressPresenter(this);
     }
 
     @Override
@@ -313,7 +310,6 @@ public class AddAddressActivity extends BaseMvpActivity<NewlyAddedAddressPresent
         finish();
     }
 
-    @Override
     public void addAddressInfo() {
         unit = new_unit_et.getText().toString();
         consignee = new_consignee_et.getText().toString();

@@ -1,6 +1,6 @@
-package com.busilinq.presenter.cart;
+package com.busilinq.presenter.mine;
 
-import com.busilinq.contract.cart.INewlyAddedAddress;
+import com.busilinq.contract.mine.IAddedAddress;
 import com.busilinq.data.BaseData;
 import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.SubscriberCallBack;
@@ -24,8 +24,9 @@ import okhttp3.RequestBody;
  * Update Remark：
  */
 
-public class NewlyAddedAddressPresenter extends BasePresenter<INewlyAddedAddress> {
-    public NewlyAddedAddressPresenter(INewlyAddedAddress mvpView) {
+public class AddedAddressPresenter extends BasePresenter<IAddedAddress> {
+
+    public AddedAddressPresenter(IAddedAddress mvpView) {
         super(mvpView);
     }
 

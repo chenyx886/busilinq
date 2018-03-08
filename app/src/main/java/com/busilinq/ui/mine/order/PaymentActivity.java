@@ -1,7 +1,5 @@
 package com.busilinq.ui.mine.order;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -88,10 +86,7 @@ public class PaymentActivity extends BaseMvpActivity<PaymentPresenter> implement
 
     @Override
     protected PaymentPresenter createPresenter() {
-        if (mPresenter == null)
-            return new PaymentPresenter(this);
-        else
-            return mPresenter;
+        return new PaymentPresenter(this);
     }
 
     @Override

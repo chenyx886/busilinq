@@ -15,7 +15,6 @@ import com.busilinq.presenter.mine.SetNewPwdPresenter;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
-import com.chenyx.libs.utils.Toasts;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,8 +104,6 @@ public class SetNewPwdActivity extends BaseMvpActivity<SetNewPwdPresenter> imple
         UserCache.clear();
         MApplication.getInstance().appManager.finishAllActivity();
         JumpUtil.overlay(mContext, LoginActivity.class);
-
-
     }
 
     @Override

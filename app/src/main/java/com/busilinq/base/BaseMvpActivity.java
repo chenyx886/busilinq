@@ -26,11 +26,6 @@ public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActiv
     protected abstract P createPresenter();
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (mPresenter != null)

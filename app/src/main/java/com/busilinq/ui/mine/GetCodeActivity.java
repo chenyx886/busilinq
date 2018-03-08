@@ -17,7 +17,6 @@ import com.busilinq.presenter.mine.CodePresenter;
 import com.busilinq.widget.MLoadingDialog;
 import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ResourceUtils;
-import com.chenyx.libs.utils.ToastUtils;
 import com.chenyx.libs.utils.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
@@ -90,10 +89,7 @@ public class GetCodeActivity extends BaseMvpActivity<CodePresenter> implements I
 
     @Override
     protected CodePresenter createPresenter() {
-        if (null == mPresenter) {
-            mPresenter = new CodePresenter(this);
-        }
-        return mPresenter;
+        return new CodePresenter(this);
     }
 
     @Override

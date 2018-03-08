@@ -186,10 +186,7 @@ public class SubmitOrderActivity extends BaseMvpActivity<SubmitOrderPresenter> i
 
     @Override
     protected SubmitOrderPresenter createPresenter() {
-        if (null == mPresenter) {
-            mPresenter = new SubmitOrderPresenter(this);
-        }
-        return mPresenter;
+        return new SubmitOrderPresenter(this);
     }
 
     @Override

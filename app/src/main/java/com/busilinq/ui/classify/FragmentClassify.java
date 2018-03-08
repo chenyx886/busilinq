@@ -81,10 +81,7 @@ public class FragmentClassify extends BaseMvpFragment<ClassifyPresenter> impleme
 
     @Override
     protected ClassifyPresenter createPresenter() {
-        if (null == mPresenter) {
-            mPresenter = new ClassifyPresenter(this);
-        }
-        return mPresenter;
+        return new ClassifyPresenter(this);
     }
 
 

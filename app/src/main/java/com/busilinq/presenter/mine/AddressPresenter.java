@@ -24,7 +24,11 @@ public class AddressPresenter extends BasePresenter<AddressListView> {
         super(mvpView);
     }
 
-
+    /**
+     * 地址列表
+     *
+     * @param userId
+     */
     public void getAddressList(int userId) {
         addSubscription(RetrofitApiFactory.getMineApi().getAddressList(userId), new SubscriberCallBack<List<UserShopAddrEntity>>() {
             @Override
@@ -40,6 +44,12 @@ public class AddressPresenter extends BasePresenter<AddressListView> {
         });
     }
 
+    /**
+     * 设置默认地址
+     *
+     * @param userId
+     * @param addrId
+     */
     public void setDefaultAddress(final int userId, int addrId) {
         addSubscription(RetrofitApiFactory.getMineApi().setDefaultAddress(userId, addrId), new SubscriberCallBack<List<UserShopAddrEntity>>() {
             @Override
@@ -55,6 +65,12 @@ public class AddressPresenter extends BasePresenter<AddressListView> {
         });
     }
 
+    /**
+     * 删除地址
+     *
+     * @param userId
+     * @param addrId
+     */
     public void deletedAddress(final int userId, int addrId) {
         addSubscription(RetrofitApiFactory.getMineApi().deleteAddress(userId, addrId), new SubscriberCallBack<BaseData>() {
             @Override

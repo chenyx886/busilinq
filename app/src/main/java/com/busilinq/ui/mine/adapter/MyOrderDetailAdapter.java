@@ -15,7 +15,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 订单详情列表
+ * Company：华科建邺
+ * Class Describe：订单详情商品列表 适配器
+ * Create Person：wenxin.li
+ * Create Time：2018/2/9 11:22
+ * Update Person：
+ * Update Time：
+ * Update Remark：
  */
 public class MyOrderDetailAdapter extends AbstractRecyclerViewAdapter<OrderDetailsEntity> {
 

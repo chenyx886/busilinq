@@ -1,21 +1,28 @@
 package com.busilinq.ui.mine.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.base.AbstractRecyclerViewAdapter;
+import com.busilinq.MApplication;
 import com.busilinq.R;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.order.IMyOrdersView;
 import com.busilinq.data.PageEntity;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.HomeOrderEntity;
+import com.busilinq.data.event.MenuEvent;
 import com.busilinq.presenter.mine.order.MyOrderPresenter;
 import com.busilinq.ui.mine.order.adapter.MyOrdersAdapter;
 import com.busilinq.widget.MLoadingDialog;
+import com.chenyx.libs.utils.JumpUtil;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,16 +62,12 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
 
     private String seachType;
 
+    private boolean isGoClassify = false;
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_my_orders);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mDataList.setRefreshing(true);
     }
 
     @Override
@@ -102,6 +105,23 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
 
         mAdapter = new MyOrdersAdapter(this);
         mDataList.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new AbstractRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                isGoClassify = true;
+                MApplication.getInstance().appManager.finishAllActivity();
+            }
+        });
+        mAdapter.setOnItemViewClickListener(new AbstractRecyclerViewAdapter.OnItemViewClickListener() {
+            @Override
+            public void onViewClick(View view, int position) {
+                Bundle bundle = new Bundle();
+                String orderNum = mAdapter.getItem(position).getOrder().getOrderNumber();
+                bundle.putString("orderNum", orderNum);
+                JumpUtil.startForResult(MyOrdersActivity.this, MyOrdersDetailActivity.class, 1, bundle);
+            }
+        });
+
         mDataList.setLoadingListener(new XRecyclerView.LoadingListener() {
 
             @Override
@@ -118,27 +138,6 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
             }
         });
         mDataList.setRefreshing(true);
-    }
-
-    @Override
-    public void showProgress(String message) {
-        MLoadingDialog.show(this, message);
-    }
-
-    @Override
-    public void hideProgress() {
-        if (state == STATE_PULL_REFRESH) {
-            if (mDataList != null)
-                mDataList.refreshComplete();
-        } else if (state == STATE_LOAD_MORE) {
-            if (mDataList != null)
-                mDataList.loadMoreComplete();
-        }
-        if (mAdapter.getItemCount() - 1 > 0) {
-            mDataList.setLoadingMoreEnabled(true);
-        } else {
-            mDataList.setLoadingMoreEnabled(false);
-        }
     }
 
     @OnClick({R.id.tv_back})
@@ -162,5 +161,42 @@ public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implemen
                 mDataList.setNoMore(true);
         }
         ++page;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            mDataList.setRefreshing(true);
+        }
+    }
+
+    @Override
+    public void showProgress(String message) {
+        MLoadingDialog.show(this, message);
+    }
+
+    @Override
+    public void hideProgress() {
+        if (state == STATE_PULL_REFRESH) {
+            if (mDataList != null)
+                mDataList.refreshComplete();
+        } else if (state == STATE_LOAD_MORE) {
+            if (mDataList != null)
+                mDataList.loadMoreComplete();
+        }
+        if (mAdapter.getItemCount() - 1 > 0) {
+            mDataList.setLoadingMoreEnabled(true);
+        } else {
+            mDataList.setLoadingMoreEnabled(false);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isGoClassify) {
+            EventBus.getDefault().post(new MenuEvent(2));
+        }
     }
 }
