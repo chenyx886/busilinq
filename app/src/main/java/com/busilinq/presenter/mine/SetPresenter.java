@@ -27,6 +27,11 @@ public class SetPresenter extends BasePresenter<ISetView> {
         super(MvpView);
     }
 
+    /**
+     * 检测当前版本
+     *
+     * @param version
+     */
     public void upgrade(int version) {
         Map<String, Object> param = new HashMap<>();
         param.put("userId ", UserCache.GetUserId());

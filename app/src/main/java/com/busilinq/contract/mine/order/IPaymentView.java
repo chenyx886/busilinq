@@ -1,8 +1,6 @@
 package com.busilinq.contract.mine.order;
 
 import com.busilinq.contract.IBaseMvpView;
-import com.busilinq.data.PageEntity;
-import com.busilinq.data.entity.HomeOrderEntity;
 
 /**
  * Company：华科建邺
@@ -14,4 +12,5 @@ import com.busilinq.data.entity.HomeOrderEntity;
  * Update Remark：
  */
 public interface IPaymentView extends IBaseMvpView {
+    void PaySuccess();
 }

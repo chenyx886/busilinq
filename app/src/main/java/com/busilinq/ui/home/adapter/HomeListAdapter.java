@@ -16,12 +16,13 @@ import butterknife.ButterKnife;
 
 
 /**
- * 类描述：首页数据适配器
- * 创建人：Chenyx
- * 创建时间：2017/3/4 15:44
- * 修改人：
- * 修改时间：
- * 修改备注：
+ * Company：华科建邺
+ * Class Describe：首页数据适配器
+ * Create Person：lwx
+ * Create Time：2018/2/27
+ * Update Person：
+ * Update Time：
+ * Update Remark：
  */
 public class HomeListAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity> {
 
@@ -45,16 +46,13 @@ public class HomeListAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
-        if (holder instanceof  GoodsListViewHolder) {
+        if (holder instanceof GoodsListViewHolder) {
             GoodsListViewHolder vHolder = (GoodsListViewHolder) holder;
-            if (getItem(position) != null) {
-                final HomeGoodsEntity item = getItem(position);
-                vHolder.mTitle.setText(item.getGoods().getName());
-                vHolder.mPrice.setText("￥" + item.getPrice().getSalesPrice());
-                showImageView(item.getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
-            }
+            final HomeGoodsEntity item = getItem(position);
+            vHolder.mTitle.setText(item.getGoods().getName());
+            vHolder.mPrice.setText("￥" + item.getPrice().getSalesPrice());
+            showImageView(item.getGoods().getImage(), vHolder.mItemPic, R.mipmap.default_error);
         }
-
     }
 
     /**
@@ -71,6 +69,7 @@ public class HomeListAdapter extends AbstractRecyclerViewAdapter<HomeGoodsEntity
             ButterKnife.bind(this, itemView);
         }
     }
+
     static class GoodsListViewHolder extends RecyclerView.ViewHolder {
 
         /**

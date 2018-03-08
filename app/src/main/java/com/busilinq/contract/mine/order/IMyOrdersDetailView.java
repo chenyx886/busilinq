@@ -7,6 +7,11 @@ import com.busilinq.data.entity.HomeOrderEntity;
  * Created by yu on 2018/1/31.
  */
 public interface IMyOrdersDetailView extends IBaseMvpView {
+    /**
+     * 订单详情
+     *
+     * @param detail
+     */
     void OrdersListDetail(HomeOrderEntity detail);
 
     /**

@@ -5,7 +5,6 @@ import com.busilinq.data.BaseData;
 import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
-import com.busilinq.data.cache.UserCache;
 import com.busilinq.presenter.BasePresenter;
 
 import java.util.HashMap;
@@ -28,7 +27,13 @@ public class FeedbackPresenter extends BasePresenter<FeedbackView> {
         super(mvpView);
     }
 
-    public void submitContent(int userId,String content) {
+    /**
+     * 提交意见反馈
+     *
+     * @param userId
+     * @param content
+     */
+    public void submitContent(int userId, String content) {
         MvpView.showProgress("提交中...");
         Map<String, Object> param = new HashMap<>();
         param.put("userId", userId);

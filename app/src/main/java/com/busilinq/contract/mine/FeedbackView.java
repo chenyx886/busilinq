@@ -12,5 +12,10 @@ import com.busilinq.contract.IBaseMvpView;
  * Update Remark：
  */
 public interface FeedbackView extends IBaseMvpView {
+    /**
+     * 提交意见反馈成功
+     *
+     * @param msg
+     */
     void submitSuccess(String msg);
 }

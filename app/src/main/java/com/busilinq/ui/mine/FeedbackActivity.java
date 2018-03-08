@@ -7,13 +7,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.busilinq.R;
-import com.busilinq.base.BaseActivity;
 import com.busilinq.base.BaseMvpActivity;
 import com.busilinq.contract.mine.FeedbackView;
 import com.busilinq.data.cache.UserCache;
 import com.busilinq.presenter.mine.FeedbackPresenter;
 import com.busilinq.widget.MLoadingDialog;
-import com.chenyx.libs.utils.Toasts;
+import com.chenyx.libs.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,7 +26,7 @@ import butterknife.OnClick;
  * Update Time：
  * Update Remark：
  */
-public class FeedbackActivity extends BaseMvpActivity<FeedbackPresenter> implements FeedbackView{
+public class FeedbackActivity extends BaseMvpActivity<FeedbackPresenter> implements FeedbackView {
     /**
      * 标题
      */
@@ -83,14 +82,13 @@ public class FeedbackActivity extends BaseMvpActivity<FeedbackPresenter> impleme
                 break;
             case R.id.btn_submit:
                 if (TextUtils.isEmpty(mContent.getText().toString().trim())) {
-                    Toasts.showShort(FeedbackActivity.this, "说点什么吧");
+                    ToastUtils.showShort("说点什么吧");
                     mContent.setFocusable(true);
                     mContent.requestFocus();
                     return;
                 } else {
                     String content = mContent.getText().toString().trim();
-                    mPresenter.submitContent(UserCache.GetUserId(),content);
-
+                    mPresenter.submitContent(UserCache.GetUserId(), content);
                 }
 
                 break;
@@ -109,7 +107,7 @@ public class FeedbackActivity extends BaseMvpActivity<FeedbackPresenter> impleme
 
     @Override
     public void submitSuccess(String msg) {
-        Toasts.showShort(FeedbackActivity.this, "您的反馈已提交，我们会尽量为您解答!");
+        ToastUtils.showShort("您的反馈已提交，我们会尽量为您解答!");
         finish();
     }
 }

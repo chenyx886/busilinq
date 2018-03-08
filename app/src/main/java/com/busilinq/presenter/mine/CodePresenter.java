@@ -1,7 +1,5 @@
 package com.busilinq.presenter.mine;
 
-import android.content.Context;
-
 import com.busilinq.contract.mine.ICodeView;
 import com.busilinq.data.BaseData;
 import com.busilinq.data.JsonRequestBody;
@@ -26,11 +24,9 @@ import okhttp3.RequestBody;
  * Update Remark：
  */
 public class CodePresenter extends BasePresenter<ICodeView> {
-    private Context mContext;
 
     public CodePresenter(ICodeView MvpView) {
         super(MvpView);
-        mContext = (Context) MvpView;
     }
 
 

@@ -10,11 +10,6 @@ public class ProvinceModel {
 		super();
 	}
 
-	public ProvinceModel(String name, List<CityModel> cityList) {
-		super();
-		this.name = name;
-		this.cityList = cityList;
-	}
 
 	public String getName() {
 		return name;

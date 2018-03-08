@@ -7,11 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.busilinq.contract.mine.order.IPaymentView;
-import com.busilinq.data.BaseData;
 import com.busilinq.data.JsonRequestBody;
 import com.busilinq.data.PayResult;
 import com.busilinq.data.SubscriberCallBack;
@@ -20,8 +18,6 @@ import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.OrderEntity;
 import com.busilinq.data.entity.payAlipayEntity;
 import com.busilinq.presenter.BasePresenter;
-import com.busilinq.ui.MainActivity;
-import com.busilinq.xsm.ulits.Logger;
 import com.chenyx.libs.utils.Toasts;
 
 import java.util.HashMap;
@@ -71,10 +67,10 @@ public class PaymentPresenter extends BasePresenter<IPaymentView> {
             @Override
             protected void onSuccess(OrderEntity entity) {
                 if (entity != null && entity.getOrderId() == orderId) {
-                    ((Activity) mContext).setResult(1);
-                    ((Activity) mContext).finish();
-                } else
+                    MvpView.PaySuccess();
+                } else {
                     Toasts.showShort(mContext, "支付失败");
+                }
             }
 
             @Override

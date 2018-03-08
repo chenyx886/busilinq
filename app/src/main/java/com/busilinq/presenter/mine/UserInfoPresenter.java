@@ -50,7 +50,15 @@ public class UserInfoPresenter extends BasePresenter<UserInfoView> {
         });
     }
 
-    public void submitUserInfo(String user_account, String user_name, String user_email, String user_tell) {
+    /**
+     * 修改用户资料
+     *
+     * @param user_account
+     * @param user_name
+     * @param user_email
+     * @param user_tell
+     */
+    public void modifyUserInfo(String user_account, String user_name, String user_email, String user_tell) {
         Map<String, Object> param = new HashMap<>();
         param.put("userId", UserCache.GetUserId());
         param.put("name", user_account);

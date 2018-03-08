@@ -27,11 +27,16 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * 我的订单（我订过的，退货单）
- * Created by yu on 2018/1/31.
- */
 
+/**
+ * Company：华科建邺
+ * Class Describe：我的订单（我订过的，退货单）
+ * Create Person：wenxin.li
+ * Create Time：2018/1/31 11:22
+ * Update Person：
+ * Update Time：
+ * Update Remark：
+ */
 public class MyOrdersActivity extends BaseMvpActivity<MyOrderPresenter> implements IMyOrdersView {
     public static final String WAIT_PAY = "WAIT_PAY";//待审核
     public static final String WAIT_OUT = "WAIT_OUT";//待出库

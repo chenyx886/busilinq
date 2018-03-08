@@ -135,7 +135,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
         user_account = et_user_account.getText().toString();
         user_email = et_user_email.getText().toString();
         user_tell = et_user_tell.getText().toString();
-        mPresenter.submitUserInfo(user_account, user_name, user_email, user_tell);
+        mPresenter.modifyUserInfo(user_account, user_name, user_email, user_tell);
 
     }
 

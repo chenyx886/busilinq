@@ -1,5 +1,6 @@
 package com.busilinq.ui.mine.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -63,6 +64,8 @@ public class PaymentActivity extends BaseMvpActivity<PaymentPresenter> implement
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
                 finish();
                 break;
             case R.id.it_pay_unionpay:
@@ -95,6 +98,12 @@ public class PaymentActivity extends BaseMvpActivity<PaymentPresenter> implement
     }
 
     @Override
+    public void PaySuccess() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
     public void showProgress(String message) {
 
     }

@@ -26,5 +26,8 @@ public interface UserInfoView extends IBaseMvpView {
      */
     void modifyUserInfo();
 
+    /**
+     * 修改用户资料
+     */
     void modifyUserInfoSuccess();
 }

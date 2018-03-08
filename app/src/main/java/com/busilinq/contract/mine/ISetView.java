@@ -13,6 +13,10 @@ import com.busilinq.data.entity.TUpgradeEntity;
  * Update Remark：
  */
 public interface ISetView extends IBaseMvpView {
-
+    /**
+     * 检测当前版本
+     *
+     * @param data
+     */
     void showUpgrade(TUpgradeEntity data);
 }
