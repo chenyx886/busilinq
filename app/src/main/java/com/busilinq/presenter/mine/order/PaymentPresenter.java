@@ -2,7 +2,6 @@ package com.busilinq.presenter.mine.order;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -18,7 +17,7 @@ import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.OrderEntity;
 import com.busilinq.data.entity.payAlipayEntity;
 import com.busilinq.presenter.BasePresenter;
-import com.chenyx.libs.utils.Toasts;
+import com.chenyx.libs.utils.ToastUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +34,6 @@ import okhttp3.RequestBody;
  * Update Remark：
  */
 public class PaymentPresenter extends BasePresenter<IPaymentView> {
-    Context mContext;
     private static final int SDK_PAY_FLAG = 1;
     private int orderId;
     @SuppressLint("HandlerLeak")
@@ -50,7 +48,7 @@ public class PaymentPresenter extends BasePresenter<IPaymentView> {
                     if (TextUtils.equals(resultStatus, "9000") || TextUtils.equals(resultStatus, "8000") || TextUtils.equals(resultStatus, "6004")) {
                         seachOrder();
                     } else {
-                        Toasts.showShort(mContext, payResult.getMemo());
+                        ToastUtils.showShort(payResult.getMemo());
                     }
                     break;
                 }
@@ -69,7 +67,7 @@ public class PaymentPresenter extends BasePresenter<IPaymentView> {
                 if (entity != null && entity.getOrderId() == orderId) {
                     MvpView.PaySuccess();
                 } else {
-                    Toasts.showShort(mContext, "支付失败");
+                    ToastUtils.showShort("支付失败");
                 }
             }
 
@@ -83,7 +81,6 @@ public class PaymentPresenter extends BasePresenter<IPaymentView> {
 
     public PaymentPresenter(IPaymentView mvpView) {
         super(mvpView);
-        mContext = (Context) mvpView;
     }
 
     public void payAlipayOrder(int payOrderId) {
@@ -101,7 +98,7 @@ public class PaymentPresenter extends BasePresenter<IPaymentView> {
 
                     @Override
                     public void run() {
-                        PayTask alipay = new PayTask((Activity) mContext);
+                        PayTask alipay = new PayTask((Activity) MvpView);
                         Map<String, String> result = alipay.payV2(entity.getParam(), true);
                         Log.i("msp", result.toString());
 
