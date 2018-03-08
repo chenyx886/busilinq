@@ -214,11 +214,10 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
     public void GoodsList(PageEntity<HomeGoodsEntity> data) {
         if (page == 1)
             mAdapter.setData(data.getList());
-        else
+        else if (data.getList().size() > 0) {
             mAdapter.insert(mAdapter.getItemCount(), data.getList());
-
-        if (data.getList().size() > 0)
             ++page;
+        }
     }
 
     /**

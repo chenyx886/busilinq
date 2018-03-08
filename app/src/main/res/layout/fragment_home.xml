@@ -1,55 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/body_bg"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
-
-    <!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<android.support.design.widget.AppBarLayout-->
-            <!--android:id="@+id/appBarLayout"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="180dp"-->
-            <!--android:fitsSystemWindows="true"-->
-            <!--android:visibility="gone">-->
-
-            <!--<android.support.design.widget.CollapsingToolbarLayout-->
-                <!--android:id="@+id/collapsingToolbarLayout"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--app:collapsedTitleGravity="center"-->
-                <!--app:contentScrim="@android:color/white"-->
-                <!--app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
-                <!--app:title="">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:fitsSystemWindows="true"-->
-                    <!--android:scaleType="fitXY" />-->
-
-                <!--<android.support.v7.widget.Toolbar-->
-                    <!--android:id="@+id/toolbar"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="?attr/actionBarSize"-->
-                    <!--android:gravity="center"-->
-                    <!--app:contentInsetLeft="0dp"-->
-                    <!--app:contentInsetStart="0dp"-->
-                    <!--app:layout_collapseMode="pin">-->
-
-                    <!--<include-->
-                        <!--layout="@layout/include_search_text_layout"-->
-                        <!--android:visibility="gone" />-->
-                <!--</android.support.v7.widget.Toolbar>-->
-            <!--</android.support.design.widget.CollapsingToolbarLayout>-->
-        <!--</android.support.design.widget.AppBarLayout>-->
-
-    <!--</android.support.design.widget.CoordinatorLayout>-->
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout"
@@ -60,7 +15,7 @@
         android:dividerHeight="2dp"
         android:overScrollMode="never">
 
-        <android.support.v4.widget.NestedScrollView
+        <com.busilinq.widget.MyScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -78,7 +33,7 @@
                     android:overScrollMode="never" />
 
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </com.busilinq.widget.MyScrollView>
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
 </LinearLayout>
