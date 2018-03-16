@@ -91,7 +91,7 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
             @Override
             public void onItemClick(View itemView, int position) {
                 if (UserCache.get() == null) {
-                    JumpUtil.startForResult(FragmentMine.this, LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.overlay(getActivity(), LoginActivity.class);
                     return;
                 }
                 //我的订单
@@ -130,42 +130,42 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
                 if (UserCache.get() != null) {
                     JumpUtil.startForResult(this, UpdateAvatarActivity.class, UpdateAvatarActivity.REQUEST, null);
                 } else {
-                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.overlay(getActivity(), LoginActivity.class);
                 }
                 break;
             case R.id.it_address:
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), AddressActivity.class);
                 } else {
-                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.overlay(getActivity(), LoginActivity.class);
                 }
                 break;
             case R.id.it_collection:
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), MyCollectionActivity.class);
                 } else {
-                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.overlay(getActivity(), LoginActivity.class);
                 }
                 break;
             case R.id.it_user_info:
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), UserInfoActivity.class);
                 } else {
-                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.overlay(getActivity(), LoginActivity.class);
                 }
                 break;
             case R.id.it_feedback:
                 if (UserCache.get() != null) {
                     JumpUtil.overlay(getActivity(), FeedbackActivity.class);
                 } else {
-                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.overlay(getActivity(), LoginActivity.class);
                 }
                 break;
             case R.id.it_xsm:
                 if (UserCache.get() != null) {
                     mPresenter.getService(getContext());
                 } else {
-                    JumpUtil.startForResult(this, LoginActivity.class, LoginActivity.REQUEST, null);
+                    JumpUtil.overlay(getActivity(), LoginActivity.class);
                 }
                 break;
             case R.id.iv_set:

@@ -14,6 +14,7 @@ import java.util.concurrent.ThreadFactory;
 
 /**
  * Company：华科建邺
+ *
  * Class Describe：APP 应用
  * Create Person：Chenyx
  * Create Time：2016/10/13 11:30

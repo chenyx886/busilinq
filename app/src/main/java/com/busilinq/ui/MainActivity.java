@@ -119,10 +119,11 @@ public class MainActivity extends RxAppCompatActivity {
         mCart.setTag(FragmentCart.TAG);
         mMine.setTag(FragmentMine.TAG);
         mHome.setChecked(true);//默认选中第一个
-
+        //获取购物车数量
         QueryCartNum();
-
+        //获取手机权限
         getPersimmions();
+
     }
 
 
@@ -201,6 +202,7 @@ public class MainActivity extends RxAppCompatActivity {
                     }
                 });
     }
+
     /**
      * 显示购物车数量
      *

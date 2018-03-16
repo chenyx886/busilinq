@@ -1,8 +1,11 @@
 package com.busilinq.ui.home;
 
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -216,8 +219,9 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
             mAdapter.setData(data.getList());
         else if (data.getList().size() > 0) {
             mAdapter.insert(mAdapter.getItemCount(), data.getList());
-            ++page;
         }
+        if (data.getList().size() > 0)
+            ++page;
     }
 
     /**

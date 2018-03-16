@@ -1,6 +1,7 @@
 package com.busilinq.xsm.data.api;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.busilinq.ulits.JsonUtils;
 import com.busilinq.xsm.data.entity.Cart;
@@ -39,12 +40,19 @@ public class XsmApi {
     private static XsmApi instance;
 
     private XsmApi(Context context) {
-        String BASE_URL = UserCenterHelper.getInstance(context).getUser().getService("baccy");
+
+        String url = "";
+        if (UserCenterHelper.getInstance(context).getUser() != null) {
+            url = UserCenterHelper.getInstance(context).getUser().getService("baccy");
+        }
+        if (TextUtils.isEmpty(url))
+            url = "http://www.busilinq.com:18082/hkbaccy/baccy/";
+
         retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(HttpMethod.instance.getClient(0xF0))
-                .baseUrl(BASE_URL)
+                .baseUrl(url)
                 .build();
         mService = retrofit.create(XsmService.class);
     }

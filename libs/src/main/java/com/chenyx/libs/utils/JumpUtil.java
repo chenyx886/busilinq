@@ -3,6 +3,7 @@ package com.chenyx.libs.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -25,7 +26,11 @@ public class JumpUtil {
      */
     public static void overlay(Context context, Class<? extends Activity> targetClazz) {
         Intent mIntent = new Intent(context, targetClazz);
-        context.startActivity(mIntent);
+        if (context.getPackageManager().resolveActivity(mIntent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            context.startActivity(mIntent);
+        } else {
+            ToastUtils.showShort("找不到指定的界面");
+        }
     }
 
     /**
@@ -40,7 +45,11 @@ public class JumpUtil {
         if (bundle != null) {
             mIntent.putExtras(bundle);
         }
-        context.startActivity(mIntent);
+        if (context.getPackageManager().resolveActivity(mIntent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            context.startActivity(mIntent);
+        } else {
+            ToastUtils.showShort("找不到指定的界面");
+        }
     }
 
     /**
@@ -57,10 +66,12 @@ public class JumpUtil {
         if (flags != null) {
             mIntent.setFlags(flags);
         }
-        context.startActivity(mIntent);
+        if (context.getPackageManager().resolveActivity(mIntent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            context.startActivity(mIntent);
+        } else {
+            ToastUtils.showShort("找不到指定的界面");
+        }
     }
-
-
 
 
     /**
@@ -74,7 +85,11 @@ public class JumpUtil {
         if (bundle != null) {
             mIntent.putExtras(bundle);
         }
-        context.startActivityForResult(mIntent, requestCode);
+        if (context.getPackageManager().resolveActivity(mIntent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            context.startActivityForResult(mIntent, requestCode);
+        } else {
+            ToastUtils.showShort("找不到指定的界面");
+        }
     }
 
     /**
@@ -88,6 +103,10 @@ public class JumpUtil {
         if (bundle != null) {
             mIntent.putExtras(bundle);
         }
-        fragment.startActivityForResult(mIntent, requestCode);
+        if (fragment.getActivity().getPackageManager().resolveActivity(mIntent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            fragment.startActivityForResult(mIntent, requestCode);
+        } else {
+            ToastUtils.showShort("找不到指定的界面");
+        }
     }
 }

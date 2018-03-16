@@ -1,7 +1,7 @@
 package com.busilinq.xsm.data.usercenter;
 
 
-
+import com.busilinq.data.entity.TServiceAccountEntity;
 import com.busilinq.xsm.ulits.StringUtils;
 
 import java.io.Serializable;
@@ -26,7 +26,7 @@ public class UserEntity implements Serializable {
     private String memberId;
     private String password;
     private String fixedQR;
-    private List<ServiceEntity> serviceList;
+    private List<TServiceAccountEntity> serviceList;
     private List<RuleEntity> ruleList;
 
     public static long getSerialVersionUID() {
@@ -146,11 +146,11 @@ public class UserEntity implements Serializable {
         this.password = password;
     }
 
-    public List<ServiceEntity> getServiceList() {
+    public List<TServiceAccountEntity> getServiceList() {
         return serviceList;
     }
 
-    public void setServiceList(List<ServiceEntity> serviceList) {
+    public void setServiceList(List<TServiceAccountEntity> serviceList) {
         this.serviceList = serviceList;
     }
 
@@ -170,44 +170,23 @@ public class UserEntity implements Serializable {
      */
     public String getService(String code) {
         String serviceUrl = null;
-        ServiceEntity service = null;
+        TServiceAccountEntity service = null;
         if (null == serviceList || 0 == serviceList.size())
             return serviceUrl;
-        for (ServiceEntity entity : serviceList) {
-            if (entity.getServiceId().equals(code)) {
+        for (TServiceAccountEntity entity : serviceList) {
+            if (entity.getName().equals(code)) {
                 service = entity;
                 break;
             }
         }
 
         if (null != service) {
-            serviceUrl = service.getService();
+            serviceUrl = service.getUrl();
             if (!StringUtils.isUrl(serviceUrl))
                 serviceUrl = null;
         }
         return serviceUrl;
     }
 
-    /**
-     * 根据Code指定值 获取Permission 0:显示 1:不显示
-     *
-     * @param code
-     * @return
-     */
-    public int getServicePermission(String code) {
-        int servicePermission = 1;
-        ServiceEntity service = null;
-        if (null == serviceList || 0 == serviceList.size())
-            return servicePermission;
-        for (ServiceEntity entity : serviceList) {
-            if (entity.getServiceId().equals(code)) {
-                service = entity;
-                break;
-            }
-        }
-        if (null != service) {
-            servicePermission = service.getPermission();
-        }
-        return servicePermission;
-    }
+
 }

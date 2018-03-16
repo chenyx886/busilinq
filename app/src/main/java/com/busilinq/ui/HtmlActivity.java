@@ -50,6 +50,8 @@ public class HtmlActivity extends BaseActivity {
      */
     @BindView(R.id.container)
     FrameLayout mContainer;
+    @BindView(R.id.il_header_layout)
+    View mIlHeaderLayout;
 
     /**
      * 浏览器
@@ -68,11 +70,10 @@ public class HtmlActivity extends BaseActivity {
     @Override
     protected void initUI() {
         mBack.setVisibility(View.VISIBLE);
+        mIlHeaderLayout.setVisibility(View.VISIBLE);
         mTitle.setText("首页");
-
         url = getIntent().getStringExtra("url");
         initData();
-
     }
 
     private void initData() {

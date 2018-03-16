@@ -1,6 +1,7 @@
 package com.busilinq.xsm.data.api;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 
 import com.busilinq.ulits.JsonUtils;
@@ -36,10 +37,13 @@ public class UmsPosPayApi {
     private static UmsPosPayApi instance;
 
     private UmsPosPayApi(Context context) {
-        String url = "http://10.10.200.163:7071/hkbaccypospay/unionpay/";
+        String url = "";
         if (UserCenterHelper.getInstance(context).getUser() != null) {
             url = UserCenterHelper.getInstance(context).getUser().getService("unionpay");
         }
+        if (TextUtils.isEmpty(url))
+            url = "http://10.10.200.163:7071/hkbaccypospay/unionpay/";
+
         retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

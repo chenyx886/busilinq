@@ -6,15 +6,14 @@ import android.content.Context;
 import com.busilinq.contract.mine.IMineView;
 import com.busilinq.data.SubscriberCallBack;
 import com.busilinq.data.api.RetrofitApiFactory;
+import com.busilinq.data.cache.UserCache;
 import com.busilinq.data.entity.TServiceAccountEntity;
 import com.busilinq.presenter.BasePresenter;
-import com.busilinq.xsm.data.usercenter.ServiceEntity;
 import com.busilinq.xsm.data.usercenter.UserEntity;
 import com.busilinq.xsm.presenter.UserCenterHelper;
 import com.busilinq.xsm.ui.XsmLoginActivity;
 import com.chenyx.libs.utils.JumpUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,16 +57,8 @@ public class MinePresenter extends BasePresenter<IMineView> {
             protected void onSuccess(List<TServiceAccountEntity> list) {
                 UserCenterHelper mHelper = UserCenterHelper.getInstance(mContext);
                 UserEntity userEntity = new UserEntity();
-                List<ServiceEntity> serviceList = new ArrayList<>();
-                for (TServiceAccountEntity entity : list) {
-                    ServiceEntity serviceEntity = new ServiceEntity();
-                    serviceEntity.setServiceId(entity.getName());
-                    serviceEntity.setService(entity.getUrl());
-                    serviceEntity.setPermission(entity.getIsEnable());
-                    serviceList.add(serviceEntity);
-                }
-                userEntity.setServiceList(serviceList);
-                userEntity.setMemberId("13061501150012");
+                userEntity.setServiceList(list);
+                userEntity.setMemberId(UserCache.get().getCell());
                 //缓存服务URL
                 mHelper.saveUser(userEntity);
                 JumpUtil.overlay(mContext, XsmLoginActivity.class);
