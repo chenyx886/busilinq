@@ -1,24 +1,19 @@
 package com.busilinq.ui;
 
-import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.View;
 import android.webkit.JavascriptInterface;
-import android.webkit.JsResult;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
 
 import com.busilinq.R;
 import com.busilinq.data.BaseData;
 import com.busilinq.data.api.MineApi;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.TServiceAccountEntity;
+import com.busilinq.widget.ProgressWebView;
 import com.busilinq.xsm.data.usercenter.UserEntity;
 import com.busilinq.xsm.presenter.UserCenterHelper;
 import com.busilinq.xsm.ui.XsmLoginActivity;
@@ -53,13 +48,11 @@ public class HAppActivity extends AppCompatActivity {
 
     private Unbinder unbinder;
 
-    @BindView(R.id.container)
-    FrameLayout mContainer;
-
     /**
      * 浏览器
      */
-    private WebView mWebView;
+    @BindView(R.id.webView)
+    ProgressWebView mWebView;
 
     private String url = "";
 
@@ -68,30 +61,29 @@ public class HAppActivity extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_webview);
         unbinder = ButterKnife.bind(this);
-        url = "http://testh5.ejavashops.com";
+        url = "http://h5.busilinq.com/h5/";
         initData();
     }
 
 
     private void initData() {
-        // 防止内存泄露
-        mWebView = new WebView(this);
-        mContainer.addView(mWebView);
-        WebSettings settings = mWebView.getSettings();
-        settings.setUseWideViewPort(true);
-        settings.setJavaScriptEnabled(true);
-        settings.setDomStorageEnabled(true);
-        settings.setPluginState(WebSettings.PluginState.ON);
-        // 应用可以有缓存
-        settings.setAppCacheEnabled(true);
-        //防止跳转到浏览器
-        mWebView.setWebViewClient(mWebViewClient);
-        //支持alert弹窗
-        mWebView.setWebChromeClient(mWebChromeClient);
-
         mWebView.addJavascriptInterface(this, "nativeMethod");
         mWebView.loadUrl(url);
 //        mWebView.loadUrl("file:///android_asset/index.html");
+
+
+        mWebView.setOnHtmlEventListener(new ProgressWebView.OnHtmlEventListener() {
+            @Override
+            public void onFinished(String html) {
+                mWebView.setBackgroundColor(Color.WHITE);
+            }
+
+            @Override
+            public void onUriLoading(Uri uri) {
+
+            }
+        });
+
 
     }
 
@@ -145,15 +137,21 @@ public class HAppActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * 使点击回退按钮不会直接退出整个应用程序而是返回上一个页面
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mWebView.canGoBack()) {
-                mWebView.goBack();
-            } else {
-                finish();
-            }
-            return true;
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+
+            mWebView.loadUrl("javascript:ejsPageBack();");
+//            if (mWebView.canGoBack()) {
+//                mWebView.goBack();
+//                return true;
+//            } else {
+//                return super.onKeyDown(keyCode, event);
+//            }
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -161,66 +159,9 @@ public class HAppActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        if (mContainer != null)
-            mContainer.removeAllViews();
         mWebView.destroy();
         if (unbinder != null && unbinder != Unbinder.EMPTY)
             unbinder.unbind();
         this.unbinder = null;
     }
-
-
-    private WebViewClient mWebViewClient = new WebViewClient() {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (url.startsWith("http:") || url.startsWith("https:")) {
-                return false;
-            }
-            view.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-            view.loadUrl(url);
-            return true;
-        }
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-        }
-
-        @Override
-        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-            super.onReceivedError(view, errorCode, description, failingUrl);
-        }
-    };
-
-
-    private WebChromeClient mWebChromeClient = new WebChromeClient() {
-        @Override
-        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-            return super.onJsAlert(view, url, message, result);
-        }
-
-        @Override
-        public void onReceivedTitle(WebView view, String title) {
-            super.onReceivedTitle(view, title);
-//            mTitle.setText(TextUtils.isEmpty(title) ? "" : title);
-        }
-
-        @Override
-        public void onShowCustomView(View view, CustomViewCallback callback) {
-            super.onShowCustomView(view, callback);
-        }
-
-        @Override
-        public void onHideCustomView() {
-            super.onHideCustomView();
-        }
-    };
-
-
 }

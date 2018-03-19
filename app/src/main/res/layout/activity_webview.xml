@@ -11,8 +11,9 @@
         layout="@layout/include_header_layout"
         android:visibility="gone" />
 
-    <FrameLayout
-        android:id="@+id/container"
+    <com.busilinq.widget.ProgressWebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:saveEnabled="false" />
 </LinearLayout>

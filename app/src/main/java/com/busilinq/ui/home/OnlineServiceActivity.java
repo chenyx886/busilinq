@@ -3,34 +3,21 @@ package com.busilinq.ui.home;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.base.AbstractRecyclerViewAdapter;
 import com.busilinq.R;
 import com.busilinq.base.BaseActivity;
-import com.busilinq.base.BaseMvpActivity;
-import com.busilinq.contract.home.IInfoNoticeView;
-import com.busilinq.data.PageEntity;
-import com.busilinq.data.cache.UserCache;
-import com.busilinq.data.entity.InfoNoticeEntity;
-import com.busilinq.data.entity.MainCartEntity;
-import com.busilinq.presenter.home.InfoNoticePresenter;
-import com.busilinq.ui.home.adapter.InfoNoticeAdapter;
 import com.chenyx.libs.utils.ToastUtils;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.longsh.optionframelibrary.OptionCenterDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -128,7 +115,7 @@ public class OnlineServiceActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.tv_qq:
-                if (checkApkExist(this, "com.tencent.mobileqq")) {
+                if (isQQClientAvailable(this)) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=" + mQq.getText().toString().trim() + "&version=1")));
                 } else {
                     ToastUtils.showShort("本机未安装QQ应用");
@@ -137,22 +124,41 @@ public class OnlineServiceActivity extends BaseActivity {
         }
     }
 
+    public static boolean isWeixinAvilible(Context context) {
+        final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+        if (pinfo != null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                String pn = pinfo.get(i).packageName;
+                if (pn.equals("com.tencent.mm")) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     /**
-     * 检查手机是否安装qq
+     * 判断qq是否可用
+     *
      * @param context
-     * @param packageName
      * @return
      */
-    public boolean checkApkExist(Context context, String packageName) {
-
-        if (packageName == null || "".equals(packageName))
-            return false;
-        try {
-            ApplicationInfo info = context.getPackageManager().getApplicationInfo(packageName, PackageManager.GET_UNINSTALLED_PACKAGES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
+    public static boolean isQQClientAvailable(Context context) {
+        final PackageManager packageManager = context.getPackageManager();
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
+        if (pinfo != null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                String pn = pinfo.get(i).packageName;
+                if (pn.equals("com.tencent.mobileqq")) {
+                    return true;
+                }
+            }
         }
+        return false;
     }
+
+
 
 }

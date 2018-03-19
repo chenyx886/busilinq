@@ -36,6 +36,7 @@ public class SplashActivity extends RxAppCompatActivity {
             @Override
             public void run() {
                 JumpUtil.overlay(SplashActivity.this, HAppActivity.class);
+//                JumpUtil.overlay(SplashActivity.this, MainActivity.class);
                 finish();
             }
         }, 1500);
