@@ -3,6 +3,7 @@ package com.busilinq.ui;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -54,6 +55,9 @@ public class HAppActivity extends AppCompatActivity {
     @BindView(R.id.webView)
     ProgressWebView mWebView;
 
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     private String url = "";
 
     @Override
@@ -62,6 +66,16 @@ public class HAppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_webview);
         unbinder = ButterKnife.bind(this);
         url = "http://h5.busilinq.com/h5/";
+
+        mSwipeRefreshLayout.measure(0, 0);
+        mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+            }
+        });
         initData();
     }
 
@@ -71,7 +85,14 @@ public class HAppActivity extends AppCompatActivity {
         mWebView.loadUrl(url);
 //        mWebView.loadUrl("file:///android_asset/index.html");
 
-
+        mWebView.setOnRefreshEventListener(new ProgressWebView.OnRefreshEventListener() {
+            @Override
+            public void onFinished() {
+                if (mSwipeRefreshLayout.isRefreshing()) {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            }
+        });
         mWebView.setOnHtmlEventListener(new ProgressWebView.OnHtmlEventListener() {
             @Override
             public void onFinished(String html) {

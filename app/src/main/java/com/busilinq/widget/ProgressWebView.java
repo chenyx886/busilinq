@@ -57,11 +57,19 @@ public class ProgressWebView extends WebView {
         settings.setUseWideViewPort(true);
         settings.setDomStorageEnabled(true);
         settings.setLoadWithOverviewMode(true);
+        settings.setPluginState(WebSettings.PluginState.ON);
+        settings.setAppCacheEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         addJavascriptInterface(new InJavaScriptLocalObj(), "local_obj");
     }
 
     private OnHtmlEventListener onHtmlEventListener;
+
+    public void setOnRefreshEventListener(OnRefreshEventListener onRefreshEventListener) {
+        this.onRefreshEventListener = onRefreshEventListener;
+    }
+
+    private OnRefreshEventListener onRefreshEventListener;
 
     public void setOnHtmlEventListener(OnHtmlEventListener onHtmlEventListener) {
         this.onHtmlEventListener = onHtmlEventListener;
@@ -72,6 +80,11 @@ public class ProgressWebView extends WebView {
         void onFinished(String html);
 
         void onUriLoading(Uri uri);
+    }
+
+    public interface OnRefreshEventListener {
+
+        void onFinished();
     }
 
     class InJavaScriptLocalObj {
@@ -86,6 +99,9 @@ public class ProgressWebView extends WebView {
         public void onProgressChanged(WebView view, int newProgress) {
             if (newProgress == 100) {
                 progressbar.setVisibility(GONE);
+                if (onRefreshEventListener != null) {
+                    onRefreshEventListener.onFinished();
+                }
             } else {
                 if (progressbar.getVisibility() == GONE)
                     progressbar.setVisibility(VISIBLE);
