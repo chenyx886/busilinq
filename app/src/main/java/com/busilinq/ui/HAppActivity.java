@@ -144,14 +144,10 @@ public class HAppActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-
-            mWebView.loadUrl("javascript:ejsPageBack();");
-//            if (mWebView.canGoBack()) {
-//                mWebView.goBack();
-//                return true;
-//            } else {
-//                return super.onKeyDown(keyCode, event);
-//            }
+            if (mWebView.canGoBack()) {
+                mWebView.goBack();
+                return true;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }
