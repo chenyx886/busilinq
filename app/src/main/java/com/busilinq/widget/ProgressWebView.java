@@ -108,9 +108,7 @@ public class ProgressWebView extends WebView {
                 progressbar.setProgress(newProgress);
             }
             super.onProgressChanged(view, newProgress);
-        }
-
-
+        } 
     }
 
     @Override

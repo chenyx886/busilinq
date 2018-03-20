@@ -4,8 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.chenyx.libs.app.AppManager;
+import com.tencent.smtt.sdk.QbSdk;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,7 +16,7 @@ import java.util.concurrent.ThreadFactory;
 
 /**
  * Company：华科建邺
- *
+ * <p>
  * Class Describe：APP 应用
  * Create Person：Chenyx
  * Create Time：2016/10/13 11:30
@@ -70,7 +72,7 @@ public class MApplication extends Application {
     public void onCreate() {
         super.onCreate();
         appManager = AppManager.getAppManager();
-
+        initTBS();
     }
 
     @Override
@@ -79,6 +81,26 @@ public class MApplication extends Application {
         MultiDex.install(base);
     }
 
+
+    private void initTBS() {
+        //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
+
+        QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
+
+            @Override
+            public void onViewInitFinished(boolean arg0) {
+                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+                Log.d("MApplication", "X5加载成功");
+            }
+
+            @Override
+            public void onCoreInitFinished() {
+                Log.d("MApplication", "X5加载失败");
+            }
+        };
+        //x5内核初始化接口
+        QbSdk.initX5Environment(getApplicationContext(), cb);
+    }
 
     /**
      * Submits request to be executed in background.

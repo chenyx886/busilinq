@@ -97,6 +97,7 @@ def releaseTime() {
 dependencies {
     //libs 文件夹
     compile files('libs/bugout_release.jar')
+    compile files('libs/tbs_sdk_thirdapp.jar')
     //库项目
     compile project(':libs')
     compile project(':photopicker')

@@ -1,9 +1,6 @@
 package com.busilinq.ui;
 
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -14,6 +11,7 @@ import com.busilinq.data.BaseData;
 import com.busilinq.data.api.MineApi;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.TServiceAccountEntity;
+import com.busilinq.ulits.X5WebView;
 import com.busilinq.widget.ProgressWebView;
 import com.busilinq.xsm.data.usercenter.UserEntity;
 import com.busilinq.xsm.presenter.UserCenterHelper;
@@ -53,10 +51,8 @@ public class HAppActivity extends AppCompatActivity {
      * 浏览器
      */
     @BindView(R.id.webView)
-    ProgressWebView mWebView;
+    X5WebView mWebView;
 
-    @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
 
     private String url = "";
 
@@ -65,18 +61,9 @@ public class HAppActivity extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_webview);
         unbinder = ButterKnife.bind(this);
-        url = "http://h5.busilinq.com/h5/";
-
-        mSwipeRefreshLayout.measure(0, 0);
-        mSwipeRefreshLayout.setRefreshing(true);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initData();
-            }
-        });
+        url = "http://h5.busilinq.com:8807/h5/";
         initData();
+
     }
 
 
@@ -88,24 +75,9 @@ public class HAppActivity extends AppCompatActivity {
         mWebView.setOnRefreshEventListener(new ProgressWebView.OnRefreshEventListener() {
             @Override
             public void onFinished() {
-                if (mSwipeRefreshLayout.isRefreshing()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            }
-        });
-        mWebView.setOnHtmlEventListener(new ProgressWebView.OnHtmlEventListener() {
-            @Override
-            public void onFinished(String html) {
-                mWebView.setBackgroundColor(Color.WHITE);
-            }
-
-            @Override
-            public void onUriLoading(Uri uri) {
 
             }
         });
-
-
     }
 
     @JavascriptInterface
@@ -173,10 +145,15 @@ public class HAppActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    /**
+     * 确保注销配置能够被释放
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mWebView.destroy();
+        if (this.mWebView != null) {
+            mWebView.destroy();
+        }
         if (unbinder != null && unbinder != Unbinder.EMPTY)
             unbinder.unbind();
         this.unbinder = null;
