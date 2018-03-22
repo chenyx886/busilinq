@@ -1,8 +1,8 @@
 package com.busilinq.data.api;
 
 
+import com.busilinq.BuildConfig;
 import com.busilinq.MApplication;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Company：华科建邺
@@ -61,34 +62,31 @@ public class RetrofitApiFactory {
     public static Retrofit retrofit() {
 
         if (mRetrofit == null) {
-            Gson gson = new GsonBuilder()
-                    .setLenient()// json宽松
-                    .enableComplexMapKeySerialization()//支持Map的key为复杂对象的形式
-                    .serializeNulls() //智能null
-                    .setPrettyPrinting()// 调教格式
-                    .disableHtmlEscaping() //默认是GSON把HTML 转义的
-                    .setDateFormat("yyyy-MM-dd HH:mm:ss")
-                    .create();
 
-
-            Retrofit.Builder builder = new Retrofit.Builder();
-            builder.addConverterFactory(GsonConverterFactory.create(gson));
-            builder.addCallAdapterFactory(RxJavaCallAdapterFactory.create());
-            builder.baseUrl(BASE_URL);
-            //日志拦截器
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient.Builder httpBuilder = new OkHttpClient.Builder();
+            if (BuildConfig.DEBUG) {
+                //日志拦截器
+                HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+                logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+                //设置 Debug Log 模式
+                httpBuilder.addInterceptor(logging);
+            }
+
             httpBuilder.cache(new Cache(MApplication.getAppContext().getCacheDir(), CACHE_SIZE))
-                    .addInterceptor(logging)
                     .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                     .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                     .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                     .retryOnConnectionFailure(true); // 失败重试
-            OkHttpClient httpClient = httpBuilder.build();
-            builder.client(httpClient);
-            mRetrofit = builder.build();
+
+            OkHttpClient okHttpClient = httpBuilder.build();
+            mRetrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .client(okHttpClient)
+                    .build();
         }
         return mRetrofit;
     }

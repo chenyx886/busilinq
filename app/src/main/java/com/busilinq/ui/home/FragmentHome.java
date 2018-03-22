@@ -98,11 +98,6 @@ public class FragmentHome extends BaseMvpFragment<MainPresenter> implements IMai
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle bundle) {
-        super.onActivityCreated(bundle);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         return view;

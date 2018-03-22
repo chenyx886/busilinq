@@ -84,7 +84,9 @@ public abstract class BaseFragment extends RxFragment implements IBackHandled {
     public void onDestroyView() {
         super.onDestroyView();
         Logger.e("onDestroyView---unbind");
-        unbinder.unbind();
+        if (unbinder != null && unbinder != Unbinder.EMPTY)
+            unbinder.unbind();
+        this.unbinder = null;
     }
 
     /**

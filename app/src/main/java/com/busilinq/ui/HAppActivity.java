@@ -12,7 +12,6 @@ import com.busilinq.data.api.MineApi;
 import com.busilinq.data.api.RetrofitApiFactory;
 import com.busilinq.data.entity.TServiceAccountEntity;
 import com.busilinq.ulits.X5WebView;
-import com.busilinq.widget.ProgressWebView;
 import com.busilinq.xsm.data.usercenter.UserEntity;
 import com.busilinq.xsm.presenter.UserCenterHelper;
 import com.busilinq.xsm.ui.XsmLoginActivity;
@@ -20,7 +19,9 @@ import com.chenyx.libs.utils.JumpUtil;
 import com.chenyx.libs.utils.ToastUtils;
 import com.chenyx.libs.utils.Toasts;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -53,7 +54,6 @@ public class HAppActivity extends AppCompatActivity {
     @BindView(R.id.webView)
     X5WebView mWebView;
 
-
     private String url = "";
 
     @Override
@@ -61,18 +61,22 @@ public class HAppActivity extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_webview);
         unbinder = ButterKnife.bind(this);
-        url = "http://h5.busilinq.com:8807/h5/";
+        url = "http://h5.busilinq.com";
+//        url = "https://www.changtu.com/";
         initData();
 
     }
 
-
     private void initData() {
         mWebView.addJavascriptInterface(this, "nativeMethod");
-        mWebView.loadUrl(url);
-//        mWebView.loadUrl("file:///android_asset/index.html");
 
-        mWebView.setOnRefreshEventListener(new ProgressWebView.OnRefreshEventListener() {
+        //H5微信支付要用，不然说"商家参数格式有误"
+        Map<String, String> extraHeaders = new HashMap<>();
+        extraHeaders.put("Referer", "http://h5.busilinq.com/h5");
+        mWebView.loadUrl(url, extraHeaders);
+
+
+        mWebView.setOnRefreshEventListener(new X5WebView.OnRefreshEventListener() {
             @Override
             public void onFinished() {
 
