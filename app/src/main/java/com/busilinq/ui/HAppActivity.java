@@ -62,7 +62,6 @@ public class HAppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_webview);
         unbinder = ButterKnife.bind(this);
         url = "http://h5.busilinq.com";
-//        url = "https://www.changtu.com/";
         initData();
 
     }

@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -60,22 +59,7 @@ public class AddressAdapter extends AbstractRecyclerViewAdapter<UserShopAddrEnti
         }
     }
 
-    /**
-     * 无数据时 显示
-     */
-    public class EmptyViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_empty)
-        public ImageView img;
-        @BindView(R.id.empty_msg_tv)
-        public TextView msgTv;
-
-        public EmptyViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         /**
          * 收货人

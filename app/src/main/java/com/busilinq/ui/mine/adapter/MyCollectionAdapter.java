@@ -67,21 +67,6 @@ public class MyCollectionAdapter extends AbstractRecyclerViewAdapter<MyCollectio
 
     }
 
-    /**
-     * 无数据时 显示
-     */
-    public class EmptyViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_empty)
-        public ImageView img;
-        @BindView(R.id.empty_msg_tv)
-        public TextView msgTv;
-
-        public EmptyViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder {
         /**
          * 商品图片

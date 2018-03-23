@@ -169,4 +169,13 @@ public abstract class AbstractRecyclerViewAdapter<T extends Object> extends Recy
     protected void showImageView(String imageUrl, ImageView mImageView, int defaultImg) {
         GlideShowImageUtils.displayNetImage(mContext, imageUrl, mImageView, defaultImg);
     }
+    /**
+     * 无数据时 显示
+     */
+    protected static class EmptyViewHolder extends RecyclerView.ViewHolder {
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
 }

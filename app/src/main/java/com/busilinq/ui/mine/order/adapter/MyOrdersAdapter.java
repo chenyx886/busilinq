@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -66,20 +65,6 @@ public class MyOrdersAdapter extends AbstractRecyclerViewAdapter<HomeOrderEntity
         }
     }
 
-    /**
-     * 无数据时 显示
-     */
-    class EmptyViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_empty)
-        public ImageView img;
-        @BindView(R.id.empty_msg_tv)
-        public TextView msgTv;
-
-        public EmptyViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         /**

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.base.AbstractRecyclerViewAdapter;
@@ -48,21 +47,6 @@ public class MyOrderDetailAdapter extends AbstractRecyclerViewAdapter<OrderDetai
             vHolder.mTitle.setText(ge.getGoodsName());
             vHolder.mPrice.setText("￥" + ge.getGoodsPrice());
             vHolder.mNum.setText("x" + ge.getNumber());
-        }
-    }
-
-    /**
-     * 无数据时 显示
-     */
-    class EmptyViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_empty)
-        public ImageView img;
-        @BindView(R.id.empty_msg_tv)
-        public TextView msgTv;
-
-        public EmptyViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
         }
     }
 

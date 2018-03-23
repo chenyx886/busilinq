@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.ProgressBar;
 
@@ -104,6 +106,24 @@ public class X5WebView extends WebView {
         webSetting.setCacheMode(WebSettings.LOAD_NO_CACHE);
         // this.getSettingsExtension().setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);//extension
         // settings 的设计
+
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+
+        int mDensity = metrics.densityDpi;
+        Log.d("maomao", "densityDpi = " + mDensity);
+        if (mDensity == 240) {
+            webSetting.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        } else if (mDensity == 160) {
+            webSetting.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+        } else if(mDensity == 120) {
+            webSetting.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
+        }else if(mDensity == DisplayMetrics.DENSITY_XHIGH){
+            webSetting.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        }else if (mDensity == DisplayMetrics.DENSITY_TV){
+            webSetting.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        }else{
+            webSetting.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+        }
     }
 
 

@@ -62,21 +62,6 @@ public class MyOrderAdapter extends AbstractRecyclerViewAdapter<String> {
     }
 
 
-    /**
-     * 无数据时 显示
-     */
-    class EmptyViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_empty)
-        public ImageView img;
-        @BindView(R.id.empty_msg_tv)
-        public TextView msgTv;
-
-        public EmptyViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.iv_image)
