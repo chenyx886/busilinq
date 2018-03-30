@@ -47,6 +47,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
         RequestBody body = JsonRequestBody.createJsonBody(param);
         MvpView.showProgress("登录中");
 
+
         addSubscription(RetrofitApiFactory.getMineApi().login(body), new SubscriberCallBack<UserEntity>() {
             @Override
             protected void onSuccess(UserEntity user) {

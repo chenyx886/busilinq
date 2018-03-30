@@ -90,7 +90,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.HAppActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -102,11 +102,7 @@
         <!--首页-->
         <activity
             android:name=".ui.MainActivity"
-            android:screenOrientation="portrait" />
-        <!--H5APP商城-->
-        <activity
-            android:name=".ui.HAppActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> 
         <!--商品列表-->
         <activity
             android:name=".ui.classify.GoodsListActivity"

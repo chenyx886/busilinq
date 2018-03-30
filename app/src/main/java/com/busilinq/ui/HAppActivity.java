@@ -61,7 +61,7 @@ public class HAppActivity extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_webview);
         unbinder = ButterKnife.bind(this);
-        url = "http://h5.busilinq.com";
+        url = "http://bh5.busilinq.com";
         initData();
 
     }
@@ -71,9 +71,8 @@ public class HAppActivity extends AppCompatActivity {
 
         //H5微信支付要用，不然说"商家参数格式有误"
         Map<String, String> extraHeaders = new HashMap<>();
-        extraHeaders.put("Referer", "http://h5.busilinq.com/h5");
+        extraHeaders.put("Referer", "http://bh5.busilinq.com");
         mWebView.loadUrl(url, extraHeaders);
-
 
         mWebView.setOnRefreshEventListener(new X5WebView.OnRefreshEventListener() {
             @Override

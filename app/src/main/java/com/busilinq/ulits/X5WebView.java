@@ -115,29 +115,31 @@ public class X5WebView extends WebView {
             webSetting.setDefaultZoom(WebSettings.ZoomDensity.FAR);
         } else if (mDensity == 160) {
             webSetting.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
-        } else if(mDensity == 120) {
+        } else if (mDensity == 120) {
             webSetting.setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
-        }else if(mDensity == DisplayMetrics.DENSITY_XHIGH){
+        } else if (mDensity == DisplayMetrics.DENSITY_XHIGH) {
             webSetting.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        }else if (mDensity == DisplayMetrics.DENSITY_TV){
+        } else if (mDensity == DisplayMetrics.DENSITY_TV) {
             webSetting.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        }else{
+        } else {
             webSetting.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
         }
     }
 
 
-    private OnHtmlEventListener onHtmlEventListener;
+    private OnRefreshEventListener onRefreshEventListener;
+
+    public interface OnRefreshEventListener {
+
+        void onFinished();
+    }
 
     public void setOnRefreshEventListener(OnRefreshEventListener onRefreshEventListener) {
         this.onRefreshEventListener = onRefreshEventListener;
     }
 
-    private OnRefreshEventListener onRefreshEventListener;
 
-    public void setOnHtmlEventListener(OnHtmlEventListener onHtmlEventListener) {
-        this.onHtmlEventListener = onHtmlEventListener;
-    }
+    private OnHtmlEventListener onHtmlEventListener;
 
     public interface OnHtmlEventListener {
 
@@ -146,10 +148,6 @@ public class X5WebView extends WebView {
         void onUriLoading(Uri uri);
     }
 
-    public interface OnRefreshEventListener {
-
-        void onFinished();
-    }
 
     class InJavaScriptLocalObj {
         @JavascriptInterface

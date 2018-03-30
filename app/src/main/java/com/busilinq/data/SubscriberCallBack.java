@@ -21,4 +21,6 @@ public abstract class SubscriberCallBack<T> extends BaseCallBack<BaseData<T>> {
     }
 
     protected abstract void onSuccess(T response);
+
+
 }

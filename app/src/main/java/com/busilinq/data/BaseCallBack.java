@@ -90,7 +90,8 @@ public abstract class BaseCallBack<T> extends Subscriber<T> {
             throwable = throwable.getCause();
         }
         ApiException ex;
-        if (e instanceof HttpException) {             //HTTP错误
+        if (e instanceof HttpException) {
+            //HTTP错误
             HttpException httpException = (HttpException) e;
             switch (httpException.code()) {
 
