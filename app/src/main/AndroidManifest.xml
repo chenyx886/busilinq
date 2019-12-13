@@ -90,7 +90,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.HAppActivity"
+            android:name=".ui.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -101,7 +101,7 @@
         </activity>
         <!--首页-->
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.HAppActivity"
             android:screenOrientation="portrait" /> 
         <!--商品列表-->
         <activity

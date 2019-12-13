@@ -90,10 +90,10 @@ public class FragmentMine extends BaseMvpFragment<MinePresenter> implements IMin
         myOrderAdapter.setOnItemClickListener(new AbstractRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
-                if (UserCache.get() == null) {
-                    JumpUtil.overlay(getActivity(), LoginActivity.class);
-                    return;
-                }
+//                if (UserCache.get() == null) {
+//                    JumpUtil.overlay(getActivity(), LoginActivity.class);
+//                    return;
+//                }
                 //我的订单
                 if (position == 0) {
                     JumpUtil.overlay(getActivity(), MyOrdersActivity.class);
